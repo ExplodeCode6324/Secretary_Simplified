@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "id": "00000000-0000-0000-0000-00000000000b",
+  "kind": "FIXTURE",
+  "revision": 1,
+  "cursor": null,
+  "last_success_at": "2026-09-14T01:00:00.000Z",
+  "last_error": null,
+  "stale_after_seconds": 3600,
+  "enabled": true,
+  "data_class": "SYNTHETIC",
+  "extensions": {}
+}

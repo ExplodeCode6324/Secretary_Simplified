@@ -1,0 +1,41 @@
+{
+  "checked_at": "2026-09-13T19:59:58.615913+00:00",
+  "checks": [
+    {
+      "command": "cd src && go test -race ./...",
+      "status": "PASS"
+    },
+    {
+      "command": "cd src && go vet ./...",
+      "status": "PASS"
+    },
+    {
+      "command": "python3 src/tests/runtime_process_integration.py",
+      "status": "PASS"
+    }
+  ],
+  "scope": "synthetic fixtures; no real-user-data acceptance",
+  "source_sha256": {
+    "src/cmd/secretaryd/main.go": "a22eb1ced64291a5fb0cb916bcb3a1bdb09b0cdbce649392a9a2f3d2017ccdfc",
+    "src/executor/artifact.go": "5f4a93a66517d77d0ba52921b2f27db9376b99b8d58222210b9ad71fa560a586",
+    "src/executor/executor.go": "e017b91835a2477723b65da814e008c0a3d55f3b17ee2c16fa442620927054ea",
+    "src/executor/http.go": "7089b9aa9af2d113e6061d03dd0ba96e5311d4c99d7fbd444de45b5cdf530d7e",
+    "src/executor/remote_core.go": "11cec7d26876cab98fac22a52a1fa5d6bed8b9a45c33a934662c3ba9f764b098",
+    "src/executor/remote_query.go": "839089b3dd20655587f03b14b07843a921287ac57ceb37f5a5b7449a8919bfff",
+    "src/executor/remote_ready.go": "4a585925c53ea60fe236ad7233a301ec8b1075d5cef7cde06a64a48086785240",
+    "src/policy/policy.go": "c65f7cf5c03cbb3549fb7ff7aec00192c9c6c67ea9d57bd14f5e4a6effc31ed3",
+    "src/scheduler/scheduler.go": "7582a05e07a405324c9f9c5eccc223a573aabf89086b1c109f06ef2dd1db8bc4",
+    "src/store/runtime.go": "b8454b273fc489f7fb98610601d376bf3cea986df92d77fcbcf3ab174738d4b2",
+    "src/store/runtime_ayanami_residual_test.go": "871e81fe46b5c79a8a105c4fa6874482d2df5d1401bd8a3211a187b81d65e544",
+    "src/store/runtime_control.go": "5eb4fff6b67d739e0f68b9acb91a579982234a31d8680578443561d38ca76d24",
+    "src/store/runtime_controls.go": "6b5154186b7362f6adb738cd25e145063b622f1195f665075d0260d5c7013af3",
+    "src/store/runtime_execution.go": "b2703e8c6a68b94d6b5635a0710999192ce2c67572e7cb0b31096782f3d03a9c",
+    "src/store/runtime_local.go": "7353d711e1cfbed7fc1ed6e7e08adf9e6daae62620691601e9d6ef3341cb1a18",
+    "src/store/runtime_memory.go": "0c437f533e3962489169460e89214701fd810b223cd2d6ad1727a4313aa8c884",
+    "src/store/runtime_schedule.go": "c495bcee7e1b324873917845568c81487e74d2bdb595dde593e918c28bbf4b9c",
+    "src/store/runtime_wait.go": "b39eec0782ed55807659915e2e972ddd3fc55912af606e20438d5edbb07ad929",
+    "src/tests/runtime_ayanami_probe_test.go": "37990d7f3eb0b7513159d733972d6a4b9edbaaa1160f2eac633fbf89c87cd001",
+    "src/tests/runtime_remote_query_test.go": "cce59c98dd411d335ecacf6ff3069e8f233645eb0277e5ffa4fe0fc9d7800d65",
+    "src/tests/runtime_test.go": "72ffaa156631249b310adaed278f9744492535a5f19b258dd05012f44867bed3"
+  }
+}

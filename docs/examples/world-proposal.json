@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "00000000-0000-0000-0000-000000000007",
+  "request_id": "00000000-0000-0000-0000-000000000008",
+  "entity_id": "00000000-0000-0000-0000-000000000009",
+  "predicate": "master.preference",
+  "operation": "ASSERT",
+  "fact_id": "00000000-0000-0000-0000-00000000000a",
+  "expected_revision": 0,
+  "value": {
+    "key": "briefing_language",
+    "value": "中文"
+  },
+  "evidence": [
+    {
+      "object_id": "00000000-0000-0000-0000-000000000015",
+      "sha256": "9ef18376c6e11c62589929e11eadeb97a502c024173f6e8ac1d9f167508ffc31",
+      "locator": "line:1",
+      "origin_id": "fixture:preference",
+      "data_class": "SYNTHETIC"
+    }
+  ],
+  "basis": "MASTER_EXPLICIT",
+  "policy_revision": 1,
+  "reason": "测试输入明确要求晨报使用中文",
+  "extensions": {}
+}

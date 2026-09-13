@@ -1,0 +1,11 @@
+{
+  "index": 0,
+  "items": {
+    "合成事项01": {
+      "domain": "work",
+      "due_at": "2026-09-18T00:00:00.000Z",
+      "status": "OPEN",
+      "time_state": "CONFIRMED"
+    }
+  }
+}

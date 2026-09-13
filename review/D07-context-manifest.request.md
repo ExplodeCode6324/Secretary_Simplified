@@ -1,0 +1,3 @@
+Ayanami，M2 F6发现真实自引用设计缺陷拟D07请商议：Context.required.manifest包含ContextManifest.request_hash，而request_hash定义为最终wire bytes SHA256；完整manifest置于被hash wire无法满足该定义。
+提议正式Context移除manifest，改必要context_id/as_of/snapshot_seq与sections，read_set留本地外部ContextManifest；Manifest仍完整精确hash。实际Context必须output_contract/extensions，输出schema在input.output_contract仅出现一次，adapter不重复全文。可选stale_refs/registered_entity_ids及selection严格sectionSchema适配实际选择，需要按合理最小结构复核。
+请核查Context/Manifest Schema及文档，确认自引用缺陷，给同意/反对方案与精确字段必要条件；不得用伪hash填manifest。Master已授权双方商议通过后同步设计注明缺陷/README路径。只读，不改文件不读resources不连ELIZA。reviewer_model=gpt-5.6-luna。仅回复，由Codex存review/D07-context-manifest.response.md。

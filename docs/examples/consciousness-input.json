@@ -1,0 +1,140 @@
+{
+  "schema_version": 1,
+  "slot": 0,
+  "snapshot_seq": 5,
+  "as_of": "2026-09-14T01:00:00.000Z",
+  "changes_from_seq": 0,
+  "previous_snapshot_id": null,
+  "world": {
+    "schema_version": 1,
+    "snapshot_seq": 5,
+    "as_of": "2026-09-14T01:00:00.000Z",
+    "facts": [],
+    "unresolved_conflict_ids": [],
+    "omitted_count": 0,
+    "missing_reasons": [],
+    "extensions": {}
+  },
+  "live": {
+    "schema_version": 1,
+    "snapshot_seq": 5,
+    "as_of": "2026-09-14T01:00:00.000Z",
+    "items": [
+      {
+        "schema_version": 1,
+        "id": "00000000-0000-0000-0000-000000000006",
+        "revision": 1,
+        "domain": "project",
+        "kind": "TASK",
+        "title": "检查项目",
+        "status": "OPEN",
+        "priority": 1,
+        "due_at": "2026-09-15T01:00:00.000Z",
+        "timezone": "Asia/Hong_Kong",
+        "time_state": "CONFIRMED",
+        "parent_id": null,
+        "dependency_ids": [],
+        "evidence": [
+          {
+            "object_id": "00000000-0000-0000-0000-000000000001",
+            "sha256": "31bb8fc57eae258f3ed34d2d567d7d3098498bd20f78915bdb8bca46f6289a56",
+            "locator": "line:1",
+            "origin_id": "fixture:input-001",
+            "data_class": "SYNTHETIC"
+          }
+        ],
+        "created_at": "2026-09-14T01:00:00.000Z",
+        "updated_at": "2026-09-14T01:00:00.000Z",
+        "extensions": {}
+      }
+    ],
+    "task_refs": [],
+    "observations": [],
+    "source_states": [
+      {
+        "schema_version": 1,
+        "id": "00000000-0000-0000-0000-00000000000b",
+        "kind": "FIXTURE",
+        "revision": 1,
+        "cursor": null,
+        "last_success_at": "2026-09-14T01:00:00.000Z",
+        "last_error": null,
+        "stale_after_seconds": 3600,
+        "enabled": true,
+        "data_class": "SYNTHETIC",
+        "extensions": {}
+      }
+    ],
+    "freshness": [
+      {
+        "entity_id": "00000000-0000-0000-0000-00000000000b",
+        "state": "CURRENT",
+        "as_of": "2026-09-14T01:00:00.000Z",
+        "reason": "最近成功同步仍在有效期"
+      }
+    ],
+    "omitted_count": 0,
+    "missing_reasons": [],
+    "extensions": {}
+  },
+  "open_task_refs": [],
+  "recent_changes": [
+    {
+      "schema_version": 1,
+      "id": "00000000-0000-0000-0000-00000000001f",
+      "seq": 5,
+      "root_id": "00000000-0000-0000-0000-000000000020",
+      "entity_type": "item",
+      "entity_id": "00000000-0000-0000-0000-000000000006",
+      "entity_revision": 1,
+      "event_type": "item.created",
+      "causation_id": null,
+      "origin": "fixture",
+      "created_at": "2026-09-14T01:00:00.000Z",
+      "change": {
+        "before": null,
+        "after": {
+          "schema_version": 1,
+          "id": "00000000-0000-0000-0000-000000000006",
+          "revision": 1,
+          "domain": "project",
+          "kind": "TASK",
+          "title": "检查项目",
+          "status": "OPEN",
+          "priority": 1,
+          "due_at": "2026-09-15T01:00:00.000Z",
+          "timezone": "Asia/Hong_Kong",
+          "time_state": "CONFIRMED",
+          "parent_id": null,
+          "dependency_ids": [],
+          "evidence": [
+            {
+              "object_id": "00000000-0000-0000-0000-000000000001",
+              "sha256": "31bb8fc57eae258f3ed34d2d567d7d3098498bd20f78915bdb8bca46f6289a56",
+              "locator": "line:1",
+              "origin_id": "fixture:input-001",
+              "data_class": "SYNTHETIC"
+            }
+          ],
+          "created_at": "2026-09-14T01:00:00.000Z",
+          "updated_at": "2026-09-14T01:00:00.000Z",
+          "extensions": {}
+        },
+        "evidence": [
+          {
+            "object_id": "00000000-0000-0000-0000-000000000001",
+            "sha256": "31bb8fc57eae258f3ed34d2d567d7d3098498bd20f78915bdb8bca46f6289a56",
+            "locator": "line:1",
+            "origin_id": "fixture:input-001",
+            "data_class": "SYNTHETIC"
+          }
+        ]
+      },
+      "extensions": {}
+    }
+  ],
+  "missed_slots": 0,
+  "extensions": {},
+  "previous_snapshot": null,
+  "tasks": []
+}

@@ -1,0 +1,134 @@
+[
+  {
+    "file": "input.json",
+    "definition": "InputEnvelope",
+    "valid": true,
+    "reason": ""
+  },
+  {
+    "file": "decision-create-reminder.json",
+    "definition": "DecisionEnvelope",
+    "valid": true,
+    "reason": ""
+  },
+  {
+    "file": "item.json",
+    "definition": "Item",
+    "valid": true,
+    "reason": ""
+  },
+  {
+    "file": "source-state.json",
+    "definition": "SourceState",
+    "valid": true,
+    "reason": ""
+  },
+  {
+    "file": "source-record.json",
+    "definition": "SourceRecord",
+    "valid": true,
+    "reason": ""
+  },
+  {
+    "file": "world-proposal.json",
+    "definition": "WorldUpdateProposal",
+    "valid": true,
+    "reason": ""
+  },
+  {
+    "file": "consciousness-input.json",
+    "definition": "ConsciousnessStateInput",
+    "valid": true,
+    "reason": ""
+  },
+  {
+    "file": "consciousness-draft.json",
+    "definition": "ConsciousnessDraft",
+    "valid": true,
+    "reason": ""
+  },
+  {
+    "file": "receipt.json",
+    "definition": "ExecutorReceipt",
+    "valid": true,
+    "reason": ""
+  },
+  {
+    "file": "wait.json",
+    "definition": "WaitSubscription",
+    "valid": true,
+    "reason": ""
+  },
+  {
+    "file": "source-quarantine.json",
+    "definition": "SourceRecord",
+    "valid": true,
+    "reason": ""
+  },
+  {
+    "file": "reject-forged-authorization.json",
+    "definition": "DecisionEnvelope",
+    "valid": false,
+    "reason": "模型不允许增加授权字段"
+  },
+  {
+    "file": "reject-unknown-capability.json",
+    "definition": "DecisionEnvelope",
+    "valid": false,
+    "reason": "未知能力"
+  },
+  {
+    "file": "reject-once-without-time.json",
+    "definition": "DecisionEnvelope",
+    "valid": false,
+    "reason": "once 缺少 at"
+  },
+  {
+    "file": "reject-major.json",
+    "definition": "InputEnvelope",
+    "valid": false,
+    "reason": "不支持 major"
+  },
+  {
+    "file": "reject-invalid-time.json",
+    "definition": "InputEnvelope",
+    "valid": false,
+    "reason": "非法 RFC3339 时间"
+  },
+  {
+    "file": "reject-wrong-capability-arguments.json",
+    "definition": "DecisionEnvelope",
+    "valid": false,
+    "reason": "参数不匹配 notify.local"
+  },
+  {
+    "file": "reject-confirmed-null-date.json",
+    "definition": "Item",
+    "valid": false,
+    "reason": "CONFIRMED 不能缺时间"
+  },
+  {
+    "file": "reject-double-item-binding.json",
+    "definition": "DecisionEnvelope",
+    "valid": false,
+    "reason": "不能同时指定现有事项 ID 和组内引用"
+  },
+  {
+    "file": "object-1.json",
+    "definition": "ObjectRef",
+    "valid": true,
+    "reason": "有哈希的合成证据"
+  },
+  {
+    "file": "object-21.json",
+    "definition": "ObjectRef",
+    "valid": true,
+    "reason": "有哈希的合成证据"
+  },
+  {
+    "file": "object-22.json",
+    "definition": "ObjectRef",
+    "valid": true,
+    "reason": "有哈希的合成证据"
+  }
+]

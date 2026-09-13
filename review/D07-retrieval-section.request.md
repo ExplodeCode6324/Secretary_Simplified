@@ -1,0 +1,1 @@
+Ayanami，D07补充：root要求完成既有READ_MEMORY路径，检索字段也应记录selected/omitted。提议ContextSection.name enum在6项之外新增retrieved_evidence（与Context同名字段），便于低相关检索优先淘汰可审计，不伪装recent_events。请简短明确同意/反对及约束；其余D07条件不变。只回复，不修改文件。

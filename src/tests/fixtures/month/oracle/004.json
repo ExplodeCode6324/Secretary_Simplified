@@ -1,0 +1,35 @@
+{
+  "index": 4,
+  "items": {
+    "合成事项01": {
+      "domain": "work",
+      "due_at": "2026-09-18T00:00:00.000Z",
+      "status": "OPEN",
+      "time_state": "CONFIRMED"
+    },
+    "合成事项02": {
+      "domain": "work",
+      "due_at": "2026-09-18T06:00:00.000Z",
+      "status": "OPEN",
+      "time_state": "CONFIRMED"
+    },
+    "合成事项03": {
+      "domain": "work",
+      "due_at": "2026-09-18T12:00:00.000Z",
+      "status": "OPEN",
+      "time_state": "CONFIRMED"
+    },
+    "合成事项04": {
+      "domain": "work",
+      "due_at": "2026-09-19T00:00:00.000Z",
+      "status": "OPEN",
+      "time_state": "CONFIRMED"
+    },
+    "合成事项05": {
+      "domain": "work",
+      "due_at": "2026-09-19T06:00:00.000Z",
+      "status": "OPEN",
+      "time_state": "CONFIRMED"
+    }
+  }
+}

@@ -1,0 +1,56 @@
+# 本地部署
+
+当前二进制目标为 macOS arm64。代码与验收仍在实施收口，根目录 README 给出最新状态；尚未标为可接入真实数据。
+
+公开的 `db/secretary.sqlite` 是不含授权、凭据或用户数据的空库检查材料；正常部署仍执行 init 创建自己的运行库。
+
+## 构建与初始化
+
+从项目根执行 `./scripts/build.sh`。此脚本运行 Go 测试和 vet，再生成 `release/secretary`、`release/secretaryd` 及 SHA256SUMS。
+
+首次使用独立目录：
+
+```sh
+./release/secretary init --data-dir /tmp/secretary-demo
+./release/secretaryd core --config /tmp/secretary-demo/config.json
+# 在另一个终端启动：
+./release/secretaryd runner --config /tmp/secretary-demo/config.json
+```
+
+Mac Unix socket 有长度限制；选择较短的 data-dir。初始化生成 `state/secretary.sqlite`、objects、run 中彼此独立的客户端/内部凭据和 fixture 配置。fixture 是确定性离线测试模式，不进行自然语言理解；使用类型化命令测试业务或显式配置 live 模型。
+
+仓库自带的本地 `release/config.local.json` 与 secrets/state/run 不公开。Master 提供的 OpenCode Go key 已仅放在本机 secrets。测试期间模型仅允许 SYNTHETIC 数据；尚未授权真实资料外发。
+
+```sh
+./release/secretary doctor --config /tmp/secretary-demo/config.json
+./release/secretary items create --title '合成事项' --domain project --config /tmp/secretary-demo/config.json
+./release/secretary items list --config /tmp/secretary-demo/config.json
+./release/secretary input --text '合成测试文本' --config /tmp/secretary-demo/config.json
+./release/secretary chat --config /tmp/secretary-demo/config.json
+```
+
+自然语言输入受理是异步状态，不代表动作已登记或完成。使用返回的 turn_id 查询 `secretary turns <turn-id>`；`secretary requests <request-id>` 查询持久回执。重试应复用 request-id；已有键的不同语义载荷会冲突。
+
+复杂类型化操作使用 `--file <ActionProposal.json>`：`items update`、`jobs create`、`world propose` / `world correct`。格式严格遵循 docs/contracts.schema.json 的 ActionProposal；示例见 examples/reminder.json 与 examples/artifact.json，可用 `secretary actions --file <path>` 提交。CLI 默认显示状态说明和详情；`--json` 输出稳定 JSON，脚本应显式使用。
+
+## 诊断、备份与恢复
+
+```sh
+./release/secretary backup --output /tmp/secretary-backup --config /tmp/secretary-demo/config.json
+./release/secretary verify --backup /tmp/secretary-backup --config /tmp/secretary-demo/config.json
+./release/secretary restore --backup /tmp/secretary-backup --target /tmp/secretary-restored --config /tmp/secretary-demo/config.json
+```
+
+恢复目标必须为空。恢复校验 SQLite 快照、manifest 与不可变对象哈希；生成新的本地客户端和内部凭据，并保持配置与 execution_frozen 标记双重冻结。恢复后的服务可启动诊断，但不会重发历史效果。尚未完成对账和显式重新配置前，不移除冻结标记。
+
+两个进程在前台运行，Ctrl-C 退出。本项目不安装自启、不调整睡眠或音频设置、不监听 TCP。静音 alarm 只验证本地控制流程，实际叫醒需要 Master 后续配合实测。
+
+## 内置离线检查
+
+```sh
+./release/secretary verify --suite smoke --report /tmp/secretary-smoke-report --config /tmp/secretary-demo/config.json --json
+```
+
+`smoke`（同义名 `persistence`）在新的临时库中核验 SQLite 完整性、不可变对象、备份及恢复冻结，并生成 report.json / report.md。它不代替完整 A01—A25 验收。完整源码测试命令为 `cd src && go test -race ./... && go vet ./...`。
+
+公共接口的类型化请求格式与分页示例见 [API.md](API.md)。通知列表使用 `secretary notifications`，确认已读使用 `secretary notifications ack <id>`。列表可传 `--limit`、`--cursor` 及对应过滤参数。

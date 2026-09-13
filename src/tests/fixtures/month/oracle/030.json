@@ -1,0 +1,125 @@
+{
+  "index": 30,
+  "items": {
+    "合成事项01": {
+      "domain": "work",
+      "due_at": "2026-09-27T12:00:00.000Z",
+      "status": "OPEN",
+      "time_state": "CONFIRMED"
+    },
+    "合成事项02": {
+      "domain": "work",
+      "due_at": "2026-09-28T00:00:00.000Z",
+      "status": "OPEN",
+      "time_state": "CONFIRMED"
+    },
+    "合成事项03": {
+      "domain": "work",
+      "due_at": "2026-09-28T06:00:00.000Z",
+      "status": "OPEN",
+      "time_state": "CONFIRMED"
+    },
+    "合成事项04": {
+      "domain": "work",
+      "due_at": "2026-09-28T12:00:00.000Z",
+      "status": "OPEN",
+      "time_state": "CONFIRMED"
+    },
+    "合成事项05": {
+      "domain": "work",
+      "due_at": "2026-09-29T00:00:00.000Z",
+      "status": "OPEN",
+      "time_state": "CONFIRMED"
+    },
+    "合成事项06": {
+      "domain": "project",
+      "due_at": "2026-09-29T06:00:00.000Z",
+      "status": "OPEN",
+      "time_state": "CONFIRMED"
+    },
+    "合成事项07": {
+      "domain": "project",
+      "due_at": "2026-09-29T12:00:00.000Z",
+      "status": "OPEN",
+      "time_state": "CONFIRMED"
+    },
+    "合成事项08": {
+      "domain": "project",
+      "due_at": "2026-09-30T00:00:00.000Z",
+      "status": "OPEN",
+      "time_state": "CONFIRMED"
+    },
+    "合成事项09": {
+      "domain": "project",
+      "due_at": "2026-09-30T06:00:00.000Z",
+      "status": "OPEN",
+      "time_state": "CONFIRMED"
+    },
+    "合成事项10": {
+      "domain": "project",
+      "due_at": "2026-09-30T12:00:00.000Z",
+      "status": "OPEN",
+      "time_state": "CONFIRMED"
+    },
+    "合成事项11": {
+      "domain": "school",
+      "due_at": "2026-10-01T00:00:00.000Z",
+      "status": "OPEN",
+      "time_state": "CONFIRMED"
+    },
+    "合成事项12": {
+      "domain": "school",
+      "due_at": "2026-09-21T12:00:00.000Z",
+      "status": "OPEN",
+      "time_state": "CONFIRMED"
+    },
+    "合成事项13": {
+      "domain": "school",
+      "due_at": "2026-09-22T00:00:00.000Z",
+      "status": "OPEN",
+      "time_state": "CONFIRMED"
+    },
+    "合成事项14": {
+      "domain": "school",
+      "due_at": "2026-09-22T06:00:00.000Z",
+      "status": "OPEN",
+      "time_state": "CONFIRMED"
+    },
+    "合成事项15": {
+      "domain": "school",
+      "due_at": "2026-09-22T12:00:00.000Z",
+      "status": "OPEN",
+      "time_state": "CONFIRMED"
+    },
+    "合成事项16": {
+      "domain": "life",
+      "due_at": "2026-09-23T00:00:00.000Z",
+      "status": "OPEN",
+      "time_state": "CONFIRMED"
+    },
+    "合成事项17": {
+      "domain": "life",
+      "due_at": "2026-09-23T06:00:00.000Z",
+      "status": "OPEN",
+      "time_state": "CONFIRMED"
+    },
+    "合成事项18": {
+      "domain": "life",
+      "due_at": "2026-09-23T12:00:00.000Z",
+      "status": "OPEN",
+      "time_state": "CONFIRMED"
+    },
+    "合成事项19": {
+      "domain": "life",
+      "due_at": "2026-09-24T00:00:00.000Z",
+      "status": "OPEN",
+      "time_state": "CONFIRMED"
+    },
+    "合成事项20": {
+      "domain": "life",
+      "due_at": "2026-09-24T06:00:00.000Z",
+      "status": "OPEN",
+      "time_state": "CONFIRMED"
+    }
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "focal_goals": [
+    {
+      "entity": {
+        "entity_type": "item",
+        "id": "00000000-0000-0000-0000-000000000006",
+        "revision": 1
+      },
+      "reason": "保留尚未完成的项目检查事项",
+      "evidence": [
+        {
+          "object_id": "00000000-0000-0000-0000-000000000001",
+          "sha256": "31bb8fc57eae258f3ed34d2d567d7d3098498bd20f78915bdb8bca46f6289a56",
+          "locator": "line:1",
+          "origin_id": "fixture:input-001",
+          "data_class": "SYNTHETIC"
+        }
+      ]
+    }
+  ],
+  "priority_items": [
+    {
+      "entity": {
+        "entity_type": "item",
+        "id": "00000000-0000-0000-0000-000000000006",
+        "revision": 1
+      },
+      "reason": "保留尚未完成的项目检查事项",
+      "evidence": [
+        {
+          "object_id": "00000000-0000-0000-0000-000000000001",
+          "sha256": "31bb8fc57eae258f3ed34d2d567d7d3098498bd20f78915bdb8bca46f6289a56",
+          "locator": "line:1",
+          "origin_id": "fixture:input-001",
+          "data_class": "SYNTHETIC"
+        }
+      ]
+    }
+  ],
+  "open_loops": [
+    {
+      "entity": {
+        "entity_type": "item",
+        "id": "00000000-0000-0000-0000-000000000006",
+        "revision": 1
+      },
+      "reason": "保留尚未完成的项目检查事项",
+      "evidence": [
+        {
+          "object_id": "00000000-0000-0000-0000-000000000001",
+          "sha256": "31bb8fc57eae258f3ed34d2d567d7d3098498bd20f78915bdb8bca46f6289a56",
+          "locator": "line:1",
+          "origin_id": "fixture:input-001",
+          "data_class": "SYNTHETIC"
+        }
+      ]
+    }
+  ],
+  "important_changes": [
+    {
+      "entity": {
+        "entity_type": "item",
+        "id": "00000000-0000-0000-0000-000000000006",
+        "revision": 1
+      },
+      "reason": "保留尚未完成的项目检查事项",
+      "evidence": [
+        {
+          "object_id": "00000000-0000-0000-0000-000000000001",
+          "sha256": "31bb8fc57eae258f3ed34d2d567d7d3098498bd20f78915bdb8bca46f6289a56",
+          "locator": "line:1",
+          "origin_id": "fixture:input-001",
+          "data_class": "SYNTHETIC"
+        }
+      ]
+    }
+  ],
+  "uncertainties": [],
+  "brief_summary": "项目检查仍待完成；提醒已登记，触发不代表检查完成。",
+  "extensions": {}
+}

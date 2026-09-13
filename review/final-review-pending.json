@@ -1,0 +1,27 @@
+{
+  "recorded_at": "2026-09-13T20:11:21.614853+00:00",
+  "reason": "Provider quota exhausted; no new inference retries authorized. Coordinator status, not Ayanami verdict.",
+  "reviews": [
+    {
+      "module": "M3-runtime-final",
+      "session_id": "20260914_030710_0b1a8b",
+      "messages_preserved": 23,
+      "tool_outputs": 13,
+      "status": "BLOCKED_NO_REVIEW_CONCLUSION"
+    },
+    {
+      "module": "M2-core-final",
+      "session_id": "20260914_033325_89da88",
+      "messages_preserved": 52,
+      "tool_outputs": 43,
+      "status": "BLOCKED_NO_REVIEW_CONCLUSION"
+    },
+    {
+      "module": "M3-transport-cli-final",
+      "session_id": "20260914_040103_f0abc3",
+      "messages_preserved": 83,
+      "tool_outputs": 72,
+      "status": "BLOCKED_NO_REVIEW_CONCLUSION"
+    }
+  ]
+}

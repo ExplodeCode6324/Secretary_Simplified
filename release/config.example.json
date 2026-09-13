@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "data_dir": ".",
+  "timezone": "Asia/Hong_Kong",
+  "model_profile": {
+    "profile": "fixture",
+    "endpoint": "https://opencode.ai/zen/go/v1/responses",
+    "model": "gpt-5.6-luna",
+    "secret_ref": "secrets/opencode-go.key",
+    "timeout_seconds": 60
+  },
+  "provider_policy": {
+    "allowed_data_classes": [
+      "SYNTHETIC"
+    ],
+    "source_ids": []
+  },
+  "limits": {
+    "queue": 100,
+    "request_bytes": 65536,
+    "input_tokens": 32000,
+    "output_tokens": 2000
+  },
+  "consciousness_epoch_at": "2026-09-13T19:11:16.784Z",
+  "execution_frozen": false,
+  "test_entity_ids": [],
+  "source_configs": []
+}

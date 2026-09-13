@@ -1,0 +1,8 @@
+{
+  "http_status": 429,
+  "error_type": "GoUsageLimitError",
+  "limit": "5-hour usage",
+  "retry_after_seconds": 10378,
+  "real_model_acceptance": "BLOCKED",
+  "additional_balance_enabled": false
+}
