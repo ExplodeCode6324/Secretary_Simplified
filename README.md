@@ -4,6 +4,8 @@
 
 > 当前状态：**代码与本机部署已落地，尚未通过 M1—M3 完整验收**。真实模型额度耗尽，最终复核也被阻塞；当前不能宣布可接入真实数据。
 
+公开仓库：[ExplodeCode6324/Secretary_Simplified](https://github.com/ExplodeCode6324/Secretary_Simplified)。本机可运行版本位于 `release/`；最新有效离线证据见 [final-offline.json](reports/implementation/final-offline.json)。
+
 ## 本轮交付范围
 
 1. 在 `src/` 完成一个 Go module，构建 `secretaryd`（Core/Runner 两种常驻模式）及 `secretary` CLI。
@@ -35,7 +37,7 @@
 | M3 | Core/Runner、Scheduler/Executor、固定验收、取消/等待/重试/恢复、CLI/诊断/备份 | 适用 A01—A25；进程集成、竞态、故障恢复测试 | 实施中 |
 | 验证 | 72 小时虚拟时钟、30 天模拟回放、至少 2 小时真实本机运行、合成资料真实模型评估 | 带构建与输入哈希的报告；所有失败及重试保留 | 离线通过；真实模型额度阻塞，最终构建时长采样中 |
 | 部署 | 构建两个二进制，初始化本地 release，核验新目录使用流程 | release 使用说明、校验和、doctor 与完整链路 | macOS arm64 已构建并初始化，fixture 双进程链路通过 |
-| 发布 | 凭据与私有路径检查、公开仓库创建、上传与远端同步核验 | 仓库链接、提交 ID、发布清单 | 未开始 |
+| 发布 | 凭据与私有路径检查、公开仓库创建、上传与远端同步核验 | 仓库链接、提交 ID、发布清单 | 公开仓库已创建并推送；凭据与私人运行资料排除 |
 | 交接 | 汇总通过、失败、未运行及限制，通知 Master 接入真实数据 | 可复核交付报告与接入事项 | 待前序完成 |
 
 ## 模块分工与复核流程
@@ -105,7 +107,7 @@ Master 已授权：实现中发现设计缺陷时，先与本地 Ayanami 商议�
 | LIVE_MODEL | BLOCKED | 第三轮前 26 点通过后触发五小时额度上限；无完整月回放 PASS |
 | REAL_USE | 未开始 | 等完成交付后由 Master 接入真实数据 |
 | Ayanami 代码复核 | 最终复查 BLOCKED | 既有结论保留；三项终审未形成裁决，见 review/final-pending.md |
-| GitHub 发布 | 未开始 | 将在内容与秘密检查后执行 |
+| GitHub 发布 | 已完成首次发布 | 公开仓库包含源码、二进制、空库、设计和合成测试证据 |
 
 ## 目录
 
@@ -146,3 +148,4 @@ Secretary_Simplified/
 - Ayanami 三项终审受同一额度限制，没有最终裁决。续审会话和增量清单见 [review/final-pending.md](review/final-pending.md)。D01—D07 已形成的有效设计商议结论仍保留。
 - 新构建已重新开始两小时本机采样，每轮用两个独立 CLI 重复提交同一请求，核对唯一 Item/提交、队列和心跳；旧构建采样已停止保留，不累计时间冒充最终构建通过。
 - 当前尚未到通知 Master 接入真实数据的验收节点。额度恢复后仍需完整月回放、补充语义场景、Ayanami 终审及最终构建稳定性检查。
+- 公开仓库首次发布完成，初始提交 `4b82b36`。发布前检查 1,145 个文件，未发现提供的实际 key、本机用户目录路径或私有运行目录；使用 GitHub noreply 提交身份。服务商提示的额度恢复时间约为 2026-09-14 07:00（Asia/Hong_Kong），实际以届时响应为准。
