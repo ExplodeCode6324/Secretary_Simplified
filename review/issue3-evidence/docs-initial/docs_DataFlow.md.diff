@@ -1,0 +1,9 @@
+diff --git a/docs/DataFlow.md b/docs/DataFlow.md
+index 8ecfacf..762cc8e 100644
+--- a/docs/DataFlow.md
++++ b/docs/DataFlow.md
+@@ -19,2 +19,4 @@
+ 
++Issue #3 修正客户端观察链：POST 已确认受理 → 保留原 request/已知 turn → GET 查询失败仍保留受理事实 → 恢复后查询原结果 → 确认终态才清理追踪。只有提交阶段确定未受理才恢复空草稿；未知提交或后续查询失败不会生成新请求。面板页/选中 ID 与刷新响应代次属于视图状态，不写回权威业务状态；既有控制确认仍冻结目标和版本。
++
+ 版本校验基于本次决策实际读写对象的 read_set，不因无关全局事件无限重算。发现相关版本冲突后最多重建 2 次，之后返回 CONFLICT 与当前值，不覆盖。全局 event 水位只用于可重复快照和增量，不替代对象 CAS。

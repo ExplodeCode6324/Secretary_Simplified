@@ -1,0 +1,44 @@
+--- FAIL: TestIssue2ResidualR101AcceptedQuery4xx (0.04s)
+    --- FAIL: TestIssue2ResidualR101AcceptedQuery4xx/400 (0.01s)
+        residual_test.go:154: accepted observation was downgraded: pending=map[] metadata=false knownTurn=false draft="原始合成输入" notice="输入被后端拒绝：QUERY_DENIED"
+    --- FAIL: TestIssue2ResidualR101AcceptedQuery4xx/401 (0.01s)
+        residual_test.go:154: accepted observation was downgraded: pending=map[] metadata=false knownTurn=false draft="原始合成输入" notice="输入被后端拒绝：QUERY_DENIED"
+    --- FAIL: TestIssue2ResidualR101AcceptedQuery4xx/403 (0.01s)
+        residual_test.go:154: accepted observation was downgraded: pending=map[] metadata=false knownTurn=false draft="原始合成输入" notice="输入被后端拒绝：QUERY_DENIED"
+    --- FAIL: TestIssue2ResidualR101AcceptedQuery4xx/404 (0.01s)
+        residual_test.go:154: accepted observation was downgraded: pending=map[] metadata=false knownTurn=false draft="原始合成输入" notice="输入被后端拒绝：NOT_FOUND"
+--- FAIL: TestIssue2ResidualR102UnknownObservationRebuildAndLateResult (0.02s)
+    --- FAIL: TestIssue2ResidualR102UnknownObservationRebuildAndLateResult/timeout (0.01s)
+        residual_test.go:177: accepted identity lost
+    --- FAIL: TestIssue2ResidualR102UnknownObservationRebuildAndLateResult/server_error (0.01s)
+        residual_test.go:177: accepted identity lost
+--- FAIL: TestIssue2ResidualR201PanelRefreshKeepsSecondPage (0.03s)
+    --- FAIL: TestIssue2ResidualR201PanelRefreshKeepsSecondPage/tasks (0.01s)
+        residual_test.go:245: refresh replaced loaded range: count=50 selected=tasks-49
+    --- FAIL: TestIssue2ResidualR201PanelRefreshKeepsSecondPage/jobs (0.01s)
+        residual_test.go:245: refresh replaced loaded range: count=50 selected=jobs-49
+    --- FAIL: TestIssue2ResidualR201PanelRefreshKeepsSecondPage/items (0.01s)
+        residual_test.go:245: refresh replaced loaded range: count=50 selected=items-49
+    --- FAIL: TestIssue2ResidualR201PanelRefreshKeepsSecondPage/notifications (0.01s)
+        residual_test.go:245: refresh replaced loaded range: count=50 selected=notifications-49
+--- FAIL: TestIssue2ResidualR202PanelResponsesIgnoreOldScope (0.03s)
+    --- FAIL: TestIssue2ResidualR202PanelResponsesIgnoreOldScope/tasks (0.01s)
+        residual_test.go:279: late or duplicate response replaced newer page
+    --- FAIL: TestIssue2ResidualR202PanelResponsesIgnoreOldScope/jobs (0.01s)
+        residual_test.go:279: late or duplicate response replaced newer page
+    --- FAIL: TestIssue2ResidualR202PanelResponsesIgnoreOldScope/items (0.01s)
+        residual_test.go:279: late or duplicate response replaced newer page
+    --- FAIL: TestIssue2ResidualR202PanelResponsesIgnoreOldScope/notifications (0.01s)
+        residual_test.go:279: late or duplicate response replaced newer page
+--- FAIL: TestIssue2ResidualR203RefreshVersionConfirmationAndRemovedTarget (0.03s)
+    --- FAIL: TestIssue2ResidualR203RefreshVersionConfirmationAndRemovedTarget/tasks (0.01s)
+        residual_test.go:302: visible target version not refreshed
+    --- FAIL: TestIssue2ResidualR203RefreshVersionConfirmationAndRemovedTarget/jobs (0.01s)
+        residual_test.go:302: visible target version not refreshed
+    --- FAIL: TestIssue2ResidualR203RefreshVersionConfirmationAndRemovedTarget/items (0.01s)
+        residual_test.go:302: visible target version not refreshed
+    --- FAIL: TestIssue2ResidualR203RefreshVersionConfirmationAndRemovedTarget/notifications (0.01s)
+        residual_test.go:302: visible target version not refreshed
+FAIL
+FAIL	secretarysimplified/cli/tui	1.538s
+FAIL

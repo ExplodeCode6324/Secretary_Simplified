@@ -1,5 +1,7 @@
 # Issue #2 当前交付与验收入口
 
+当前补充：[Issue #3](../issue3/README.md) 修复本报告原验收未覆盖的“POST 已受理后 GET 失败”和“业务面板翻页后自动刷新”组合。此索引增加关联，原 acceptance.json、PASS/FAIL、日志、构建哈希及文档影响报告均保持原字节，不重新跑原 27 项。
+
 范围：[GitHub Issue #2](https://github.com/ExplodeCode6324/Secretary_Simplified/issues/2)。本轮更新单一权威会话与非阻塞 TUI；AUTH/TUI 本轮定向验收与实际 Ayanami DeepSeek 模块复核已通过；DOC 冻结静态检查、BUILD 与公开同步记录在本目录。
 
 | 问题 | 修改与实现 | 当前规范 | 证据 |

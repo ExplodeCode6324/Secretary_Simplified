@@ -1,3 +1,7 @@
+> Issue #3 latest: R1/R2/DOC-R/BUILD-R limited reviews closed, no open mustfix. Final 37-case/root build verification and reviewer evidence are distinguished in issue3-final-coordination.md; 53 actual DeepSeek provenance records. Below are historical coordination states.
+
+> Issue #3 新增局部修复待进行：仅R1-01–03、R2-01–03、DOC-R/BUILD-R。原Issue2收口结论保留，不重开旧审查。
+
 > Issue #2 最新状态：AUTH/TUI/DOC/BUILD限定范围实际DeepSeek复核已收口，无开放mustfix；最后两句文档与导出hash已确认，46份实际模型来源记录。新增证据仅收编清单，不循环复审。以下全部为先前协调历史。
 
 > Issue #2 新增范围：仅 AUTH-01–08 / TUI-01–13 / DOC-01–05 / BUILD-01。架构提案和新模块复核待进行；旧 issue1 及上下文/持久状态/全仓/月回放/长期测试不重开。下方为旧收口记录。

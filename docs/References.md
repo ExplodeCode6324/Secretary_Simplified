@@ -28,3 +28,7 @@
 - `review/issue2-auth-design.response.md`、`review/issue2-auth-design-correction.response.md`、`review/issue2-tui-design.response.md`、`review/issue2-tui-design-correction.response.md`：实际 DeepSeek 的方案与生效更正。设计同意不等于运行验收。
 
 终端渲染还直接使用 `github.com/charmbracelet/x/ansi v0.10.1`（原终端库传递依赖提升为直接依赖），按 cell 宽度换行/截断中文显示；版本锁定于 go.mod/go.sum。
+
+## Issue #3 局部修订依据
+
+[遗留问题单](https://github.com/ExplodeCode6324/Secretary_Simplified/issues/3) 及 `review/issue3-design-correction.response.md` 确定提交/观察边界和有界面板刷新；初始静态发现与本轮实际修前测试分开记录。无新依赖/API/Schema/恢复文件结构，旧技术来源不作为本轮新测试证明。

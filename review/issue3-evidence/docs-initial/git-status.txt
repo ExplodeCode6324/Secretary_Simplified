@@ -1,0 +1,41 @@
+ M README.md
+ M docs/Acceptance.md
+ M docs/DataFlow.md
+ M docs/Design2.md
+ M docs/EngineeringArchitecture.md
+ M docs/ImplementationHandoff.md
+ M docs/Interfaces.md
+ M docs/Milestone.md
+ M docs/Operations.md
+ M docs/README.md
+ M docs/RealDataTrial.md
+ M docs/References.md
+ M docs/SingleConversationTUI.md
+ M docs/checks/README.md
+ M docs/deliverables/README.md
+ M docs/design.md
+ M release/API.md
+ M release/README.md
+ M release/secretary
+ M reports/implementation/issue2/README.md
+ M review/README.md
+ M review/final-pending.md
+ M review/model-provenance.json
+ M src/cli/tui/client.go
+ M src/cli/tui/model.go
+?? docs/deliverables/Secretary_Simplified-design-v1.1.1-2026-09-14.sha256
+?? docs/deliverables/Secretary_Simplified-design-v1.1.1-2026-09-14.zip
+?? reports/implementation/issue3/
+?? review/issue3-design-correction.request.md
+?? review/issue3-design-correction.response.md
+?? review/issue3-design.request.md
+?? review/issue3-design.response.md
+?? review/issue3-docs-review.request.md
+?? review/issue3-docs-review.response.md
+?? review/issue3-original.json
+?? review/issue3-original.md
+?? review/issue3-runtime-final.request.md
+?? review/issue3-runtime-final.response.md
+?? scripts/issue3_docs_check.py
+?? src/cli/tui/panels.go
+?? src/cli/tui/residual_test.go

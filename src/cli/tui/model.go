@@ -2,6 +2,7 @@ package tui
 
 import (
 	"context"
+	"encoding/hex"
 	"errors"
 	"fmt"
 	"net/url"
@@ -17,6 +18,13 @@ import (
 )
 
 type Model struct {
+	accepted                                   map[string]string
+	done                                       map[string]bool
+	panelPages                                 []loadedPanelPage
+	panelGeneration                            uint64
+	panelApplied                               uint64
+	panelInvalid                               bool
+	panelSelection                             string
 	panelOffset                                int
 	opts                                       Options
 	ctx                                        context.Context
@@ -32,6 +40,7 @@ type Model struct {
 	rows                                       []map[string]any
 	selected                                   int
 	panelCursor                                *string
+	panelNoProgress                            bool
 	panelBusy                                  bool
 	width, height, lastSequence, firstSequence int
 	previousMore                               bool
@@ -45,6 +54,7 @@ type Model struct {
 }
 type tickMsg struct{}
 type syncMsg struct {
+	accepted   map[string]string
 	authority  Authority
 	history    History
 	turns      []contract.InputTurn
@@ -58,15 +68,28 @@ type historyMsg struct {
 }
 type runnerMsg struct{ online bool }
 type sentMsg struct {
-	id   string
-	turn contract.InputTurn
-	err  error
+	accepted bool
+	turnID   string
+	id       string
+	turn     contract.InputTurn
+	err      error
+}
+type loadedPanelPage struct {
+	cursor string
+	page   Page
 }
 type panelMsg struct {
-	name   string
-	page   Page
-	err    error
-	append bool
+	name          string
+	page          Page
+	err           error
+	append        bool
+	generation    uint64
+	pageIndex     int
+	cursor        string
+	invalid       bool
+	targetID      string
+	target        map[string]any
+	targetMissing bool
 }
 type control struct {
 	resource, id, verb, label, request string
@@ -94,7 +117,7 @@ func New(ctx context.Context, o Options) Model {
 	a.SetHeight(5)
 	a.Focus()
 	a.KeyMap.Paste.SetEnabled(false)
-	return Model{opts: o, ctx: ctx, input: a, history: viewport.New(80, 12), events: map[int]contract.ConversationEvent{}, turns: map[string]contract.InputTurn{}, pending: map[string]string{}, envelopes: map[string]contract.InputEnvelope{}, coreStatus: "连接中", width: 80, height: 24, retry: o.PollInterval, draftIndex: -1}
+	return Model{opts: o, ctx: ctx, input: a, history: viewport.New(80, 12), events: map[int]contract.ConversationEvent{}, turns: map[string]contract.InputTurn{}, pending: map[string]string{}, accepted: map[string]string{}, done: map[string]bool{}, envelopes: map[string]contract.InputEnvelope{}, coreStatus: "连接中", width: 80, height: 24, retry: o.PollInterval, draftIndex: -1}
 }
 func (m Model) Init() tea.Cmd {
 	return tea.Batch(textarea.Blink, m.sync(), m.runnerHealth())
@@ -113,7 +136,7 @@ func (m Model) sync() tea.Cmd {
 		ids = append(ids, id)
 	}
 	return func() tea.Msg {
-		out := syncMsg{initial: initial}
+		out := syncMsg{initial: initial, accepted: map[string]string{}}
 		out.authority, out.err = Resolve(m.ctx, m.opts.Core)
 		if out.err != nil {
 			return out
@@ -141,10 +164,11 @@ func (m Model) sync() tea.Cmd {
 				continue
 			}
 			turnID, _ := receipt["turn_id"].(string)
-			if turnID == "" {
+			if !acceptedTurnID(turnID) {
 				out.unresolved = append(out.unresolved, id)
 				continue
 			}
+			out.accepted[id] = turnID
 			var turn contract.InputTurn
 			if api(m.ctx, m.opts.Core, m.opts.CallTimeout, "GET", "/v1/turns/"+url.PathEscape(turnID), nil, &turn) != nil {
 				out.unresolved = append(out.unresolved, id)
@@ -201,46 +225,6 @@ func (m Model) loadOlder() tea.Cmd {
 		e := api(m.ctx, m.opts.Core, m.opts.CallTimeout, "GET", fmt.Sprintf("/v1/conversation/history?direction=backward&before_sequence=%d&limit=50", before), nil, &h)
 		return historyMsg{h, e}
 	}
-}
-func (m Model) openPanel(name string, more bool) tea.Cmd {
-	if name == "questions" || name == "help" || name == "status" {
-		return nil
-	}
-	cursor := ""
-	if more && m.panelCursor != nil {
-		cursor = *m.panelCursor
-	}
-	return func() tea.Msg {
-		var p Page
-		c := m.opts.Runner
-		if name == "items" {
-			c = m.opts.Core
-		}
-		path := "/v1/" + name + "?limit=50"
-		if cursor != "" {
-			path += "&cursor=" + url.QueryEscape(cursor)
-		}
-		e := api(m.ctx, c, m.opts.CallTimeout, "GET", path, nil, &p)
-		return panelMsg{name, p, e, more}
-	}
-}
-func (m *Model) showPanel(name string) tea.Cmd {
-	m.panel = name
-	m.panelOffset = 0
-	m.selected = 0
-	m.rows = nil
-	m.panelCursor = nil
-	m.input.Blur()
-	if name == "questions" {
-		for _, q := range m.authority.State.PendingQuestions {
-			if q["resolved"] != true {
-				m.rows = append(m.rows, q)
-			}
-		}
-		return nil
-	}
-	m.panelBusy = name != "help" && name != "status"
-	return m.openPanel(name, false)
 }
 func (m *Model) send() tea.Cmd {
 	text := m.input.Value()
@@ -304,19 +288,45 @@ func (m *Model) send() tea.Cmd {
 	m.notice = "发送中；受理结果未知时保留原 request_id"
 	return m.post(in)
 }
+func acceptedTurnID(id string) bool {
+	if len(id) != 36 || id[8] != '-' || id[13] != '-' || id[18] != '-' || id[23] != '-' {
+		return false
+	}
+	b, e := hex.DecodeString(strings.ReplaceAll(id, "-", ""))
+	return e == nil && len(b) == 16
+}
 func (m Model) post(in contract.InputEnvelope) tea.Cmd {
 	return func() tea.Msg {
-		var accepted map[string]any
-		e := api(m.ctx, m.opts.Core, m.opts.CallTimeout, "POST", "/v1/inputs", in, &accepted)
+		var receipt map[string]any
+		status, e := apiStatus(m.ctx, m.opts.Core, m.opts.CallTimeout, "POST", "/v1/inputs", in, &receipt)
 		if e != nil {
 			return sentMsg{id: in.RequestID, err: e}
 		}
-		id, _ := accepted["turn_id"].(string)
-		var turn contract.InputTurn
-		if id != "" {
-			e = api(m.ctx, m.opts.Core, m.opts.CallTimeout, "GET", "/v1/turns/"+url.PathEscape(id), nil, &turn)
+		id, _ := receipt["turn_id"].(string)
+		if status != 202 || !acceptedTurnID(id) {
+			return sentMsg{id: in.RequestID, err: errors.New("SUBMISSION_UNCONFIRMED: 返回未满足受理回执契约，查询原 request")}
 		}
-		return sentMsg{in.RequestID, turn, e}
+		var turn contract.InputTurn
+		e = api(m.ctx, m.opts.Core, m.opts.CallTimeout, "GET", "/v1/turns/"+url.PathEscape(id), nil, &turn)
+		if e == nil && (turn.ID != id || turn.RequestID != in.RequestID) {
+			e = errors.New("OBSERVATION_IDENTITY_MISMATCH")
+		}
+		return sentMsg{id: in.RequestID, accepted: true, turnID: id, turn: turn, err: e}
+	}
+}
+func (m *Model) mergeTurn(turn contract.InputTurn) {
+	if turn.ID == "" || turn.RequestID == "" || m.done[turn.RequestID] {
+		return
+	}
+	m.accepted[turn.RequestID] = turn.ID
+	m.turns[turn.ID] = turn
+	if turn.State == "COMMITTED" || turn.State == "FAILED" {
+		m.done[turn.RequestID] = true
+		delete(m.pending, turn.RequestID)
+		delete(m.envelopes, turn.RequestID)
+		forgetPending(m.opts.RecoveryDir, turn.RequestID)
+	} else {
+		m.pending[turn.RequestID] = "已受理 · " + turn.State
 	}
 }
 func (m Model) perform(c control) tea.Cmd {
@@ -398,18 +408,26 @@ func (m Model) Update(message tea.Msg) (tea.Model, tea.Cmd) {
 			m.previousMore = v.history.HasMore
 			m.history.GotoBottom()
 		}
+		for id, turnID := range v.accepted {
+			if !m.done[id] {
+				m.accepted[id] = turnID
+				if _, ok := m.turns[turnID]; !ok {
+					m.turns[turnID] = contract.InputTurn{ID: turnID, RequestID: id, State: "ACCEPTED", SessionID: m.authority.SessionID}
+				}
+			}
+		}
 		for _, id := range v.unresolved {
-			m.pending[id] = "受理未确认：仅查询原 request，不自动重发"
+			if m.done[id] {
+				continue
+			}
+			if m.accepted[id] != "" {
+				m.pending[id] = "已受理，暂时无法读取结果；查询原 request"
+			} else {
+				m.pending[id] = "受理未确认：仅查询原 request，不自动重发"
+			}
 		}
 		for _, turn := range v.turns {
-			m.turns[turn.ID] = turn
-			if turn.State == "COMMITTED" || turn.State == "FAILED" {
-				delete(m.pending, turn.RequestID)
-				delete(m.envelopes, turn.RequestID)
-				forgetPending(m.opts.RecoveryDir, turn.RequestID)
-			} else {
-				m.pending[turn.RequestID] = turn.State
-			}
+			m.mergeTurn(turn)
 		}
 		if m.panel == "questions" {
 			m.rows = nil
@@ -438,10 +456,27 @@ func (m Model) Update(message tea.Msg) (tea.Model, tea.Cmd) {
 		m.history.GotoTop()
 		return m, nil
 	case sentMsg:
+		if m.done[v.id] {
+			return m, nil
+		}
+		if v.accepted {
+			m.accepted[v.id] = v.turnID
+			if _, ok := m.turns[v.turnID]; !ok {
+				m.turns[v.turnID] = contract.InputTurn{ID: v.turnID, RequestID: v.id, State: "ACCEPTED", SessionID: m.authority.SessionID}
+			}
+		}
 		if v.err != nil {
-			var rejected *APIError
-			if errors.As(v.err, &rejected) && rejected.Status >= 400 && rejected.Status < 500 {
-				m.notice = "输入被后端拒绝：" + SafeText(rejected.Code)
+			if m.accepted[v.id] != "" {
+				m.pending[v.id] = "已受理，暂时无法读取结果"
+				m.notice = "已受理，暂时无法读取结果：" + SafeText(v.err.Error())
+				var auth *APIError
+				if errors.As(v.err, &auth) && (auth.Status == 401 || auth.Status == 403) {
+					m.notice += "；请恢复认证，不会重新提交"
+				}
+				return m, nil
+			}
+			if !v.accepted && submissionRejected(v.err) {
+				m.notice = "输入被后端拒绝：" + SafeText(v.err.Error())
 				if in, ok := m.envelopes[v.id]; ok && m.input.Value() == "" {
 					m.input.SetValue(in.Text)
 				}
@@ -453,27 +488,12 @@ func (m Model) Update(message tea.Msg) (tea.Model, tea.Cmd) {
 			m.pending[v.id] = "受理未确认 / 查询原请求"
 			m.notice = SafeText(v.err.Error()) + "；不更换 request_id 重发"
 		} else if v.turn.ID != "" {
-			m.turns[v.turn.ID] = v.turn
-			m.pending[v.id] = v.turn.State
+			m.mergeTurn(v.turn)
 			m.notice = "输入已受理；决策提交不代表任务执行成功"
 		}
 		return m, nil
 	case panelMsg:
-		if v.name != m.panel {
-			return m, nil
-		}
-		m.panelBusy = false
-		if v.err != nil {
-			m.notice = SafeText(v.err.Error())
-			return m, nil
-		}
-		if v.append {
-			m.rows = append(m.rows, v.page.Items...)
-		} else {
-			m.rows = v.page.Items
-		}
-		m.panelCursor = v.page.NextCursor
-		m.selected = min(m.selected, max(0, len(m.rows)-1))
+		m.applyPanel(v)
 		return m, nil
 	case controlMsg:
 		if v.err != nil {
@@ -551,11 +571,18 @@ func (m Model) Update(message tea.Msg) (tea.Model, tea.Cmd) {
 			case "down", "j":
 				m.selected = min(len(m.rows)-1, m.selected+1)
 			case "n":
+				if m.panelInvalid {
+					m.notice = "分页快照已失效；按 r 明确重置到第一页"
+					return m, nil
+				}
 				if m.panelCursor != nil {
 					m.panelBusy = true
 					return m, m.openPanel(m.panel, true)
 				}
 			case "r":
+				if m.panelInvalid {
+					return m, m.resetPanel()
+				}
 				m.panelBusy = true
 				return m, m.openPanel(m.panel, false)
 			case "enter":
@@ -605,7 +632,7 @@ func (m Model) Update(message tea.Msg) (tea.Model, tea.Cmd) {
 	return m, cmd
 }
 
-const helpText = "Enter 换行 · Ctrl+S / Alt+Enter 发送 · Ctrl+C 退出（后台继续）\nPgUp/PgDn 滚动 · Ctrl+P/N 输入历史 · Ctrl+D 展开诊断 ID\nF1 帮助 · F2 待答问题 · F3 委托 · F4 计划 · F5 事项 · F6 通知\n面板 ↑↓ 选择 · Enter 回答/控制确认 · n 下一页 · r 刷新 · Esc/Tab 返回草稿\n/help /status /history /items /jobs /tasks /notifications /answer /reconnect /quit\n客户端只有一个权威会话。退出不会取消执行；首版不支持撤销已受理 turn 或中止模型。\n通知只在明确确认后 ack；停止观察不等于业务取消。"
+const helpText = "Enter 换行 · Ctrl+S / Alt+Enter 发送 · Ctrl+C 退出（后台继续）\nPgUp/PgDn 滚动 · Ctrl+P/N 输入历史 · Ctrl+D 展开诊断 ID\nF1 帮助 · F2 待答问题 · F3 委托 · F4 计划 · F5 事项 · F6 通知\n面板 ↑↓ 选择 · Enter 回答/控制确认 · n 下一页 · r 刷新 · Esc/Tab 返回草稿\n/help /status /history /items /jobs /tasks /notifications /answer /reconnect /quit\n客户端只有一个权威会话。退出不会取消执行；首版不支持撤销已受理 turn 或中止模型。\n通知只在明确确认后 ack；停止观察不等于业务取消。\n事项分页快照失效时 n 停用，r 明确重载第一页；原目标不在页内则取消选择。"
 
 func (m Model) panelView() string {
 	if m.panel == "help" {

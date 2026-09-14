@@ -1,6 +1,6 @@
 # Secretary_Simplified 设计文档包
 
-版本：1.1；日期：2026-09-14；状态：已实现项目的当前规范，Issue #2 单一权威会话与 TUI 已同步；逐项完成证据见本轮验收报告。
+版本：1.1.1；日期：2026-09-14；状态：Issue #2 主体及 Issue #3 两项客户端遗留修订的当前规范，实际完成证据见对应报告。
 
 本目录中的 Secretary 均指 Secretary_Simplified。本包依据 Master 本轮要求重写，以 [Design2.md](Design2.md) 描述当前架构，保留 [原稿](archive/Design2-v0.1.md) 供溯源。旧 Secretary、Secretary_Simple 的文档及实验只提供经验，不属于本项目的实现依赖或通过证据。
 
@@ -42,8 +42,10 @@ D09（实施过程中发现的检索命中被预算裁空问题）：经 Ayanami
 
 实施缺陷 Issue #1 AUD-02/AUD-04：取消后的持久收尾及来源读取实际大小上限，已同步 `ExecutionProtocol.md` 和 `Acceptance.md`。设计裁决：`../review/issue1-AUD02-AUD04-design-correction.response.md`、`../review/issue1-memory-reconcile-clarification.response.md`；定向证据：`../reports/implementation/issue1-runtime.md`。
 
-## Issue #2 当前阅读入口与历史边界
+## 当前阅读入口与历史边界
 
 先读 [SingleConversationTUI.md](SingleConversationTUI.md)，再按 Interfaces、Storage、DataStructure 与 Operations 核对实现。单库唯一权威会话、排队前缀和 TUI 属于本次实施中发现并修订的架构缺陷；商议裁决见 References。
 
-`Review.md`、`checks/initial-report.json`、`checks/latest-report.json`、`archive/`、v1.0 zip，以及既有 `reports/` / `review/` 原报告均为历史材料，不表示当前二进制通过了原测试，也不是本轮新增门槛。当前验收仅 AUTH-01–08、TUI-01–13、DOC-01–05、BUILD-01。逐文件影响清单与验收映射在 `reports/implementation/issue2/`。
+`Review.md`、`checks/initial-report.json`、`checks/latest-report.json`、`archive/`、v1.0/v1.1 zip，以及既有 `reports/` / `review/` 原报告均为历史材料，不表示当前二进制通过了原测试。Issue #2 的 27 项报告保留；Issue #3 当前只验收 R1/R2、DOC-R、BUILD-R，逐文件清单在 `reports/implementation/issue3/`。当前导出为 v1.1.1；只读检查使用 `scripts/issue3_docs_check.py`，不运行会改写旧报告的旧检查脚本。
+
+Issue #3 实施中发现的缺陷：已确认受理后的 GET 错误曾被误判为提交拒绝，面板后页曾被自动刷新替换。已按 Ayanami 的 `review/issue3-design-correction.response.md` 商议修订 SingleConversationTUI、Interfaces、Operations、EngineeringArchitecture、DataFlow、Acceptance 和 release 使用说明；无后端/Schema/恢复元数据结构变化。

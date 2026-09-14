@@ -1,0 +1,193 @@
+{
+  "scope": "Actual Ayanami Issue3 selected tests, independent probes and DOC check evidence; copied from temporary paths. Any private path normalization is indicated in that file; findings unchanged.",
+  "assets": [
+    {
+      "path": "review/issue3-evidence/ayanami-delta-oldcode-fail.log",
+      "sha256": "cb183ad81603369fb748783ccde9beead820cc88f3d47eafdbeb3658af13cf52"
+    },
+    {
+      "path": "review/issue3-evidence/ayanami-delta-residual.log",
+      "sha256": "7287d210f1e9a7d192d8a5f5df9f53809a4a94f59a22bc39c8571fefc232df9d"
+    },
+    {
+      "path": "review/issue3-evidence/ayanami-delta-two-tests.log",
+      "sha256": "4cc0ffb2d8b4b9c5476ef60d6efdde0c5d47abf30a56345ea449428aad214730"
+    },
+    {
+      "path": "review/issue3-evidence/ayanami-delta-vet.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "review/issue3-evidence/ayanami-docs-final.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "review/issue3-evidence/ayanami-docs-final.stdout.log",
+      "sha256": "ae1426a10fd347bfc2172c52db1e605d32c5596990985bd77776318f42497d3b"
+    },
+    {
+      "path": "review/issue3-evidence/ayanami-probe.go.txt",
+      "sha256": "402c57d0260c2f82e34aa84adf5e31573cad91369bad6534e255027e68a33f46"
+    },
+    {
+      "path": "review/issue3-evidence/ayanami-probe.log",
+      "sha256": "4c43a621eeb243a720ebac9721d68c381817a3aacd8d4ae5528b4ac394a3b990"
+    },
+    {
+      "path": "review/issue3-evidence/ayanami-residual-race.log",
+      "sha256": "97f1c546c3e9712c671358683dab23745bb20520b70f1b1b9caea7a44c6c7a1f"
+    },
+    {
+      "path": "review/issue3-evidence/ayanami-residual-verbose.log",
+      "sha256": "435a8b8c0bbcbdd4c6acfa588dd977f12cf4feafd87164ddf5ea0c46345c7142"
+    },
+    {
+      "path": "review/issue3-evidence/ayanami-vet.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "review/issue3-evidence/docs-initial/README.md.diff",
+      "sha256": "1f88ac64fa9f68c4d6b61d35ac7a79168f27086df94de66fa2c650bbdcfcead8"
+    },
+    {
+      "path": "review/issue3-evidence/docs-initial/changed-vs-base.txt",
+      "sha256": "b3e380a5bb7f03f189122b3a54d46ccfe85647ba5c4c2c9364ff39606fa91162"
+    },
+    {
+      "path": "review/issue3-evidence/docs-initial/checker.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "review/issue3-evidence/docs-initial/checker.stdout.log",
+      "sha256": "03f0c9adf9a819be2229e4abc272870113b69083144c092458341f69bc02ff69"
+    },
+    {
+      "path": "review/issue3-evidence/docs-initial/diffstat.txt",
+      "sha256": "78dee4c3406d349a58a3e6bf00a062aff2e7791ac53047c333ad164f56f03869"
+    },
+    {
+      "path": "review/issue3-evidence/docs-initial/docs-impact.json",
+      "sha256": "9a35b99af04f45a83dbc27df66676d9672e0f5b7116021082078894bc3909f84"
+    },
+    {
+      "path": "review/issue3-evidence/docs-initial/docs-impact.md",
+      "sha256": "3aa696f6bd24cab155f7ef4907a056b207e1b7e8073d9c2e31ab31ebf69e5eda"
+    },
+    {
+      "path": "review/issue3-evidence/docs-initial/docs-impact.run.json",
+      "sha256": "045dd59295ad8d4b8f15605e94672f5f834fdec6706f44f7d3b7ee78d40787d1"
+    },
+    {
+      "path": "review/issue3-evidence/docs-initial/docs-impact.run.md",
+      "sha256": "f2bbe9023fecef8dcc693b1900e2dd56279eb44288cfe766bd49e5f91bd54da4"
+    },
+    {
+      "path": "review/issue3-evidence/docs-initial/docs_Acceptance.md.diff",
+      "sha256": "b86422356ba6d1f63a33ca60f63c36fd067ab2cd2342aa63bd411e5c8cf4b0c2"
+    },
+    {
+      "path": "review/issue3-evidence/docs-initial/docs_DataFlow.md.diff",
+      "sha256": "cda2ef9682aad87b9a2bd4c3066782f4484d72a5ef5ea52439286334da19e5e6"
+    },
+    {
+      "path": "review/issue3-evidence/docs-initial/docs_Design2.md.diff",
+      "sha256": "8d76776f7814ce8cdc168b784d8b0e3f00784a730f1fd338f1488b3057792138"
+    },
+    {
+      "path": "review/issue3-evidence/docs-initial/docs_EngineeringArchitecture.md.diff",
+      "sha256": "fc4f2ce246a90dbe75825fab2f826e94d5eeaabd053ee2a3f336568cec073cd4"
+    },
+    {
+      "path": "review/issue3-evidence/docs-initial/docs_ImplementationHandoff.md.diff",
+      "sha256": "230ea71489d9024099794b451b1b88b7b020eeb0ebd47a0e4c316873271099b4"
+    },
+    {
+      "path": "review/issue3-evidence/docs-initial/docs_Interfaces.md.diff",
+      "sha256": "ab4064bd62e603e6975f7dc7010d873ff14fd4ac72c924a47b32ef8a8d63e2f9"
+    },
+    {
+      "path": "review/issue3-evidence/docs-initial/docs_Milestone.md.diff",
+      "sha256": "bfcf00ffbead00db80ea3be41cab05139dcecba4b652bde34c7103b695f91fc1"
+    },
+    {
+      "path": "review/issue3-evidence/docs-initial/docs_Operations.md.diff",
+      "sha256": "55f17afb13e8fe71ba0e7a55143e2b8a55c19426e688b925c293ff731ec651a7"
+    },
+    {
+      "path": "review/issue3-evidence/docs-initial/docs_README.md.diff",
+      "sha256": "96ac404561b6f9c13a833fc572e4678fc55a61481a0d10502e7dc969d9618ba5"
+    },
+    {
+      "path": "review/issue3-evidence/docs-initial/docs_RealDataTrial.md.diff",
+      "sha256": "4490d34c0a46472e62c684356e1bc68db4bd7c26bda3f68245f760004561d9d1"
+    },
+    {
+      "path": "review/issue3-evidence/docs-initial/docs_References.md.diff",
+      "sha256": "5fea1d22cdc28f4f6a2c2115a36249c8dc3d190b70f6410483afa337a9926ad9"
+    },
+    {
+      "path": "review/issue3-evidence/docs-initial/docs_SingleConversationTUI.md.diff",
+      "sha256": "d38d45e0954a48b4263620303284749c0410fe31e06a0bf852645c727aa0cd7f"
+    },
+    {
+      "path": "review/issue3-evidence/docs-initial/docs_checks_README.md.diff",
+      "sha256": "6f265825d55c5197ce298dbde8e9e9e1d86e6d0a6a3cf34503eaa89f3a303fa7"
+    },
+    {
+      "path": "review/issue3-evidence/docs-initial/docs_deliverables_README.md.diff",
+      "sha256": "fc7b2736b81025b65d028f9352c9405d37094ddad9544291414ac586ae3beb17"
+    },
+    {
+      "path": "review/issue3-evidence/docs-initial/docs_design.md.diff",
+      "sha256": "f5f8a6bb7dae3087b8f61e03acb4f2f93bfb882f721b2cf2374357e8122302ba"
+    },
+    {
+      "path": "review/issue3-evidence/docs-initial/git-status.txt",
+      "sha256": "9a1e65cd08c79aa2473e509096c906524dce3daa14bb4fb4b69b7abbf2fceed6"
+    },
+    {
+      "path": "review/issue3-evidence/docs-initial/paths.env",
+      "sha256": "f23fb20316a6b9e4b39f2592900d648f4842bf29d711401d50fb12294c4fca16"
+    },
+    {
+      "path": "review/issue3-evidence/docs-initial/release_API.md.diff",
+      "sha256": "095b802f30a6f388d0090b7fa0b2f8bae6183459d5e0077aca3a06ac2d7aa539"
+    },
+    {
+      "path": "review/issue3-evidence/docs-initial/release_README.md.diff",
+      "sha256": "d95fa727bbac95e0bfbaa4d9c677abef1061d359a329187c1e51ef62dbf4ca4d"
+    },
+    {
+      "path": "review/issue3-evidence/docs-initial/reports_implementation_issue2_README.md.diff",
+      "sha256": "38ab2de4eeb56eea02b0331a5ca9c6723dea2023e9d45084c262192fa1444578"
+    },
+    {
+      "path": "review/issue3-evidence/docs-initial/review_README.md.diff",
+      "sha256": "7d16b229cea2a7eb734fe62e3d8f036564b8f1a6778c17c47ecd931a7b833d4d"
+    },
+    {
+      "path": "review/issue3-evidence/docs-initial/review_final-pending.md.diff",
+      "sha256": "941a134c5f44097e16e0f9bc52266e8c1fd891b12e90bd99dca513f20f844aa4"
+    },
+    {
+      "path": "review/issue3-evidence/docs-initial/untracked.txt",
+      "sha256": "ed0bf19710d319e8db9a2f706919e8822fc3a733df86dbbe8331edb5281da875"
+    },
+    {
+      "path": "review/issue3-evidence/docs-initial/v11.namelist.txt",
+      "sha256": "4cbccf3c7ffde35ccfb10249b9f40e284f636eab5596af59e53f063eb4a11a1f"
+    },
+    {
+      "path": "review/issue3-evidence/docs-initial/v111.namelist.txt",
+      "sha256": "4cbccf3c7ffde35ccfb10249b9f40e284f636eab5596af59e53f063eb4a11a1f"
+    },
+    {
+      "path": "review/issue3-evidence/docs-initial/zips-after.sha256",
+      "sha256": "f8b82c5f695eae9e38c7df5d441052a1216a0a1cb186e485b0429d72114d94ff"
+    },
+    {
+      "path": "review/issue3-evidence/docs-initial/zips-before.sha256",
+      "sha256": "f8b82c5f695eae9e38c7df5d441052a1216a0a1cb186e485b0429d72114d94ff"
+    }
+  ]
+}

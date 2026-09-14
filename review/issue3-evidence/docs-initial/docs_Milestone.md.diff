@@ -1,0 +1,9 @@
+diff --git a/docs/Milestone.md b/docs/Milestone.md
+index 7d8ebe0..28ba805 100644
+--- a/docs/Milestone.md
++++ b/docs/Milestone.md
+@@ -2,3 +2,3 @@
+ 
+-版本：1.1；六阶段保留路线背景。M1–M3 下列退出条件是初版历史基线，已完成工作的证据见根 README；本轮不重跑。当前只执行 Issue #2 AUTH/TUI/DOC/BUILD，再通知 Master 进入受控真实文字试用。
++版本：1.1.1；六阶段保留路线背景。M1–M3 退出条件与 Issue #2 的 27 项均为历史验收，不重跑。当前只执行 Issue #3 两项 TUI 遗留的 R1/R2、DOC-R、BUILD-R，再通知 Master 进入受控真实文字试用。
+ 

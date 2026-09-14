@@ -1,10 +1,12 @@
 # Secretary_Simplified
 
+> 当前交付范围为 Issue #3：已受理请求的查询错误分类、业务面板分页与自动刷新冲突。最新结果见 [本单验收索引](reports/implementation/issue3/README.md)。本轮仅执行 R1/R2、DOC-R、BUILD-R；下述 Issue #2 的记录保留其原构建归属。
+
 面向 Master 的持久化文字助手。依据 `docs/` 中的设计基线，以 Go 实现 Core、Scheduler、Executor、四层记忆与本地 CLI，首先在 Mac 上使用合成数据完成验证，再由 Master 接入真实资料。
 
-> 当前状态：**Issue #2 的单一权威会话、非阻塞 TUI、文档同步与 release 已完成，本轮定向验收通过，可以接入受控真实文字测试**。多个终端共享后端认知状态，命令式 CLI/JSON 保留；实际 macOS PTY、退出后通知及一次 Core 重启已验证。未重跑旧全仓、付费模型或两小时测试；原证据保留其历史构建归属。
+> 历史交付：**Issue #2 的单一权威会话、非阻塞 TUI、文档同步与 release 已完成**。多个终端共享后端认知状态，命令式 CLI/JSON 保留；其实际 macOS PTY、退出后通知及一次 Core 重启已验证。原证据保留其历史构建归属；Issue #3 不重新验收这些项目。
 
-公开仓库：[ExplodeCode6324/Secretary_Simplified](https://github.com/ExplodeCode6324/Secretary_Simplified)。本轮记录见 [Issue #2 验收与工作索引](reports/implementation/issue2/README.md)、[逐文件文档影响清单](reports/implementation/issue2/docs-impact.md)。本机可运行版本位于 `release/`；初版历史离线与构建证据见 [final2-offline.json](reports/implementation/final2-offline.json)，逐项结论见 [验收矩阵](reports/implementation/acceptance-matrix.md)。
+公开仓库：[ExplodeCode6324/Secretary_Simplified](https://github.com/ExplodeCode6324/Secretary_Simplified)。当前记录见 [Issue #3 验收与工作索引](reports/implementation/issue3/README.md)、[逐文件文档影响清单](reports/implementation/issue3/docs-impact.md)；[Issue #2 索引](reports/implementation/issue2/README.md) 保留历史结果。本机可运行版本位于 `release/`；初版历史离线与构建证据见 [final2-offline.json](reports/implementation/final2-offline.json)，逐项结论见 [验收矩阵](reports/implementation/acceptance-matrix.md)。
 
 ## 本轮交付范围
 
@@ -214,7 +216,18 @@ D12 已按 Ayanami 最终裁决实施，初稿的扩展字段限制及排除 Ite
 - Issue #1 已于修复提交 `88c7818` 完成并回贴证据关闭；新 release 的回归与原持续运行保持各自构建标识。代码、二进制、CLI、空数据库、设计修订、复核及工作记录均已交付。
 - 下一步由 Master 提供一组受控真实文字，并明确允许交给哪个模型服务商及外发范围。使用新独立数据目录，真实来源文件同步不开放，既有 ProviderPolicy 不自动扩权；不能用 SYNTHETIC 标签绕过权限。当前交付不声称已经完成真实资料或实际音频/叫醒验证。
 
-## Issue #2 实施计划与工作记录（2026-09-14）
+## Issue #3 实施计划与工作记录（2026-09-14）
+
+1. 已读取 [Issue #3](https://github.com/ExplodeCode6324/Secretary_Simplified/issues/3)，基线为 `c84d92453a1d8338be728422e3164777ef822579`。这是两项客户端遗留修复，不重开 #1/#2。
+2. 使用 `TestIssue2Residual` 新定向用例先复现再修复。实际修前结果保存于 `reports/implementation/issue3/before.json` / `before.log`：GET 的四种 4xx 误删请求追踪；四种业务面板刷新将两页 100 条替换为第一页 50 条。确定提交拒绝与 POST 响应丢失对照保持原预期。
+3. Ayanami 使用 DeepSeek 商议局部状态机、稳定选择与有界刷新；完成后复核代码。仅执行 R1-01—03、R2-01—03、DOC-R、BUILD-R，不重跑原 27 项或旧长期/持久状态套件。
+4. 同步所有受影响现行说明与新的 v1.1.1 导出，保留旧报告和 zip 原字节；更新实际受影响的 CLI，daemon/数据库不变。复核后推送 GitHub 并回贴修复证据。
+
+修后定向测试及 vet 已通过。Ayanami 首审发现的“追加页无新 ID 未停翻页”和“重载失败丢失原选择意图”亦已实际复现并补齐；另加固失败后重复调用重置函数的选择保持，未将该函数级边界误作实际按键故障证明。原失败与各轮通过分开保留。当前 CLI 完整 SHA-256 与测试源码身份见 [BUILD-R](reports/implementation/issue3/build.json)；最终场景数、复核与交付状态以 [本单索引](reports/implementation/issue3/README.md) 为准。
+
+实施中发现的缺陷与商议修改路径：[状态机及分页](docs/SingleConversationTUI.md)、[接口](docs/Interfaces.md)、[运维](docs/Operations.md)、[架构](docs/EngineeringArchitecture.md)、[数据流](docs/DataFlow.md)、[总述](docs/design.md)、[Design2](docs/Design2.md)、[验收](docs/Acceptance.md)、[交接](docs/ImplementationHandoff.md)、[路线](docs/Milestone.md)、[真实试用](docs/RealDataTrial.md)、[来源](docs/References.md)、[设计索引](docs/README.md)、[发布说明](release/README.md)、[API](release/API.md)、[导出索引](docs/deliverables/README.md)。完整逐文件影响清单在本单报告目录；修改已经 Ayanami 的 [生效更正](review/issue3-design-correction.response.md) 同意。
+
+## Issue #2 实施计划与工作记录（2026-09-14，历史交付）
 
 1. 已读取 GitHub 最新 issue 原文和验收标准；冻结本轮 AUTH-01–08、TUI-01–13、DOC-01–05、BUILD-01 范围，不重跑旧全仓/模型/长时套件。
 2. 已由实际 Ayanami DeepSeek 商议权威会话和 TUI 方案、更正。后端实现追加 002、显式旧库映射、持久排队与冻结前缀；终端实现异步交互、共享状态、问题选择与确认控制。

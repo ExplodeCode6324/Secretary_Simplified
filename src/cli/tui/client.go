@@ -63,28 +63,46 @@ type APIError struct {
 func (e *APIError) Error() string { return e.Code }
 
 func api(ctx context.Context, c Caller, timeout time.Duration, method, path string, body, to any) error {
+	_, e := apiStatus(ctx, c, timeout, method, path, body, to)
+	return e
+}
+func apiStatus(ctx context.Context, c Caller, timeout time.Duration, method, path string, body, to any) (int, error) {
 	bounded, cancel := context.WithTimeout(ctx, timeout)
 	defer cancel()
 	v, status, e := c.Call(bounded, method, path, body)
 	if e != nil {
-		return errors.New("DEPENDENCY_UNAVAILABLE: 检查 daemon 和配置，客户端会重连")
+		return status, errors.New("DEPENDENCY_UNAVAILABLE: 检查 daemon 和配置，客户端会重连")
 	}
 	if status >= 400 {
 		code := "REQUEST_REJECTED"
 		if m, ok := v.Error.(map[string]any); ok {
-			if s, ok := m["code"].(string); ok {
-				code = s
+			if value, ok := m["code"].(string); ok && value != "" {
+				code = value
 			}
 		}
-		if status == 404 {
+		if status == 404 && code == "REQUEST_REJECTED" {
 			code = "NOT_FOUND"
 		}
-		return &APIError{status, SafeText(code)}
+		return status, &APIError{status, SafeText(code)}
 	}
 	if to != nil {
-		return decode(v.Result, to)
+		return status, decode(v.Result, to)
 	}
-	return nil
+	return status, nil
+}
+
+// Only codes emitted before input admission are definite submission refusals.
+// Query errors and ambiguous/idempotency/internal failures never enter this rule.
+func submissionRejected(err error) bool {
+	var e *APIError
+	if !errors.As(err, &e) || e.Status < 400 || e.Status >= 500 {
+		return false
+	}
+	switch e.Code {
+	case "INVALID_SCHEMA", "CLASSIFICATION_INJECTION", "INPUT_TOO_LARGE", "UNAUTHENTICATED", "PERMISSION_DENIED", "AUTHORITY_SESSION_MISMATCH", "QUESTION_AUTHORITY_DENIED", "QUESTION_ANSWER_EMPTY", "QUESTION_NOT_FOUND_IN_SESSION", "QUESTION_ALREADY_RESOLVED", "BACKPRESSURE":
+		return true
+	}
+	return false
 }
 func Resolve(ctx context.Context, c Caller) (Authority, error) {
 	var a Authority

@@ -1,0 +1,12 @@
+diff --git a/review/README.md b/review/README.md
+index 5f886a3..d3141f6 100644
+--- a/review/README.md
++++ b/review/README.md
+@@ -113 +113,7 @@ Issue #2 设计已由实际 DeepSeek 同意进入实施（不代表验收通过
+ Issue #2 无开放 review mustfix。新增报告/provenance仅收编清单，不改规范正文，不触发循环复审。旧上下文/持久状态/全仓/月回放/长期测试未重跑，旧结论未重开。
++
++## Issue #3 TUI遗留修复
++
++[Issue原文](issue3-original.md)仅覆盖RES-01受理后观察错误、RES-02业务面板分页刷新，以及DOC-R/BUILD-R。原#1/#2审查和测试证据原样保留，不重跑旧13/27项或Context/Store/全仓/长期套件。新设计与独立复核仅记issue3-*，待实际回复后更新结论。
++
++- [Issue3局部设计](issue3-design.response.md)及[生效更正](issue3-design-correction.response.md)：实际DeepSeek同意实施。更正替代自动多页回扫、宽泛拒绝白名单与固定map数量；items失效保留视图/只查所选ID/显式r重置，POST受理事实和观察错误分离。设计通过不是修复验收PASS；修前真实FAIL由runtime证据保存。

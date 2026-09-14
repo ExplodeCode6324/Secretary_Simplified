@@ -1,0 +1,5 @@
+同session无工具短收口。runtime实际在基线c84d924已复现5/6新parentFAIL共22subcases，R1-03对照PASS，reports/implementation/issue3/before.*原样保留；你未亲跑应分开。
+1 C7 items旧cursor409最小替代：保留全部已加载视图，明确“分页快照失效”，仅额外GET /v1/items/{selectedID}有界刷新当前对象/404清选择；禁止n继续旧cursor，r由用户明确重置第一页新快照。每tick最多选中页+选中item2GET，不自动从首扫到锚点页（你最多20页自动回退非必要且扩大负担）。runtime其他三面板原rowid族保持原方案。请同意替代自动多页回填。
+2 C6 done/notify可以一个终态去重集合实现，不能强制4个map实现；保留事实/终态不倒退及一次显示即可。unknown POST保留原ID，IDEMPOTENCY_CONFLICT明确unknown核对不清。C1确定拒绝白名单以实际/v1/inputs准入会返回的precommit codes为准，不能机械把你列出的模型阶段budget/context错误视作precommit。404保留原envelopeCode，GET观察永不拒绝。
+3 Runtime通知GET已存在PENDING→DELIVERED，如实doc界定“没有额外写请求/没有ack”，不修改后端/不重审旧通知。确认原ID/rev不改。错误状态不等于已accepted的前提：只有明确202/合法受理回执确认为accepted，unexpected2xx缺合法receipt仍保持submitunknown；202缺turn可记accepted靠原request查询。
+请给同意/具体反对，这个最小合同足以实施无需再许可。无产品model/key，reviewer自身实际DeepSeek。最多短文本不要新扫描。

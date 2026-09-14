@@ -1,6 +1,6 @@
 # v1.0 历史文档附件校验
 
-此检查器及原报告保留用于初版历史复现，不是 Issue #2 的当前检查命令。它包含旧 SQLite/Schema 验证，不在本轮运行；本轮使用 `python3 scripts/issue2_docs_check.py` 进行只读文件一致性与影响清单检查。
+此检查器及原报告保留用于初版历史复现。它包含旧 SQLite/Schema 验证，不在本轮运行；Issue #3 使用 `python3 scripts/issue3_docs_check.py` 进行只读文件一致性与影响清单检查。issue2_docs_check.py 及其产物也保留原交付，不运行它覆盖 #2 的历史报告。
 
 
 检查器只读文档，在临时目录创建 SQLite，再验证 Schema、样例、内部链接、字段覆盖和 SQL 约束。它不会启动 Secretary、使用真实资料、播放音频或调用模型。

@@ -111,3 +111,18 @@ Issue #2 设计已由实际 DeepSeek 同意进入实施（不代表验收通过�
 - panic 恢复补证是 child-only 实际 Model/相同 Run 选项的独立测试，生产无注入hook；正常退出/Ctrl+C/SIGTERM是正式release PTY证据，SIGHUP/SIGQUIT与Linux运行未验。首轮失败与修正后PASS均保留。
 
 Issue #2 无开放 review mustfix。新增报告/provenance仅收编清单，不改规范正文，不触发循环复审。旧上下文/持久状态/全仓/月回放/长期测试未重跑，旧结论未重开。
+
+## Issue #3 TUI遗留修复
+
+[Issue原文](issue3-original.md)仅覆盖RES-01受理后观察错误、RES-02业务面板分页刷新，以及DOC-R/BUILD-R。原#1/#2审查和测试证据原样保留，不重跑旧13/27项或Context/Store/全仓/长期套件。新设计与独立复核仅记issue3-*，待实际回复后更新结论。
+
+- [Issue3局部设计](issue3-design.response.md)及[生效更正](issue3-design-correction.response.md)：实际DeepSeek同意实施。更正替代自动多页回扫、宽泛拒绝白名单与固定map数量；items失效保留视图/只查所选ID/显式r重置，POST受理事实和观察错误分离。设计通过不是修复验收PASS；修前真实FAIL由runtime证据保存。
+
+## Issue #3 final review closure
+
+- [Initial implementation review](issue3-runtime-final.response.md): selected R1/R2 race and independent probes passed; later observations fixed below.
+- [Two-delta review](issue3-runtime-delta.response.md): actual new probes and 35-case race passed; de-duplication semantics explicitly accepted.
+- [Defensive repeated reset](issue3-repeat-reset-final.response.md): final one-line fallback statically approved; runtime's 37-case evidence independently hash checked, not rerun by reviewer.
+- [DOC-R / BUILD-R static review](issue3-docs-final.response.md): no mustfix, precise reviewed snapshot retained. [Final coordination note](issue3-final-coordination.md) separates that snapshot from root's final build/archive verification.
+
+Issue #3 has no open review mustfix. Current actual model provenance contains 53 verified reports. New evidence inventory entries do not trigger repeated review or old acceptance suites.

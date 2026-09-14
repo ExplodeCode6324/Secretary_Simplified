@@ -1,0 +1,9 @@
+diff --git a/docs/design.md b/docs/design.md
+index 407911a..285eec9 100644
+--- a/docs/design.md
++++ b/docs/design.md
+@@ -2,3 +2,3 @@
+ 
+-版本：1.1；日期：2026-09-14；状态：Issue #2 单一权威会话与 TUI 实施修订。
++版本：1.1.1；日期：2026-09-14；状态：Issue #2 架构加 Issue #3 提交/观察及面板刷新局部修订。唯一权威会话、后端与数据模型不变，当前验收仅 R1/R2、DOC-R、BUILD-R；细则见 SingleConversationTUI 与 Acceptance。
+ 

@@ -24,7 +24,9 @@ POST /v1/memory/search 输入 schema_version=1、query，可选 entity_ids/curso
 
 任务 cancel、计划 trigger/pause/resume 使用 schema_version/request_id/expected_revision。run cancel 的版本属于关联 Task，CLI 会先读取。alarm stop/snooze 不等待模型，snooze 必须给 delay_seconds。notifications ack 使用 schema_version/request_id。
 
-输入返回 202 表示受理而非完成；按 turn_id 查 /v1/turns/{id}。同一次重试保持 request_id，不要重新生成。同步拒绝使用非成功 HTTP 状态；受理后的程序失败通过最终 turn 回复报告，不能把受理成功当成决策成功。公开错误不包含私有原文。
+输入返回 202 表示受理而非完成；按 turn_id 查 /v1/turns/{id}。Issue #3 明确区分提交与观察：202 之后 GET 的 4xx/5xx/超时不是输入拒绝，继续保留原请求追踪，恢复认证/连接后查询原结果，不自动重新 POST。仅提交阶段按契约确定未受理才清理追踪；POST 结果未知不作此判断。受理后的程序失败通过最终 turn 回复报告，不能把受理成功当成决策成功。公开错误不包含私有原文。
+
+业务面板刷新只查询当前页/选中对象，缓存其余已加载页，按稳定 ID 保持选择并拒绝过时响应。items 游标快照失效显示过期并暂停翻页，r 明确重载第一页；不会自动全库回扫。控制确认仍使用原目标/版本。无新增 API、DTO、恢复文件字段或迁移；通知 GET 既有 DELIVERED 行为保留，但不隐式 ack。
 
 ## 待答问题与显式回答（D11）
 

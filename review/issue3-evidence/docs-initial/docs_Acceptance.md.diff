@@ -1,0 +1,28 @@
+diff --git a/docs/Acceptance.md b/docs/Acceptance.md
+index 9a4537e..ee7344e 100644
+--- a/docs/Acceptance.md
++++ b/docs/Acceptance.md
+@@ -126,3 +126,3 @@ M1 PERSONAL Context+SYN输入生成ASSISTANT问题→跨session SYN-only拒绝
+ 
+-## Issue #2 当前唯一验收范围
++## Issue #2 历史验收范围
+ 
+@@ -142 +142,18 @@ M1 PERSONAL Context+SYN输入生成ASSISTANT问题→跨session SYN-only拒绝
+ 逐 ID 结果与命令放在 `reports/implementation/issue2/`。只用短时 fake 模型和微型合成状态；macOS PTY 的中文粘贴/缩放/退出另记录实际证据，未测平台不声称通过。不运行旧 Context/Store/记忆/摘要/持久化/备份恢复套件、全仓测试、月度/付费模型回放或两小时测试；旧失败、报告与构建哈希保持原貌。
++
++## Issue #3 当前唯一验收范围
++
++本单是 #2 的两项局部遗留，不重开 #1/#2，不重新验收原 27 项。先在 c84d924 原生产代码上运行新增短测试，保留真实修前失败，再修复、复跑同一选择器并明确后增断言；不得伪造修前复现。
++
++| ID | 必须证明 |
++|---|---|
++| R1-01 | POST 202 后 GET 400/401/403/404 仍是已受理；原 request/turn/恢复标识保留，不恢复待重发原文、不新增 POST |
++| R1-02 | 202 后 5xx/超时再恢复，含客户端重建；查询原身份，终态只展示一次，确认终态后清理，无新键重复效果 |
++| R1-03 | 确定提交拒绝可恢复空草稿、不覆盖新草稿；POST 丢响应保留原键只查询，迟到消息不倒退 |
++| R2-01 | 四种业务面板至少两页，正常刷新后原选中 ID 仍可见、游标稳定、无重复/丢后页 |
++| R2-02 | 刷新、翻页、切面板响应交错；过时响应不覆盖新状态、倒退游标或替换目标 |
++| R2-03 | 版本/状态变化可见；items 真实快照游标失效有界处理；目标消失明确提示，确认保留原 ID/revision，刷新无控制写或隐式 ack |
++| DOC-R | 逐文件影响清单与所有受影响现行正文/导出同步，原报告原字节保留 |
++| BUILD-R | 本单定向 race、改动包 vet、实际受影响 CLI 构建，未变 daemon 不重建 |
++
++命令为 `cd src && go test -race ./cli/tui -run '^TestIssue2Residual' -count=1 -timeout=30s` 与 `go vet ./cli/tui`；只选择本单新测试。客户端恢复短路径不扩大为旧 Context/Store、摘要/记忆、持久状态、月回放、真实模型或 A25 验收。证据见 `reports/implementation/issue3/`。

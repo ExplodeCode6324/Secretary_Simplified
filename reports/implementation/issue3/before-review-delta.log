@@ -1,0 +1,17 @@
+--- FAIL: TestIssue2ResidualR202AppendWithoutNewIDsStopsNavigation (0.03s)
+    --- FAIL: TestIssue2ResidualR202AppendWithoutNewIDsStopsNavigation/tasks (0.01s)
+        residual_test.go:454: zero-progress append was not stopped 100 
+    --- FAIL: TestIssue2ResidualR202AppendWithoutNewIDsStopsNavigation/jobs (0.01s)
+        residual_test.go:454: zero-progress append was not stopped 100 
+    --- FAIL: TestIssue2ResidualR202AppendWithoutNewIDsStopsNavigation/items (0.01s)
+        residual_test.go:454: zero-progress append was not stopped 100 
+    --- FAIL: TestIssue2ResidualR202AppendWithoutNewIDsStopsNavigation/notifications (0.01s)
+        residual_test.go:454: zero-progress append was not stopped 100 
+--- FAIL: TestIssue2ResidualR203ResetFailureRetainsSelectionIntent (0.01s)
+    --- FAIL: TestIssue2ResidualR203ResetFailureRetainsSelectionIntent/25 (0.01s)
+        residual_test.go:485: failed reset consumed target intent
+    --- FAIL: TestIssue2ResidualR203ResetFailureRetainsSelectionIntent/75 (0.01s)
+        residual_test.go:485: failed reset consumed target intent
+FAIL
+FAIL	secretarysimplified/cli/tui	2.181s
+FAIL

@@ -1,0 +1,4 @@
+Master授权Issue3局部修复设计商议，实际Ayanami DeepSeek。请读review/issue3-original.md与有限src/cli/tui/model.go/client.go。只R1-01–03/R2-01–03/DOC-R/BUILD-R，不重开#1/#2或旧13/27/Context/Store/全仓/长期tests；Issue静态发现尚非实测，runtime正在先写基线兼容tests保留真实FAIL。
+最小提案：RES01 sentMsg新增accepted bool/turnID，post返回明确提交阶段vs受理后观察阶段；内存knownTurns[request]与accepted事实，终态集防迟到消息退回；metadata仍仅instance/request不加正文，重建原request→turn。仅POST阶段按契约确定4xx且未曾accepted可恢复草稿，不能覆新draft；查询错误提示已受理/需恢复认证、保留原ID，无新POST。需要具体识别并非所有POST4xx都必然未受理（例如http超时/unknown），按现契约判别。
+RES02缓存已加载页{cursor,items,next}，自动刷新只选中对象所在页(<=50)，按ID重建去重rows/保留selectedID，消失selected=-1明确提示；下一页与刷新按panel epoch/request generation丢弃过时response，已开确认仍原ID/rev。不新增backend/schema/metadata迁移。请核页cursor排序变化/刷新替换范围/缓存下一页cursor重排如何不倒退重复，给必要最小边界，不强制全库同步或新平台。
+请给同意/必要修正和可实施契约，未测试不称PASS；只有限静态读查最多6工具轮留自然final，不改源码/文档，不调用Secretary模型/读取key。stdout归档。reviewer自身是真实DeepSeek调用。

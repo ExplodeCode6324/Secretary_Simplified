@@ -1,0 +1,12 @@
+{
+  "scope": "tracked plus unignored candidate files; actual credential bytes and private paths never emitted",
+  "status": "PASS",
+  "files_scanned": 4422,
+  "bytes_scanned": 71242781,
+  "actual_credential_sources_checked": 2,
+  "failures": [],
+  "binary_sha256": {
+    "secretary": "0c0b3f2c90283904595b9f0e946f160ea851f8b996900db961714fc4835b31d5",
+    "secretaryd": "e3756a1a4219149dd0228e0252be95b05c9530b377ca61a0e28ee27e600bbb75"
+  }
+}

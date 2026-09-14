@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-09-14T05:25:36.765657Z",
+  "generated_at_utc": "2026-09-14T06:20:05.261104Z",
   "reviewer_requirement": "DeepSeek v4.1 Flash only; Luna historical reports excluded",
   "records": [
     {
@@ -598,6 +598,97 @@
       "persisted_assistant_response_match": "exact",
       "authored_evidence_kind": "assistant_final_text",
       "exported_assistant_response_sha256": "e064d4ced03b648f4506a9b282f9d9e51517691838bae181999656e871fd5e1f",
+      "metadata_source": "Hermes persisted session model and billing_provider; stored assistant response match; redaction-equivalent cases explicitly labeled",
+      "scope": "Review report only; not proof of product acceptance or provider-side model attestation"
+    },
+    {
+      "report": "review/issue3-design.response.md",
+      "provider": "opencode-go",
+      "model_id": "deepseek-v4.1-flash",
+      "response_at_utc": "2026-09-14T05:52:07.678131Z",
+      "response_sha256": "cdc59af5958f736be8dd560d5ae7b578a7e21ac18579a38fc8fa5e06ff1f1e62",
+      "raw_response_sha256": "cdc59af5958f736be8dd560d5ae7b578a7e21ac18579a38fc8fa5e06ff1f1e62",
+      "persisted_assistant_response_match": "exact",
+      "authored_evidence_kind": "assistant_final_text",
+      "exported_assistant_response_sha256": "70e61180cc999c49f4f0105572979e2f51461d315cef503fef666ab9a329642d",
+      "metadata_source": "Hermes persisted session model and billing_provider; stored assistant response match; redaction-equivalent cases explicitly labeled",
+      "scope": "Review report only; not proof of product acceptance or provider-side model attestation"
+    },
+    {
+      "report": "review/issue3-design-correction.response.md",
+      "provider": "opencode-go",
+      "model_id": "deepseek-v4.1-flash",
+      "response_at_utc": "2026-09-14T05:53:10.065454Z",
+      "response_sha256": "7e727487f3d9a8e5d05af8e4b2d35fc7a98598341c573292df21e29eb63dd9e9",
+      "raw_response_sha256": "7e727487f3d9a8e5d05af8e4b2d35fc7a98598341c573292df21e29eb63dd9e9",
+      "persisted_assistant_response_match": "exact",
+      "authored_evidence_kind": "assistant_final_text",
+      "exported_assistant_response_sha256": "c829ce8ae783c7e5c97dab169e81be30f85e6836db80f3669ade3bf0e6526471",
+      "metadata_source": "Hermes persisted session model and billing_provider; stored assistant response match; redaction-equivalent cases explicitly labeled",
+      "scope": "Review report only; not proof of product acceptance or provider-side model attestation"
+    },
+    {
+      "report": "review/issue3-runtime-final.response.md",
+      "provider": "opencode-go",
+      "model_id": "deepseek-v4.1-flash",
+      "response_at_utc": "2026-09-14T06:07:08.398514Z",
+      "response_sha256": "94daaacb61ef7f7ba1fb7df0dc62476824fe8b0403ee316169b3920d2c50cb05",
+      "raw_response_sha256": "94daaacb61ef7f7ba1fb7df0dc62476824fe8b0403ee316169b3920d2c50cb05",
+      "persisted_assistant_response_match": "exact",
+      "authored_evidence_kind": "assistant_final_text",
+      "exported_assistant_response_sha256": "30791fc06d179955bae3b8ab1043d1b5c9f0c23202f76d5da5f9d153c7d0a82a",
+      "metadata_source": "Hermes persisted session model and billing_provider; stored assistant response match; redaction-equivalent cases explicitly labeled",
+      "scope": "Review report only; not proof of product acceptance or provider-side model attestation"
+    },
+    {
+      "report": "review/issue3-docs-review.response.md",
+      "provider": "opencode-go",
+      "model_id": "deepseek-v4.1-flash",
+      "response_at_utc": "2026-09-14T06:06:01.408503Z",
+      "response_sha256": "58b0e0fb644c65189c72154aab831691daa591fdad39e79f0c38dcd4ffa76246",
+      "raw_response_sha256": "58b0e0fb644c65189c72154aab831691daa591fdad39e79f0c38dcd4ffa76246",
+      "persisted_assistant_response_match": "exact",
+      "authored_evidence_kind": "assistant_final_text",
+      "exported_assistant_response_sha256": "358efafb0044e61f2ebe2f0ba43a01b3ff2bf113040c648536e30659f21cff5c",
+      "metadata_source": "Hermes persisted session model and billing_provider; stored assistant response match; redaction-equivalent cases explicitly labeled",
+      "scope": "Review report only; not proof of product acceptance or provider-side model attestation"
+    },
+    {
+      "report": "review/issue3-runtime-delta.response.md",
+      "provider": "opencode-go",
+      "model_id": "deepseek-v4.1-flash",
+      "response_at_utc": "2026-09-14T06:12:32.629912Z",
+      "response_sha256": "1e23a2f08b2a9ad423bc66c48a322fe3ce1203c98ded8289480aecb669f7bb95",
+      "raw_response_sha256": "1e23a2f08b2a9ad423bc66c48a322fe3ce1203c98ded8289480aecb669f7bb95",
+      "persisted_assistant_response_match": "exact",
+      "authored_evidence_kind": "assistant_final_text",
+      "exported_assistant_response_sha256": "a372a8aed264c89df9d9fd234f2458f778fdd9007867cc8f3a2287cf1ffabd57",
+      "metadata_source": "Hermes persisted session model and billing_provider; stored assistant response match; redaction-equivalent cases explicitly labeled",
+      "scope": "Review report only; not proof of product acceptance or provider-side model attestation"
+    },
+    {
+      "report": "review/issue3-repeat-reset-final.response.md",
+      "provider": "opencode-go",
+      "model_id": "deepseek-v4.1-flash",
+      "response_at_utc": "2026-09-14T06:15:48.615155Z",
+      "response_sha256": "e4c4fb3c49a3f317b4c198c73501a5d07ef883137f0b8df1b15dbfa45e988745",
+      "raw_response_sha256": "e4c4fb3c49a3f317b4c198c73501a5d07ef883137f0b8df1b15dbfa45e988745",
+      "persisted_assistant_response_match": "exact",
+      "authored_evidence_kind": "assistant_final_text",
+      "exported_assistant_response_sha256": "eae3e3bb7b490c78b3d5ff1d35fcd48f9ebdfc024d6059776422d8830fa4bb4b",
+      "metadata_source": "Hermes persisted session model and billing_provider; stored assistant response match; redaction-equivalent cases explicitly labeled",
+      "scope": "Review report only; not proof of product acceptance or provider-side model attestation"
+    },
+    {
+      "report": "review/issue3-docs-final.response.md",
+      "provider": "opencode-go",
+      "model_id": "deepseek-v4.1-flash",
+      "response_at_utc": "2026-09-14T06:17:59.224607Z",
+      "response_sha256": "8b1cd1865410077f7063897fcb7afc542335e50dfd1c0b045c2e17f8fc8799b6",
+      "raw_response_sha256": "8b1cd1865410077f7063897fcb7afc542335e50dfd1c0b045c2e17f8fc8799b6",
+      "persisted_assistant_response_match": "exact",
+      "authored_evidence_kind": "assistant_final_text",
+      "exported_assistant_response_sha256": "25da13eac05f652006cb6e7152dbe2903e741952e50d4c611ac6ab4767fcdff9",
       "metadata_source": "Hermes persisted session model and billing_provider; stored assistant response match; redaction-equivalent cases explicitly labeled",
       "scope": "Review report only; not proof of product acceptance or provider-side model attestation"
     }

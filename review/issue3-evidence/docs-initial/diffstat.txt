@@ -1,0 +1,26 @@
+ README.md                               |  13 ++-
+ docs/Acceptance.md                      |  19 ++-
+ docs/DataFlow.md                        |   2 +
+ docs/Design2.md                         |   4 +-
+ docs/EngineeringArchitecture.md         |   2 +
+ docs/ImplementationHandoff.md           |  18 ++-
+ docs/Interfaces.md                      |   4 +-
+ docs/Milestone.md                       |   2 +-
+ docs/Operations.md                      |   4 +-
+ docs/README.md                          |   8 +-
+ docs/RealDataTrial.md                   |   2 +-
+ docs/References.md                      |   4 +
+ docs/SingleConversationTUI.md           |  36 ++++--
+ docs/checks/README.md                   |   4 +-
+ docs/deliverables/README.md             |   5 +-
+ docs/design.md                          |   2 +-
+ release/API.md                          |   4 +-
+ release/README.md                       |   6 +-
+ release/secretary                       | Bin 12297634 -> 12331106 bytes
+ reports/implementation/issue2/README.md |   2 +
+ review/README.md                        |   6 +
+ review/final-pending.md                 |   2 +
+ review/model-provenance.json            |  28 ++++-
+ src/cli/tui/client.go                   |  32 ++++--
+ src/cli/tui/model.go                    | 198 ++++++++++++++++++--------------
+ 25 files changed, 276 insertions(+), 131 deletions(-)

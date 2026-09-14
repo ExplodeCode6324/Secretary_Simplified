@@ -131,6 +131,8 @@ POST inputs 及 typed 写入可省略 session_id，由后端绑定唯一权威�
 
 辅助命令：/help、/status、/history、/items、/jobs、/tasks、/notifications、/answer、/reconnect、/quit。没有 /new 或会话切换。/status 显示配置模型及可观测状态，配置名不表示服务商已实际成功调用。
 
-模型等待与网络同步通过异步事件执行；等待期间草稿、滚动与控制仍可用。观察超时不等于失败或取消；使用同 request_id 查询既有 receipt/turn，再安全重试。客户端退出不会撤销已受理 turn 或中止模型；任务取消通过独立类型化控制。
+模型等待与网络同步通过异步事件执行；等待期间草稿、滚动与控制仍可用。POST 确认受理后，GET 的 4xx/5xx/超时是观察失败，保留原 request_id 与已知 turn_id、恢复标识，不恢复成待重发原文；认证失败提示恢复认证。提交结果未知也只查询原 request，不自动 POST。仅提交阶段确定未受理才能清理追踪并在不覆盖新草稿时恢复原文。终态确认后清理追踪，迟到观察不使状态倒退。客户端退出不会撤销已受理 turn 或中止模型；任务取消通过独立类型化控制。
+
+Issue #3 面板保留已加载页和按 ID 的选择；定时刷新当前选中页，过时请求代次无效。items 的快照游标失效时显示过期、保留浏览范围、禁用后续翻页，仅刷新所选对象；r 明确从第一页重载。对象消失/不在重载范围时清空选择并提示，确认框仍绑定原 ID/revision。刷新无新增控制写请求或隐式 ack；通知 GET 既有 DELIVERED 行为保留。HTTP/DTO 与恢复文件 instance_id/request_id 结构不变，无新增 API 或数据库迁移。
 
 本轮 release 终端恢复实证覆盖正常退出、Ctrl+C 与可捕获 SIGTERM；另有实际 Model 包装、相同 Run 选项的独立测试进程 panic 注入通过，证据见 reports/implementation/issue2-tui-panic-supplement.md。生产二进制未加入故障注入钩子；SIGHUP/SIGQUIT 未作本轮运行验证，不扩大为所有信号保证。纯文本入口写作 `chat --plain`；裸 `secretary --plain` 不是已承诺的模式切换。目标为 macOS arm64，Linux 仅编译验证，未声明其终端运行通过。

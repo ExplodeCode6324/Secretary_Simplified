@@ -1,6 +1,6 @@
 # 本地部署
 
-当前二进制目标为 macOS arm64。Issue #2 唯一权威会话与 TUI 的代码、定向验收与指定 DeepSeek 复核已完成，可按下文独立目录和明确模型授权边界接入受控 PERSONAL 文字测试；真实来源文件同步尚未开放。完整证据与工作记录见根目录 README。
+当前二进制目标为 macOS arm64。Issue #3 在 Issue #2 唯一权威会话与 TUI 上修复受理状态误报及分页刷新，新增定向测试与 vet 通过；仅更新 CLI，daemon 和数据库保持原字节。本单最终场景数、复核与交付状态见 [验收索引](../reports/implementation/issue3/README.md)，完整构建哈希见 [BUILD-R](../reports/implementation/issue3/build.json)。真实试用使用独立目录和明确模型授权范围，仅接入受控 PERSONAL 文字；真实来源文件同步尚未开放。完整计划与工作记录见根目录 README。
 
 历史 Issue #1 修复构建为 CLI `84e24025…` / daemon `1d62faad…`；其完整哈希在原报告中，当前构建以 SHA256SUMS 为准。全仓 race/vet、定向故障回归与短时发布包测试已通过；原 final2 两小时测试保留旧构建标识，不将其结果写成此修复版的持续运行证明。Master 明确本轮修复无需重跑该时长测试。
 
@@ -33,7 +33,9 @@ Mac Unix socket 有长度限制；选择较短的 data-dir。初始化生成 `st
 ./release/secretary chat --config /tmp/secretary-demo/config.json
 ```
 
-自然语言输入受理是异步状态，不代表动作已登记或完成。使用返回的 turn_id 查询 `secretary turns <turn-id>`；`secretary requests <request-id>` 查询持久回执。重试应复用 request-id；已有键的不同语义载荷会冲突。
+自然语言输入受理是异步状态，不代表动作已登记或完成。使用返回的 turn_id 查询 `secretary turns <turn-id>`；`secretary requests <request-id>` 查询持久回执。Issue #3 修正受理后查询失败：界面保留原请求，提示“已受理，暂时无法读取结果”；认证错误需恢复认证，不能把原文作为新键再次提交。POST 响应丢失也只查原 request-id；仅提交阶段确定未受理才在空草稿中恢复原文。
+
+面板定时刷新保留已加载页及选中 ID。事项游标失效会标明过期并暂禁 n，继续有界查询当前对象；按 r 明确从第一页重载。目标消失/离开范围会提示并取消选择，已打开的控制确认仍用原目标/版本，不自动 ack。局部修复仅更新 CLI，daemon、Schema、数据库和最小恢复元数据不变。
 
 复杂类型化操作使用 `--file <ActionProposal.json>`：`items update`、`jobs create`、`world propose` / `world correct`。格式严格遵循 docs/contracts.schema.json 的 ActionProposal；示例见 examples/reminder.json 与 examples/artifact.json，可用 `secretary actions --file <path>` 提交。CLI 默认显示状态说明和详情；`--json` 输出稳定 JSON，脚本应显式使用。
 
@@ -97,4 +99,4 @@ Master 已授权：再次遇到 OpenCode HTTP 429 时，切换测试到 DeepSeek
 
 当前架构见 [SingleConversationTUI](../docs/SingleConversationTUI.md)，数据边界见 [RealDataTrial](../docs/RealDataTrial.md)。既有两小时及 Issue #1 报告属于各自旧构建，本次 TUI 构建不继承其运行时长结论。
 
-当前 release 哈希以 SHA256SUMS 为准，本轮实际测试绑定 CLI `8e1f4220…` / daemon `e3756a1a…`，证据见 `reports/implementation/issue2/build.json` 和 `issue2-tui-*-release/report.json`。样例库当前为 001+002，只有空权威登记，不含业务资料或凭据。
+当前 release 哈希以 SHA256SUMS 为准。历史 Issue #2 实际测试绑定 CLI `8e1f4220…` / daemon `e3756a1a…`，证据见 `reports/implementation/issue2/build.json` 和 `issue2-tui-*-release/report.json`；Issue #3 的新 CLI 证据单列于 `reports/implementation/issue3/`，未变化的 daemon 保持原字节。样例库仍为 001+002，只有空权威登记，不含业务资料或凭据。

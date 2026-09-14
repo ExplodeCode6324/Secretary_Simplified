@@ -1,0 +1,16 @@
+=== RUN   TestProbeAcceptedObservationWhitelistedCodes
+=== RUN   TestProbeAcceptedObservationWhitelistedCodes/UNAUTHENTICATED
+=== RUN   TestProbeAcceptedObservationWhitelistedCodes/QUESTION_AUTHORITY_DENIED
+=== RUN   TestProbeAcceptedObservationWhitelistedCodes/QUESTION_NOT_FOUND_IN_SESSION
+=== RUN   TestProbeAcceptedObservationWhitelistedCodes/BACKPRESSURE
+--- PASS: TestProbeAcceptedObservationWhitelistedCodes (0.04s)
+    --- PASS: TestProbeAcceptedObservationWhitelistedCodes/UNAUTHENTICATED (0.01s)
+    --- PASS: TestProbeAcceptedObservationWhitelistedCodes/QUESTION_AUTHORITY_DENIED (0.01s)
+    --- PASS: TestProbeAcceptedObservationWhitelistedCodes/QUESTION_NOT_FOUND_IN_SESSION (0.01s)
+    --- PASS: TestProbeAcceptedObservationWhitelistedCodes/BACKPRESSURE (0.01s)
+=== RUN   TestProbeUnconfirmed202RecoversViaReceipt
+--- PASS: TestProbeUnconfirmed202RecoversViaReceipt (0.01s)
+=== RUN   TestProbePanelDuplicateAnchorFreshness
+--- PASS: TestProbePanelDuplicateAnchorFreshness (0.00s)
+PASS
+ok  	secretarysimplified/cli/tui	4.405s

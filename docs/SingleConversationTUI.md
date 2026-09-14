@@ -1,6 +1,6 @@
 # 单一权威会话与 TUI
 
-版本 1.1，Issue #2 的现行架构与交付规范。原 M1—M3、Issue #1 的报告保留其构建身份；本轮不是重新验收旧上下文和持久状态系统。
+版本 1.1.1，Issue #2 架构及 Issue #3 客户端局部修订。原 M1—M3、Issue #1/#2 报告保留其构建身份；本轮只验收遗留组合，不重新验收旧上下文和持久状态系统。
 
 ## 改造前、改造后与范围
 
@@ -59,17 +59,25 @@ stateDiagram-v2
   Connecting --> Synced: 取得后端实例和会话水位
   Connecting --> Offline: 不可用 / 未迁移 / 未初始化
   Synced --> Drafting: 编辑本地未发送草稿
-  Drafting --> Pending: 稳定 request_id 已发送
-  Pending --> Pending: 排队 / 模型等待 / 观察超时
-  Pending --> Synced: 读到持久终态并去重显示
-  Pending --> Offline: 响应丢失或连接断开
+  Drafting --> Submitting: 保存稳定 request_id 后发送
+  Submitting --> Drafting: 提交阶段确定未受理且无较新草稿
+  Submitting --> Unknown: POST 响应丢失或受理未确认
+  Submitting --> Accepted: POST 确认受理及已知 turn_id
+  Unknown --> Unknown: 只查询原 request，不自动重发
+  Unknown --> Accepted: 通过原回执确认受理
+  Accepted --> Accepted: GET 错误 / 观察超时，保留受理事实
+  Accepted --> Synced: 读到持久终态并去重显示
+  Accepted --> Offline: 连接断开，保留原请求追踪
   Offline --> Connecting: 有界退避重连，查原 request_id
   Synced --> Disconnected: 退出客户端
-  Pending --> Disconnected: 只断开，不取消业务
+  Accepted --> Disconnected: 只断开，不取消业务
+  Unknown --> Disconnected: 保留原 request 恢复标识
   Disconnected --> [*]
 ```
 
-等待过程中终端事件循环仍接受编辑、滚动、面板与确定性控制。超过观察窗口仍显示未决，不标业务失败。InputTurn.COMMITTED 只表示决策结束；固定拒绝回复、任务执行、验收成功和 RESULT_UNKNOWN 分别呈现。浏览通知不自动 ack。
+等待过程中终端事件循环仍接受编辑、滚动、面板与确定性控制。提交与观察分开：POST 一旦确认受理，GET 的 4xx/5xx/超时只能显示“已受理，暂时无法读取结果”；401/403 提示恢复认证，不绕过认证。仅提交阶段按契约确定未受理才清理追踪并在草稿为空时恢复原文，不能覆盖新草稿。POST 结果未知只查询原键。已受理及终态不会因迟到消息倒退，也不自动生成新键重发。
+
+InputTurn.COMMITTED 只表示决策结束；固定拒绝回复、任务执行、验收成功和 RESULT_UNKNOWN 分别呈现。浏览通知不自动 ack。恢复文件仍仅保存 instance_id/request_id；已知 turn_id 保存在客户端观察状态，重建后从原 request 回执重新取得，不新增私人正文落盘。
 
 取消委托、暂停/恢复计划和通知确认使用既有 Runner API：先展示目标与当前版本，确认后发送稳定 request_id/expected_revision。冲突重新获取状态再由用户决定。Core 离线不应阻塞可用 Runner 控制。退出或停止观察不能冒充撤销 turn；首版不支持撤销已受理输入或主动中止生成，不杀 Core。
 
@@ -89,11 +97,23 @@ secretary ... --json
 
 非 TTY、--json 或不支持的终端不得输出全屏 ANSI、吞 stdin 或等待键盘；配置缺失、未初始化、未迁移和 daemon 离线给出可操作提示。外部内容显示前去除终端控制序列；正常退出、Ctrl+C 与可捕获异常恢复终端。新增客户端恢复索引只保存受权限保护、绑定实例的最小 ID，不另存私人正文和模型密钥。具体按键以本轮实现后同步的 Interfaces 和 release 帮助为准。
 
-## 本轮唯一验收集合
+## 业务面板分页与刷新（Issue #3 RES-02）
+
+tasks/jobs/items/notifications 缓存已加载页与游标，选中对象按稳定 ID 保持。自动刷新只读取选中对象所在页，每轮有界请求；按 ID 去重，位置取首次出现、值取后出现页的版本，不会用第一页替换全部已加载范围。追加页没有新 ID 时停止继续翻页并提示。面板身份与请求代次使过时响应无效，翻页、切面板后迟到结果不得覆盖新状态或倒退游标。
+
+事项的游标绑定后端快照。游标失效后保留当前浏览范围、标明过期并暂停继续翻页；只用单对象 GET 刷新当前目标，不每秒重新发送已知失效的游标，也不回扫全部页面。按 r 明确从第一页重新加载，按原选中 ID 回绑；读取失败保留待回绑 ID，直到成功响应才能判定原对象是否在已加载范围。原对象不在时明确提示并取消选择，不悄然改选另一个对象。
+
+目标真实消失或离开列表时同样提示并取消选择。已打开确认框保持原 ID/版本，后端仍做版本/权限检查；刷新不重新解释确认、不发送控制写请求、不自动 ack。既有通知 GET 可推进 DELIVERED，这是原接口行为，不声称刷新完全没有数据库写入。
+
+这是实施中发现的局部状态机/分页缺陷，经 `review/issue3-design-correction.response.md` 同意。公共 API、数据库、Schema、依赖及最小恢复元数据无结构变更，无新增迁移。
+
+## Issue #2 历史验收集合
 
 AUTH-01—08 验证上述唯一性、共用上下文/问题、并发顺序、短时重连/重启和旧记录兼容；TUI-01—13 验证非阻塞交互、中文编辑/粘贴/重绘、恢复、控制、机器模式、安全呈现和新增入口披露。DOC-01—05 要求逐文件影响清单、图表、Schema/DDL/样例及发布副本一致；BUILD-01 只构建、检查本轮改动包并执行明确选择的本轮 race 测试。
 
 本轮不运行旧 Context/Store/摘要/记忆/恢复套件、全仓测试、月回放、真实模型付费评估或 A25，也不添加替代长时门槛。历史原报告、失败、哈希和设计字节保留；本轮证据不声称旧测试在新构建上已重跑。实际验收清单在 reports/implementation 的 issue2 报告中逐项关联，不以界面截图或设计赞同代替新功能验证。
+
+Issue #3 当前仅执行 R1-01—03、R2-01—03、DOC-R、BUILD-R。#2 原 27 项未覆盖本单两个组合，不用原 PASS 替代本轮实测；新证据见 `reports/implementation/issue3/`。
 
 ## 任务局部上下文边界
 

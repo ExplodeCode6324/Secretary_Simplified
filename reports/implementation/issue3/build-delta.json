@@ -1,0 +1,35 @@
+{
+  "scope": "BUILD-R; CLI-only build, no daemon/DB rebuild or old tests",
+  "status": "PASS",
+  "created_at": "2026-09-14T06:10:44.138236+00:00",
+  "baseline": "c84d92453a1d8338be728422e3164777ef822579",
+  "command": "cd src && go build -trimpath -ldflags='-s -w' -o ../release/secretary ./cmd/secretary",
+  "exit_code": 0,
+  "binary_sha256": {
+    "secretary": "59d93dd7bece8ec4cb29f03cf9e8fa7c8c091d42f8f0b5d80f7c9aed2e7b4f93",
+    "secretaryd": "e3756a1a4219149dd0228e0252be95b05c9530b377ca61a0e28ee27e600bbb75"
+  },
+  "unchanged_from_baseline": {
+    "release/secretaryd": true,
+    "release/db/secretary.sqlite": true,
+    "src/go.mod": true,
+    "src/go.sum": true,
+    "src/cli/tui/model_test.go": true
+  },
+  "source_assets": [
+    {
+      "path": "src/cli/tui/client.go",
+      "sha256": "098bb781363742fad17b9c9e99b78cca2e8a12dd1775613bb29e27b102c1970e"
+    },
+    {
+      "path": "src/cli/tui/model.go",
+      "sha256": "8933b1563631e8372002defb560466af4f08daeba5d5774dfb9d9e869d997537"
+    },
+    {
+      "path": "src/cli/tui/panels.go",
+      "sha256": "d3306373baaedec899d8848e82cb9eb0370f8e5bb8f191476824c1f81a01fa68"
+    }
+  ],
+  "new_test_sha256": "5488cc51449a2aa51c7ed4bcbf8d96cab0008ddec8f836d34cd07c8765de3c01",
+  "test_and_vet_evidence": "reports/implementation/issue3/after-final.json"
+}

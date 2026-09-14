@@ -1,0 +1,14 @@
+diff --git a/docs/checks/README.md b/docs/checks/README.md
+index 190d3b6..2e75967 100644
+--- a/docs/checks/README.md
++++ b/docs/checks/README.md
+@@ -2,3 +2,3 @@
+ 
+-此检查器及原报告保留用于初版历史复现，不是 Issue #2 的当前检查命令。它包含旧 SQLite/Schema 验证，不在本轮运行；本轮使用 `python3 scripts/issue2_docs_check.py` 进行只读文件一致性与影响清单检查。
++此检查器及原报告保留用于初版历史复现。它包含旧 SQLite/Schema 验证，不在本轮运行；Issue #3 使用 `python3 scripts/issue3_docs_check.py` 进行只读文件一致性与影响清单检查。issue2_docs_check.py 及其产物也保留原交付，不运行它覆盖 #2 的历史报告。
+ 
+@@ -17,2 +17,2 @@ python3 docs/checks/validate_docs.py --report docs/checks/latest-report.json
+ 
+-输出包括原稿哈希、文档与契约数量、正反样例数、SQL 约束检查数和错误。任一错误返回非零退出码。完整运行验收另见 [Acceptance.md](../Acceptance.md)。
+\ No newline at end of file
++输出包括原稿哈希、文档与契约数量、正反样例数、SQL 约束检查数和错误。任一错误返回非零退出码。完整运行验收另见 [Acceptance.md](../Acceptance.md)。
