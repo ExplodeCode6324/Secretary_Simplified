@@ -386,5 +386,6 @@
     "review/issue1-gates-review.response.md",
     "review/issue1-diagnostic-bound-final.response.md"
   ],
-  "review_provenance_records_verified": 36
+  "review_provenance_records_verified": 36,
+  "repair_commit": "88c7818c98f55dfab9b78659edbe961765c11f48"
 }
