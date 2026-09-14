@@ -6,7 +6,7 @@
 
 请求 JSON 均包含 schema_version，变更请求包含 request_id 和 expected_revision（创建为 0）。响应外层包含 request_id、status、result、error；error 为 code、message、retryable、details，不泄露凭据或完整私人原文。request_id 不能由一次 HTTP 重试重新生成。
 
-模型等待型操作返回 202 和可查询 ID；提交事务完成的即时操作返回 200/201。超时不等于未受理：客户端用同 request_id 查询回执再重试。列表接口按 `(created_at,id)` 或 seq 分页，默认 50、最大 200；cursor 绑定查询条件和读取水位。
+模型等待型操作返回 202 和可查询 ID；提交事务完成的即时操作返回 200/201。超时不等于未受理：客户端用同 request_id 查询回执再重试。业务列表接口按 `(created_at,id)` 或 seq 分页，默认 50、最大 200；会话历史单独最大 100；cursor 绑定查询条件和读取水位。
 
 ## 2. Core API
 
@@ -49,7 +49,10 @@ stop/snooze 为受控类型化命令，不调用自然语言理解。延后请�
 
 ```text
 secretary init --data-dir <isolated-directory>
-secretary chat [--session <id>] [--json]
+secretary [--config <path>]
+secretary chat|tui [--config <path>]
+secretary chat --plain [--config <path>]
+secretary migrate --authority-session <legacy-master-id> --config <path>
 secretary input --request-id <id> --text <text>
 secretary items list|show|create|update
 secretary tasks show|cancel
@@ -66,7 +69,7 @@ secretaryd core --config <path>
 secretaryd runner --config <path>
 ```
 
-以上是待实现的命令接口，不声称当前可运行。CLI 默认友好文字输出，`--json` 提供稳定 Schema。退出码：0 成功、2 输入错误、3 冲突、4 权限错误、5 暂不可用、6 结果未知或需关注；202 异步受理为 0，但正文必须标明未完成。
+以上为已实现入口概览，完整选项以 `secretary --help` 和 release/API.md 为准。交互 TTY 默认 TUI；JSON、管道与非 TTY 不进入全屏界面。CLI 默认友好文字输出，`--json` 提供稳定 Schema。退出码：0 成功、2 输入错误、3 冲突、4 权限错误、5 暂不可用、6 结果未知或需关注；202 异步受理为 0，但正文必须标明未完成。
 
 ## 5. 错误分类
 
@@ -83,9 +86,9 @@ secretaryd runner --config <path>
 
 ## 实施设计修订 D11：待答问题生命周期
 
-CLI 输入增加 `--answer-to <question-id>`，与 `--session <原session>`、稳定 `--request-id` 同用。POST /v1/inputs 接受 InputEnvelope.answer_to_question_id；受理仍返回 202，通过既有 turn/request 查询取得稳定最终回复。成功登记一律追加固定文本块 `\n[question_id=<id> session_id=<session>]\n<text>`；成功回答一律追加 `\n[answered question_id=<id> session_id=<session>]\n<original question text>`。程序字段不可由模型生成。
+CLI 输入增加 `--answer-to <question-id>`，与稳定 `--request-id` 同用；会话默认由服务端绑定。POST /v1/inputs 接受 InputEnvelope.answer_to_question_id；受理仍返回 202，通过既有 turn/request 查询取得稳定最终回复。成功登记一律追加固定文本块 `\n[question_id=<id> session_id=<session>]\n<text>`；成功回答一律追加 `\n[answered question_id=<id> session_id=<session>]\n<original question text>`。程序字段不可由模型生成。
 
-仍在槽位且 resolved：409 QUESTION_ALREADY_RESOLVED；已回收、未知、错 session、主体不匹配：404 QUESTION_NOT_FOUND_IN_SESSION，文案仅“当前会话范围内不存在待答的该问题”。相同 request 已有回执先重放，已解决后同键重试不再校验成新请求；竞争失败固定结果后重试不再模型执行。原 session 显式 ID 回答是本期范围，跨 session 通过 READ_MEMORY 取回原文、session 与 ID，再恢复原 session；不支持任意 session 直接回答旧问题或自由指代自动解引用。
+仍在槽位且 resolved：409 QUESTION_ALREADY_RESOLVED；已回收、未知、错 session、主体不匹配：404 QUESTION_NOT_FOUND_IN_SESSION，文案仅“当前会话范围内不存在待答的该问题”。相同 request 已有回执先重放，已解决后同键重试不再校验成新请求；竞争失败固定结果后重试不再模型执行。当前通过任意客户端回答同一权威会话的问题；旧非权威历史可检索但不可恢复为可写会话。TUI 从结构化 pending_questions 选择问题，自动绑定 ID，不解析正文猜测。
 
 裁决：`review/D11-pending-question-deepseek.response.md`；原提案：`review/A09-pending-question-proposal.md`。无 DDL 变更。
 ### D11 文字非空边界（实施中发现，DeepSeek 补充同意）
@@ -103,3 +106,31 @@ CLI 输入增加 `--answer-to <question-id>`，与 `--session <原session>`、�
 security.classification 为程序独占 extension；客户端或模型在任意层伪造该字段时整请求/整决策拒绝 CLASSIFICATION_INJECTION，原模型输出诊断不被改写。派生记录缺少可信分类时，以 OUTPUT_CLASS_UNKNOWN 拒绝披露；合法分类不被当前策略允许时仍为 DISCLOSURE_DENIED。已受理输入的异步失败边界同上。固定失败回执不复制原问题或用户文本，只有纯程序字面量可标 SYNTHETIC。
 
 依据：[D12 最终裁决](../review/D12-output-class-final-contract.response.md)、[注入与对照澄清](../review/D12-injection-oracle-clarification.response.md)。这是实施中发现的分级传播缺陷修订，无 DDL 变更。
+
+## Issue #2 当前会话 API 与 TUI
+
+| 接口 | 当前投影 / 行为 |
+|---|---|
+| GET `/v1/conversation` | instance_id、session_id、revision、history_sequence、summary_through_sequence、state、pending_turns、legacy_sessions |
+| GET `/v1/conversation/history` | after_sequence / before_sequence（不含该边界）/ limit / direction=forward或backward；默认 50，最大 100；返回 session_id、events、next_sequence、previous_sequence、has_more、history_sequence |
+
+历史默认 forward 从 after_sequence 之后读；backward 从 before_sequence 之前向旧页取数，但 events 仍按 sequence 升序输出，previous_sequence 是本页首序号。before_sequence=0 表示当前尾端加一。非负整数参数非法即拒绝，不静默归零。
+
+state 是完整 ConversationState；pending_turns 为未决 InputTurn；legacy_sessions 为 `{id,mode:"READ_ONLY"}` 列表。history_sequence 用于显示同步进度，summary_through_sequence 用于摘要覆盖；它们不能互换。客户端按事件 ID 去重并分页追赶，同一实例的所有前端读取相同状态。该读投影不构成新的权威写入契约。
+
+POST inputs 及 typed 写入可省略 session_id，由后端绑定唯一权威会话再进行严格内部 DTO 验证。显式不同会话返回 AUTHORITY_SESSION_MISMATCH（403）；null/非法格式拒绝。兼容 `--session` 仅可指定同一权威 ID，不能创建或切换会话。精确旧请求保留原回执；仅省略 session 的旧请求可按原绑定匹配，显式伪造没有回退特权。主轮处理中同步 Typed 新写入返回 AUTHORITY_BUSY（409），不新增归档或业务对象；原请求重放不受此限制。
+
+| 操作 | 键位 / 命令 |
+|---|---|
+| 多行草稿 / 发送 | Enter 换行；Ctrl+S 或 Alt+Enter 发送；bracketed paste 整块进入草稿不发送 |
+| 滚动 / 输入历史 | PgUp、PgDn；Ctrl+P、Ctrl+N |
+| 帮助 / 问题 / 委托 / 计划 / 事项 / 通知 | F1 / F2 / F3 / F4 / F5 / F6 |
+| 面板操作 | ↑↓ 选择、Enter 回答或进入控制确认、n 下一页、r 刷新、Esc/Tab 返回草稿 |
+| 确认变更 | 展示目标和 revision 后 y 确认、n 取消；刷新通知不自动 ack |
+| 诊断 / 退出 | Ctrl+D 展开 ID；Ctrl+C 或 /quit 退出前端，后台继续 |
+
+辅助命令：/help、/status、/history、/items、/jobs、/tasks、/notifications、/answer、/reconnect、/quit。没有 /new 或会话切换。/status 显示配置模型及可观测状态，配置名不表示服务商已实际成功调用。
+
+模型等待与网络同步通过异步事件执行；等待期间草稿、滚动与控制仍可用。观察超时不等于失败或取消；使用同 request_id 查询既有 receipt/turn，再安全重试。客户端退出不会撤销已受理 turn 或中止模型；任务取消通过独立类型化控制。
+
+本轮 release 终端恢复实证覆盖正常退出、Ctrl+C 与可捕获 SIGTERM；另有实际 Model 包装、相同 Run 选项的独立测试进程 panic 注入通过，证据见 reports/implementation/issue2-tui-panic-supplement.md。生产二进制未加入故障注入钩子；SIGHUP/SIGQUIT 未作本轮运行验证，不扩大为所有信号保证。纯文本入口写作 `chat --plain`；裸 `secretary --plain` 不是已承诺的模式切换。目标为 macOS arm64，Linux 仅编译验证，未声明其终端运行通过。

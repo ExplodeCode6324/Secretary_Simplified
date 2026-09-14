@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-09-14T05:12:20.689162+00:00",
+  "issue": "https://github.com/ExplodeCode6324/Secretary_Simplified/issues/2",
+  "design": [
+    "review/issue2-auth-design.response.md",
+    "review/issue2-auth-design-correction.response.md"
+  ],
+  "scope": "AUTH-01 through AUTH-08 backend directed evidence; TUI/PTY/DOC/BUILD separate",
+  "commands": [
+    {
+      "command": "cd src && go test -race ./store ./tests -run '^TestIssue2AUTH' -count=1",
+      "status": "PASS",
+      "package_seconds": {
+        "store": 1.947,
+        "tests": 4.765
+      }
+    },
+    {
+      "command": "cd src && go vet ./store ./core ./context ./memory ./transport",
+      "status": "PASS"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "AUTH-01",
+      "tests": [
+        "TestIssue2AUTHSharedAuthorityAndFrozenOrdering",
+        "TestIssue2AUTHTUI13PublicEntryDisclosureAndOmittedSession"
+      ],
+      "status": "PASS_BACKEND_DIRECTED",
+      "scope_and_limits": "Server registry and omitted-session binding. Actual CLI/TUI clients are covered separately."
+    },
+    {
+      "id": "AUTH-02",
+      "tests": [
+        "TestIssue2AUTHSharedAuthorityAndFrozenOrdering"
+      ],
+      "status": "PASS_BACKEND_DIRECTED",
+      "scope_and_limits": "Shared preceding committed reply in fake model input, common history pagination."
+    },
+    {
+      "id": "AUTH-03",
+      "tests": [
+        "TestIssue2AUTHSharedQuestionsRestartAndWatermarks"
+      ],
+      "status": "PASS_BACKEND_DIRECTED",
+      "scope_and_limits": "Two accepted answers compete for one structured ID; one resolves, other gets stable QUESTION_ALREADY_RESOLVED with no model rerun on replay."
+    },
+    {
+      "id": "AUTH-04",
+      "tests": [
+        "TestIssue2AUTHSharedAuthorityAndFrozenOrdering",
+        "TestIssue2AUTHFrozenPrefixPersistsAndFiltersRetrieval"
+      ],
+      "status": "PASS_BACKEND_DIRECTED",
+      "scope_and_limits": "Delayed first model excludes future PERSONAL content/class; sequential calls, Typed BUSY, persistent frozen prefix and filtered retrieval."
+    },
+    {
+      "id": "AUTH-05",
+      "tests": [
+        "TestIssue2AUTHSharedQuestionsRestartAndWatermarks",
+        "TestIssue2AUTHFrozenPrefixPersistsAndFiltersRetrieval"
+      ],
+      "status": "PASS_BACKEND_DIRECTED",
+      "scope_and_limits": "Actual Store close/reopen preserves identity, summary, question and receipt. Client process/PTY lifecycle separately owned."
+    },
+    {
+      "id": "AUTH-06",
+      "tests": [
+        "TestIssue2AUTHSharedAuthorityAndFrozenOrdering",
+        "TestIssue2AUTHLegacyExplicitMappingAndStrictReplay",
+        "TestIssue2AUTHTUI13PublicEntryDisclosureAndOmittedSession"
+      ],
+      "status": "PASS_BACKEND_DIRECTED",
+      "scope_and_limits": "HTTP and direct Store/Typed foreign IDs rejected. Exact readonly legacy replay preserved; explicit foreign ID not rewritten, only omission resolves."
+    },
+    {
+      "id": "AUTH-07",
+      "tests": [
+        "TestIssue2AUTHLegacyExplicitMappingAndStrictReplay",
+        "TestIssue2AUTHMigrationRequiresBothRolesStopped",
+        "TestIssue2AUTHInternalTaskContextIsNotSecondConversation"
+      ],
+      "status": "PASS_BACKEND_DIRECTED",
+      "scope_and_limits": "Explicit v1 MASTER mapping, internal-only refusal, immutable old payload, readonly pending excluded from active queue, both real role locks, unknown v3 refusal, SYSTEM task has no new conversation."
+    },
+    {
+      "id": "AUTH-08",
+      "tests": [
+        "TestIssue2AUTHSharedQuestionsRestartAndWatermarks",
+        "TestIssue2AUTHSummaryStopsBeforeQueuedPhysicalGap"
+      ],
+      "status": "PASS_BACKEND_DIRECTED",
+      "scope_and_limits": "Preset summary CAS and questions synchronize with exact watermarks. Summary cannot cross queued physical gap; no summary quality evaluation."
+    }
+  ],
+  "additional_tests": [
+    "TestIssue2AUTHHistoryQueryParametersStrict",
+    "TestIssue2AUTHTUI13PublicEntryDisclosureAndOmittedSession"
+  ],
+  "source_sha256": {
+    "src/store/002_authority.sql": "122b72f6e67b23574c4a50d9192cf854acd26805a684880e73dbe42bc9150bcb",
+    "src/store/authority_repo.go": "66b4716fa2706c9c3c77ed53947e049b2c033dfb30dedd5397fc9a93d6bc42e2",
+    "src/store/store.go": "5ed8843396a0ad2930de2864118751dae89ae59d46707c87863a3df2490ff9ac",
+    "src/store/core_repo.go": "9a19ad71b2c536348b37da2644981bb559d69f510fd206041c364ea3b544e8b6",
+    "src/store/questions_repo.go": "dd2be8d52868b0d243ffa2032b551c1f3946636e4a136eb5c953ec7d7c67f275",
+    "src/store/memory_repo.go": "307fc494c1da3080734fbecd4dc590fb44585612cde9ec6570c0753775bba274",
+    "src/store/retrieval.go": "573aa8e2258cc89acc83acb0e22f182ddd793853d870b15e6220543fd9a57d0a",
+    "src/store/backup.go": "e8dfe2a21faa0cd877aad91641b632272f935cff0ee13d0627247054e145b2bd",
+    "src/core/core.go": "34c5befd946ad4509e0633308fc4721652dcc51844565b94dd8c722a200400c3",
+    "src/core/http.go": "f737238a38d945baa6f4618ffc28d6fdebf9943d761a35fc8c4f8bf9c1d5e94e",
+    "src/core/typed_http.go": "e4d3f254d4e0d3cffb99090e4b92285f650b76d9f21292ff8ef98a4f3afb92b7",
+    "src/core/work.go": "bc0414994fa0e0f9dc3d3c8407b1144c7a4ccbe43606e39c03abe482de7c4b27",
+    "src/context/context.go": "6959f0b84c5672568b57280f15c6e681bb32fa61f5c19a1327dfc6d2551bb796",
+    "src/memory/memory.go": "75a4ef127320d3d17713f6f456319087886751c6538da2877270f6a806945b14",
+    "src/transport/transport.go": "36d6a7fffe694fbcd8a420da1f8f36b47cedf2e84a407d3e621e1abaa9a74d19",
+    "src/store/issue2_authority_test.go": "816764ab1e86d6f76e5a73d8bcfcfdc89f1d7e1853a9472465bc0fd15a092782",
+    "src/tests/issue2_authority_test.go": "43fc69723a4bede08a686c012e26626bfd62fd3af44d42514f7bffc7f9bbdb76"
+  },
+  "history_not_rerun": [
+    "old Context/Store/summary/consciousness suites",
+    "whole-repository tests/race",
+    "month replay/live model evaluations",
+    "A25 or alternative duration gate"
+  ],
+  "build": "coordinator-owned; selected test compilation is not release deployment",
+  "commit": null,
+  "independent_review": "requested; design approval is not implementation verification"
+}

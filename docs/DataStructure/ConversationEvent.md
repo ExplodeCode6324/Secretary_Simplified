@@ -32,3 +32,7 @@
 ### D12 分类传播
 
 MASTER=真实输入分类；ASSISTANT=实际输出有效分类，回答回显须 join State。 使用 [Common.md](Common.md) 的 security.classification 契约；缺失旧派生标记返回 OUTPUT_CLASS_UNKNOWN，不自动回填。
+
+## Issue #2 当前绑定与可见性
+
+sequence 是同一会话的物理追加顺序，与 authority_turn 受理顺序及已处理前缀不同。后到 MASTER 原话可能先于前轮 ASSISTANT 落库；Context/检索/摘要必须按轮次可见前缀过滤，不用最大物理 sequence 推断已处理。客户端分页按事件 ID 去重。

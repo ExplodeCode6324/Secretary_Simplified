@@ -4,7 +4,7 @@
 
 ## 本轮入口
 
-仅支持普通 CLI/API 的 PERSONAL 文字输入，不开放真实来源文件同步。input/chat/typed 默认 PERSONAL；受理状态 202 只表示本机保存，不代表已经调用模型或完成业务。查询 turn 的最终结果确认处理状态。
+仅支持 TUI、plain chat、普通 CLI/API 的 PERSONAL 文字输入，不开放真实来源文件同步。input/chat/typed 默认 PERSONAL；受理状态 202 只表示本机保存，不代表已经调用模型或完成业务。查询 turn 的最终结果确认处理状态。
 
 `source.sync` 当前只有合成 fixture 适配器，SourceState、ObjectRef、SourceRecord 按 SYNTHETIC 登记。`source_configs[].fixture_path` 只可指向人为构造的合成验收材料；禁止替换为真实邮件、日历或其他真实文件。文件正文自称“合成”不形成可信分类。不得把真实文字改为 SYNTHETIC 来绕过披露拒绝。
 
@@ -28,3 +28,9 @@
 - PERSONAL/SECRET canary 不写入模型诊断原文归档。
 
 测试不是外部服务商或真实资料试运行，也未将现有机器策略改为允许 PERSONAL。Master 的真实数据范围确认和后续试运行结果另行记录。
+
+## Issue #2 交互入口
+
+更新版在同一配置目录下使用 `secretary --config <配置>` 或 `secretary chat --config <配置>` 打开 TUI，`chat --plain` 保留纯文本模式。所有客户端共享后端唯一会话；无需输入 session UUID，也不通过新窗口创建新的认知状态。隔离真实试用目录拥有独立实例，不能自动导入合成库或其他会话历史。
+
+旧库先按 Operations 的离线显式迁移流程升级。TUI 不代替 PERSONAL/provider 披露授权，不自动启用真实来源。完成本轮 AUTH/TUI 验收后由 Master 提供获授权的少量真实文本，记录实际结果；本轮 fake 模型证据不代表真实使用质量。

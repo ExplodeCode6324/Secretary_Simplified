@@ -39,3 +39,7 @@ pending_questions 的正式 ID 字段保持 `id`（MemoryPolicy 所称 question_
 ### D12 分类传播
 
 聚合摘要和全部问题文本生成分类，只升不降；真正空状态例外，pending_questions 不加字段。 使用 [Common.md](Common.md) 的 security.classification 契约；缺失旧派生标记返回 OUTPUT_CLASS_UNKNOWN，不自动回填。
+
+## Issue #2 当前绑定与可见性
+
+本数据目录的唯一 MASTER 权威会话由 authority_registry 绑定。摘要、焦点、问题与覆盖水位只有这一份后端权威；前端不回写缓存。revision 随认知提交而变，单纯受理后续输入不变。旧非权威会话只读保留，内部状态不是主会话候选。

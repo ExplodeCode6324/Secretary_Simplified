@@ -1,0 +1,26 @@
+=== RUN   TestIssue2AUTHLegacyExplicitMappingAndStrictReplay
+--- PASS: TestIssue2AUTHLegacyExplicitMappingAndStrictReplay (0.27s)
+=== RUN   TestIssue2AUTHMigrationRequiresBothRolesStopped
+--- PASS: TestIssue2AUTHMigrationRequiresBothRolesStopped (0.09s)
+=== RUN   TestIssue2AUTHSummaryStopsBeforeQueuedPhysicalGap
+--- PASS: TestIssue2AUTHSummaryStopsBeforeQueuedPhysicalGap (0.14s)
+=== RUN   TestIssue2AUTHFrozenPrefixPersistsAndFiltersRetrieval
+--- PASS: TestIssue2AUTHFrozenPrefixPersistsAndFiltersRetrieval (0.15s)
+PASS
+ok  	secretarysimplified/store	2.730s
+=== RUN   TestIssue2AUTHSharedAuthorityAndFrozenOrdering
+--- PASS: TestIssue2AUTHSharedAuthorityAndFrozenOrdering (1.83s)
+=== RUN   TestIssue2AUTHSharedQuestionsRestartAndWatermarks
+--- PASS: TestIssue2AUTHSharedQuestionsRestartAndWatermarks (1.03s)
+=== RUN   TestIssue2AUTHTUI13PublicEntryDisclosureAndOmittedSession
+=== RUN   TestIssue2AUTHTUI13PublicEntryDisclosureAndOmittedSession/PERSONAL
+=== RUN   TestIssue2AUTHTUI13PublicEntryDisclosureAndOmittedSession/SECRET
+--- PASS: TestIssue2AUTHTUI13PublicEntryDisclosureAndOmittedSession (0.25s)
+    --- PASS: TestIssue2AUTHTUI13PublicEntryDisclosureAndOmittedSession/PERSONAL (0.12s)
+    --- PASS: TestIssue2AUTHTUI13PublicEntryDisclosureAndOmittedSession/SECRET (0.12s)
+=== RUN   TestIssue2AUTHInternalTaskContextIsNotSecondConversation
+--- PASS: TestIssue2AUTHInternalTaskContextIsNotSecondConversation (0.23s)
+=== RUN   TestIssue2AUTHHistoryQueryParametersStrict
+--- PASS: TestIssue2AUTHHistoryQueryParametersStrict (0.08s)
+PASS
+ok  	secretarysimplified/tests	5.713s

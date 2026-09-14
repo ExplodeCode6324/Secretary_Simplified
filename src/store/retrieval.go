@@ -31,7 +31,8 @@ func (s *Store) SearchMemoryPage(ctx context.Context, query string, entityIDs []
 	}
 	ids := append([]string{}, entityIDs...)
 	sort.Strings(ids)
-	hash, _ := contract.ValueHash(map[string]any{"query": query, "entity_ids": ids})
+	prefix, hasPrefix := turnPrefix(ctx)
+	hash, _ := contract.ValueHash(map[string]any{"query": query, "entity_ids": ids, "prefix_turn": prefix.TurnID})
 	cur := memoryCursor{QueryHash: hash}
 	tx, e := s.DB.BeginTx(ctx, &sql.TxOptions{ReadOnly: true})
 	if e != nil {
@@ -55,10 +56,18 @@ func (s *Store) SearchMemoryPage(ctx context.Context, query string, entityIDs []
 		if e = tx.QueryRowContext(ctx, "SELECT COALESCE(MAX(rowid),0) FROM conversation_event").Scan(&cur.MaxRowID); e != nil {
 			return out, e
 		}
+		if hasPrefix && cur.MaxRowID > prefix.RowID {
+			cur.MaxRowID = prefix.RowID
+		}
 		cur.LastRowID = cur.MaxRowID + 1
 	}
 	sqlQuery := "SELECT e.rowid,e.payload_json,json_extract(t.payload_json,'$.input.data_class') FROM conversation_event e JOIN input_turn t ON json_extract(e.payload_json,'$.turn_id')=t.id WHERE e.rowid<=? AND e.rowid<? AND instr(json_extract(e.payload_json,'$.text'),?)>0"
 	args := []any{cur.MaxRowID, cur.LastRowID, query}
+	if hasPrefix {
+		where, pArgs := prefixPredicate(prefix, "e")
+		sqlQuery += " AND (" + where + ")"
+		args = append(args, pArgs...)
+	}
 	if len(ids) > 0 {
 		filters := []string{}
 		for _, id := range ids {

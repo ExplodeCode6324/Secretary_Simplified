@@ -2,9 +2,9 @@
 
 面向 Master 的持久化文字助手。依据 `docs/` 中的设计基线，以 Go 实现 Core、Scheduler、Executor、四层记忆与本地 CLI，首先在 Mac 上使用合成数据完成验证，再由 Master 接入真实资料。
 
-> 当前状态：**代码、release、公开仓库、审计修复与指定 DeepSeek 独立复核已完成，可以接入受控真实文字进行下一阶段测试**。原 final2 构建实际运行 7,200.010 秒、240 次采样、零失败；新修复版另有全仓竞态/静态检查和短时端到端验证，依 Master 验收口径未重跑两小时。真实来源文件同步尚未开放，接入范围见 [RealDataTrial.md](docs/RealDataTrial.md)。
+> 当前状态：**Issue #2 的单一权威会话、非阻塞 TUI、文档同步与 release 已完成，本轮定向验收通过，可以接入受控真实文字测试**。多个终端共享后端认知状态，命令式 CLI/JSON 保留；实际 macOS PTY、退出后通知及一次 Core 重启已验证。未重跑旧全仓、付费模型或两小时测试；原证据保留其历史构建归属。
 
-公开仓库：[ExplodeCode6324/Secretary_Simplified](https://github.com/ExplodeCode6324/Secretary_Simplified)。本机可运行版本位于 `release/`；最新离线与构建证据见 [final2-offline.json](reports/implementation/final2-offline.json)，逐项结论见 [验收矩阵](reports/implementation/acceptance-matrix.md)。
+公开仓库：[ExplodeCode6324/Secretary_Simplified](https://github.com/ExplodeCode6324/Secretary_Simplified)。本轮记录见 [Issue #2 验收与工作索引](reports/implementation/issue2/README.md)、[逐文件文档影响清单](reports/implementation/issue2/docs-impact.md)。本机可运行版本位于 `release/`；初版历史离线与构建证据见 [final2-offline.json](reports/implementation/final2-offline.json)，逐项结论见 [验收矩阵](reports/implementation/acceptance-matrix.md)。
 
 ## 本轮交付范围
 
@@ -73,13 +73,13 @@ Master 已授权：实现中发现设计缺陷时，先与本地 Ayanami 商议�
 
 ## 模型接入
 
-本轮按 Master 指定使用 OpenCode **Go** 订阅的 `gpt-5.6-luna`。
+Secretary 按 Master 指定使用 OpenCode **Go** 订阅的 `gpt-5.6-luna`。
 
 - 当前核实的 Responses endpoint：`https://opencode.ai/zen/go/v1/responses`。
 - 客户端使用自身 User-Agent，并为同一会话发送稳定的 `x-opencode-session`。
 - 明确引用本地 secret 文件，不扫描其它账户凭据；阶段 M1—M3 只允许合成资料外发。
 - 模型输出先执行完整本地 Schema 和业务校验，再进入业务事务。
-- 协议来源：[OpenCode Go 官方文档](https://opencode.ai/docs/go/)，本轮核对日期为 2026-09-14。已通过真实合成调用及完整月回放。
+- 协议来源：[OpenCode Go 官方文档](https://opencode.ai/docs/go/)，本轮核对日期为 2026-09-14。初版已有真实合成调用及完整月回放证据；Issue #2 使用假模型定向验证，不重新付费回放。
 
 ## 工作记录
 
@@ -107,11 +107,11 @@ Master 已授权：实现中发现设计缺陷时，先与本地 Ayanami 商议�
 - Core、模型适配、Context/记忆与 CLI 已进入集成修复阶段。测试发现的问题在修复，不将“可编译”当成“可交付”。
 - D01 经 Ayanami 商议通过，已同步设计文档，具体路径和结论见上表。
 
-## 当前验收状态
+## 初版实施中的历史验收快照
 
 | 证据类别 | 状态 | 说明 |
 |---|---|---|
-| DOC | PASS | 最终修订后检查器通过，见 docs/checks/latest-report.json |
+| DOC | 初版历史 PASS | 原文档检查器结果见 docs/checks/latest-report.json；Issue #2 当前检查见 reports/implementation/issue2/docs-impact.json |
 | OFFLINE | 全仓 race/vet 与双进程测试通过 | 逐项验收映射仍在收口 |
 | LIVE_MODEL | 部分场景已通过，最终复验中 | 第四轮 90 个事项检查点与 30 次意识生成全部通过；第五轮按最新设计重跑。完整语义范围见 A23 补充证据 |
 | REAL_USE | 未开始 | 等完成交付后由 Master 接入真实数据 |
@@ -213,3 +213,25 @@ D12 已按 Ayanami 最终裁决实施，初稿的扩展字段限制及排除 Ite
 - 原 final2 测试自然完成：实际 7,200.009923696518 秒、240 次采样、零失败；[原始报告](reports/implementation/final2-release-soak/report.json)逐字节归档，[核验记录](reports/implementation/final2-release-soak/verification.json)包含报告、固定二进制及采样器哈希。固定二进制也与公开提交 `2ba8547` 中的文件一致。确认进程身份后，仅停止本次隔离 Core/Runner；采样器自然退出。
 - Issue #1 已于修复提交 `88c7818` 完成并回贴证据关闭；新 release 的回归与原持续运行保持各自构建标识。代码、二进制、CLI、空数据库、设计修订、复核及工作记录均已交付。
 - 下一步由 Master 提供一组受控真实文字，并明确允许交给哪个模型服务商及外发范围。使用新独立数据目录，真实来源文件同步不开放，既有 ProviderPolicy 不自动扩权；不能用 SYNTHETIC 标签绕过权限。当前交付不声称已经完成真实资料或实际音频/叫醒验证。
+
+## Issue #2 实施计划与工作记录（2026-09-14）
+
+1. 已读取 GitHub 最新 issue 原文和验收标准；冻结本轮 AUTH-01–08、TUI-01–13、DOC-01–05、BUILD-01 范围，不重跑旧全仓/模型/长时套件。
+2. 已由实际 Ayanami DeepSeek 商议权威会话和 TUI 方案、更正。后端实现追加 002、显式旧库映射、持久排队与冻结前缀；终端实现异步交互、共享状态、问题选择与确认控制。
+3. 同步现行正文、图、接口、迁移镜像、例子、交接说明及文档导出；逐文件清单与验收映射写入 reports/implementation/issue2。
+4. 模块定向测试及复核后构建发布，扫描公开文件并同步 GitHub；完成后通知 Master 进入独立目录的受控 PERSONAL 文字测试。
+
+**实施过程中发现并商议修订的设计缺陷：**旧客户端可创建多个可写会话，与唯一 Secretary 认知目标冲突；旧串行交互在等待模型时阻塞操作。后到输入还需要与模型实际处理前缀分离，避免旧轮次读到未来文本或因无关受理无限 CAS 重算。生效讨论见 [AUTH更正](review/issue2-auth-design-correction.response.md)、[TUI更正](review/issue2-tui-design-correction.response.md)。
+
+修改路径：[当前总览](docs/design.md)、[Design2](docs/Design2.md)、[单会话/TUI专题](docs/SingleConversationTUI.md)、[架构](docs/EngineeringArchitecture.md)、[数据流](docs/DataFlow.md)、[记忆](docs/MemoryPolicy.md)、[存储](docs/Storage.md)、[执行](docs/ExecutionProtocol.md)、[接口](docs/Interfaces.md)、[安全](docs/Security.md)、[运维](docs/Operations.md)、[真实试用](docs/RealDataTrial.md)、[契约索引](docs/DataStructure/INDEX.md)、[设计决定](docs/Decisions.md)、[验收](docs/Acceptance.md)、[路线](docs/Milestone.md)、[交接](docs/ImplementationHandoff.md)、[来源](docs/References.md)、[设计入口](docs/README.md)、[发布说明](release/README.md)、[API](release/API.md)。原 Design2 字节归档于 docs/archive/Design2-v0.1.md，旧报告与旧 zip 保持历史证据；完整逐文件影响另见本轮清单。
+
+### Issue #2 收口记录
+
+- AUTH-01—08：唯一实例/权威会话、统一准入、持久顺序、冻结前缀、共享问题/摘要/水位与显式旧库映射通过；[后端证据](reports/implementation/issue2-auth.md)。
+- TUI-01—13：默认 TUI、中文多行/粘贴/缩放、等待期间继续编辑、分页历史、稳定 ID 重连、结构化问题与确认控制通过；[TUI证据](reports/implementation/issue2-tui.md)。正式 release 的 [PTY](reports/implementation/issue2-tui-pty-release/report.json) 与 [真实daemon短桥接](reports/implementation/issue2-tui-daemon-release/report.json)均通过，后者包含一次 Core 进程重启；原 PTY run1/2 的 PENDIN 判据失败保留，修订经 Ayanami 同意。
+- Ayanami 使用实际 DeepSeek 的 [AUTH终审](review/issue2-auth-final.response.md) 与 [TUI终审](review/issue2-tui-final.response.md)均无 mustfix；文档初审及冻结证据见本轮索引。
+- [构建记录](reports/implementation/issue2/build.json)：CLI `8e1f42206a9438e4018afbeb60421a568f6aea6349342daa2e497a5d17a17e0f`，daemon `e3756a1a4219149dd0228e0252be95b05c9530b377ca61a0e28ee27e600bbb75`。发布样例库含 001+002 与一份空权威状态，业务/凭据/授权均为空；部署仍用 init 创建独立身份。
+- 正常启动：`./release/secretary --config <配置>`；纯文本：`chat --plain`。旧库必须离线显式 migrate，不能通过普通 TUI 自动选会话。键位与权限边界见 Interfaces / RealDataTrial。
+- 本轮产品未请求外部模型，不涉及新429或provider切换实测。真实试用质量未验证；下一步请 Master 给出少量真实文字及允许外发的模型/范围。SECRET 不外发，真实来源文件同步仍未开放。
+
+TUI-12 额外补证：[独立panic注入报告](reports/implementation/issue2-tui-panic-supplement.md)确认实际 Model 包装与相同 Run 选项恢复终端；生产二进制未改。补测脚本首轮等待/输出drain失败与修正后PASS分别保留。owned测试进程已全部退出，未留下测试常驻服务。

@@ -11,6 +11,7 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
+	"secretarysimplified/cli/tui"
 	"secretarysimplified/config"
 	"secretarysimplified/contract"
 	"secretarysimplified/diagnostics"
@@ -45,7 +46,7 @@ func flags(args []string) ([]string, map[string]string) {
 		if strings.HasPrefix(args[i], "--") {
 			k := strings.TrimPrefix(args[i], "--")
 			v := "true"
-			if i+1 < len(args) && !strings.HasPrefix(args[i+1], "--") {
+			if k != "json" && k != "plain" && k != "help" && i+1 < len(args) && !strings.HasPrefix(args[i+1], "--") {
 				i++
 				v = args[i]
 			}
@@ -78,8 +79,15 @@ func output(v any) {
 func run() error {
 	pos, f := flags(os.Args[1:])
 	jsonOutput = f["json"] == "true"
+	if f["help"] == "true" {
+		printHelp()
+		return nil
+	}
+	if len(pos) == 0 && tui.IsTerminal(os.Stdin) && tui.IsTerminal(os.Stdout) && !jsonOutput && os.Getenv("TERM") != "dumb" {
+		pos = []string{"tui"}
+	}
 	if len(pos) == 0 {
-		fmt.Println("secretary init|input|chat|items|jobs|tasks|runs|alarm|world|memory|doctor|backup|verify --config PATH [--json] [--data-class PERSONAL|SYNTHETIC|SENSITIVE|SECRET] (default PERSONAL)")
+		fmt.Println("secretary init|input|chat|tui|items|jobs|tasks|runs|alarm|world|memory|doctor|backup|verify|migrate --config PATH [--json] [--data-class PERSONAL|SYNTHETIC|SENSITIVE|SECRET] (default PERSONAL)")
 		return nil
 	}
 	dir := f["data-dir"]
@@ -97,6 +105,15 @@ func run() error {
 	c, e := config.Load(path)
 	if e != nil {
 		return e
+	}
+	if pos[0] == "migrate" {
+		db, err := store.UpgradeAuthority(filepath.Join(c.DataDir, "state", "secretary.sqlite"), filepath.Join(c.DataDir, "objects"), f["authority-session"])
+		if err != nil {
+			return err
+		}
+		defer db.Close()
+		output(map[string]any{"migrated": true, "authority": "registered; query Core after daemon restart"})
+		return nil
 	}
 	if pos[0] == "verify" && f["suite"] != "" {
 		v, e := diagnostics.VerifySuite(context.Background(), f["suite"], f["report"])
@@ -193,8 +210,16 @@ func run() error {
 		return errors.New("invalid --data-class")
 	}
 	session := f["session"]
-	if session == "" {
-		session = "00000000-0000-4000-8000-000000000001"
+	resolveSession := func() error {
+		if session != "" {
+			return nil
+		}
+		authority, err := tui.Resolve(context.Background(), client)
+		if err != nil {
+			return err
+		}
+		session = authority.SessionID
+		return nil
 	}
 	request := f["request-id"]
 	if request == "" {
@@ -232,52 +257,56 @@ func run() error {
 		return call("POST", "/v1/"+resource+"/"+id+"/"+verb, body)
 	}
 	action := func(a contract.ActionProposal) error {
+		if e := resolveSession(); e != nil {
+			return e
+		}
 		return call("POST", "/v1/actions", map[string]any{"schema_version": 1, "request_id": request, "session_id": session, "actions": []contract.ActionProposal{a}, "data_class": dataClass})
 	}
 	switch pos[0] {
 	case "input":
+		if e := resolveSession(); e != nil {
+			return e
+		}
 		in := contract.InputEnvelope{SchemaVersion: 1, RequestID: request, SessionID: session, PrincipalID: "master", Origin: "MASTER_CLI", ReceivedAt: contract.Now(), Text: f["text"], AttachmentRefs: []contract.ObjectRef{}, DataClass: dataClass, Extensions: map[string]any{}}
 		if answer, present := f["answer-to"]; present {
 			in.AnswerToQuestionID = &answer
 		}
 		return call("POST", "/v1/inputs", in)
-	case "chat":
+	case "chat", "tui":
+		interactive := tui.IsTerminal(os.Stdin) && tui.IsTerminal(os.Stdout) && os.Getenv("TERM") != "dumb" && !jsonOutput && f["plain"] != "true"
+		if interactive {
+			if f["session"] != "" {
+				return errors.New("TUI_SESSION_ARGUMENT_UNSUPPORTED: 唯一会话由后端登记")
+			}
+			runner := client
+			runner.Socket = filepath.Join(c.DataDir, "run", "runner.sock")
+			return tui.Run(context.Background(), tui.Options{Config: c, Core: client, Runner: runner, DataClass: dataClass, RecoveryDir: filepath.Join(c.DataDir, "run", "tui-pending")})
+		}
+		if tui.IsTerminal(os.Stdin) && (jsonOutput || !tui.IsTerminal(os.Stdout)) {
+			return errors.New("NONINTERACTIVE_INPUT_REQUIRED: pipe input to chat --plain --json, or use input --text")
+		}
+		if pos[0] == "tui" && !tui.IsTerminal(os.Stdin) {
+			return errors.New("TUI_REQUIRES_TERMINAL: use chat --plain or input --json")
+		}
+		if e := resolveSession(); e != nil {
+			return e
+		}
 		scan := bufio.NewScanner(os.Stdin)
 		scan.Buffer(make([]byte, 4096), 32768)
-		fmt.Println("Secretary chat; /quit exits. Accepted turns execute asynchronously. Answer a registered question with: secretary input --session <session-id> --answer-to <question-id> --text <answer>.")
-		for {
-			fmt.Print("> ")
-			if !scan.Scan() {
-				return scan.Err()
-			}
-			if scan.Text() == "/quit" {
+		for scan.Scan() {
+			text := scan.Text()
+			if text == "/quit" {
 				return nil
 			}
-			in := contract.InputEnvelope{SchemaVersion: 1, RequestID: contract.NewID(), SessionID: session, PrincipalID: "master", Origin: "MASTER_CLI", ReceivedAt: contract.Now(), Text: scan.Text(), AttachmentRefs: []contract.ObjectRef{}, DataClass: dataClass, Extensions: map[string]any{}}
-			v, code, e := client.Call(context.Background(), "POST", "/v1/inputs", in)
-			if e != nil {
-				return e
-			}
-			if code >= 400 {
-				output(v)
+			if strings.TrimSpace(text) == "" {
 				continue
 			}
-			m, _ := v.Result.(map[string]any)
-			id, _ := m["turn_id"].(string)
-			deadline := time.Now().Add(65 * time.Second)
-			for time.Now().Before(deadline) {
-				res, _, err := client.Call(context.Background(), "GET", "/v1/turns/"+id, nil)
-				if err != nil {
-					return err
-				}
-				x, _ := res.Result.(map[string]any)
-				if x["state"] == "COMMITTED" || x["state"] == "FAILED" {
-					output(res)
-					break
-				}
-				time.Sleep(250 * time.Millisecond)
+			in := contract.InputEnvelope{SchemaVersion: 1, RequestID: contract.NewID(), SessionID: session, PrincipalID: "master", Origin: "MASTER_CLI", ReceivedAt: contract.Now(), Text: text, AttachmentRefs: []contract.ObjectRef{}, DataClass: dataClass, Extensions: map[string]any{}}
+			if e := call("POST", "/v1/inputs", in); e != nil {
+				return e
 			}
 		}
+		return scan.Err()
 	case "actions":
 		return actionFile(f, action)
 	case "items":
@@ -452,4 +481,8 @@ func optionalString(s string) any {
 		return nil
 	}
 	return s
+}
+
+func printHelp() {
+	fmt.Println("Secretary：一个权威会话，多个客户端。\nsecretary [--config PATH] / secretary chat / secretary tui：TTY 下打开 TUI\nsecretary chat --plain：逐行受理，EOF 退出；--json 保持 JSON 输出\nsecretary input --text TEXT [--data-class CLASS] [--request-id ID]\nitems/jobs/tasks/runs/notifications/alarm/world/memory/doctor/backup/verify 保留命令式接口。\nTUI Enter 换行，Ctrl+S 或 Alt+Enter 发送，F1 帮助，F2 问题，F3 委托，F4 计划，F5 事项，F6 通知。\n退出客户端不取消后台执行；没有新建/切换会话。旧 --session 仅兼容原请求或后端权威 ID，其他拒绝。\n管理员停机升级：secretary migrate --config PATH [--authority-session LEGACY_ID]，不合并历史。")
 }

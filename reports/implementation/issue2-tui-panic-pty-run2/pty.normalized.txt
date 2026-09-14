@@ -1,0 +1,55 @@
+[?25l[?1049h[2J[H[?25l[?2004h[?1002h[?1006h[HSecretary ·  · 连接中 · 同步 0/0 · PERSONAL[K
+──────────────────────────────────────────────────────────────────────────────────────────────────[K
+尚无已同步原话。草稿只在本客户端；发送后由后端统一排队。                                          [K
+                                                                                                  [K
+                                                                                                  [K
+                                                                                                  [K
+                                                                                                  [K
+                                                                                                  [K
+                                                                                                  [K
+                                                                                                  [K
+                                                                                                  [K
+                                                                                                  [K
+                                                                                                  [K
+                                                                                                  [K
+                                                                                                  [K
+                                                                                                  [K
+                                                                                                  [K
+Core 连接中 · Runner 离线 · 配置  /  · 模型调用状态未知[K
+[K
+┃ 输入给 Secretary 的消息…                                                                      [K
+┃                                                                                               [K
+┃                                                                                               [K
+┃                                                                                               [K
+┃                                                                                               [K
+┃                                                                                               [K
+Ctrl+S / Alt+Enter 发送 · Enter 换行 · F1 帮助 · Ctrl+C 退出[K[26;H[2K[?2004l[?25h[?1002l[?1003l[?1006l[?1049l[?25hCaught panic:
+
+synthetic-issue2-catchable-panic
+
+Restoring terminal...
+
+goroutine 36 [running]:
+runtime/debug.Stack()
+	/opt/homebrew/Cellar/go/1.25.6/libexec/src/runtime/debug/stack.go:26 +0x64
+runtime/debug.PrintStack()
+	/opt/homebrew/Cellar/go/1.25.6/libexec/src/runtime/debug/stack.go:18 +0x1c
+github.com/charmbracelet/bubbletea.(*Program).recoverFromPanic(0x140003403c0, {0x102f465a0, 0x102fb91c0})
+	$HOME/go/pkg/mod/github.com/charmbracelet/bubbletea@v1.3.10/tea.go:847 +0x90
+github.com/charmbracelet/bubbletea.(*Program).Run.func2()
+	$HOME/go/pkg/mod/github.com/charmbracelet/bubbletea@v1.3.10/tea.go:638 +0xc4
+panic({0x102f465a0?, 0x102fb91c0?})
+	/opt/homebrew/Cellar/go/1.25.6/libexec/src/runtime/panic.go:783 +0x120
+secretarysimplified/cli/tui.issuePanicModel.Update({{0x0, {{0x0, {...}, {...}, {...}, {...}, {...}, {...}, 0x0, {...}, ...}, ...}, ...}}, ...)
+	$WORKSPACE/src/cli/tui/model_test.go:314 +0x264
+github.com/charmbracelet/bubbletea.(*Program).eventLoop(0x140003403c0, {0x102fbcfe0?, 0x140003dc008?}, 0x1400010e8c0)
+	$HOME/go/pkg/mod/github.com/charmbracelet/bubbletea@v1.3.10/tea.go:494 +0x674
+github.com/charmbracelet/bubbletea.(*Program).Run(0x140003403c0)
+	$HOME/go/pkg/mod/github.com/charmbracelet/bubbletea@v1.3.10/tea.go:716 +0x840
+secretarysimplified/cli/tui.TestIssue2TUIPanicPTYHelper(0x14000102a80)
+	$WORKSPACE/src/cli/tui/model_test.go:325 +0x1c8
+testing.tRunner(0x14000102a80, 0x102fb7ab8)
+	/opt/homebrew/Cellar/go/1.25.6/libexec/src/testing/testing.go:1934 +0xc8
+created by testing.(*T).Run in goroutine 1
+	/opt/homebrew/Cellar/go/1.25.6/libexec/src/testing/testing.go:1997 +0x364
+PASS

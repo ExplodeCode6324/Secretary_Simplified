@@ -14,6 +14,48 @@ import (
 
 func (s *Service) Handler() http.Handler {
 	mux := http.NewServeMux()
+	mux.HandleFunc("GET /v1/conversation", func(w http.ResponseWriter, r *http.Request) {
+		v, e := s.Store.AuthorityState(r.Context(), s.Config.Limits.Queue)
+		transport.Reply(w, status(e), "", v, e)
+	})
+	mux.HandleFunc("GET /v1/conversation/history", func(w http.ResponseWriter, r *http.Request) {
+		q := r.URL.Query()
+		parse := func(name string, def int) (int, error) {
+			if !q.Has(name) {
+				return def, nil
+			}
+			v := q.Get(name)
+			if len(q[name]) != 1 || v == "" {
+				return 0, errors.New("INVALID_QUERY")
+			}
+			for _, r := range v {
+				if r < '0' || r > '9' {
+					return 0, errors.New("INVALID_QUERY")
+				}
+			}
+			n, e := strconv.Atoi(v)
+			if e != nil {
+				return 0, errors.New("INVALID_QUERY")
+			}
+			return n, nil
+		}
+		after, e1 := parse("after_sequence", 0)
+		before, e2 := parse("before_sequence", 0)
+		limit, e3 := parse("limit", 50)
+		if e1 != nil || e2 != nil || e3 != nil {
+			transport.Reply(w, 400, "", nil, errors.New("INVALID_QUERY"))
+			return
+		}
+
+		direction := q.Get("direction")
+		if direction != "" && direction != "forward" && direction != "backward" {
+			transport.Reply(w, 400, "", nil, errors.New("INVALID_QUERY"))
+			return
+		}
+		v, e := s.Store.AuthorityHistory(r.Context(), after, before, limit, direction == "backward")
+		transport.Reply(w, status(e), "", v, e)
+	})
+
 	mux.HandleFunc("GET /v1/health", func(w http.ResponseWriter, r *http.Request) {
 		epoch, _ := time.Parse(time.RFC3339Nano, s.Config.Epoch)
 		v, e := diagnostics.DoctorWithEpoch(r.Context(), s.Store, s.Config.DataDir, epoch)
@@ -40,6 +82,16 @@ func (s *Service) Handler() http.Handler {
 		}
 		raw["principal_id"] = "master"
 		raw["origin"] = "MASTER_CLI"
+		if _, present := raw["session_id"]; !present {
+			request, _ := raw["request_id"].(string)
+			session, e := s.Store.ResolveSession(r.Context(), "master", request, "")
+			if e != nil {
+				transport.Reply(w, status(e), request, nil, e)
+				return
+			}
+			raw["session_id"] = session
+		}
+
 		b, _ := json.Marshal(raw)
 		var in contract.InputEnvelope
 		if e := contract.Decode("InputEnvelope", b, &in); e != nil {
@@ -97,7 +149,7 @@ func (s *Service) Handler() http.Handler {
 		var q struct {
 			SchemaVersion int                       `json:"schema_version"`
 			RequestID     string                    `json:"request_id"`
-			SessionID     string                    `json:"session_id"`
+			SessionID     json.RawMessage           `json:"session_id,omitempty"`
 			Actions       []contract.ActionProposal `json:"actions"`
 			DataClass     json.RawMessage           `json:"data_class,omitempty"`
 		}
@@ -110,7 +162,14 @@ func (s *Service) Handler() http.Handler {
 			transport.Reply(w, 400, q.RequestID, nil, err)
 			return
 		}
-		v, e := s.TypedClass(r.Context(), q.RequestID, q.SessionID, q.Actions, class)
+		var session string
+		if q.SessionID != nil {
+			if string(q.SessionID) == "null" || json.Unmarshal(q.SessionID, &session) != nil || session == "" {
+				transport.Reply(w, 400, q.RequestID, nil, errors.New("INVALID_SCHEMA"))
+				return
+			}
+		}
+		v, e := s.TypedClass(r.Context(), q.RequestID, session, q.Actions, class)
 		transport.Reply(w, status(e), q.RequestID, v, e)
 	})
 	mux.HandleFunc("GET /v1/context/{id}", func(w http.ResponseWriter, r *http.Request) {

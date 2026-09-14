@@ -2,7 +2,7 @@
 
 ## 1. 分层证据
 
-DOC 表示文档、Schema 和 DDL 一致性；OFFLINE 表示程序对固定输入的机械行为；LIVE_MODEL 表示真实模型在合成资料上的语义结果；REAL_USE 表示真实来源和日历时间的使用观测。四类分别报告，不能替代。本文是待实现程序的验收要求，本次文档检查结果见 Review。
+DOC 表示文档、Schema 和 DDL 一致性；OFFLINE 表示程序对固定输入的机械行为；LIVE_MODEL 表示真实模型在合成资料上的语义结果；REAL_USE 表示真实来源和日历时间的使用观测。四类分别报告，不能替代。本文件保留初版及后续缺陷的验收定义；历史执行结果见 reports。当前 Issue #2 的验收范围单列如下，旧条目不得解释为本轮重跑要求。
 
 ## 2. 测试矩阵
 
@@ -49,7 +49,7 @@ DOC 表示文档、Schema 和 DDL 一致性；OFFLINE 表示程序对固定输�
 
 ## 4. 实现测试命令
 
-实施 agent 在工程存在后运行 `go test ./...`、关键并发包的 `go test -race`、`go vet ./...` 和两个入口构建。集成测试启动真实 P1/P2 子进程，在隔离目录使用进程终止和虚拟适配器注入故障。不得终止 Master 正在使用的进程、播放响铃或修改系统睡眠设置来完成自动测试。
+初版实施曾执行全仓测试、关键并发包 race、全仓 vet 和两个入口构建；这些是历史验证流程。Issue #2 只执行新增 AUTH/TUI 定向测试、必要 race、变更包 vet 与两个入口构建。集成测试启动真实 P1/P2 子进程，在隔离目录使用进程终止和虚拟适配器注入故障。不得终止 Master 正在使用的进程、播放响铃或修改系统睡眠设置来完成自动测试。
 
 文档检查命令见 [checks/README.md](checks/README.md)。该命令只证明附件一致性，不能代替以上 Go 与真实运行测试。
 
@@ -109,7 +109,7 @@ D08 补充验收：A16 覆盖三个新 kind 的固定派生、额外字段拒绝
 
 ## 实施设计修订 D11：待答问题生命周期
 
-A09 的 D11 本期验收：正常公共 CLI/Core 由模型提出澄清问题，程序返回稳定 UUID、关联 Item、实际 ASSISTANT sequence；新 session READ_MEMORY 取回原问题正文/session/ID，重启后在原 session 用 --answer-to 显式回答。不同 request 抢答只有一笔业务成功；另一笔稳定 QUESTION_ALREADY_RESOLVED，重试不再模型。覆盖同请求 10 次重试、换指针幂等冲突、非 MASTER/foreign/错 session/null/伪程序字段拒绝、任一非法 proposal 全 Decision 零业务副作用、20 槽回收不丢未解、事务故障全回滚、摘要水位不动且旧 CAS 拒绝。resolved 不作为任务完成 oracle。回收/未知/错 session 为 404 QUESTION_NOT_FOUND_IN_SESSION，槽内已解决为 409。机械、真实模型公共链、独立复核证据分别报告；不以手工预置 pending_questions 代替正常生成验收。
+A09 的 D11 本期验收：正常公共 CLI/Core 由模型提出澄清问题，程序返回稳定 UUID、关联 Item、实际 ASSISTANT sequence；此处原跨 session 恢复场景属于历史 D11 验收；当前由不同客户端读取同一权威问题，重启后继续用 --answer-to 回答，旧非权威会话不恢复可写。不同 request 抢答只有一笔业务成功；另一笔稳定 QUESTION_ALREADY_RESOLVED，重试不再模型。覆盖同请求 10 次重试、换指针幂等冲突、非 MASTER/foreign/错 session/null/伪程序字段拒绝、任一非法 proposal 全 Decision 零业务副作用、20 槽回收不丢未解、事务故障全回滚、摘要水位不动且旧 CAS 拒绝。resolved 不作为任务完成 oracle。回收/未知/错 session 为 404 QUESTION_NOT_FOUND_IN_SESSION，槽内已解决为 409。机械、真实模型公共链、独立复核证据分别报告；不以手工预置 pending_questions 代替正常生成验收。
 
 裁决：`review/D11-pending-question-deepseek.response.md`；原提案：`review/A09-pending-question-proposal.md`。无 DDL 变更。
 
@@ -123,3 +123,20 @@ M1 PERSONAL Context+SYN输入生成ASSISTANT问题→跨session SYN-only拒绝�
 ### Issue #1 定向验收补充（实施缺陷 AUD-02 / AUD-04）
 
 固定合成测试位于 `src/tests/issue1_runtime_test.go` 与 `src/core/source_file_test.go`，具体证据见 `reports/implementation/issue1-runtime.md`：实际认证 Unix HTTP 的取消排队/调用、重复 POST、晚回执取消不复活、丢响应后简报持久证据恢复、意识精确槽宕机对账，以及超大来源拒绝后原游标/记录/成功事件不变。注入超时用于加速故障边界，不更改生产 30 秒预算。Master 明确本次修复不重跑两小时；旧 soak 仅证明其原二进制，不算本次新版本持续运行证明。
+
+## Issue #2 当前唯一验收范围
+
+| ID | 断言与限定证据 |
+|---|---|
+| AUTH-01–02 | 所有客户端/输入入口绑定同一权威；分页历史与实际后续模型请求包含前轮；无历史上传 |
+| AUTH-03–04 | 结构化问题竞争只提交一次；持久受理排序与冻结前缀排除后到输入 |
+| AUTH-05–06 | 退出/响应丢失/一次重启恢复；同键回放；显式 foreign session 严拒 |
+| AUTH-07–08 | 微型旧库显式映射、内部会话拒绝、其他历史只读；共享摘要/焦点/问题/覆盖水位 |
+| TUI-01–03 | 默认交互入口与明确错误；三轮中文、多行粘贴、编辑、缩放与可读回复 |
+| TUI-04–07 | 延迟模型不阻塞 UI；断线重连；问题选择；同 ID 查询重试与去重 |
+| TUI-08–10 | 退出后已登记任务继续；版本化控制；真实失败/未知展示及显式幂等通知确认 |
+| TUI-11–13 | CLI/JSON/非 TTY 兼容；终端恢复与转义清理；默认 PERSONAL 和 SECRET 零外发保护 |
+| DOC-01–05 | 逐文件影响清单、当前架构图、接口/迁移镜像、入口语义及实现—证据映射 |
+| BUILD-01 | 双入口构建、变更包 vet、新增定向测试必要 race |
+
+逐 ID 结果与命令放在 `reports/implementation/issue2/`。只用短时 fake 模型和微型合成状态；macOS PTY 的中文粘贴/缩放/退出另记录实际证据，未测平台不声称通过。不运行旧 Context/Store/记忆/摘要/持久化/备份恢复套件、全仓测试、月度/付费模型回放或两小时测试；旧失败、报告与构建哈希保持原貌。

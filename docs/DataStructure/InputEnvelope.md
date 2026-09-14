@@ -34,3 +34,7 @@
 可选 `answer_to_question_id` 为非 null UUID；省略表示普通输入。原始 JSON 显式 null 拒绝，不可由 DTO omitempty 吞掉。该指针参与请求语义 hash，相同 request_id 改指针为幂等冲突。只接受已认证 MASTER_CLI、同 principal、原 session 的现存未解问题；不猜测自由指代。受理前检查早于原话对象归档，事务受理和最终成功提交再次检查；受理后竞争允许保留原话审计，业务动作和问题变更必须全部回滚。
 
 裁决：`review/D11-pending-question-deepseek.response.md`；原提案：`review/A09-pending-question-proposal.md`。无 DDL 变更。
+
+## Issue #2 当前绑定与可见性
+
+公共输入可省略 session_id，由适配器在严格内部 DTO 校验前绑定后端唯一会话；内部 DTO 的 session_id 仍必需。显式 foreign/null/非法值拒绝。旧精确 request 回放保留原语义和绑定，不重写历史。默认 PERSONAL；TUI 不上传历史。

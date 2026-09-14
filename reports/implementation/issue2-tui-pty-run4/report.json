@@ -1,0 +1,102 @@
+{
+  "scope": "Issue2 TUI local synthetic authenticated HTTP + macOS PTY; no old baseline/long soak/model API",
+  "status": "PASS",
+  "error": null,
+  "checks": [
+    "TUI-01/02 default startup and first Chinese input",
+    "TUI-03 Chinese bracketed multiline paste, CtrlS in paste, resize retains one draft",
+    "TUI-04/07 response loss keeps stable pending ID while draft and scroll respond",
+    "TUI-05/07 reconnect queries original request without POST; history tail paging",
+    "TUI-06 structured question selection binds authoritative ID",
+    "TUI-09 explicit target/revision confirmation works with Core offline",
+    "TUI-10/12 notification refresh never acks; explicit ack; OSC not rendered",
+    "TUI-12 CtrlC restores original terminal mode flags",
+    "TUI-12 catchable SIGTERM restores terminal modes",
+    "TUI-11 pipe EOF and JSON output without ANSI or keyboard wait"
+  ],
+  "binary_sha256": "ee519b60a2817264137a442d58f729a0e81e3cc4d1a4c75b88cf41d7a1a02d99",
+  "platform": "Darwin",
+  "posts": [
+    {
+      "schema_version": 1,
+      "request_id": "476469b2-59ec-472d-9e1f-e5f7327c7b75",
+      "session_id": "335f1347-23b1-4c36-a69a-1470f016439c",
+      "principal_id": "master",
+      "origin": "MASTER_CLI",
+      "received_at": "2026-09-14T05:10:45.225Z",
+      "text": "第一轮中文",
+      "attachment_refs": [],
+      "data_class": "SYNTHETIC",
+      "extensions": {}
+    },
+    {
+      "schema_version": 1,
+      "request_id": "5f78cfc8-49d8-4591-83bf-dfd13c07b298",
+      "session_id": "335f1347-23b1-4c36-a69a-1470f016439c",
+      "principal_id": "master",
+      "origin": "MASTER_CLI",
+      "received_at": "2026-09-14T05:10:46.143Z",
+      "text": "第二轮多行中文\n粘贴第二行草稿",
+      "attachment_refs": [],
+      "data_class": "SYNTHETIC",
+      "extensions": {}
+    },
+    {
+      "schema_version": 1,
+      "request_id": "5e80448a-d7c5-4867-9da3-bbaeb43bffa0",
+      "session_id": "335f1347-23b1-4c36-a69a-1470f016439c",
+      "principal_id": "master",
+      "origin": "MASTER_CLI",
+      "received_at": "2026-09-14T05:10:46.752Z",
+      "text": "第三轮中文丢响应",
+      "attachment_refs": [],
+      "data_class": "SYNTHETIC",
+      "extensions": {}
+    },
+    {
+      "schema_version": 1,
+      "request_id": "4346a05b-6a11-4336-9a76-15efc72b478a",
+      "session_id": "335f1347-23b1-4c36-a69a-1470f016439c",
+      "principal_id": "master",
+      "origin": "MASTER_CLI",
+      "received_at": "2026-09-14T05:10:53.403Z",
+      "text": "2026年10月1日",
+      "attachment_refs": [],
+      "data_class": "SYNTHETIC",
+      "extensions": {},
+      "answer_to_question_id": "235d19a1-295f-4df6-9026-c39d833383f6"
+    },
+    {
+      "schema_version": 1,
+      "request_id": "e49601b4-03e2-4bdc-9ba0-3952eb5e4a29",
+      "session_id": "335f1347-23b1-4c36-a69a-1470f016439c",
+      "principal_id": "master",
+      "origin": "MASTER_CLI",
+      "received_at": "2026-09-14T05:10:59.094Z",
+      "text": "管道输入中文",
+      "attachment_refs": [],
+      "data_class": "SYNTHETIC",
+      "extensions": {}
+    }
+  ],
+  "controls": [
+    {
+      "path": "/v1/tasks/synthetic-task/cancel",
+      "body": {
+        "expected_revision": 2,
+        "request_id": "3afbd66e-dcfe-404f-9a42-62b8271e904c",
+        "schema_version": 1
+      }
+    },
+    {
+      "path": "/v1/notifications/synthetic-notification/ack",
+      "body": {
+        "expected_revision": 0,
+        "request_id": "bc1edcf2-a41e-4347-a219-662026cbf368",
+        "schema_version": 1
+      }
+    }
+  ],
+  "terminal_transcripts": 3,
+  "at": "2026-09-14T05:10:59.997590+00:00"
+}

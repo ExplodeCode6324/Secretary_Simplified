@@ -1,3 +1,7 @@
+> Issue #2 最新状态：AUTH/TUI/DOC/BUILD限定范围实际DeepSeek复核已收口，无开放mustfix；最后两句文档与导出hash已确认，46份实际模型来源记录。新增证据仅收编清单，不循环复审。以下全部为先前协调历史。
+
+> Issue #2 新增范围：仅 AUTH-01–08 / TUI-01–13 / DOC-01–05 / BUILD-01。架构提案和新模块复核待进行；旧 issue1 及上下文/持久状态/全仓/月回放/长期测试不重开。下方为旧收口记录。
+
 > Issue #1 当前收口：AUD01–04、GATE01/02、诊断等待与 AUD03.2 补证均已真实 DeepSeek 独立限定 PASS，无开放 review must-fix。有效报告索引见 README，实际模型 provenance 共36份。root 最终全仓/release短 smoke 单独归档，不重跑两小时或替代时长门槛。下方是历史协调状态。
 
 > 当前新增 Issue #1：AUD01/03 和 AUD02/04 设计已获真实 DeepSeek 同意，实施后独立复核待进行；GATE01/02 指定分支独立核证已 PASS。此新增状态覆盖下方旧项目收口状态。Master 明确不重跑两小时或替代时长门槛，原证据 hash 保持。

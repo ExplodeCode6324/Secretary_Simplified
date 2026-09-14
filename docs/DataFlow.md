@@ -2,7 +2,7 @@
 
 ## 1. 输入与结构化
 
-1. CLI 输入进入 InputEnvelope；真实来源进入 SourceRecord，保留原文哈希、来源版本和采集时间。所有输入归档后才回复受理。
+1. TUI、plain chat 与 CLI 输入经后端认证并绑定唯一权威会话后进入 InputEnvelope；真实来源进入 SourceRecord，保留原文哈希、来源版本和采集时间。所有输入归档后才回复受理。
 2. 接入层进行大小、格式、来源和重复检查。确定性字段直接解析；自由文本由受限 agent 提取为 Observation、Item 修改提案或 WorldUpdateProposal。
 3. 接入记录成功不等于事实成立。畸形数据进入隔离状态，缺字段保留 null／缺失原因，不能把同步失败当作删除所有事项。
 4. 通过业务校验的事项与观测落库；长期事实候选提交专用更新任务。原文中的命令和授权文字不获得执行权限。
@@ -11,11 +11,11 @@
 
 ## 2. 对话与决策
 
-1. 输入受理事务保存输入回执、conversation_event 和待处理 turn。
-2. Core 在一个 SQLite 只读事务内取得事件水位及相关版本，构建 Context；退出事务后调用模型。
+1. 输入受理事务保存输入回执、MASTER conversation_event、待处理 turn 和持久受理序号。追加原话不推进 ConversationState 认知 revision。
+2. Core 单消费者按受理序号领取队头，在短事务中冻结当前轮可见的认知状态及已处理前缀；Context、检索和摘要必须排除未来未处理输入。退出事务后调用模型，等待期间仍接受后续输入并允许客户端查询。
 3. 模型返回 DecisionEnvelope。程序按完整 JSON Schema、引用、权限、预算、版本和能力参数进行验证。
 4. 提交事务用输入绑定的 intent_id 和每个 operation_key 去重，登记业务修改、任务、计划、回复草稿和事件。任何命令验证失败时整组命令不提交；回复改为程序生成的明确失败说明。重复请求返回原提交回执。
-5. CLI 接收受理／提交状态和已保存回复。回复只能表示已登记；完成通知来自之后的验收事件。流式草稿如实现，只能标为生成中，不能提前声称任务已生效。
+5. 所有客户端查询同一权威会话快照、分页历史与待处理请求，按稳定 ID 去重；客户端不上传历史重建上下文。CLI 接收受理／提交状态和已保存回复。回复只能表示已登记；完成通知来自之后的验收事件。流式草稿如实现，只能标为生成中，不能提前声称任务已生效。
 
 版本校验基于本次决策实际读写对象的 read_set，不因无关全局事件无限重算。发现相关版本冲突后最多重建 2 次，之后返回 CONFLICT 与当前值，不覆盖。全局 event 水位只用于可重复快照和增量，不替代对象 CAS。
 
@@ -73,3 +73,7 @@ D11 输入顺序（经 Issue #1 AUD-03 原子归档修订）：原始 Schema 验
 裁决：`review/D12-output-class-final-contract.response.md`（整体替代初稿），反注入补充：`review/D12-injection-oracle-clarification.response.md`。无 DDL 或顶层 class 字段扩张。
 
 有限闭包：Core 冻结 req.DataClass → Item/更新、Command/Job → Task/Run/REPLAN/Attempt/Receipt、WorldProposal → WorldFact 版本、ASSISTANT/问题/State/最终回执；memory 请求 → summary/Consciousness；产物/notification/briefing 从持久来源继承；ModelCallRecord/manifest/attempt诊断与raw request/output对象使用实际请求class。event、问题、InputTurn、receipt仍在同一提交事务，其他实体在既有登记事务，失败全回滚。
+
+## Issue #2 实施缺陷：物理事件顺序与认知前缀
+
+客户端 B 的 MASTER 原话可能在客户端 A 的 ASSISTANT 回复之前落库。物理 history sequence、受理序号与 ChangeEvent.seq 各司其职；不可用物理最大事件号代表模型已经处理的连续前缀。A 的 Context 不读 B 的未处理输入；B 随后读取 A 的已提交回复。摘要更新在同一消费者顺序内进行，不越过未处理缺口。详见 SingleConversationTUI 的序列图及 AUTH-04/AUTH-08。

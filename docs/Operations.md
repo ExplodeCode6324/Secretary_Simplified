@@ -60,3 +60,13 @@ P2 的本地播放不依赖模型或 Core，但依赖供电、操作系统、登
 升级后应停止旧版本的同库发布进程再使用新二进制；旧进程不遵守 `.publish.lock`。锁 inode 不可手工删除。完整无引用对象或旧无引用半文件在同内容重试时自动采纳/隔离重建；已提交损坏保持错误，勿删文件强行“修复”。坏孤儿证据名为 `<id>.blob.orphan-<uuid>`，不进入自动清理。
 
 受控 Go 运维接口 `Store.RecoverObjectStaging(ctx, limit)` 可每次清理最多 1–1000 个已知临时文件，保护所有持久引用、正式 blob、隔离证据及未知文件；这不是现有CLI子命令的新增承诺。正常队列/Typed拒绝不再保留完整输入归档。协议见 [Storage.md](Storage.md)，最终裁决 `review/issue1-AUD01-AUD03-design-correction.response.md`。本 issue 不重跑或新增两小时持续测试。
+
+## Issue #2：客户端启动与离线迁移
+
+`secretary` / `secretary chat` / `secretary tui` 的交互终端连接已有 Core；配置缺失、未初始化或 Core 离线时给出可操作提示，不自动 init、启动服务或扩展披露策略。`chat --plain` 与命令式 CLI 保留。TUI 退出只恢复终端并断开客户端，Core/Runner 与已登记任务继续运行。
+
+旧库升级前停止该目录的 Core 与 Runner并保留迁移前快照，使用 `secretary migrate --authority-session <旧MASTER会话ID> --config <配置>`。迁移器验证进程锁，原子追加 002 并登记映射；正常打开不猜测候选，内部会话不得被选中。其他原会话只读保留。空旧库可显式迁移建立新权威，新库由 init 登记；不得复制或拼接其他目录的数据冒充同一实例。
+
+断线或等待超时用原 request_id 查询受理回执及 turn，不自动创建新请求。客户端根据 instance_id 区分本地视图缓存；分页事件按稳定 ID 去重。任务控制与通知确认必须经认证接口，Runner 控制在 Core 离线时仍独立可用。
+
+本轮 release 终端恢复实证覆盖正常退出、Ctrl+C 与可捕获 SIGTERM；另有实际 Model 包装、相同 Run 选项的独立测试进程 panic 注入通过，证据见 reports/implementation/issue2-tui-panic-supplement.md。生产二进制未加入故障注入钩子；SIGHUP/SIGQUIT 未作本轮运行验证，不扩大为所有信号保证。纯文本入口写作 `chat --plain`；裸 `secretary --plain` 不是已承诺的模式切换。目标为 macOS arm64，Linux 仅编译验证，未声明其终端运行通过。

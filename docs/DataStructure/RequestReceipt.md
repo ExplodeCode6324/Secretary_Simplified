@@ -30,3 +30,7 @@
 ### D12 分类传播
 
 最终回复extension标记与同事务InputTurn/ASSISTANT一致；固定无内容失败字面量可SYN。 使用 [Common.md](Common.md) 的 security.classification 契约；缺失旧派生标记返回 OUTPUT_CLASS_UNKNOWN，不自动回填。
+
+## Issue #2 会话兼容
+
+精确已受理 request 先按原主体与语义回放，省略会话的兼容请求可恢复原绑定。显式不同 session 不允许 hash 回退；不重写旧 receipt、语义载荷、分类或旧历史。响应丢失时客户端保留 request_id 查询并重试，不由前端生成另一笔请求替代未知结果。

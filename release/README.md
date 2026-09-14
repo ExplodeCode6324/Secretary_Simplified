@@ -1,14 +1,14 @@
 # 本地部署
 
-当前二进制目标为 macOS arm64。代码、审计修复与合成验收已完成，可按下文独立目录和明确模型授权边界接入受控 PERSONAL 文字测试；真实来源文件同步尚未开放。完整证据与工作记录见根目录 README。
+当前二进制目标为 macOS arm64。Issue #2 唯一权威会话与 TUI 的代码、定向验收与指定 DeepSeek 复核已完成，可按下文独立目录和明确模型授权边界接入受控 PERSONAL 文字测试；真实来源文件同步尚未开放。完整证据与工作记录见根目录 README。
 
-Issue #1 修复构建为 CLI `84e24025…` / daemon `1d62faad…`，完整校验见 SHA256SUMS。全仓 race/vet、定向故障回归与短时发布包测试已通过；原 final2 两小时测试保留旧构建标识，不将其结果写成此修复版的持续运行证明。Master 明确本轮修复无需重跑该时长测试。
+历史 Issue #1 修复构建为 CLI `84e24025…` / daemon `1d62faad…`；其完整哈希在原报告中，当前构建以 SHA256SUMS 为准。全仓 race/vet、定向故障回归与短时发布包测试已通过；原 final2 两小时测试保留旧构建标识，不将其结果写成此修复版的持续运行证明。Master 明确本轮修复无需重跑该时长测试。
 
 公开的 `db/secretary.sqlite` 是不含授权、凭据或用户数据的空库检查材料；正常部署仍执行 init 创建自己的运行库。
 
 ## 构建与初始化
 
-从项目根执行 `./scripts/build.sh`。此脚本运行 Go 测试和 vet，再生成 `release/secretary`、`release/secretaryd` 及 SHA256SUMS。
+从项目根执行 `./scripts/build.sh`。此脚本只构建并生成 `release/secretary`、`release/secretaryd` 及 SHA256SUMS。
 
 首次使用独立目录：
 
@@ -65,19 +65,19 @@ Master 已授权：再次遇到 OpenCode HTTP 429 时，切换测试到 DeepSeek
 ./release/secretary verify --suite smoke --report /tmp/secretary-smoke-report --config /tmp/secretary-demo/config.json --json
 ```
 
-`smoke`（同义名 `persistence`）在新的临时库中核验 SQLite 完整性、不可变对象、备份及恢复冻结，并生成 report.json / report.md。它不代替完整 A01—A25 验收。完整源码测试命令为 `cd src && go test -race ./... && go vet ./...`。
+`smoke`（同义名 `persistence`）在新的临时库中核验 SQLite 完整性、不可变对象、备份及恢复冻结，并生成 report.json / report.md。它不代替完整 A01—A25 验收。这些属于初版历史验证；Issue #2 只运行 reports/implementation/issue2 中列出的新增定向测试与变更包 vet，不执行旧全仓或长时套件。
 
 公共接口的类型化请求格式与分页示例见 [API.md](API.md)。通知列表使用 `secretary notifications`，确认已读使用 `secretary notifications ack <id>`。列表可传 `--limit`、`--cursor` 及对应过滤参数。
 
 ## 回答已登记的问题
 
-回复中的 `[question_id=… session_id=…]` 块表示程序已保存的待答问题。使用原 session 和明确 ID 回答：
+回复中的 `[question_id=… session_id=…]` 块表示程序已保存的待答问题。使用当前权威会话中的明确 ID 回答（TUI 可在 F2 中选择）：
 
 ```sh
-./release/secretary input --session <session-id> --answer-to <question-id> --text '明确回答' --request-id <本轮request-id> --config <config.json> --json
+./release/secretary input --answer-to <question-id> --text '明确回答' --request-id <本轮request-id> --config <config.json> --json
 ```
 
-先查询 turn 的最终提交结果。一次明确回答只更新该问题的解决状态，不自动完成关联事项；模型失败时问题仍未解决。跨会话取回后须切回原 session，不猜测指代或把摘要当作授权。
+先查询 turn 的最终提交结果。一次明确回答只更新该问题的解决状态，不自动完成关联事项；模型失败时问题仍未解决。不同客户端共享同一权威问题；其他旧会话保留只读历史，不恢复为可写分支，不猜测指代或把摘要当作授权。
 
 ## 输入分类（D12）
 
@@ -88,3 +88,13 @@ Master 已授权：再次遇到 OpenCode HTTP 429 时，切换测试到 DeepSeek
 ```
 
 不要把真实内容标成 SYNTHETIC 来绕过限制；真实测试的 ProviderPolicy 与来源范围由 Master 接入时明确。旧派生记录缺少程序分类时返回 OUTPUT_CLASS_UNKNOWN，程序保留记录且不会自动清库或猜测迁移。完整规则见 docs/Operations.md 与 docs/Interfaces.md。
+
+## Issue #2：默认 TUI 与旧库升级
+
+已有配置和服务运行时，执行 `./release/secretary --config <config.json>`（或 chat/tui）打开终端界面。Enter 换行，Ctrl+S / Alt+Enter 发送，F1 帮助，F2 问题，F3 委托，F4 计划，F5 事项，F6 通知；Ctrl+C 仅退出前端。PgUp/PgDn 滚动，Ctrl+P/N 输入历史。`chat --plain`、命令式 input 与 --json 继续用于脚本/管道；非 TTY 不进入全屏。
+
+配置缺失或 Core 离线时不会自动初始化或启动服务。新库 init 建立唯一实例/会话；旧库需先停止对应 Core/Runner，再执行 `./release/secretary migrate --authority-session <旧MASTER会话ID> --config <config.json>`。其他旧会话只读保留，不能自动合并；多个终端不创建新会话。
+
+当前架构见 [SingleConversationTUI](../docs/SingleConversationTUI.md)，数据边界见 [RealDataTrial](../docs/RealDataTrial.md)。既有两小时及 Issue #1 报告属于各自旧构建，本次 TUI 构建不继承其运行时长结论。
+
+当前 release 哈希以 SHA256SUMS 为准，本轮实际测试绑定 CLI `8e1f4220…` / daemon `e3756a1a…`，证据见 `reports/implementation/issue2/build.json` 和 `issue2-tui-*-release/report.json`。样例库当前为 001+002，只有空权威登记，不含业务资料或凭据。

@@ -15,6 +15,7 @@ import (
 )
 
 type Builder struct {
+	TaskLocal          bool
 	ValidationFeedback []string
 	Store              *store.Store
 	Model              model.Client
@@ -30,7 +31,23 @@ type Builder struct {
 func (b *Builder) Build(ctx context.Context, t contract.InputTurn, now time.Time) (model.Request, contract.ContextManifest, error) {
 	var req model.Request
 	var manifest contract.ContextManifest
-	all, e := b.Store.Snapshot(ctx, t.SessionID)
+	var all store.MemorySnapshot
+	var e error
+	if b.TaskLocal {
+		if t.Input.Origin != "SYSTEM" {
+			return req, manifest, errors.New("AUTHORITY_TASK_CONTEXT_DENIED")
+		}
+		session, err := b.Store.AuthoritySession(ctx)
+		if err != nil {
+			return req, manifest, err
+		}
+		ctx, e = b.Store.SummaryContext(ctx, session)
+		if e == nil {
+			all, e = b.Store.Snapshot(ctx, session)
+		}
+	} else {
+		all, e = b.Store.SnapshotForTurn(ctx, t)
+	}
 	if e != nil {
 		return req, manifest, e
 	}

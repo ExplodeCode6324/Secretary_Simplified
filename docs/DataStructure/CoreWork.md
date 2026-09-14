@@ -26,3 +26,7 @@ P1 内置执行器的持久收件与恢复记录。
 run_id 唯一；相同命令重复派发复用结果，已完成世界写入的回执和事实在同事务保存。旧尝试结果只能按对账证据使用，不能覆盖新 fence。
 
 通用空值、版本、扩展、引用和错误规则见 [Common.md](Common.md)；事件与提交关系见 [DataFlow.md](../DataFlow.md)。
+
+## Issue #2 主会话与任务局部上下文
+
+CoreWork 仍按 run/attempt/fence 绑定局部执行上下文和许可；它不是第二个 MASTER 对话，也不加入客户端会话选择。内置 world.update、memory.refresh 等输出仅通过原专用提交入口回流业务事实/快照。终端退出不撤销已登记 CoreWork，前端只能通过明确的业务取消控制改变执行。

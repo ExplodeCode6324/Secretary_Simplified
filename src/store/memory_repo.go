@@ -168,7 +168,14 @@ func (s *Store) Snapshot(ctx context.Context, session string) (MemorySnapshot, e
 	} else if !errors.Is(e, sql.ErrNoRows) {
 		return v, e
 	}
-	rows, e := tx.QueryContext(ctx, "SELECT payload_json FROM conversation_event WHERE session_id=? ORDER BY sequence DESC LIMIT 40", session)
+	prefix, hasPrefix := turnPrefix(ctx)
+	eventWhere := "e.session_id=?"
+	eventArgs := []any{session}
+	if hasPrefix {
+		eventWhere, eventArgs = prefixPredicate(prefix, "e")
+		v.Conversation = prefix.State
+	}
+	rows, e := tx.QueryContext(ctx, "SELECT e.payload_json FROM conversation_event e WHERE "+eventWhere+" ORDER BY e.sequence DESC LIMIT 40", eventArgs...)
 	if e != nil {
 		return v, e
 	}
@@ -243,7 +250,13 @@ func (s *Store) Snapshot(ctx context.Context, session string) (MemorySnapshot, e
 	if e != nil {
 		return v, e
 	}
-	rows, e = tx.QueryContext(ctx, "SELECT payload_json FROM input_turn WHERE session_id=?", session)
+	inputQuery := "SELECT payload_json FROM input_turn WHERE session_id=?"
+	inputArgs := []any{session}
+	if hasPrefix {
+		inputQuery = "SELECT t.payload_json FROM input_turn t WHERE EXISTS(SELECT 1 FROM conversation_event e WHERE json_extract(e.payload_json,'$.turn_id')=t.id AND " + eventWhere + ")"
+		inputArgs = eventArgs
+	}
+	rows, e = tx.QueryContext(ctx, inputQuery, inputArgs...)
 	if e != nil {
 		return v, e
 	}
@@ -257,7 +270,7 @@ func (s *Store) Snapshot(ctx context.Context, session string) (MemorySnapshot, e
 	e = rows.Err()
 	rows.Close()
 	var totalRecent, totalDelta int
-	if e = tx.QueryRowContext(ctx, "SELECT COUNT(*) FROM conversation_event WHERE session_id=?", session).Scan(&totalRecent); e != nil {
+	if e = tx.QueryRowContext(ctx, "SELECT COUNT(*) FROM conversation_event e WHERE "+eventWhere, eventArgs...).Scan(&totalRecent); e != nil {
 		return v, e
 	}
 	v.RecentOmitted = totalRecent - len(v.Recent)
@@ -301,6 +314,11 @@ func (s *Store) SaveConsciousness(ctx context.Context, v contract.ConsciousnessS
 	})
 }
 func (s *Store) SaveConversation(ctx context.Context, v contract.ConversationState, expected, previousThrough int) error {
+	return s.WithAuthorityConsumer(ctx, func(held context.Context) error {
+		return s.saveAuthorityConversation(held, v, expected, previousThrough)
+	})
+}
+func (s *Store) saveAuthorityConversation(ctx context.Context, v contract.ConversationState, expected, previousThrough int) error {
 	class, e := contract.ReadClassification(v.Extensions)
 	if e != nil {
 		return e
@@ -312,6 +330,16 @@ func (s *Store) SaveConversation(ctx context.Context, v contract.ConversationSta
 		return errors.New("CONFLICT")
 	}
 	return s.Write(ctx, func(tx *sql.Tx) error {
+		if e := authoritySessionTx(ctx, tx, v.ID); e != nil {
+			return e
+		}
+		var pending int
+		if e := tx.QueryRowContext(ctx, "SELECT count(*) FROM conversation_event e JOIN input_turn t ON t.id=json_extract(e.payload_json,'$.turn_id') WHERE e.session_id=? AND e.sequence>? AND e.sequence<=? AND t.state NOT IN ('COMMITTED','FAILED')", v.ID, previousThrough, v.ThroughSequence).Scan(&pending); e != nil {
+			return e
+		}
+		if pending > 0 {
+			return errors.New("AUTHORITY_SUMMARY_GAP")
+		}
 		var oldRaw []byte
 		if e := tx.QueryRowContext(ctx, "SELECT payload_json FROM conversation_session WHERE id=?", v.ID).Scan(&oldRaw); e != nil {
 			return e
@@ -453,7 +481,15 @@ func (s *Store) ConversationHistory(ctx context.Context, session string, after, 
 	if limit < 1 || limit > 40 {
 		limit = 40
 	}
-	rows, e := s.DB.QueryContext(ctx, "SELECT payload_json FROM conversation_event WHERE session_id=? AND sequence>? ORDER BY sequence LIMIT ?", session, after, limit)
+	query := "SELECT e.payload_json FROM conversation_event e WHERE e.session_id=? AND e.sequence>?"
+	args := []any{session, after}
+	if p, ok := turnPrefix(ctx); ok {
+		where, pArgs := prefixPredicate(p, "e")
+		query += " AND " + where
+		args = append(args, pArgs...)
+	}
+	args = append(args, limit)
+	rows, e := s.DB.QueryContext(ctx, query+" ORDER BY e.sequence LIMIT ?", args...)
 	if e != nil {
 		return nil, e
 	}

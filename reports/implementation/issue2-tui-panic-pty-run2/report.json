@@ -1,0 +1,11 @@
+{
+  "scope": "TUI-12 child-only synthetic panic wrapper around actual Model and identical production Run Bubble Tea options",
+  "status": "PASS",
+  "error": null,
+  "helper_sha256": "9e06ddba7afc76386fff6411a75251f73b95efc84b73cba97004c39d0b2cdb8b",
+  "raw_sha256": "26f2a60875e374554b2777e2769478ebe0b3d21c097efbff1bbf0feac1e51adc",
+  "public_transcript": "pty.normalized.txt",
+  "transcript_notice": "Normalized workspace/home paths, not byte-exact original; private raw retained under reports/local",
+  "production_release_changed": false,
+  "terminal_comparison": "all termios fields exact except approved transient macOS PENDIN"
+}

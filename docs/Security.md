@@ -36,3 +36,11 @@
 裁决：`review/D12-output-class-final-contract.response.md`（整体替代初稿），反注入补充：`review/D12-injection-oracle-clarification.response.md`。无 DDL 或顶层 class 字段扩张。
 
 CLI/API/typed 普通输入缺省 PERSONAL；合成验收必须显式 SYNTHETIC。AllowedClasses 不扩权，SECRET 恒不允许出网。可信旧隔离合成库仅可凭完整来源证明离线显式升级并留审计；不得由“现存输入全合成”推断历史输出。完整请求上下文可重建时须 join 历史依赖并保留原字节，其他 unknown 明确阻断。
+
+## Issue #2：客户端与会话边界
+
+本地认证身份不等于会话创建权限。省略 session_id 由服务端绑定唯一权威会话；显式不同/非法/null 会话拒绝，不允许客户端自建分支。精确已受理请求按原身份和语义回放；省略 session 的旧请求可恢复其原绑定，显式伪造不会走宽松 hash 回退。
+
+TUI 仅持有草稿、显示缓存和稳定请求标识，不持有认知权威，不上传历史改写 Context。控制操作使用目标 ID、期望 revision 与显式确认；查看、刷新、退出不代表取消任务或确认通知。输出中的终端控制序列须清理，输入文本和密钥不得新增到调试日志。
+
+所有新输入入口默认 PERSONAL，分类选择不赋予模型披露许可；SECRET 永不外发。TUI 不能自动改 provider policy 或把真实数据改标 SYNTHETIC。只通过公开读写路径验证本次新入口保护，旧分类验收不重跑。

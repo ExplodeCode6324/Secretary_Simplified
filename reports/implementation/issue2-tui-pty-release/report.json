@@ -1,0 +1,118 @@
+{
+  "scope": "Issue2 TUI local synthetic authenticated HTTP + macOS PTY; no old baseline/long soak/model API",
+  "status": "PASS",
+  "error": null,
+  "checks": [
+    "TUI-01/02 default startup and first Chinese input",
+    "TUI-03 Chinese bracketed multiline paste, CtrlS in paste, resize retains one draft",
+    "TUI-04/07 response loss keeps stable pending ID while draft and scroll respond",
+    "TUI-05/07 reconnect queries original request without POST; history tail paging",
+    "TUI-06 structured question selection binds authoritative ID",
+    "TUI-09 explicit target/revision confirmation works with Core offline",
+    "TUI-10/12 notification refresh never acks; explicit ack; OSC not rendered",
+    "TUI-12 CtrlC restores original terminal mode flags",
+    "TUI-12 catchable SIGTERM restores terminal modes",
+    "TUI-11 explicit JSON on TTY returns guidance without keyboard read or ANSI",
+    "TUI-11 pipe EOF and JSON output without ANSI or keyboard wait"
+  ],
+  "binary_sha256": "8e1f42206a9438e4018afbeb60421a568f6aea6349342daa2e497a5d17a17e0f",
+  "platform": "Darwin",
+  "posts": [
+    {
+      "schema_version": 1,
+      "request_id": "35eacb5e-0595-457b-abb3-9d43d0cd4931",
+      "session_id": "b76a6d13-920b-4bdb-bea4-9bf69da40c4a",
+      "principal_id": "master",
+      "origin": "MASTER_CLI",
+      "received_at": "2026-09-14T05:14:30.196Z",
+      "text": "第一轮中文",
+      "attachment_refs": [],
+      "data_class": "SYNTHETIC",
+      "extensions": {}
+    },
+    {
+      "schema_version": 1,
+      "request_id": "99b8dc10-0f1a-4f0e-9eb0-e7700619402c",
+      "session_id": "b76a6d13-920b-4bdb-bea4-9bf69da40c4a",
+      "principal_id": "master",
+      "origin": "MASTER_CLI",
+      "received_at": "2026-09-14T05:14:31.110Z",
+      "text": "第二轮多行中文\n粘贴第二行草稿",
+      "attachment_refs": [],
+      "data_class": "SYNTHETIC",
+      "extensions": {}
+    },
+    {
+      "schema_version": 1,
+      "request_id": "1d5632ba-0205-4028-9ca0-eea500ff821e",
+      "session_id": "b76a6d13-920b-4bdb-bea4-9bf69da40c4a",
+      "principal_id": "master",
+      "origin": "MASTER_CLI",
+      "received_at": "2026-09-14T05:14:31.718Z",
+      "text": "第三轮中文丢响应",
+      "attachment_refs": [],
+      "data_class": "SYNTHETIC",
+      "extensions": {}
+    },
+    {
+      "schema_version": 1,
+      "request_id": "5e53bfc1-368c-458d-a16a-4bbdbeeb701d",
+      "session_id": "b76a6d13-920b-4bdb-bea4-9bf69da40c4a",
+      "principal_id": "master",
+      "origin": "MASTER_CLI",
+      "received_at": "2026-09-14T05:14:38.376Z",
+      "text": "2026年10月1日",
+      "attachment_refs": [],
+      "data_class": "SYNTHETIC",
+      "extensions": {},
+      "answer_to_question_id": "670454bc-4daa-4bf6-9636-0b6190b531ad"
+    },
+    {
+      "schema_version": 1,
+      "request_id": "beae13f3-55fc-4073-a9d3-e58bfa2c94a7",
+      "session_id": "b76a6d13-920b-4bdb-bea4-9bf69da40c4a",
+      "principal_id": "master",
+      "origin": "MASTER_CLI",
+      "received_at": "2026-09-14T05:14:44.201Z",
+      "text": "管道输入中文",
+      "attachment_refs": [],
+      "data_class": "SYNTHETIC",
+      "extensions": {}
+    }
+  ],
+  "controls": [
+    {
+      "path": "/v1/tasks/synthetic-task/cancel",
+      "body": {
+        "expected_revision": 2,
+        "request_id": "384bff48-f655-4414-a966-31c06c094cb8",
+        "schema_version": 1
+      }
+    },
+    {
+      "path": "/v1/notifications/synthetic-notification/ack",
+      "body": {
+        "expected_revision": 0,
+        "request_id": "5683262a-73d6-4a01-9bd1-87f81df0e70d",
+        "schema_version": 1
+      }
+    }
+  ],
+  "history_queries": [
+    "/v1/conversation/history?limit=50&direction=backward",
+    "/v1/conversation/history?limit=50&after_sequence=60",
+    "/v1/conversation/history?direction=backward&before_sequence=11&limit=50",
+    "/v1/conversation/history?limit=50&after_sequence=60",
+    "/v1/conversation/history?limit=50&after_sequence=60",
+    "/v1/conversation/history?limit=50&after_sequence=62",
+    "/v1/conversation/history?limit=50&after_sequence=64",
+    "/v1/conversation/history?limit=50&after_sequence=65",
+    "/v1/conversation/history?limit=50&direction=backward",
+    "/v1/conversation/history?limit=50&after_sequence=66",
+    "/v1/conversation/history?limit=50&after_sequence=66",
+    "/v1/conversation/history?limit=50&after_sequence=66",
+    "/v1/conversation/history?limit=50&direction=backward"
+  ],
+  "terminal_transcripts": 4,
+  "at": "2026-09-14T05:14:44.955754+00:00"
+}

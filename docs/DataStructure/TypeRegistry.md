@@ -83,3 +83,7 @@ ConsciousnessDraft 只包含 focal_goals、priority_items、open_loops、importa
 前轮“同 Task 总共恰一条 run”的规则与合法 REPLAN 保留历史 run 冲突，已由 [Ayanami 补充裁决](../../review/D08-replan-current-run-deepseek.response.md) 纠正。当前 run = 同 Task `ORDER BY rowid DESC LIMIT 1` 的最新已接纳 run，和 REPLAN 选择 previous 的追加顺序相同。只查询其证据；禁止按成功状态回捞历史 run。任何更旧 run 仍为 QUEUED/CLAIMED/RUNNING/RESULT_UNKNOWN 都令新判定 UNKNOWN；当前 RESULT_UNKNOWN 须先完成对账。列与 DTO 的 ID/task/attempt/fence/state 始终交叉核对。
 
 本规则依赖 job_run 只追加、不 DELETE、不 VACUUM 的存储不变量，插入与 REPLAN 修改在同一写事务内；当前无清理这类行的实现。未来引入清理/整理必须先迁移为显式 current_run_id 或代际，不能悄然沿用 rowid 假设。alarm 证据是 run 级（同 run 回收不额外要求会话 fence）；briefing receipt 和 source event 仍要求当前 attempt/fence。新标准内容和 criterion_hash 不改变，旧证据不满足新 REPLAN、连续两次 REPLAN 只认最后一代、重启不改变归属。
+
+## Issue #2 存储与读 API 扩展
+
+`authority_registry` 与 `authority_turn` 是 002 规范化存储记录；不伪造旧 DTO 的 major 版本升级。`/v1/conversation` 与 `/v1/conversation/history` 为经过认证的只读聚合投影，字段见 Interfaces。InputEnvelope 在公共适配层可省略 session_id，内部仍采用原严格信封。TUI 不增加模型 capability 或命令权限。

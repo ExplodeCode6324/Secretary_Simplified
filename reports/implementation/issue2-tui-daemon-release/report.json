@@ -1,0 +1,18 @@
+{
+  "scope": "TUI-08 real daemon notification after client exit, TUI-05 authority reconnection; no old baseline or sustained test",
+  "status": "PASS",
+  "cli_sha256": "8e1f42206a9438e4018afbeb60421a568f6aea6349342daa2e497a5d17a17e0f",
+  "daemon_sha256": "e3756a1a4219149dd0228e0252be95b05c9530b377ca61a0e28ee27e600bbb75",
+  "checks": [
+    "TUI exit left real daemons running",
+    "one scheduled synthetic notification fired after exit",
+    "reconnected TUI read notification panel",
+    "authority IDs unchanged; notification not retriggered",
+    "terminal user-configurable modes restored (macOS transient PENDIN excluded)",
+    "AUTH-05 one actual owned Core process restart retained authority, original history and shared state"
+  ],
+  "notification_id": "d2b8655f-b63f-4453-9d23-a4426bdd34a1",
+  "notification_count": 1,
+  "instance_id": "4145192e-c8be-4e44-a010-95142b831ca4",
+  "session_id": "097e48ae-9fa2-4c22-bca7-40d00567cf8f"
+}

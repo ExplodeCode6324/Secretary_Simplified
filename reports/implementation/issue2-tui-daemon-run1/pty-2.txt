@@ -1,0 +1,39 @@
+[?25l[?1049h[2J[H[?25l[?2004h[?1002h[?1006h[HSecretary · cc1de014 · 已连接 · 同步 2/2 · SYNTHETIC[K
+────────────────────────────────────────────────────────────────────────────────────────────────────────────[K
+Master  ·  1                                                                                                [K
+[{"operation_key":"create_reminder","kind":"CREATE_JOB","payload":{"command":{"arguments":{"notification_key[K
+                                                                                                            [K
+Secretary  ·  2                                                                                             [K
+Typed actions committed. Execution is asynchronous.                                                         [K
+                                                                                                            [K
+                                                                                                            [K
+                                                                                                            [K
+                                                                                                            [K
+                                                                                                            [K
+                                                                                                            [K
+                                                                                                            [K
+                                                                                                            [K
+                                                                                                            [K
+                                                                                                            [K
+Core 已连接 · Runner 在线 · 配置 fixture / gpt-5.6-luna · 模型调用状态未知[K
+[K
+┃ 输入给 Secretary 的消息…                                                                                [K
+┃                                                                                                         [K
+┃                                                                                                         [K
+┃                                                                                                         [K
+┃                                                                                                         [K
+┃                                                                                                         [K
+Ctrl+S / Alt+Enter 发送 · Enter 换行 · F1 帮助 · Ctrl+C 退出[K[26;H[H
+
+notifications  ·  ↑↓ 选择 / Enter 操作 / n 下一页 / Esc 返回[K
+› 合成提醒：检查测试项目  [DELIVERED][K
+[K
+Core 已连接 · Runner 在线 · 配置 fixture / gpt-5.6-luna · 模型调用状态未知[K
+[K
+┃ 输入给 Secretary 的消息…                                                                                [K
+┃                                                                                                         [K
+┃                                                                                                         [K
+┃                                                                                                         [K
+┃                                                                                                         [K
+┃                                                                                                         [K
+Ctrl+S / Alt+Enter 发送 · Enter 换行 · F1 帮助 · Ctrl+C 退出[K[J[14;H[2K[?2004l[?25h[?1002l[?1003l[?1006l[?1049l[?25h

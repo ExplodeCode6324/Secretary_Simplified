@@ -1,6 +1,6 @@
 # 内部运行记录
 
-以下结构服务于程序协调，不直接作为模型命令输入。同名对象均已在 contracts.schema.json 定义，阶段 1 需实现对应 Go 类型；本文补充其协作语义，不能自行改成任意字典。
+以下结构服务于程序协调，不直接作为模型命令输入。同名对象均已在 contracts.schema.json 定义，已有对应 Go 类型；本文补充其协作语义，不能自行改成任意字典。
 
 | 记录 | 关键字段与行为 |
 |---|---|
@@ -26,3 +26,9 @@
 ### D12 分类传播
 
 Task/JobRun/ExecutionAttempt/ExecutorReceipt及复制、REPLAN、产物回执全链join，授权扩展不得丢失。 使用 [Common.md](Common.md) 的 security.classification 契约；缺失旧派生标记返回 OUTPUT_CLASS_UNKNOWN，不自动回填。
+
+## Issue #2 规范化协调记录
+
+002 新增 authority_registry（singleton=1、instance_id、session_id、registered_at、mapping_reason）与 authority_turn（turn_id、accepted_seq、prefix_sequence、prefix_rowid、frozen_state_json）。前者登记唯一 MASTER 会话；后者是受理队列及冻结视图，不作为模型可写 DTO。冻结状态引用完整 ConversationState，原 InputTurn schema_version=1 不变。
+
+主消费者按 accepted_seq 串行恢复；物理 history sequence 与前缀 rowid/已处理界限分开。旧非权威 pending 保留但不自动执行；客户端重连只查询后端投影。具体物理约束见 Storage 与 migrations/002_authority.sql。

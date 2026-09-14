@@ -79,8 +79,10 @@ func (s *Store) FinishDecisionTurn(ctx context.Context, id string, reply map[str
 	if e = json.Unmarshal(raw, &copied); e != nil {
 		return e
 	}
-	return s.Write(ctx, func(tx *sql.Tx) error {
-		return finishTurnWithQuestionsTx(ctx, tx, id, copied, keys, readSet, class, apply, true)
+	return s.WithAuthorityConsumer(ctx, func(held context.Context) error {
+		return s.Write(held, func(tx *sql.Tx) error {
+			return finishTurnWithQuestionsTx(held, tx, id, copied, keys, readSet, class, apply, true)
+		})
 	})
 }
 

@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"secretarysimplified/contract"
+	"time"
 )
 
 func emptyConversation(id string) contract.ConversationState {
@@ -69,11 +70,14 @@ func acceptInputTx(ctx context.Context, tx *sql.Tx, objects *ObjectWriter, in co
 		if !errors.Is(err, sql.ErrNoRows) {
 			return err
 		}
+		if err = authoritySessionTx(ctx, tx, in.SessionID); err != nil {
+			return err
+		}
 		if err = CheckAnswerTarget(ctx, tx, in); err != nil {
 			return err
 		}
 		var count int
-		if err = tx.QueryRowContext(ctx, "SELECT count(*) FROM input_turn WHERE state IN ('PENDING','PROCESSING')").Scan(&count); err != nil {
+		if err = tx.QueryRowContext(ctx, "SELECT count(*) FROM input_turn WHERE session_id=? AND state IN ('PENDING','PROCESSING')", in.SessionID).Scan(&count); err != nil {
 			return err
 		}
 		if count >= limit {
@@ -95,6 +99,9 @@ func acceptInputTx(ctx context.Context, tx *sql.Tx, objects *ObjectWriter, in co
 		}
 		tb, _ := json.Marshal(out)
 		if _, err = tx.ExecContext(ctx, "INSERT INTO input_turn VALUES(?,?,?,?,?,?,?,?)", out.ID, in.SessionID, in.PrincipalID, in.RequestID, out.IntentID, out.State, string(tb), out.UpdatedAt); err != nil {
+			return err
+		}
+		if _, err = tx.ExecContext(ctx, "INSERT INTO authority_turn(turn_id,accepted_seq) VALUES(?,(SELECT coalesce(max(accepted_seq),0)+1 FROM authority_turn))", out.ID); err != nil {
 			return err
 		}
 		return appendConversationTx(ctx, tx, out, "MASTER", in.Text)
@@ -155,6 +162,9 @@ func appendConversationWithQuestionsTx(ctx context.Context, tx *sql.Tx, t contra
 	if e != nil {
 		return e
 	}
+	if role == "MASTER" {
+		return nil
+	}
 	oldRevision := session.Revision
 	session.Revision++
 	raw, _ = json.Marshal(session)
@@ -178,7 +188,7 @@ func (s *Store) GetTurn(ctx context.Context, id string) (contract.InputTurn, err
 	return v, e
 }
 func (s *Store) PendingTurns(ctx context.Context) ([]contract.InputTurn, error) {
-	rows, e := s.DB.QueryContext(ctx, "SELECT payload_json FROM input_turn WHERE state IN ('PENDING','PROCESSING') ORDER BY updated_at LIMIT 100")
+	rows, e := s.DB.QueryContext(ctx, "SELECT t.payload_json FROM input_turn t JOIN authority_turn a ON a.turn_id=t.id JOIN authority_registry r ON r.session_id=t.session_id WHERE t.state IN ('PENDING','PROCESSING') ORDER BY a.accepted_seq LIMIT 100")
 	if e != nil {
 		return nil, e
 	}
@@ -207,11 +217,15 @@ func (s *Store) Request(ctx context.Context, principal, id string) (map[string]a
 	return v, e
 }
 func (s *Store) FinishTurn(ctx context.Context, id string, reply map[string]any, keys []string, apply func(*sql.Tx, contract.InputTurn) error) error {
-	return s.Write(ctx, func(tx *sql.Tx) error { return finishTurnTx(ctx, tx, id, reply, keys, apply) })
+	return s.WithAuthorityConsumer(ctx, func(held context.Context) error {
+		return s.Write(held, func(tx *sql.Tx) error { return finishTurnTx(held, tx, id, reply, keys, apply) })
+	})
 }
 func (s *Store) FinishTurnClass(ctx context.Context, id string, reply map[string]any, keys []string, class string, apply func(*sql.Tx, contract.InputTurn) error) error {
-	return s.Write(ctx, func(tx *sql.Tx) error {
-		return finishTurnWithQuestionsTx(ctx, tx, id, reply, keys, nil, class, apply, false)
+	return s.WithAuthorityConsumer(ctx, func(held context.Context) error {
+		return s.Write(held, func(tx *sql.Tx) error {
+			return finishTurnWithQuestionsTx(held, tx, id, reply, keys, nil, class, apply, false)
+		})
 	})
 }
 func finishTurnTx(ctx context.Context, tx *sql.Tx, id string, reply map[string]any, keys []string, apply func(*sql.Tx, contract.InputTurn) error) error {
@@ -229,6 +243,16 @@ func finishTurnWithQuestionsTx(ctx context.Context, tx *sql.Tx, id string, reply
 	}
 	if t.State == "COMMITTED" {
 		return nil
+	}
+	if e := authoritySessionTx(ctx, tx, t.SessionID); e != nil {
+		return e
+	}
+	var head string
+	if e := tx.QueryRowContext(ctx, "SELECT t.id FROM input_turn t JOIN authority_turn a ON a.turn_id=t.id WHERE t.session_id=? AND t.state IN ('PENDING','PROCESSING') ORDER BY a.accepted_seq LIMIT 1", t.SessionID).Scan(&head); e != nil {
+		return e
+	}
+	if head != t.ID {
+		return errors.New("AUTHORITY_TURN_NOT_HEAD")
 	}
 	if questions {
 		var stateRaw []byte
@@ -343,14 +367,40 @@ func (s *Store) AcceptTyped(ctx context.Context, in contract.InputEnvelope, limi
 	if lookupErr != nil && lookupErr != sql.ErrNoRows {
 		return out, lookupErr
 	}
-	err = s.WriteObjects(ctx, func(tx *sql.Tx, objects *ObjectWriter) error {
-		var e error
-		out, e = acceptInputTx(ctx, tx, objects, in, hash, limit)
-		if e != nil {
-			return e
+	if lookupErr == nil {
+		var raw []byte
+		if e = s.DB.QueryRowContext(ctx, "SELECT payload_json FROM input_turn WHERE principal_id=? AND request_id=?", in.PrincipalID, in.RequestID).Scan(&raw); e != nil {
+			return out, e
 		}
-		return finishTurnTx(ctx, tx, out.ID, reply, keys, apply)
+		e = contract.Decode("InputTurn", raw, &out)
+		return out, e
+	}
+	lockCtx, cancel := context.WithTimeout(ctx, time.Second)
+	defer cancel()
+	err = s.WithAuthorityConsumer(lockCtx, func(held context.Context) error {
+		return s.WriteObjects(held, func(tx *sql.Tx, objects *ObjectWriter) error {
+			if e := authoritySessionTx(held, tx, in.SessionID); e != nil {
+				return e
+			}
+			var count int
+			if e := tx.QueryRowContext(held, "SELECT count(*) FROM input_turn WHERE session_id=? AND state IN ('PENDING','PROCESSING')", in.SessionID).Scan(&count); e != nil {
+				return e
+			}
+			if count > 0 {
+				return errors.New("AUTHORITY_BUSY")
+			}
+			var e error
+			out, e = acceptInputTx(held, tx, objects, in, hash, limit)
+			if e != nil {
+				return e
+			}
+			return finishTurnTx(held, tx, out.ID, reply, keys, apply)
+		})
 	})
+	if errors.Is(err, context.DeadlineExceeded) || errors.Is(err, context.Canceled) {
+		err = errors.New("AUTHORITY_BUSY")
+	}
+
 	if err == nil {
 		return s.GetTurn(ctx, out.ID)
 	}

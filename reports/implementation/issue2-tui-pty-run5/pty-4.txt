@@ -1,0 +1,1 @@
+NONINTERACTIVE_INPUT_REQUIRED: pipe input to chat --plain --json, or use input --text

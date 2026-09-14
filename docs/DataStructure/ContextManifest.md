@@ -41,3 +41,7 @@ read_set 是提交时 CAS 的实际相关对象集合。request_hash 对最终�
 ### D12 分类传播
 
 程序审计标记使用冻结请求class，不能由模型声明；原wire hash语义保持。 使用 [Common.md](Common.md) 的 security.classification 契约；缺失旧派生标记返回 OUTPUT_CLASS_UNKNOWN，不自动回填。
+
+## Issue #2 当前绑定与可见性
+
+snapshot_seq 是业务 ChangeEvent 快照水位，不能充当受理序号或摘要覆盖证明。审计应结合 authority_turn 冻结状态及引用检验本轮可见前缀；最终 wire hash 原规则不变。

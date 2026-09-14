@@ -272,11 +272,10 @@ func VerifyBackup(ctx context.Context, dir string) (BackupManifest, error) {
 	if e != nil || bad {
 		return m, fmt.Errorf("BACKUP_FOREIGN_KEY_FAILED")
 	}
-	var checksum string
-	var ver int
-	if e = db.QueryRowContext(ctx, "SELECT version,checksum FROM schema_migration ORDER BY version DESC LIMIT 1").Scan(&ver, &checksum); e != nil || ver != 1 || checksum != contract.Hash([]byte(baseline)) {
-		return m, fmt.Errorf("MIGRATION_MISMATCH")
+	if e = validateMigrations(ctx, db, false); e != nil {
+		return m, e
 	}
+
 	var count int
 	if e = db.QueryRowContext(ctx, "SELECT count(*) FROM object_ref").Scan(&count); e != nil {
 		return m, e

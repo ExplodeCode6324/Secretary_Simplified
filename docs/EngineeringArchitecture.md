@@ -6,8 +6,10 @@
 
 ```mermaid
 flowchart LR
-  CLI[secretary CLI] -->|core.sock| P1[P1 secretaryd core]
-  CLI -->|runner.sock 控制| P2[P2 secretaryd runner]
+  CLI[客户端 A: TUI / plain / CLI] -->|core.sock 认证| P1[P1 唯一会话 / 主决策消费者]
+  Other[客户端 B: 同一后端] -->|core.sock 认证| P1
+  CLI -->|runner.sock 确定性控制| P2[P2 secretaryd runner]
+  Other -->|runner.sock 确定性控制| P2
   P1 <--> DB[(SQLite)]
   P2 <--> DB
   P2 -->|core.sock 派发受限工作| P1
@@ -20,6 +22,8 @@ flowchart LR
 P1 故障时 P2 可扫描已提交计划并执行本地能力；需要 P1 的 agent 工作保留排队或按策略超时，不能标记成功。P2 故障时 P1 可受理输入并登记计划，但界面显示执行器离线。两个进程都停止时没有执行保证。
 
 阶段 5 增加 P3 audio-worker；阶段 6 增加移动客户端和经认证的连接入口。新增入口不能改变业务命令、去重和授权语义。Mac 图形客户端是可选扩展，不阻塞阶段 1—4。
+
+同一正式实例持久登记一个 instance_id 和一个可写权威 session_id。客户端只通过 API 查询及提交，不读取 SQLite、不启动 CLI 子进程来解析界面输出、不持有独立权威摘要。实例隔离目录和备份副本不合并；内部任务关联 ID 不成为主会话。TUI HTTP 工作与终端事件循环分离，客户端退出只释放界面连接。
 
 ## 2. 源代码分组
 
@@ -41,6 +45,7 @@ P1 故障时 P2 可扫描已提交计划并执行本地能力；需要 P1 的 ag
 | `transport` | UDS HTTP、认证、错误与流式事件 | contract；注入服务接口 |
 | `platform` | 时钟、文件、Mac 设备适配 | 标准库优先 |
 | `diagnostics` | 日志、报告、只读回放 | contract、store 的只读接口 |
+| `tui` | 非阻塞终端编辑、只读历史视图、结构化问题及业务控制表单 | 终端组件、transport；不依赖 store/model 权威操作 |
 
 入口目录：`cmd/secretaryd`、`cmd/secretary`。测试：`tests/fixtures`、`tests/integration`、`tests/replay`。运行时目录：`state/secretary.sqlite`、`objects/`、`logs/`、`reports/`、`run/`；实际路径由配置给出，示例使用隔离临时目录。
 
@@ -48,7 +53,7 @@ P1/P2 共享受控 store 实现。通过接口分出 CoreStore、RunnerStore、W
 
 ## 3. 外部依赖
 
-主体只采用 Go。首批第三方运行库限两项：纯 Go SQLite 驱动 `modernc.org/sqlite` 和支持 JSON Schema Draft 2020-12 的校验库 `github.com/santhosh-tekuri/jsonschema/v6`。标准库完成 HTTP、JSON、日志、进程、UUID 随机字节与配置。初版周期规则采用结构化 `once/interval/daily/weekly/event`，暂不接入通用 cron DSL，因此没有 cron 库依赖。
+主体只采用 Go。持久化与契约采用 `modernc.org/sqlite` 和 `github.com/santhosh-tekuri/jsonschema/v6`。Issue #2 允许增加成熟终端组件：Bubble Tea v1.3.10 与 Bubbles v0.21.0，版本及传递依赖锁定在 go.mod/go.sum；不引入另一个前端运行时。标准库完成 HTTP、JSON、日志、进程与配置。周期规则仍采用 once/interval/daily/weekly/event，不接通用 cron DSL。
 
 这些是接口级选型；实施开始时查询官方仓库、固定兼容的 Go/库版本并保存 go.mod/go.sum 和依赖清单。不能直接沿用旧实验版本并称其为当前安全版本。若库不支持本文 Schema 所需能力，选择同类替换并记录理由；不得删除校验规则迁就库。接口依据：[modernc SQLite 文档](https://pkg.go.dev/modernc.org/sqlite)、[jsonschema 官方仓库](https://github.com/santhosh-tekuri/jsonschema)。
 
@@ -60,6 +65,8 @@ P1/P2 共享受控 store 实现。通过接口分出 CoreStore、RunnerStore、W
 
 输入先持久化再受理。未完成的输入轮次由 P1 扫描恢复。P2 扫描周期默认 1 秒；Core 事件消费者周期 1 秒。停止、取消控制走独立有界控制通道，不等待模型或普通任务工作槽。
 
+唯一主会话按 authority_turn 的持久受理序号排序，由跨进程主消费者锁保护。每轮首次处理冻结可见会话状态和前缀，重启复用；未处理的未来输入即使已经记录也不能进入本轮模型或会话摘要。客户端时间戳不决定处理顺序；不同客户端分别串行不能替代此后端约束。Typed 的同步准入及兼容细节见 [SingleConversationTUI.md](SingleConversationTUI.md)。后台执行使用原有 run/permit/fence，不受主会话 UI 生命周期影响。
+
 每个进程一个写入串行器，跨进程仍依赖 SQLite 事务和条件更新。读连接数量默认 4；每个连接都初始化外键、busy timeout 等配置。不得在事务中执行网络调用、模型调用、播放或长时间文件处理。
 
 ## 5. 启停
@@ -67,3 +74,5 @@ P1/P2 共享受控 store 实现。通过接口分出 CoreStore、RunnerStore、W
 首次初始化独占迁移锁；迁移只在两个常驻进程停止时运行。服务启动验证迁移版本，版本不匹配即退出并给出修复说明。P1/P2 各持有独占实例锁；Runner 另使用数据库代际和执行租约防止旧回执覆盖新状态。
 
 阶段 3 用进程启动器完成测试，可交付用户级 launchd 配置但默认不安装、不自启。阶段 4 启用常驻前记录 Master 选定配置。重启先对账旧执行，再领取新副作用任务。
+
+终端渲染还直接使用 `github.com/charmbracelet/x/ansi v0.10.1`（原终端库传递依赖提升为直接依赖），按 cell 宽度换行/截断中文显示；版本锁定于 go.mod/go.sum。

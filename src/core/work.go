@@ -130,7 +130,7 @@ func (s *Service) InternalHandler() http.Handler {
 		case "briefing.build":
 			now := contract.Now()
 			turn := contract.InputTurn{SchemaVersion: 1, ID: in.Run.ID, SessionID: in.Run.ID, IntentID: in.Run.ID, RequestID: in.Run.ID, Input: contract.InputEnvelope{SchemaVersion: 1, RequestID: in.Run.ID, SessionID: in.Run.ID, PrincipalID: "system", Origin: "SYSTEM", ReceivedAt: now, Text: "根据当前权威事项与事实生成简短中文晨报，明确未知和未完成事项。不要生成任何actions或controls，不宣称业务已完成。", AttachmentRefs: []contract.ObjectRef{}, DataClass: "SYNTHETIC", Extensions: map[string]any{}}}
-			builder := ctxbuild.Builder{Store: s.Store, Model: s.Model, Config: s.Config}
+			builder := ctxbuild.Builder{Store: s.Store, Model: s.Model, Config: s.Config, TaskLocal: true}
 			req, manifest, err := builder.Build(r.Context(), turn, time.Now())
 			if err != nil {
 				e = err

@@ -78,6 +78,10 @@ func Init(path, objects string) (*Store, error) {
 		s.Close()
 		return nil, e
 	}
+	if e = installAuthority(context.Background(), s, ""); e != nil {
+		s.Close()
+		return nil, e
+	}
 	return s, nil
 }
 func Open(path, objects string) (*Store, error) {
@@ -97,13 +101,11 @@ func Open(path, objects string) (*Store, error) {
 		s.Close()
 		return nil, fmt.Errorf("INITIALIZATION_INCOMPLETE: no schema_migration; preserve this file and initialize a new empty data directory")
 	}
-	var version int
-	var checksum string
-	e = s.DB.QueryRow("SELECT version,checksum FROM schema_migration ORDER BY version DESC LIMIT 1").Scan(&version, &checksum)
-	if e != nil || version != 1 || checksum != contract.Hash([]byte(baseline)) {
+	if e = validateMigrations(context.Background(), s.DB, true); e != nil {
 		s.Close()
-		return nil, fmt.Errorf("MIGRATION_MISMATCH: run compatible migration")
+		return nil, e
 	}
+
 	return s, nil
 }
 func (s *Store) Close() error { return s.DB.Close() }

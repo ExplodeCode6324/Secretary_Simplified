@@ -168,6 +168,20 @@ func (s *Service) RefreshSlot(ctx context.Context, slot int, now time.Time) (sta
 // Summarize incrementally covers a contiguous original-event range and CASes
 // the prior coverage watermark; failed synthesis leaves all original rows.
 func (s *Service) Summarize(ctx context.Context, session string) (state contract.ConversationState, resultErr error) {
+	resultErr = s.Store.WithAuthorityConsumer(ctx, func(held context.Context) error {
+		var e error
+		state, e = s.summarizeAuthority(held, session)
+		return e
+	})
+	return
+}
+func (s *Service) summarizeAuthority(ctx context.Context, session string) (state contract.ConversationState, resultErr error) {
+	var prefixErr error
+	ctx, prefixErr = s.Store.SummaryContext(ctx, session)
+	if prefixErr != nil {
+		return state, prefixErr
+	}
+
 	snap, e := s.Store.Snapshot(ctx, session)
 	if e != nil {
 		return contract.ConversationState{}, e

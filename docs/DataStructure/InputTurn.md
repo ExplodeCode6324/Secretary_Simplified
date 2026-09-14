@@ -42,3 +42,7 @@ PROCESSING 持有有界租约；恢复时先查提交回执而非重新创造业
 ### D12 分类传播
 
 最终输出extension与输入原始data_class分开；原话标签不因高分类Context而重写。 使用 [Common.md](Common.md) 的 security.classification 契约；缺失旧派生标记返回 OUTPUT_CLASS_UNKNOWN，不自动回填。
+
+## Issue #2 当前绑定与可见性
+
+当前主会话 turn 关联 authority_turn 的持久受理序号与冻结轮次状态。受理原话追加不推进认知 revision；单消费者只运行队头。客户端通过原 request_id/turn_id 查询与恢复，不以超时创建新 turn。

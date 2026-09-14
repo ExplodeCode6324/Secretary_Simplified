@@ -9,12 +9,12 @@ Core 和 Runner 使用 data-dir/run 中的私有 Unix socket 与 client.token；
 POST /v1/items、POST /v1/jobs、POST /v1/world/proposals、PATCH /v1/items/{id}、PATCH /v1/jobs/{id} 使用以下信封：
 
 ```json
-{"schema_version":1,"request_id":"00000000-0000-4000-8000-000000000200","session_id":"00000000-0000-4000-8000-000000000001","expected_revision":0,"payload":{}}
+{"schema_version":1,"request_id":"00000000-0000-4000-8000-000000000200","expected_revision":0,"payload":{}}
 ```
 
 创建时 expected_revision 为 0；更新必须使用当前业务 revision。创建 payload 分别对应 ActionProposal 的 CREATE_ITEM、CREATE_JOB、WORLD_PROPOSAL payload。事项更新 payload 对应 UPDATE_ITEM.changes，支持 title/status/due_at/priority。计划 PATCH 只允许 schedule/enabled/misfire/grace_seconds/overlap/max_attempts，不能修改已冻结 command、criterion 或 root。
 
-POST /v1/actions 支持原子提交 ActionProposal 数组，信封是 schema_version/request_id/session_id/actions。它返回持久 InputTurn；执行仍异步。创建和更新事项的专用路由返回该次提交的原始 Item 版本，重试不会重复创建。World proposal 返回专用 task_id，尚不是事实写入成功。
+POST /v1/actions 支持原子提交 ActionProposal 数组，信封是 schema_version/request_id/actions，可选 session_id 仅接受后端权威 ID。它返回持久 InputTurn；执行仍异步。创建和更新事项的专用路由返回该次提交的原始 Item 版本，重试不会重复创建。World proposal 返回专用 task_id，尚不是事实写入成功。
 
 ## 查询与控制
 
@@ -33,9 +33,17 @@ POST /v1/memory/search 输入 schema_version=1、query，可选 entity_ids/curso
 `POST /v1/inputs` 新增可选 `answer_to_question_id`（UUID，不接受 null）。CLI 使用：
 
 ```sh
-./release/secretary input --session <原session-id> --answer-to <question-id> --request-id <本轮request-id> --text '明确回答' --config <config.json> --json
+./release/secretary input --answer-to <question-id> --request-id <本轮request-id> --text '明确回答' --config <config.json> --json
 ```
 
-仅同主体、同 session 的未解决问题可回答；跨 session 检索取回后，使用问题块中的原 session ID 回答。成功提交时回复包含程序生成的 `answered_question_id`。回答只表示该问题收到了成功提交的显式答复，不表示答案已验证或事项已完成。失败回复不会解决问题。
+仅同主体、当前权威会话中的未解决问题可回答；不同客户端使用相同后端问题列表，旧非权威历史只读。成功提交时回复包含程序生成的 `answered_question_id`。回答只表示该问题收到了成功提交的显式答复，不表示答案已验证或事项已完成。失败回复不会解决问题。
 
 未知、错 session 或已回收问题返回 `QUESTION_NOT_FOUND_IN_SESSION`（404）；槽内已解决问题返回 `QUESTION_ALREADY_RESOLVED`（409）。重试同一请求须保持 request-id 和回答目标不变；相同已提交请求仍返回原结果。新版本接受旧的无字段输入；旧严格客户端可能拒绝新增字段，应同步部署 CLI/Core/Schema。
+
+## 当前会话与 TUI
+
+先 GET `/v1/conversation` 取得 instance_id/session_id、共享 state、pending_turns 与只读 legacy_sessions；GET `/v1/conversation/history?after_sequence=0&limit=50` 分页取得 events、next_sequence、has_more、history_sequence，最大 limit=100。`direction=backward&before_sequence=<上一页首序号>` 向旧页读取，返回 previous_sequence 作为下一次旧页边界；events 始终正序。before_sequence=0 从尾端读取。输入信封省略 session_id 时后端自动绑定；显式其他 ID、null 或非法值拒绝。旧精确请求仍回放原结果，不创建分支。
+
+TUI 对应 `secretary` / `chat` / `tui`，纯文本用 `chat --plain`，脚本保留 input 与 --json。默认输入 PERSONAL，不自动授予模型外发权限。主轮待决时同步 typed 新写入可能返回 409 AUTHORITY_BUSY，此时无准入副作用。完整键位与字段见 [Interfaces](../docs/Interfaces.md)。
+
+完整公共输入示例见 [input-public.json](examples/input-public.json)：无 session_id，由服务端绑定。示例为固定合成接口载荷，实际客户端为每次新操作生成 request_id 与接收时间，网络重试沿用原载荷。

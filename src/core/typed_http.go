@@ -11,7 +11,8 @@ import (
 type typedRequest struct {
 	SchemaVersion    int             `json:"schema_version"`
 	RequestID        string          `json:"request_id"`
-	SessionID        string          `json:"session_id"`
+	SessionID        string          `json:"-"`
+	SessionIDRaw     json.RawMessage `json:"session_id,omitempty"`
 	ExpectedRevision *int            `json:"expected_revision"`
 	Payload          map[string]any  `json:"payload"`
 	DataClassRaw     json.RawMessage `json:"data_class,omitempty"`
@@ -34,8 +35,10 @@ func readTyped(r *http.Request) (typedRequest, error) {
 	if q.SchemaVersion != 1 || q.RequestID == "" || q.ExpectedRevision == nil || *q.ExpectedRevision < 0 {
 		return q, errors.New("INVALID_SCHEMA")
 	}
-	if q.SessionID == "" {
-		q.SessionID = "00000000-0000-4000-8000-000000000001"
+	if q.SessionIDRaw != nil {
+		if string(q.SessionIDRaw) == "null" || json.Unmarshal(q.SessionIDRaw, &q.SessionID) != nil || q.SessionID == "" {
+			return q, errors.New("INVALID_SCHEMA")
+		}
 	}
 	return q, nil
 }

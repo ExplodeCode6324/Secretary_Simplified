@@ -63,3 +63,11 @@ SQL 迁移与 JSON payload 迁移同步编号，迁移记录保存迁移文件�
 - `Store.RecoverObjectStaging(ctx, limit)` 是有界 Go 运维接口，limit 为 1–1000：同锁内只清合法 `.object-tmp-<uuid>`，且跳过任何 committed object_ref 指向的路径；不清 blob、隔离物或未知文件名。不需要年龄/pid猜测，因为活临时写入同样持 flock。现有CLI没有凭空新增 purge 命令。
 
 原两小时测试不重跑，不累加到新构建，不改原报告哈希。新修复依赖缺陷定向／竞态回归、构建与短时冒烟；不新增持续时长门槛。
+
+## Issue #2：追加 002 唯一权威登记
+
+001 DDL、既有迁移校验和与旧 payload 原字节保留。追加 `migrations/002_authority.sql` 对应 `src/store/002_authority.sql`，新增 `authority_registry` 与 `authority_turn`，分别保存实例/会话映射及持久队列、冻结轮次前缀。数据库迁移版本与 JSON DTO schema_version 是不同层；本次不伪造旧 DTO 升级或重写语义 hash。
+
+新库初始化登记唯一 MASTER 会话；旧库正常启动若未迁移应返回明确迁移提示，由离线管理命令显式选定合法旧 MASTER 会话。其他历史会话只读保留，旧非权威待处理输入不自动消费。迁移前须停止 Core 与 Runner，通过进程锁验证后操作；多候选库不得猜测选择。迁移不得改变数据分类。
+
+受理序号在输入同事务分配。认知 revision 仅随已提交状态变化，单纯追加待处理输入不会导致前轮 CAS 失效。单消费者锁跨模型调用持有但不持数据库事务；重启恢复已受理队列。各业务对象原 read_set 与授权检查仍然有效。

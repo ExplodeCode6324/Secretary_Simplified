@@ -131,3 +131,9 @@ ChangeEvent 带 root_id、causation_id 和 origin。消费者忽略自己已处�
 同代尚在处理的重复 POST 返回 WORK_IN_PROGRESS。Runner 对 UNKNOWN 的 GET 只读；确定 FAILED/no-effect 可以按既有预算和退避重试，即使对应 execution_attempt 已 FINISHED，active_ms 也只能结算一次。跨代仅允许可验证 SUCCEEDED 证据重绑定，旧 FAILED 不能成为新代失败或重试凭据。
 
 briefing 的 ObjectRef 与 CoreWork 成功回执使用同一 WriteObjects 事务。memory.refresh 的宕机间隙由 Runner 在本地事务核验精确 slot、合法 DTO、控制器 root 与当前 run/attempt/fence，先保存程序对账回执，再走 RecordReceipt/Verifier；GET 不进行该写入，缺失精确证据保持 UNKNOWN。source.sync 进入适配器后出现失败可能有部分效果，保持 RESULT_UNKNOWN；读取前拒绝则无业务效果。来源文件实际读取上限为 1 MiB + 1，超过 1 MiB 返回 INPUT_TOO_LARGE；不能仅依赖预先 Stat，且拒绝非普通文件。
+
+## Issue #2：对话消费与执行进程独立
+
+主对话按持久受理序号在单消费者锁下运行，模型调用期间无数据库长事务。冻结的轮次前缀排除后续未处理输入；认知提交后再处理下一轮。同步 Typed 写入遇到主轮处理中按 AUTHORITY_BUSY 拒绝并保持零准入副作用，精确旧请求仍可重放。
+
+此对话顺序不将任务执行绑到终端。TUI 退出/断网只结束前端观察，Runner 继续处理已登记计划；取消、暂停、恢复、触发与通知确认使用已有认证业务接口和版本/幂等键。客户端不能将受理、执行成功、验收完成和 RESULT_UNKNOWN 混成一个成功状态。

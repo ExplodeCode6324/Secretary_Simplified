@@ -88,3 +88,26 @@ Issue #1 实施独立复核已收口：
 - [AUD02/04 执行与读限终审](issue1-runtime-final.response.md)：限定 PASS，最终 11 项工件 hash 核对、实际 UDS/fake HTTP/race；GET 只读与旧 fence 反例通过。
 
 本轮无开放 review must-fix；最终全仓/release短 smoke 由 root 另行归档。原两小时证据保持原构建与 hash，本轮不重跑、不增加持续时长门槛。
+
+## GitHub Issue #2 新增范围
+
+[当前原文](issue2-original.md)替代原多会话 TUI 设想：一个后端权威会话、多客户端视图。本轮复核仅覆盖 AUTH-01–08 / TUI-01–13 / DOC-01–05 / BUILD-01，不复审旧结论或重跑旧上下文、持久状态、全仓、月回放及长期套件。实际 Ayanami 架构商议与模块报告将记于 issue2*。
+
+Issue #2 设计已由实际 DeepSeek 同意进入实施（不代表验收通过）：
+
+- [AUTH方案](issue2-auth-design.response.md)与[生效更正](issue2-auth-design-correction.response.md)：additive002、单消费者/frozen prefix、Typed_BUSY、精确旧回执及显式升级边界。
+- [TUI方案](issue2-tui-design.response.md)与[生效更正](issue2-tui-design-correction.response.md)：薄客户端、固定发送键、实例绑定恢复、纯JSON/安全粘贴与最小依赖例外。
+
+实施及本轮编号定向验收后再分别复核；上述更正明确替代各首稿冲突条件，原报告不改写。
+
+- [PTY PENDIN判据与x/ansi](issue2-pty-pendin.response.md)：允许仅掩内核PENDIN状态位，其他termios严格；已有锁版渲染helper升direct同意。
+- [DOC初审](issue2-docs-review.response.md)：当时静态快照一致，API与最终导出待冻结后对齐；期间镜像漂移及修复如实保留，不是最终DOC验收PASS。
+
+## Issue #2 最终独立收口
+
+- [AUTH终审](issue2-auth-final.response.md)：AUTH-01–08 后端定向 PASS，无 mustfix；实际指定新测试 race 与静态检查。
+- [TUI终审](issue2-tui-final.response.md)：TUI 新模块限定 PASS，实际新测试 race、正式构建与 PTY/daemon 证据 hash 对齐。该报告将 AUTH 新测试误称“旧套件”，此处纠正：它们是本轮新增 AUTH 测试，由 AUTH 报告独立覆盖；原审查正文不改写。
+- [DOC/BUILD静态终审](issue2-docs-final.response.md)及[最终措辞/hash核证](issue2-final-wording.response.md)：PASS，无 mustfix。最终导出 zip SHA256 为 `15f6236bc4187cffd77167315aee9cc9a66542314b26372038c3030dce8b4f64`；正式CLI/daemon仍为 `8e1f4220…` / `e3756a1a…`。
+- panic 恢复补证是 child-only 实际 Model/相同 Run 选项的独立测试，生产无注入hook；正常退出/Ctrl+C/SIGTERM是正式release PTY证据，SIGHUP/SIGQUIT与Linux运行未验。首轮失败与修正后PASS均保留。
+
+Issue #2 无开放 review mustfix。新增报告/provenance仅收编清单，不改规范正文，不触发循环复审。旧上下文/持久状态/全仓/月回放/长期测试未重跑，旧结论未重开。

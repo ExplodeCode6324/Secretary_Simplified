@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "request_id": "00000000-0000-4000-8000-000000000201",
+  "principal_id": "master",
+  "origin": "MASTER_CLI",
+  "received_at": "2026-09-14T01:00:00.000Z",
+  "text": "这是一条用于接口说明的合成文本。",
+  "attachment_refs": [],
+  "data_class": "SYNTHETIC",
+  "extensions": {}
+}

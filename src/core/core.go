@@ -52,6 +52,9 @@ func (s *Service) Run(ctx context.Context) error {
 	}
 }
 func (s *Service) Process(ctx context.Context, t contract.InputTurn) error {
+	return s.Store.WithAuthorityConsumer(ctx, func(held context.Context) error { return s.processAuthorityTurn(held, t) })
+}
+func (s *Service) processAuthorityTurn(ctx context.Context, t contract.InputTurn) error {
 	current, e := s.Store.GetTurn(ctx, t.ID)
 	if e != nil {
 		return e
@@ -60,6 +63,11 @@ func (s *Service) Process(ctx context.Context, t contract.InputTurn) error {
 		return nil
 	}
 	t = current
+	prefix, e := s.Store.FreezeTurn(ctx, t)
+	if e != nil {
+		return e
+	}
+	ctx = store.WithTurnPrefix(ctx, prefix)
 	client := diagnostics.Recorded(s.Model, s.Store, s.Config)
 	builder := ctxbuild.Builder{Store: s.Store, Model: client, Config: s.Config, GrantID: s.GrantID}
 	var last error
@@ -470,6 +478,11 @@ func (s *Service) Typed(ctx context.Context, requestID, session string, actions 
 }
 
 func (s *Service) TypedClass(ctx context.Context, requestID, session string, actions []contract.ActionProposal, dataClass string) (contract.InputTurn, error) {
+	var resolveErr error
+	session, resolveErr = s.Store.ResolveSession(ctx, "master", requestID, session)
+	if resolveErr != nil {
+		return contract.InputTurn{}, resolveErr
+	}
 	if _, err := contract.JoinClass(dataClass); err != nil {
 		return contract.InputTurn{}, err
 	}

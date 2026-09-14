@@ -61,3 +61,7 @@
 模型／客户端在任何结构层注入此键，整请求／整 Decision 拒绝；不读取其标签决定业务，原始拒绝证据保持原字节。持久写入仅使用程序值，其他合法 extension 保留。缺失／非法的旧派生标签保留 unknown，在披露／重推导入口返回 OUTPUT_CLASS_UNKNOWN，不回填 SYNTHETIC、不伪写 SECRET、不删除数据。空内容程序脚手架可无标，固定且不含用户／模型内容的字面量可显式 SYNTHETIC；真实输入原文仍用其原始 data_class。
 
 裁决：`review/D12-output-class-final-contract.response.md`（整体替代初稿），反注入补充：`review/D12-injection-oracle-clarification.response.md`。无 DDL 或顶层 class 字段扩张。
+
+## Issue #2 契约索引
+
+公共入口省略会话的适配语义见 InputEnvelope；持久排序见 InputTurn；物理事件/认知前缀区分见 ConversationEvent；唯一认知状态见 ConversationState；生成与审计边界见 Context、ContextManifest、ConversationSummaryDraft。既有内部 JSON DTO 保留 schema_version=1 与严格字段；新增权威登记与轮次表属于 002 数据库迁移，HTTP 快照投影见 Interfaces。没有把客户端会话状态变成权威写入 DTO。

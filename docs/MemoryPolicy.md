@@ -30,7 +30,7 @@ P2 的内置槽控制器按持久 epoch 和当前 UTC 计算所需 slot，以固
 
 ## 4. Conversation State
 
-原话追加保存，session 内 sequence 连续且唯一。结构槽位保存 focus_entity_ids、pending_questions 和 commitment_item_ids。承诺内容在 Item 中有独立记录；会话摘要只引用它。助手说出承诺不会绕开任务登记。
+原话追加保存，唯一权威会话内物理 sequence 连续且唯一；它不等于已处理认知前缀。结构槽位保存 focus_entity_ids、pending_questions 和 commitment_item_ids。承诺内容在 Item 中有独立记录；会话摘要只引用它。助手说出承诺不会绕开任务登记。
 
 近期窗口默认最多 20 个完整轮次，同时服从 12 KiB 字节上限。必须保留当前输入；超大输入先归档并明确返回 INPUT_TOO_LARGE 或按附件方式选择区段，不能静默截断当前指令。摘要保存覆盖起止序号及原文引用。提交摘要须 CAS 前一版本和 through_sequence，不能跳过中间原话。摘要失败保留可检索原文，Context 标注未压缩范围。
 
@@ -43,7 +43,7 @@ P2 的内置槽控制器按持久 epoch 和当前 UTC 计算所需 slot，以固
 组装顺序：
 
 1. 读取策略、当前时间、任务完成条件、能力目录、输出 Schema；这些属于必要部分。
-2. 在一个只读事务取得权威快照和会话状态。装入当前输入、相关 Item/Task 及父子和依赖闭包、冲突和未知状态。
+2. 按持久队头冻结轮次可见的权威快照和会话状态，排除后到、未处理的当前会话输入。装入当前输入、相关 Item/Task 及父子和依赖闭包、冲突和未知状态。
 3. 装入相关 WorldModelInput、LiveWorldStateInput、最近有效意识快照；按当前版本校正快照中的过期引用，并标记 stale_refs。
 4. 装入意识水位之后与本次事项相关的变化、未读重要变化计数、近期原话和有覆盖水位的摘要。
 5. 用实体引用、日期和关键词检索原文；最多 3 次检索、每页 10 条、每条 2 KiB。跨页使用固定快照游标。检索结果属于不可信资料区。
@@ -86,7 +86,7 @@ retrieved_evidence 的 selected_count 是按 ObjectID 去重的实际 EvidenceRe
 
 ## 实施设计修订 D11：待答问题生命周期
 
-D11 补齐待答问题正常生成／回答入口：模型只提 reply.questions 内容，程序独占 ID、实际事件序号和状态；InputEnvelope.answer_to_question_id 只按原 session 显式 ID 回答。跨 session READ_MEMORY 必须可取回原问题原话、session 和 ID，重启后仍可恢复原会话完成回答。无显式指针不得从摘要猜测解决；resolved 不等于业务完成。SummaryDraft.pending_question_ids 仅能引用现存问题，不能建立、解决、复活问题。严格 20 槽、每决策最多 3 提案，按已解决最旧先回收；未解问题永不因容量被裁。问题与回复／回执／业务动作同事务，生命周期 revision CAS 不改变摘要覆盖水位。
+D11 补齐待答问题正常生成／回答入口：模型只提 reply.questions 内容，程序独占 ID、实际事件序号和状态；InputEnvelope.answer_to_question_id 绑定当前唯一权威会话中的显式问题 ID，TUI 从后端结构化问题列表选择并自动携带。不同客户端和重启后均读取同一问题；旧非权威会话仅可检索历史，不可切回写入。无显式指针不得从摘要猜测解决；resolved 不等于业务完成。SummaryDraft.pending_question_ids 仅能引用现存问题，不能建立、解决、复活问题。严格 20 槽、每决策最多 3 提案，按已解决最旧先回收；未解问题永不因容量被裁。问题与回复／回执／业务动作同事务，生命周期 revision CAS 不改变摘要覆盖水位。
 
 裁决：`review/D11-pending-question-deepseek.response.md`；原提案：`review/A09-pending-question-proposal.md`。无 DDL 变更。
 
@@ -100,3 +100,9 @@ D11 补齐待答问题正常生成／回答入口：模型只提 reply.questions
 裁决：`review/D12-output-class-final-contract.response.md`（整体替代初稿），反注入补充：`review/D12-injection-oracle-clarification.response.md`。无 DDL 或顶层 class 字段扩张。
 
 ConversationState 标记聚合 summary 与全部 question 文本生成 class，问题五字段不扩张；回答回显 join 所属 State 与当前请求。SearchMemoryPage 的非 MASTER 原话用持久输出标记，MASTER 用创建 InputTurn 真实 inputclass；跨会话不得将 ASSISTANT 退回 inputclass。Snapshot 检查非空 State、意识、Item/Task/Fact、历史派生变更与事件，旧缺标拒重推导。D09 双锚不改变任何分类或权威。
+
+## Issue #2：共享认知与冻结前缀
+
+ConversationState 的摘要、focus_entity_ids、pending_questions、commitment_item_ids 与 through_sequence 均为后端同一份状态。前端缓存不得回写它们或将屏幕历史上传为模型上下文。每轮在受理序号队头冻结状态，ReadMemory 对当前权威会话也过滤未来未处理事件；历史只读检索不生成新权威分支。
+
+后续输入受理不会递增认知 revision；前轮完成后下一轮才取得其回复与更新状态。摘要在单消费者顺序中只覆盖已处理、可证明连续的边界，不能因后到输入物理序号更小就吞入其正文。AUTH-02/04/08 用少量合成标记与预置合法摘要验证实际请求前缀，不重新检验旧摘要质量或容量。
