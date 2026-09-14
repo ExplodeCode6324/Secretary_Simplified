@@ -22,6 +22,8 @@
 
 ## 设计与验收入口
 
+- [QuickStart：首次真实文字测试与完整使用命令](QuickStart.md)
+
 - [设计目录与阅读顺序](docs/README.md)
 - [整体设计](docs/design.md)、[工程架构](docs/EngineeringArchitecture.md)
 - [实施交接](docs/ImplementationHandoff.md)、[阶段路线](docs/Milestone.md)
@@ -248,3 +250,7 @@ D12 已按 Ayanami 最终裁决实施，初稿的扩展字段限制及排除 Ite
 - 本轮产品未请求外部模型，不涉及新429或provider切换实测。真实试用质量未验证；下一步请 Master 给出少量真实文字及允许外发的模型/范围。SECRET 不外发，真实来源文件同步仍未开放。
 
 TUI-12 额外补证：[独立panic注入报告](reports/implementation/issue2-tui-panic-supplement.md)确认实际 Model 包装与相同 Run 选项恢复终端；生产二进制未改。补测脚本首轮等待/输出drain失败与修正后PASS分别保留。owned测试进程已全部退出，未留下测试常驻服务。
+
+## 使用文档拆分（2026-09-14）
+
+按 Master 要求将 release/README.md 的使用命令移至根目录 [QuickStart.md](QuickStart.md)，补充专用真实目录、显式模型配置、启动/停止与完整 CLI 入口；release/README.md 保留发布说明和链接。此次只修改文档，不启动服务、不更改本机授权/模型配置、不发送真实资料，不改二进制或历史设计导出包。
