@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "request_id": "68c7926e-b418-42f9-bdee-6dd30292a104",
+  "session_id": "ee48bfe8-bca7-4144-822e-4584bc0c53f0",
+  "principal_id": "master",
+  "origin": "MASTER_CLI",
+  "received_at": "2026-09-13T23:40:50.158Z",
+  "text": "Remember this synthetic agreement: sea-salt-protocol password is BLUE731. Acknowledge only; do not create items.",
+  "attachment_refs": [],
+  "data_class": "SYNTHETIC",
+  "extensions": {}
+}

@@ -33,3 +33,8 @@
 priority 限 0—3。CONTESTED 日期在证据与候选中保留，due_at 为 null；CONFIRMED 才可作为调度日期；修改日期不自动授权新的提醒计划。
 
 通用空值、版本、扩展、引用和错误规则见 [Common.md](Common.md)；事件与提交关系见 [DataFlow.md](../DataFlow.md)。
+
+
+### D12 分类传播
+
+CREATE join 请求与来源；UPDATE join旧体，不重写 EvidenceRef 原字节。 使用 [Common.md](Common.md) 的 security.classification 契约；缺失旧派生标记返回 OUTPUT_CLASS_UNKNOWN，不自动回填。

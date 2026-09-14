@@ -103,6 +103,12 @@ func (s *Store) RegisterJobTx(ctx context.Context, tx *sql.Tx, j contract.Schedu
 		return authErr
 	}
 	m := rtMap(j)
+	if e := rtInherit(m, m, rtObj(m["command"])); e != nil {
+		return e
+	}
+	if e := rtInherit(rtObj(m["command"]), m); e != nil {
+		return e
+	}
 	if rtObj(m["command"])["capability"] == "notify.local" {
 		key := rtObj(rtObj(m["command"])["arguments"])["notification_key"]
 		criteria, _ := rtObj(m["task_template"])["criteria"].([]any)
@@ -335,7 +341,7 @@ func (s *Store) ScheduleStep(ctx context.Context, now time.Time) (int, error) {
 						j["next_due_at"] = nil
 					} else {
 						j["next_due_at"] = rtTime(*next)
-						gapDates = calendarGapDates(sm, latest, *next)
+						gapDates = calendarGapDates(sm, due, *next)
 					}
 				}
 			}
@@ -392,6 +398,12 @@ func (s *Store) UpdateJobTx(ctx context.Context, tx *sql.Tx, j contract.Schedule
 		return errors.New("REVISION_CONFLICT")
 	}
 	m := rtMap(j)
+	if e := rtInherit(m, old, m, rtObj(m["command"])); e != nil {
+		return e
+	}
+	if e := rtInherit(rtObj(m["command"]), m); e != nil {
+		return e
+	}
 	if rtObj(m["command"])["capability"] == "notify.local" {
 		key := rtObj(rtObj(m["command"])["arguments"])["notification_key"]
 		criteria, _ := rtObj(m["task_template"])["criteria"].([]any)

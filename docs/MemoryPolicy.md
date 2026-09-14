@@ -70,3 +70,33 @@ P2 的内置槽控制器按持久 epoch 和当前 UTC 计算所需 slot，以固
 原文已有 manifest 是本地外层、不得参与自身 wire 哈希的边界，但机器 Schema 仍把整个 ContextManifest 放入 Context，二者冲突。经 Ayanami 同意（`review/D07-context-manifest.response.md`），Context 不含 manifest，required metadata 为 context_id/as_of/snapshot_seq/sections；read_set 留在外部 Manifest。sections 每段字段严格为 name/selected_count/omitted_count/bytes/reason，name 不重复。完整 output_contract 在 Context 中只嵌入一次，adapter 引用它而不再次发送Schema。最终 wire 编码后计算外部 Manifest.request_hash，发送相同字节；Context.context_id、Manifest.id 和 Decision.context_id 必须一致。可选 stale_refs 与 registered_entity_ids 都有长度和去重约束。
 
 D07 检索补充经 Ayanami 同意（`review/D07-retrieval-section.response.md`）：sections 的第七种 name 为 retrieved_evidence；selected_count 为实际 EvidenceRef 数，omitted_count 只计本次有界检索已发现而省略的候选，不声称统计未检索空间。bytes 是最终字段 JSON 的 UTF-8 字节数；正文不复制进 sections。每次 READ_MEMORY 后重新构建 Context、外部 Manifest 和 wire hash。
+
+## 实施过程中发现的缺陷（D09，2026-09-14）
+
+真实回放中，READ_MEMORY 已找到的原话被预算全部裁空，模型因未获得证据而重复检索至额度耗尽。经 Ayanami 使用 Master 指定 DeepSeek 模型条件同意（`review/D09-retrieval-budget-deepseek-resume1.response.md`），完成以下修订条件后同步本节；此设计商议不是程序验收通过。
+
+Core 在检索成功返回后显式记录 RetrievalServed。该决策轮已服务检索时，不再补充与当前用户文本无关的 fallback 事项/事实，且始终发送检索信封；零命中发送 events=[]，与未检索相区别。当前问句自身的 turn 不作为历史候选，也不计入省略数。必要权限、显式事项及其依赖闭包、当前任务、Master 偏好和 CONTESTED 事实继续保留。相关性选择仍由当前用户文本中的 ID/title/entity 匹配驱动，READ_MEMORY query 本身不扩大权威选择。
+
+非自引用命中保持既有排序：有 Evidence（E）组的新→旧，随后为无 Evidence（N）组的新→旧。依照后续双锚裁决（`review/D09-dual-anchor-deepseek.response.md`），每个非空组各保留最新一条为必要锚点，最多两条；只有一个组时保留一条。此定义替代此前“有 E 时仅保留 E 单锚”的定义。预算从尾部只淘汰非锚点，因此 N 组先删仅适用于 N 非锚点，不能删除 N 锚点。两个锚点不可互相替代，也不回填候选、不改变比较器；N 记录仍为未提升权威的历史文本。锚点和必要权威不可部分裁剪，既有 recent/consciousness/delta 降级后仍无法共同容纳时返回 CONTEXT_REQUIRED_OVERFLOW（413）。除锚点外不保证所有命中覆盖，调用方必须阅读省略信息，不能把未选内容当作不存在。
+
+retrieved_evidence 的 selected_count 是按 ObjectID 去重的实际 EvidenceRef 数；omitted_count 是本次有界候选中净引用覆盖损失，按 ref 计数，不是事件行数。重复引用仍被其他保留记录覆盖时不增加省略数；当前 turn 自引用不计入。SearchMemoryPage 只发现最多 11 个候选，最多返回前 10 个；第 11 个和超出单条 2 KiB 的整条候选，其未被已返回候选覆盖的引用计入省略，未检索空间不计数。全部无 Evidence 的候选淘汰不会增加 ref 计数；信封正文与 reason 提供此边界，不能将 0 个 omitted refs 理解为所有原话都已提供。
+
+验收增加：零命中信封及 fallback 抑制、自引用不计省略、跨多条命中的 E/N 淘汰序、单类单锚与 E/N 双锚、双类必要输入共同超限拒绝、重复引用净覆盖计数、必要依赖与锚点共同超限明确失败。实现测试为 TestServedRetrievalZeroAndGroupedEviction、TestRetrievalPageOmissionCountsUniqueReferenceLoss、TestRetrievalBudgetPreservesEvidenceAndRequiredAuthority；真实原失败保留在 live-scenarios-run2，修复后按同一 oracle 重跑，独立复核与模型回放分别记录。
+
+
+## 实施设计修订 D11：待答问题生命周期
+
+D11 补齐待答问题正常生成／回答入口：模型只提 reply.questions 内容，程序独占 ID、实际事件序号和状态；InputEnvelope.answer_to_question_id 只按原 session 显式 ID 回答。跨 session READ_MEMORY 必须可取回原问题原话、session 和 ID，重启后仍可恢复原会话完成回答。无显式指针不得从摘要猜测解决；resolved 不等于业务完成。SummaryDraft.pending_question_ids 仅能引用现存问题，不能建立、解决、复活问题。严格 20 槽、每决策最多 3 提案，按已解决最旧先回收；未解问题永不因容量被裁。问题与回复／回执／业务动作同事务，生命周期 revision CAS 不改变摘要覆盖水位。
+
+裁决：`review/D11-pending-question-deepseek.response.md`；原提案：`review/A09-pending-question-proposal.md`。无 DDL 变更。
+
+
+## 实施设计修订 D12：派生输出分类
+
+统一程序独占 `extensions["security.classification"]={"data_class":<enum>}`；enum 为 SYNTHETIC/PERSONAL/SENSITIVE/SECRET，严格单字段、禁止额外成员。分类是披露上界，与事实真假、授权或证据质量独立。程序使用实际冻结成功模型请求的有效 class，按旧对象／本次请求／逐字复制来源取最高分类；更新和复制不降级。无 Evidence 或只有低分类 Evidence 均不能证明派生文本为低分类。
+
+模型／客户端在任何结构层注入此键，整请求／整 Decision 拒绝；不读取其标签决定业务，原始拒绝证据保持原字节。持久写入仅使用程序值，其他合法 extension 保留。缺失／非法的旧派生标签保留 unknown，在披露／重推导入口返回 OUTPUT_CLASS_UNKNOWN，不回填 SYNTHETIC、不伪写 SECRET、不删除数据。空内容程序脚手架可无标，固定且不含用户／模型内容的字面量可显式 SYNTHETIC；真实输入原文仍用其原始 data_class。
+
+裁决：`review/D12-output-class-final-contract.response.md`（整体替代初稿），反注入补充：`review/D12-injection-oracle-clarification.response.md`。无 DDL 或顶层 class 字段扩张。
+
+ConversationState 标记聚合 summary 与全部 question 文本生成 class，问题五字段不扩张；回答回显 join 所属 State 与当前请求。SearchMemoryPage 的非 MASTER 原话用持久输出标记，MASTER 用创建 InputTurn 真实 inputclass；跨会话不得将 ASSISTANT 退回 inputclass。Snapshot 检查非空 State、意识、Item/Task/Fact、历史派生变更与事件，旧缺标拒重推导。D09 双锚不改变任何分类或权威。

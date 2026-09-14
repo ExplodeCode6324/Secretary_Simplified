@@ -36,3 +36,8 @@
 D06 日历跳过使用 scheduled_job.skipped 事件，before/after 为同 revision 的完整 ScheduledJob，after 含推进后的 next_due_at。origin=scheduler.calendar，runtime.calendar_skip 描述不存在的本地时刻，created_at 是发现/提交审计时间。稳定 ID 绑定 job、local_date 与规范规则身份；不伪造不存在时刻对应的 UTC 执行。
 
 复核依据：`review/D06-calendar-skip.response.md`。
+
+
+### D12 分类传播
+
+before/after派生体保留分类；历史体不应因当前版本升级而被误认低分类。 使用 [Common.md](Common.md) 的 security.classification 契约；缺失旧派生标记返回 OUTPUT_CLASS_UNKNOWN，不自动回填。

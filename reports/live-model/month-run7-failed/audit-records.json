@@ -1,0 +1,610 @@
+{
+  "input_turn_rows": [
+    {
+      "request_id": "d40f2f85-e839-4002-b210-b3da8ba24bc8",
+      "updated_at": "2026-09-14T01:24:29.685Z",
+      "payload_json": "{\"schema_version\":1,\"id\":\"fb4fbcc7-3754-41cd-bd62-f6db24bcfbc0\",\"session_id\":\"7441da05-f7f3-4292-9d9b-c74b1fdb5459\",\"principal_id\":\"master\",\"request_id\":\"d40f2f85-e839-4002-b210-b3da8ba24bc8\",\"intent_id\":\"3f426035-847d-4241-82f6-2b7ddc9c0c2e\",\"state\":\"COMMITTED\",\"input\":{\"schema_version\":1,\"request_id\":\"d40f2f85-e839-4002-b210-b3da8ba24bc8\",\"session_id\":\"7441da05-f7f3-4292-9d9b-c74b1fdb5459\",\"principal_id\":\"master\",\"origin\":\"MASTER_CLI\",\"received_at\":\"2026-09-14T00:00:00+00:00\",\"text\":\"这是合成测试，当前业务日期为2026-09-14T00:00:00+00:00。创建且仅创建一个事项，标题必须原样为“合成事项01”，domain使用work，截止时间严格为2026-09-18T00:00:00.000Z，不要创建提醒或其他任务。\",\"attachment_refs\":[{\"schema_version\":1,\"id\":\"b72fd90c-bd63-524f-aed2-11718bffebf1\",\"relative_path\":\"b72fd90c-bd63-524f-aed2-11718bffebf1.blob\",\"sha256\":\"1143eaf786370095c95fc3fe81151f6c061da0d5549882fb4c4c32521ab95c5f\",\"media_type\":\"text/plain\",\"byte_size\":250,\"data_class\":\"SYNTHETIC\",\"created_at\":\"2026-09-14T01:24:25.701Z\",\"extensions\":{}}],\"data_class\":\"SYNTHETIC\",\"extensions\":{}},\"reply\":{\"evidence\":[],\"text\":\"已提出创建一个事项：合成事项01，领域为 work，截止时间为 2026-09-18T00:00:00.000Z。未创建提醒或其他任务。\"},\"committed_operation_keys\":[\"create-synthetic-item-01\"],\"processing_owner\":null,\"lease_until\":null,\"updated_at\":\"2026-09-14T01:24:29.685Z\",\"extensions\":{\"security.classification\":{\"data_class\":\"SYNTHETIC\"}}}"
+    },
+    {
+      "request_id": "16a21bb6-b15f-45bf-8793-5b0f0f457fd7",
+      "updated_at": "2026-09-14T01:24:32.581Z",
+      "payload_json": "{\"schema_version\":1,\"id\":\"07fbba23-fc7e-46f3-bec7-6280d9fb7a00\",\"session_id\":\"7441da05-f7f3-4292-9d9b-c74b1fdb5459\",\"principal_id\":\"master\",\"request_id\":\"16a21bb6-b15f-45bf-8793-5b0f0f457fd7\",\"intent_id\":\"12116de4-b5b7-4c1a-9c1c-b3b891396352\",\"state\":\"COMMITTED\",\"input\":{\"schema_version\":1,\"request_id\":\"16a21bb6-b15f-45bf-8793-5b0f0f457fd7\",\"session_id\":\"7441da05-f7f3-4292-9d9b-c74b1fdb5459\",\"principal_id\":\"master\",\"origin\":\"MASTER_CLI\",\"received_at\":\"2026-09-14T06:00:00+00:00\",\"text\":\"这是合成测试，当前业务日期为2026-09-14T06:00:00+00:00。创建且仅创建一个事项，标题必须原样为“合成事项02”，domain使用work，截止时间严格为2026-09-18T06:00:00.000Z，不要创建提醒或其他任务。\",\"attachment_refs\":[{\"schema_version\":1,\"id\":\"a61eba25-8345-5529-a6fa-c5ecd7ead17c\",\"relative_path\":\"a61eba25-8345-5529-a6fa-c5ecd7ead17c.blob\",\"sha256\":\"396f71134d85e4a4fcf2d332fdac1b295863014d6f0326af4d1a45036c1eed1e\",\"media_type\":\"text/plain\",\"byte_size\":250,\"data_class\":\"SYNTHETIC\",\"created_at\":\"2026-09-14T01:24:29.690Z\",\"extensions\":{}}],\"data_class\":\"SYNTHETIC\",\"extensions\":{}},\"reply\":{\"evidence\":[],\"text\":\"已提出创建一个事项：合成事项02，领域为 work，截止时间为 2026-09-18T06:00:00.000Z。未创建提醒或其他任务。\"},\"committed_operation_keys\":[\"create-synthetic-item-02\"],\"processing_owner\":null,\"lease_until\":null,\"updated_at\":\"2026-09-14T01:24:32.581Z\",\"extensions\":{\"security.classification\":{\"data_class\":\"SYNTHETIC\"}}}"
+    },
+    {
+      "request_id": "b3d3da9e-c9ea-494c-a961-ffd02c5c2db8",
+      "updated_at": "2026-09-14T01:24:36.855Z",
+      "payload_json": "{\"schema_version\":1,\"id\":\"ee1f5e86-2548-4769-af29-09e6da65b60c\",\"session_id\":\"7441da05-f7f3-4292-9d9b-c74b1fdb5459\",\"principal_id\":\"master\",\"request_id\":\"b3d3da9e-c9ea-494c-a961-ffd02c5c2db8\",\"intent_id\":\"db8277ee-d9a5-4fb6-8793-6d5c9175a192\",\"state\":\"COMMITTED\",\"input\":{\"schema_version\":1,\"request_id\":\"b3d3da9e-c9ea-494c-a961-ffd02c5c2db8\",\"session_id\":\"7441da05-f7f3-4292-9d9b-c74b1fdb5459\",\"principal_id\":\"master\",\"origin\":\"MASTER_CLI\",\"received_at\":\"2026-09-14T12:00:00+00:00\",\"text\":\"这是合成测试，当前业务日期为2026-09-14T12:00:00+00:00。创建且仅创建一个事项，标题必须原样为“合成事项03”，domain使用work，截止时间严格为2026-09-18T12:00:00.000Z，不要创建提醒或其他任务。\",\"attachment_refs\":[{\"schema_version\":1,\"id\":\"ebf92232-fcf1-53e8-8abd-db8efd0f69a8\",\"relative_path\":\"ebf92232-fcf1-53e8-8abd-db8efd0f69a8.blob\",\"sha256\":\"fdb5865d18f7edeba42565c06228f8cb26147d2e34603a0c3170cc4848fe17d4\",\"media_type\":\"text/plain\",\"byte_size\":250,\"data_class\":\"SYNTHETIC\",\"created_at\":\"2026-09-14T01:24:32.588Z\",\"extensions\":{}}],\"data_class\":\"SYNTHETIC\",\"extensions\":{}},\"reply\":{\"evidence\":[],\"text\":\"已提出创建一个事项“合成事项03”，截止时间为2026-09-18T12:00:00.000Z；未创建提醒或其他任务。\"},\"committed_operation_keys\":[\"create-synthetic-item-03\"],\"processing_owner\":null,\"lease_until\":null,\"updated_at\":\"2026-09-14T01:24:36.855Z\",\"extensions\":{\"security.classification\":{\"data_class\":\"SYNTHETIC\"}}}"
+    },
+    {
+      "request_id": "bf8774da-71e7-4694-8a49-7974f82cefae",
+      "updated_at": "2026-09-14T01:24:41.073Z",
+      "payload_json": "{\"schema_version\":1,\"id\":\"f5187488-ef6e-46df-969d-bf367ee96a16\",\"session_id\":\"7441da05-f7f3-4292-9d9b-c74b1fdb5459\",\"principal_id\":\"master\",\"request_id\":\"bf8774da-71e7-4694-8a49-7974f82cefae\",\"intent_id\":\"9ccc90b8-125f-447e-ac4c-77567881be70\",\"state\":\"COMMITTED\",\"input\":{\"schema_version\":1,\"request_id\":\"bf8774da-71e7-4694-8a49-7974f82cefae\",\"session_id\":\"7441da05-f7f3-4292-9d9b-c74b1fdb5459\",\"principal_id\":\"master\",\"origin\":\"MASTER_CLI\",\"received_at\":\"2026-09-15T00:00:00+00:00\",\"text\":\"这是合成测试，当前业务日期为2026-09-15T00:00:00+00:00。创建且仅创建一个事项，标题必须原样为“合成事项04”，domain使用work，截止时间严格为2026-09-19T00:00:00.000Z，不要创建提醒或其他任务。\",\"attachment_refs\":[{\"schema_version\":1,\"id\":\"1fb57faa-42a4-5169-a7f6-533d963d1884\",\"relative_path\":\"1fb57faa-42a4-5169-a7f6-533d963d1884.blob\",\"sha256\":\"3100701d9e6cdf306ed47d10df06b762534a70c47f1e399f8494f62740b36601\",\"media_type\":\"text/plain\",\"byte_size\":250,\"data_class\":\"SYNTHETIC\",\"created_at\":\"2026-09-14T01:24:40.998Z\",\"extensions\":{}}],\"data_class\":\"SYNTHETIC\",\"extensions\":{}},\"reply\":{\"evidence\":[],\"text\":\"Request was recorded, but no actions were committed: CONTEXT_REQUIRED_OVERFLOW\"},\"committed_operation_keys\":[],\"processing_owner\":null,\"lease_until\":null,\"updated_at\":\"2026-09-14T01:24:41.073Z\",\"extensions\":{\"security.classification\":{\"data_class\":\"SYNTHETIC\"}}}"
+    },
+    {
+      "request_id": "a40d998f-8980-4b27-b21c-2818b2d7cb43",
+      "updated_at": "2026-09-14T01:24:41.139Z",
+      "payload_json": "{\"schema_version\":1,\"id\":\"eef20b25-7a01-4d94-8e58-826d773e3334\",\"session_id\":\"7441da05-f7f3-4292-9d9b-c74b1fdb5459\",\"principal_id\":\"master\",\"request_id\":\"a40d998f-8980-4b27-b21c-2818b2d7cb43\",\"intent_id\":\"e76cf99a-b7a9-4c5e-b22e-97346f9b0a0a\",\"state\":\"COMMITTED\",\"input\":{\"schema_version\":1,\"request_id\":\"a40d998f-8980-4b27-b21c-2818b2d7cb43\",\"session_id\":\"7441da05-f7f3-4292-9d9b-c74b1fdb5459\",\"principal_id\":\"master\",\"origin\":\"MASTER_CLI\",\"received_at\":\"2026-09-15T06:00:00+00:00\",\"text\":\"这是合成测试，当前业务日期为2026-09-15T06:00:00+00:00。创建且仅创建一个事项，标题必须原样为“合成事项05”，domain使用work，截止时间严格为2026-09-19T06:00:00.000Z，不要创建提醒或其他任务。\",\"attachment_refs\":[{\"schema_version\":1,\"id\":\"2764a0cc-0324-55e0-bba4-2f13ba2d260a\",\"relative_path\":\"2764a0cc-0324-55e0-bba4-2f13ba2d260a.blob\",\"sha256\":\"6892fa6236d99f0218dbb84a604021ce148da6ada972a4493ce254387d396c01\",\"media_type\":\"text/plain\",\"byte_size\":250,\"data_class\":\"SYNTHETIC\",\"created_at\":\"2026-09-14T01:24:41.074Z\",\"extensions\":{}}],\"data_class\":\"SYNTHETIC\",\"extensions\":{}},\"reply\":{\"evidence\":[],\"text\":\"Request was recorded, but no actions were committed: CONTEXT_REQUIRED_OVERFLOW\"},\"committed_operation_keys\":[],\"processing_owner\":null,\"lease_until\":null,\"updated_at\":\"2026-09-14T01:24:41.139Z\",\"extensions\":{\"security.classification\":{\"data_class\":\"SYNTHETIC\"}}}"
+    },
+    {
+      "request_id": "5500b200-11f2-4664-a76d-4a3d875b36d7",
+      "updated_at": "2026-09-14T01:24:41.215Z",
+      "payload_json": "{\"schema_version\":1,\"id\":\"f91fe252-df6e-4521-aebc-882a65528ea7\",\"session_id\":\"7441da05-f7f3-4292-9d9b-c74b1fdb5459\",\"principal_id\":\"master\",\"request_id\":\"5500b200-11f2-4664-a76d-4a3d875b36d7\",\"intent_id\":\"fabd249d-98b9-49be-ad56-f5dc74abd8c9\",\"state\":\"COMMITTED\",\"input\":{\"schema_version\":1,\"request_id\":\"5500b200-11f2-4664-a76d-4a3d875b36d7\",\"session_id\":\"7441da05-f7f3-4292-9d9b-c74b1fdb5459\",\"principal_id\":\"master\",\"origin\":\"MASTER_CLI\",\"received_at\":\"2026-09-15T12:00:00+00:00\",\"text\":\"这是合成测试，当前业务日期为2026-09-15T12:00:00+00:00。创建且仅创建一个事项，标题必须原样为“合成事项06”，domain使用project，截止时间严格为2026-09-19T12:00:00.000Z，不要创建提醒或其他任务。\",\"attachment_refs\":[{\"schema_version\":1,\"id\":\"acb99250-be0f-584e-b6f5-ff62734f0295\",\"relative_path\":\"acb99250-be0f-584e-b6f5-ff62734f0295.blob\",\"sha256\":\"760f4116866fe668491eb7a9f466c52b6194b304e4ad27f91e241391a7c20fa6\",\"media_type\":\"text/plain\",\"byte_size\":253,\"data_class\":\"SYNTHETIC\",\"created_at\":\"2026-09-14T01:24:41.140Z\",\"extensions\":{}}],\"data_class\":\"SYNTHETIC\",\"extensions\":{}},\"reply\":{\"evidence\":[],\"text\":\"Request was recorded, but no actions were committed: CONTEXT_REQUIRED_OVERFLOW\"},\"committed_operation_keys\":[],\"processing_owner\":null,\"lease_until\":null,\"updated_at\":\"2026-09-14T01:24:41.215Z\",\"extensions\":{\"security.classification\":{\"data_class\":\"SYNTHETIC\"}}}"
+    },
+    {
+      "request_id": "3188247d-11ef-40c8-9072-4b5ea0a63472",
+      "updated_at": "2026-09-14T01:24:49.637Z",
+      "payload_json": "{\"schema_version\":1,\"id\":\"020bb2b1-29d1-4332-8c65-9075aee7465d\",\"session_id\":\"7441da05-f7f3-4292-9d9b-c74b1fdb5459\",\"principal_id\":\"master\",\"request_id\":\"3188247d-11ef-40c8-9072-4b5ea0a63472\",\"intent_id\":\"97492154-310d-47c9-8d43-fa24ec2c8703\",\"state\":\"COMMITTED\",\"input\":{\"schema_version\":1,\"request_id\":\"3188247d-11ef-40c8-9072-4b5ea0a63472\",\"session_id\":\"7441da05-f7f3-4292-9d9b-c74b1fdb5459\",\"principal_id\":\"master\",\"origin\":\"MASTER_CLI\",\"received_at\":\"2026-09-16T00:00:00+00:00\",\"text\":\"这是合成测试，当前业务日期为2026-09-16T00:00:00+00:00。创建且仅创建一个事项，标题必须原样为“合成事项07”，domain使用project，截止时间严格为2026-09-20T00:00:00.000Z，不要创建提醒或其他任务。\",\"attachment_refs\":[{\"schema_version\":1,\"id\":\"84e8f8b0-5b8e-5221-9961-665012bf006e\",\"relative_path\":\"84e8f8b0-5b8e-5221-9961-665012bf006e.blob\",\"sha256\":\"946fe63fdf36e3d969eb6b47747fccfe9ef2c3826b07c3bff9879b439e75d9b0\",\"media_type\":\"text/plain\",\"byte_size\":253,\"data_class\":\"SYNTHETIC\",\"created_at\":\"2026-09-14T01:24:49.538Z\",\"extensions\":{}}],\"data_class\":\"SYNTHETIC\",\"extensions\":{}},\"reply\":{\"evidence\":[],\"text\":\"Request was recorded, but no actions were committed: CONTEXT_REQUIRED_OVERFLOW\"},\"committed_operation_keys\":[],\"processing_owner\":null,\"lease_until\":null,\"updated_at\":\"2026-09-14T01:24:49.637Z\",\"extensions\":{\"security.classification\":{\"data_class\":\"SYNTHETIC\"}}}"
+    },
+    {
+      "request_id": "e3840179-43b2-46ce-9648-7a2754dc9dd0",
+      "updated_at": "2026-09-14T01:24:49.737Z",
+      "payload_json": "{\"schema_version\":1,\"id\":\"9da0544c-4db0-471e-8a67-d8f18415c25d\",\"session_id\":\"7441da05-f7f3-4292-9d9b-c74b1fdb5459\",\"principal_id\":\"master\",\"request_id\":\"e3840179-43b2-46ce-9648-7a2754dc9dd0\",\"intent_id\":\"29602616-2f0a-4fb7-950f-fae32dc5051b\",\"state\":\"COMMITTED\",\"input\":{\"schema_version\":1,\"request_id\":\"e3840179-43b2-46ce-9648-7a2754dc9dd0\",\"session_id\":\"7441da05-f7f3-4292-9d9b-c74b1fdb5459\",\"principal_id\":\"master\",\"origin\":\"MASTER_CLI\",\"received_at\":\"2026-09-16T06:00:00+00:00\",\"text\":\"这是合成测试，当前业务日期为2026-09-16T06:00:00+00:00。创建且仅创建一个事项，标题必须原样为“合成事项08”，domain使用project，截止时间严格为2026-09-20T06:00:00.000Z，不要创建提醒或其他任务。\",\"attachment_refs\":[{\"schema_version\":1,\"id\":\"e6bf46bd-112c-59ad-b98a-fd4fe49d5e5f\",\"relative_path\":\"e6bf46bd-112c-59ad-b98a-fd4fe49d5e5f.blob\",\"sha256\":\"325690e66e0dac329ccd748b714b7cf9f4bfc8eaabcb1f51550ab06e04b4cbdf\",\"media_type\":\"text/plain\",\"byte_size\":253,\"data_class\":\"SYNTHETIC\",\"created_at\":\"2026-09-14T01:24:49.638Z\",\"extensions\":{}}],\"data_class\":\"SYNTHETIC\",\"extensions\":{}},\"reply\":{\"evidence\":[],\"text\":\"Request was recorded, but no actions were committed: CONTEXT_REQUIRED_OVERFLOW\"},\"committed_operation_keys\":[],\"processing_owner\":null,\"lease_until\":null,\"updated_at\":\"2026-09-14T01:24:49.737Z\",\"extensions\":{\"security.classification\":{\"data_class\":\"SYNTHETIC\"}}}"
+    },
+    {
+      "request_id": "a408aeb2-2495-408e-ae05-80544a4f5224",
+      "updated_at": "2026-09-14T01:24:49.850Z",
+      "payload_json": "{\"schema_version\":1,\"id\":\"d1a4ea38-cc4e-44f6-b6a5-b233266990c7\",\"session_id\":\"7441da05-f7f3-4292-9d9b-c74b1fdb5459\",\"principal_id\":\"master\",\"request_id\":\"a408aeb2-2495-408e-ae05-80544a4f5224\",\"intent_id\":\"8d7c3944-54ec-45ef-95c6-b2afdf8da75c\",\"state\":\"COMMITTED\",\"input\":{\"schema_version\":1,\"request_id\":\"a408aeb2-2495-408e-ae05-80544a4f5224\",\"session_id\":\"7441da05-f7f3-4292-9d9b-c74b1fdb5459\",\"principal_id\":\"master\",\"origin\":\"MASTER_CLI\",\"received_at\":\"2026-09-16T12:00:00+00:00\",\"text\":\"这是合成测试，当前业务日期为2026-09-16T12:00:00+00:00。创建且仅创建一个事项，标题必须原样为“合成事项09”，domain使用project，截止时间严格为2026-09-20T12:00:00.000Z，不要创建提醒或其他任务。\",\"attachment_refs\":[{\"schema_version\":1,\"id\":\"824ec01c-8a3f-5d6c-b088-9efbcf109480\",\"relative_path\":\"824ec01c-8a3f-5d6c-b088-9efbcf109480.blob\",\"sha256\":\"3cff64f71d2e0d98bc7e1546c3b7f2eeac718c176c94d014d7cc05b4603f9219\",\"media_type\":\"text/plain\",\"byte_size\":253,\"data_class\":\"SYNTHETIC\",\"created_at\":\"2026-09-14T01:24:49.738Z\",\"extensions\":{}}],\"data_class\":\"SYNTHETIC\",\"extensions\":{}},\"reply\":{\"evidence\":[],\"text\":\"Request was recorded, but no actions were committed: CONTEXT_REQUIRED_OVERFLOW\"},\"committed_operation_keys\":[],\"processing_owner\":null,\"lease_until\":null,\"updated_at\":\"2026-09-14T01:24:49.850Z\",\"extensions\":{\"security.classification\":{\"data_class\":\"SYNTHETIC\"}}}"
+    }
+  ],
+  "change_events": [
+    {
+      "schema_version": 1,
+      "id": "146e347e-fe39-4920-b3e3-11b7eac53187",
+      "seq": 1,
+      "root_id": "7ceef1b7-1135-45fe-ac2a-48f45f0f0a37",
+      "entity_type": "Item",
+      "entity_id": "7ceef1b7-1135-45fe-ac2a-48f45f0f0a37",
+      "entity_revision": 1,
+      "event_type": "item.created",
+      "causation_id": null,
+      "origin": "ItemService",
+      "created_at": "2026-09-14T01:24:29.684Z",
+      "change": {
+        "after": {
+          "schema_version": 1,
+          "id": "7ceef1b7-1135-45fe-ac2a-48f45f0f0a37",
+          "revision": 1,
+          "domain": "work",
+          "kind": "TASK",
+          "title": "合成事项01",
+          "status": "OPEN",
+          "priority": 0,
+          "due_at": "2026-09-18T00:00:00.000Z",
+          "timezone": "UTC",
+          "time_state": "CONFIRMED",
+          "parent_id": null,
+          "dependency_ids": [],
+          "evidence": [
+            {
+              "object_id": "b72fd90c-bd63-524f-aed2-11718bffebf1",
+              "sha256": "1143eaf786370095c95fc3fe81151f6c061da0d5549882fb4c4c32521ab95c5f",
+              "locator": "full_text",
+              "origin_id": "b72fd90c-bd63-524f-aed2-11718bffebf1",
+              "data_class": "SYNTHETIC"
+            }
+          ],
+          "created_at": "2026-09-14T01:24:29.684Z",
+          "updated_at": "2026-09-14T01:24:29.684Z",
+          "extensions": {
+            "security.classification": {
+              "data_class": "SYNTHETIC"
+            }
+          }
+        },
+        "before": null,
+        "evidence": [
+          {
+            "object_id": "b72fd90c-bd63-524f-aed2-11718bffebf1",
+            "sha256": "1143eaf786370095c95fc3fe81151f6c061da0d5549882fb4c4c32521ab95c5f",
+            "locator": "full_text",
+            "origin_id": "b72fd90c-bd63-524f-aed2-11718bffebf1",
+            "data_class": "SYNTHETIC"
+          }
+        ]
+      },
+      "extensions": {}
+    },
+    {
+      "schema_version": 1,
+      "id": "f0315f92-6818-4eba-9212-29061d086c9c",
+      "seq": 2,
+      "root_id": "664ea193-c745-4b08-a42b-2148686d8a51",
+      "entity_type": "Item",
+      "entity_id": "664ea193-c745-4b08-a42b-2148686d8a51",
+      "entity_revision": 1,
+      "event_type": "item.created",
+      "causation_id": null,
+      "origin": "ItemService",
+      "created_at": "2026-09-14T01:24:32.580Z",
+      "change": {
+        "after": {
+          "schema_version": 1,
+          "id": "664ea193-c745-4b08-a42b-2148686d8a51",
+          "revision": 1,
+          "domain": "work",
+          "kind": "TASK",
+          "title": "合成事项02",
+          "status": "OPEN",
+          "priority": 0,
+          "due_at": "2026-09-18T06:00:00.000Z",
+          "timezone": "UTC",
+          "time_state": "CONFIRMED",
+          "parent_id": null,
+          "dependency_ids": [],
+          "evidence": [
+            {
+              "object_id": "a61eba25-8345-5529-a6fa-c5ecd7ead17c",
+              "sha256": "396f71134d85e4a4fcf2d332fdac1b295863014d6f0326af4d1a45036c1eed1e",
+              "locator": "full_text",
+              "origin_id": "a61eba25-8345-5529-a6fa-c5ecd7ead17c",
+              "data_class": "SYNTHETIC"
+            }
+          ],
+          "created_at": "2026-09-14T01:24:32.580Z",
+          "updated_at": "2026-09-14T01:24:32.580Z",
+          "extensions": {
+            "security.classification": {
+              "data_class": "SYNTHETIC"
+            }
+          }
+        },
+        "before": null,
+        "evidence": [
+          {
+            "object_id": "a61eba25-8345-5529-a6fa-c5ecd7ead17c",
+            "sha256": "396f71134d85e4a4fcf2d332fdac1b295863014d6f0326af4d1a45036c1eed1e",
+            "locator": "full_text",
+            "origin_id": "a61eba25-8345-5529-a6fa-c5ecd7ead17c",
+            "data_class": "SYNTHETIC"
+          }
+        ]
+      },
+      "extensions": {}
+    },
+    {
+      "schema_version": 1,
+      "id": "70ef0481-c73d-4dc2-ba88-d4589fcc5a86",
+      "seq": 3,
+      "root_id": "d499884e-7b7b-49f1-a225-1d66be99fce6",
+      "entity_type": "Item",
+      "entity_id": "d499884e-7b7b-49f1-a225-1d66be99fce6",
+      "entity_revision": 1,
+      "event_type": "item.created",
+      "causation_id": null,
+      "origin": "ItemService",
+      "created_at": "2026-09-14T01:24:36.855Z",
+      "change": {
+        "after": {
+          "schema_version": 1,
+          "id": "d499884e-7b7b-49f1-a225-1d66be99fce6",
+          "revision": 1,
+          "domain": "work",
+          "kind": "TASK",
+          "title": "合成事项03",
+          "status": "OPEN",
+          "priority": 0,
+          "due_at": "2026-09-18T12:00:00.000Z",
+          "timezone": "UTC",
+          "time_state": "CONFIRMED",
+          "parent_id": null,
+          "dependency_ids": [],
+          "evidence": [
+            {
+              "object_id": "ebf92232-fcf1-53e8-8abd-db8efd0f69a8",
+              "sha256": "fdb5865d18f7edeba42565c06228f8cb26147d2e34603a0c3170cc4848fe17d4",
+              "locator": "full_text",
+              "origin_id": "ebf92232-fcf1-53e8-8abd-db8efd0f69a8",
+              "data_class": "SYNTHETIC"
+            }
+          ],
+          "created_at": "2026-09-14T01:24:36.855Z",
+          "updated_at": "2026-09-14T01:24:36.855Z",
+          "extensions": {
+            "security.classification": {
+              "data_class": "SYNTHETIC"
+            }
+          }
+        },
+        "before": null,
+        "evidence": [
+          {
+            "object_id": "ebf92232-fcf1-53e8-8abd-db8efd0f69a8",
+            "sha256": "fdb5865d18f7edeba42565c06228f8cb26147d2e34603a0c3170cc4848fe17d4",
+            "locator": "full_text",
+            "origin_id": "ebf92232-fcf1-53e8-8abd-db8efd0f69a8",
+            "data_class": "SYNTHETIC"
+          }
+        ]
+      },
+      "extensions": {}
+    },
+    {
+      "schema_version": 1,
+      "id": "3a653f25-1699-41b8-8bfc-caaec431bd00",
+      "seq": 4,
+      "root_id": "7a6b47d5-9699-4f40-9029-9722ac1cd23f",
+      "entity_type": "memory",
+      "entity_id": "7a6b47d5-9699-4f40-9029-9722ac1cd23f",
+      "entity_revision": 1,
+      "event_type": "memory.refreshed",
+      "causation_id": null,
+      "origin": "memory.refresh",
+      "created_at": "2026-09-14T12:00:00.000Z",
+      "change": {
+        "after": {
+          "schema_version": 1,
+          "id": "7a6b47d5-9699-4f40-9029-9722ac1cd23f",
+          "revision": 1,
+          "slot": 0,
+          "snapshot_seq": 3,
+          "previous_snapshot_id": null,
+          "input_hash": "b7a33d1ea7ae50a96e50455d148891da17ec8a66d732ac26e3cbba49febc53ca",
+          "created_at": "2026-09-14T12:00:00.000Z",
+          "focal_goals": [
+            {
+              "entity": {
+                "entity_type": "Item",
+                "id": "7ceef1b7-1135-45fe-ac2a-48f45f0f0a37",
+                "revision": 1
+              },
+              "reason": "最早到期的开放工作任务",
+              "evidence": []
+            }
+          ],
+          "priority_items": [
+            {
+              "entity": {
+                "entity_type": "Item",
+                "id": "664ea193-c745-4b08-a42b-2148686d8a51",
+                "revision": 1
+              },
+              "reason": "开放且即将到期",
+              "evidence": []
+            }
+          ],
+          "open_loops": [
+            {
+              "entity": {
+                "entity_type": "Item",
+                "id": "d499884e-7b7b-49f1-a225-1d66be99fce6",
+                "revision": 1
+              },
+              "reason": "尚未完成的开放任务",
+              "evidence": []
+            }
+          ],
+          "important_changes": [
+            {
+              "entity": {
+                "entity_type": "Item",
+                "id": "7ceef1b7-1135-45fe-ac2a-48f45f0f0a37",
+                "revision": 1
+              },
+              "reason": "本快照中新建任务",
+              "evidence": []
+            }
+          ],
+          "uncertainties": [],
+          "brief_summary": "当前有3项开放工作任务，均已确认时间，截止时间集中在2026年9月18日。",
+          "missed_slots": 0,
+          "extensions": {
+            "security.classification": {
+              "data_class": "SYNTHETIC"
+            }
+          }
+        },
+        "before": null,
+        "evidence": []
+      },
+      "extensions": {}
+    },
+    {
+      "schema_version": 1,
+      "id": "a125adf0-434c-4ec2-86af-1538f0b8022d",
+      "seq": 5,
+      "root_id": "adfd5221-2bae-4e31-aae8-cadfaef847ed",
+      "entity_type": "memory",
+      "entity_id": "adfd5221-2bae-4e31-aae8-cadfaef847ed",
+      "entity_revision": 1,
+      "event_type": "memory.refreshed",
+      "causation_id": null,
+      "origin": "memory.refresh",
+      "created_at": "2026-09-15T12:00:00.000Z",
+      "change": {
+        "after": {
+          "schema_version": 1,
+          "id": "adfd5221-2bae-4e31-aae8-cadfaef847ed",
+          "revision": 1,
+          "slot": 1,
+          "snapshot_seq": 4,
+          "previous_snapshot_id": "7a6b47d5-9699-4f40-9029-9722ac1cd23f",
+          "input_hash": "4a4f87a20a7b82d25a06d3284bdff2d76995e321dd3dad98bf9230ee5a3d6e38",
+          "created_at": "2026-09-15T12:00:00.000Z",
+          "focal_goals": [
+            {
+              "entity": {
+                "entity_type": "Item",
+                "id": "7ceef1b7-1135-45fe-ac2a-48f45f0f0a37",
+                "revision": 1
+              },
+              "reason": "最早到期的开放任务",
+              "evidence": []
+            }
+          ],
+          "priority_items": [
+            {
+              "entity": {
+                "entity_type": "Item",
+                "id": "664ea193-c745-4b08-a42b-2148686d8a51",
+                "revision": 1
+              },
+              "reason": "开放且即将到期",
+              "evidence": []
+            }
+          ],
+          "open_loops": [
+            {
+              "entity": {
+                "entity_type": "Item",
+                "id": "d499884e-7b7b-49f1-a225-1d66be99fce6",
+                "revision": 1
+              },
+              "reason": "尚未完成的开放任务",
+              "evidence": []
+            }
+          ],
+          "important_changes": [],
+          "uncertainties": [],
+          "brief_summary": "当前有3项开放工作任务，时间均已确认，截止时间集中在2026年9月18日。",
+          "missed_slots": 0,
+          "extensions": {
+            "security.classification": {
+              "data_class": "SYNTHETIC"
+            }
+          }
+        },
+        "before": null,
+        "evidence": []
+      },
+      "extensions": {}
+    },
+    {
+      "schema_version": 1,
+      "id": "daeaf343-c7b2-4236-a531-d3e0260823dd",
+      "seq": 6,
+      "root_id": "81b961fa-f6e0-4836-a632-0e4d1b9c3366",
+      "entity_type": "memory",
+      "entity_id": "81b961fa-f6e0-4836-a632-0e4d1b9c3366",
+      "entity_revision": 1,
+      "event_type": "memory.refreshed",
+      "causation_id": null,
+      "origin": "memory.refresh",
+      "created_at": "2026-09-16T12:00:00.000Z",
+      "change": {
+        "after": {
+          "schema_version": 1,
+          "id": "81b961fa-f6e0-4836-a632-0e4d1b9c3366",
+          "revision": 1,
+          "slot": 2,
+          "snapshot_seq": 5,
+          "previous_snapshot_id": "adfd5221-2bae-4e31-aae8-cadfaef847ed",
+          "input_hash": "583f3848599e3b4ddee0f53e42a87d8c92657c51c25c0344b60daa5cca806db7",
+          "created_at": "2026-09-16T12:00:00.000Z",
+          "focal_goals": [
+            {
+              "entity": {
+                "entity_type": "Item",
+                "id": "7ceef1b7-1135-45fe-ac2a-48f45f0f0a37",
+                "revision": 1
+              },
+              "reason": "最早到期的开放任务",
+              "evidence": []
+            }
+          ],
+          "priority_items": [
+            {
+              "entity": {
+                "entity_type": "Item",
+                "id": "664ea193-c745-4b08-a42b-2148686d8a51",
+                "revision": 1
+              },
+              "reason": "开放且即将到期",
+              "evidence": []
+            }
+          ],
+          "open_loops": [
+            {
+              "entity": {
+                "entity_type": "Item",
+                "id": "d499884e-7b7b-49f1-a225-1d66be99fce6",
+                "revision": 1
+              },
+              "reason": "尚未完成的开放任务",
+              "evidence": []
+            }
+          ],
+          "important_changes": [],
+          "uncertainties": [],
+          "brief_summary": "当前有3项开放工作任务，时间均已确认，截止时间集中在2026年9月18日。",
+          "missed_slots": 0,
+          "extensions": {
+            "security.classification": {
+              "data_class": "SYNTHETIC"
+            }
+          }
+        },
+        "before": null,
+        "evidence": []
+      },
+      "extensions": {}
+    }
+  ],
+  "consciousness_snapshots": [
+    {
+      "schema_version": 1,
+      "id": "7a6b47d5-9699-4f40-9029-9722ac1cd23f",
+      "revision": 1,
+      "slot": 0,
+      "snapshot_seq": 3,
+      "previous_snapshot_id": null,
+      "input_hash": "b7a33d1ea7ae50a96e50455d148891da17ec8a66d732ac26e3cbba49febc53ca",
+      "created_at": "2026-09-14T12:00:00.000Z",
+      "focal_goals": [
+        {
+          "entity": {
+            "entity_type": "Item",
+            "id": "7ceef1b7-1135-45fe-ac2a-48f45f0f0a37",
+            "revision": 1
+          },
+          "reason": "最早到期的开放工作任务",
+          "evidence": []
+        }
+      ],
+      "priority_items": [
+        {
+          "entity": {
+            "entity_type": "Item",
+            "id": "664ea193-c745-4b08-a42b-2148686d8a51",
+            "revision": 1
+          },
+          "reason": "开放且即将到期",
+          "evidence": []
+        }
+      ],
+      "open_loops": [
+        {
+          "entity": {
+            "entity_type": "Item",
+            "id": "d499884e-7b7b-49f1-a225-1d66be99fce6",
+            "revision": 1
+          },
+          "reason": "尚未完成的开放任务",
+          "evidence": []
+        }
+      ],
+      "important_changes": [
+        {
+          "entity": {
+            "entity_type": "Item",
+            "id": "7ceef1b7-1135-45fe-ac2a-48f45f0f0a37",
+            "revision": 1
+          },
+          "reason": "本快照中新建任务",
+          "evidence": []
+        }
+      ],
+      "uncertainties": [],
+      "brief_summary": "当前有3项开放工作任务，均已确认时间，截止时间集中在2026年9月18日。",
+      "missed_slots": 0,
+      "extensions": {
+        "security.classification": {
+          "data_class": "SYNTHETIC"
+        }
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "adfd5221-2bae-4e31-aae8-cadfaef847ed",
+      "revision": 1,
+      "slot": 1,
+      "snapshot_seq": 4,
+      "previous_snapshot_id": "7a6b47d5-9699-4f40-9029-9722ac1cd23f",
+      "input_hash": "4a4f87a20a7b82d25a06d3284bdff2d76995e321dd3dad98bf9230ee5a3d6e38",
+      "created_at": "2026-09-15T12:00:00.000Z",
+      "focal_goals": [
+        {
+          "entity": {
+            "entity_type": "Item",
+            "id": "7ceef1b7-1135-45fe-ac2a-48f45f0f0a37",
+            "revision": 1
+          },
+          "reason": "最早到期的开放任务",
+          "evidence": []
+        }
+      ],
+      "priority_items": [
+        {
+          "entity": {
+            "entity_type": "Item",
+            "id": "664ea193-c745-4b08-a42b-2148686d8a51",
+            "revision": 1
+          },
+          "reason": "开放且即将到期",
+          "evidence": []
+        }
+      ],
+      "open_loops": [
+        {
+          "entity": {
+            "entity_type": "Item",
+            "id": "d499884e-7b7b-49f1-a225-1d66be99fce6",
+            "revision": 1
+          },
+          "reason": "尚未完成的开放任务",
+          "evidence": []
+        }
+      ],
+      "important_changes": [],
+      "uncertainties": [],
+      "brief_summary": "当前有3项开放工作任务，时间均已确认，截止时间集中在2026年9月18日。",
+      "missed_slots": 0,
+      "extensions": {
+        "security.classification": {
+          "data_class": "SYNTHETIC"
+        }
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "81b961fa-f6e0-4836-a632-0e4d1b9c3366",
+      "revision": 1,
+      "slot": 2,
+      "snapshot_seq": 5,
+      "previous_snapshot_id": "adfd5221-2bae-4e31-aae8-cadfaef847ed",
+      "input_hash": "583f3848599e3b4ddee0f53e42a87d8c92657c51c25c0344b60daa5cca806db7",
+      "created_at": "2026-09-16T12:00:00.000Z",
+      "focal_goals": [
+        {
+          "entity": {
+            "entity_type": "Item",
+            "id": "7ceef1b7-1135-45fe-ac2a-48f45f0f0a37",
+            "revision": 1
+          },
+          "reason": "最早到期的开放任务",
+          "evidence": []
+        }
+      ],
+      "priority_items": [
+        {
+          "entity": {
+            "entity_type": "Item",
+            "id": "664ea193-c745-4b08-a42b-2148686d8a51",
+            "revision": 1
+          },
+          "reason": "开放且即将到期",
+          "evidence": []
+        }
+      ],
+      "open_loops": [
+        {
+          "entity": {
+            "entity_type": "Item",
+            "id": "d499884e-7b7b-49f1-a225-1d66be99fce6",
+            "revision": 1
+          },
+          "reason": "尚未完成的开放任务",
+          "evidence": []
+        }
+      ],
+      "important_changes": [],
+      "uncertainties": [],
+      "brief_summary": "当前有3项开放工作任务，时间均已确认，截止时间集中在2026年9月18日。",
+      "missed_slots": 0,
+      "extensions": {
+        "security.classification": {
+          "data_class": "SYNTHETIC"
+        }
+      }
+    }
+  ]
+}

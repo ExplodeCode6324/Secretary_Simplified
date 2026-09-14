@@ -74,6 +74,8 @@ func (s *Store) SearchMemoryPage(ctx context.Context, query string, entityIDs []
 	}
 	defer rows.Close()
 	last := int64(0)
+	candidates := 0
+	discoveredRefs, retainedRefs := map[string]bool{}, map[string]bool{}
 	for rows.Next() {
 		var rowID int64
 		var b []byte
@@ -81,8 +83,36 @@ func (s *Store) SearchMemoryPage(ctx context.Context, query string, entityIDs []
 		if e = rows.Scan(&rowID, &b, &class); e != nil {
 			return out, e
 		}
-		if len(out.Events) == 10 {
-			out.OmittedCount++
+		var event contract.ConversationEvent
+		var eventBody map[string]any
+		if json.Unmarshal(b, &eventBody) != nil {
+			return out, contract.ErrOutputClassUnknown
+		}
+		if eventBody["role"] != "MASTER" {
+			if _, e = classificationBytes(b); e != nil {
+				return out, e
+			}
+		}
+		if e = contract.Decode("ConversationEvent", b, &event); e != nil {
+			return out, e
+		}
+		if event.Role != "MASTER" {
+			class, e = contract.ReadClassification(event.Extensions)
+			if e != nil {
+				return out, e
+			}
+		} else {
+			var e error
+			event.Extensions, e = contract.ClassifyExtensions(event.Extensions, class)
+			if e != nil {
+				return out, e
+			}
+		}
+		for _, ref := range event.Evidence {
+			discoveredRefs[ref.ObjectID] = true
+		}
+		candidates++
+		if candidates == 11 {
 			next := cur
 			next.LastRowID = last
 			raw, _ := json.Marshal(next)
@@ -90,17 +120,22 @@ func (s *Store) SearchMemoryPage(ctx context.Context, query string, entityIDs []
 			out.Cursor = &encoded
 			break
 		}
-		var event contract.ConversationEvent
-		if e = contract.Decode("ConversationEvent", b, &event); e != nil {
-			return out, e
-		}
+		last = rowID
+		// Whole oversized candidates are omitted; do not imply their original text was served.
 		if len([]byte(event.Text)) > 2048 {
-			event.Text = "[OMITTED: original text exceeds this retrieval page's 2 KiB entry limit]"
-			out.OmittedCount++
+			continue
 		}
 		out.Events = append(out.Events, event)
 		out.DataClasses = append(out.DataClasses, class)
-		last = rowID
+		for _, ref := range event.Evidence {
+			retainedRefs[ref.ObjectID] = true
+		}
+	}
+	// D09: ref-level net coverage loss, not a count of rows or duplicate citations.
+	for id := range discoveredRefs {
+		if !retainedRefs[id] {
+			out.OmittedCount++
+		}
 	}
 	return out, rows.Err()
 }

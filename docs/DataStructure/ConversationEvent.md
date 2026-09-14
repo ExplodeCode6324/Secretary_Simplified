@@ -27,3 +27,8 @@
 原话内容追加不可改；投递状态可受控更新。TOOL 文本是数据，不能取得 SYSTEM 身份。
 
 通用空值、版本、扩展、引用和错误规则见 [Common.md](Common.md)；事件与提交关系见 [DataFlow.md](../DataFlow.md)。
+
+
+### D12 分类传播
+
+MASTER=真实输入分类；ASSISTANT=实际输出有效分类，回答回显须 join State。 使用 [Common.md](Common.md) 的 security.classification 契约；缺失旧派生标记返回 OUTPUT_CLASS_UNKNOWN，不自动回填。

@@ -1,0 +1,9 @@
+Ayanami，Master指定reviewer仍仅deepseek-v4.1-flash/opencode-go，无fallback。请实际独立增量复核本轮仅两must-fix，不重读/重测全仓：D11待答问题生命周期+memory/consciousness语义失败持久诊断。旧有效裁决 review/D11-pending-question-deepseek.response.md 与 M2-core-memory-deepseek-final.response.md。Master已授权双方商议后改设计，不要引入二次批准或新增门槛。
+当前实现交接（只是线索，不等于PASS）：
+1. Store/Schema/docs: src/store/core_repo.go/questions_repo.go/questions_test.go、contract schema/DTO；docs D11与InputTurn最终reply闭包同步。FinishDecisionTurn独占正常创建/回答；FinishTurn失败不resolve；raw proposal与最终reply不同；真实ASSISTANT sequence；CAS不动summary水位；受理/提交二次校验；幂等检查早于resolved；非法unknown/foreign预归档拒绝；任意proposal错整Decision无副作用。源/伪身份questions明确拒绝；resolved409、未知/错session/已回收404。
+2. Core/HTTP/CLI root：FinishDecisionTurn+manifest.ReadSet，questions/answer纳入Mastergrant权限；HTTP先rawmap防null折叠、403/404/409；CLI --answer-to；model说明边界。tests/questions_core_test.go覆盖正常创建/回答/loser失败回执不重调模型/原modelrecord不污染/unknown/null/伪principal。
+3. runtime纯测试 src/tests/runtime_d11_test.go：10创建+10回答逐次DB重开、同key异pointer冲突、双DB连接抢答winner唯一动作、20未解容量/resolved回收、4 SQL故障点原子。报告reports/implementation/D11-question-mechanical-checks.json；请至少定向跑并独立写关键反例（隔离副本）。
+4. Memory.Service RefreshSlot与Summarize defer记录固定白名单reason到reports/memory_attempts，关联CallID/context/role/attempt等，provider SUCCEEDED保留不篡改；tests/memory_outcome_test.go两角色语义INVALID_REFERENCE/UNKNOWN_PENDING_QUESTION失败有持久记录且不改snapshot/watermark。诊断sink同既有Core best-effort，请判断这是否满足已有诊断条款，明确实际可写路径和失败路径边界，不发明诊断IO失败改变业务的要求。必要时指出具体契约冲突。
+5. D10 live-cli-run2已真实PASS，reports/local/live-cli-run2（通知1、ItemOPEN、同request幂等、CoreofflineACK），run1保留，NL模板未额外加grace提示，时间仍原脚本startUTC+90sec。请只读核证档案，不调真实模型。
+真实D11 CLI脚本正准备且root重build后运行，本轮若未有最终报告明确NOT_RUN，不拿私有seed或夹具当该腿。请优先给生产mustfix是否闭合、未检是否仅证据范围；不要把附加分支NOT_RUN都升级新退出门槛。
+业务源码只读，测试写临时副本，不修改仓库/报告同名文件、不委派、不触真实凭据/数据/API/通知/响铃、不跑全仓测试、不改其他进程。最后自然输出完整裁决（Codex保存），预留至少3轮避免Hermes强制摘要MissingSessionID问题。出现429立即停止并报告，不自行换model/provider。

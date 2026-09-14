@@ -1,0 +1,15 @@
+{
+  "attempt": 1,
+  "call_id": "a7163681-0a02-411d-ba05-646e89e8a57d",
+  "context_id": "2623f5e9-1f46-4085-b93a-0ddcc5bc24ed",
+  "extensions": {
+    "security.classification": {
+      "data_class": "SYNTHETIC"
+    }
+  },
+  "intent_id": "9f42c13a-6fc2-416d-bf99-f891fa46618c",
+  "reason": "bounded retrieval requested",
+  "recorded_at": "2026-09-14T01:23:52.910Z",
+  "schema_version": 1,
+  "status": "READ_MEMORY"
+}

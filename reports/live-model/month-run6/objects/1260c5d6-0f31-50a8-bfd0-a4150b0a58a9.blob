@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "context_id": "f8974b40-7fb2-4fa0-8a32-179abf616f68",
+  "reply": {
+    "text": "已提议仅将“合成事项19”的截止时间更新为2026-10-03T12:00:00.000Z，其余事项保持不变。",
+    "evidence": []
+  },
+  "actions": [
+    {
+      "operation_key": "update-item-19-due-date",
+      "kind": "UPDATE_ITEM",
+      "payload": {
+        "item_id": "ee1030e0-05f9-40bf-ad94-d363bf969d56",
+        "expected_revision": 1,
+        "changes": {
+          "due_at": "2026-10-03T12:00:00.000Z"
+        }
+      }
+    }
+  ],
+  "controls": [],
+  "extensions": {}
+}

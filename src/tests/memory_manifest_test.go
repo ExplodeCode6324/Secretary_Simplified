@@ -31,7 +31,7 @@ func TestMemoryMoreThanHundredDeltasPersistsExactManifest(t *testing.T) {
 	s, c, p := setup(t)
 	ctx := context.Background()
 	now := time.Now().UTC()
-	it := contract.Item{SchemaVersion: 1, ID: contract.NewID(), Revision: 1, Domain: "work", Kind: "TASK", Title: "bounded refresh", Status: "OPEN", Priority: 1, Timezone: "UTC", TimeState: "UNKNOWN", DependencyIDs: []string{}, Evidence: []contract.EvidenceRef{}, CreatedAt: contract.Timestamp(now), UpdatedAt: contract.Timestamp(now), Extensions: map[string]any{}}
+	it := contract.Item{SchemaVersion: 1, ID: contract.NewID(), Revision: 1, Domain: "work", Kind: "TASK", Title: "bounded refresh", Status: "OPEN", Priority: 1, Timezone: "UTC", TimeState: "UNKNOWN", DependencyIDs: []string{}, Evidence: []contract.EvidenceRef{}, CreatedAt: contract.Timestamp(now), UpdatedAt: contract.Timestamp(now), Extensions: map[string]any{contract.ClassificationKey: map[string]any{"data_class": "SYNTHETIC"}}}
 	for i := 0; i < 125; i++ {
 		it.Revision = i + 1
 		if e := s.PutItem(ctx, it, i); e != nil {

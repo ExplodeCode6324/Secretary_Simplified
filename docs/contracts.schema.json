@@ -138,14 +138,7 @@
           "format": "date-time"
         },
         "extensions": {
-          "type": "object",
-          "propertyNames": {
-            "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_.]*$"
-          },
-          "additionalProperties": {
-            "type": "object"
-          },
-          "description": "有命名空间的可选扩展"
+          "$ref": "#/$defs/RegisteredExtensions"
         }
       },
       "required": [
@@ -221,14 +214,11 @@
           "description": ""
         },
         "extensions": {
-          "type": "object",
-          "propertyNames": {
-            "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_.]*$"
-          },
-          "additionalProperties": {
-            "type": "object"
-          },
-          "description": "有命名空间的可选扩展"
+          "$ref": "#/$defs/RegisteredExtensions"
+        },
+        "answer_to_question_id": {
+          "type": "string",
+          "format": "uuid"
         }
       },
       "required": [
@@ -327,14 +317,7 @@
           "description": ""
         },
         "extensions": {
-          "type": "object",
-          "propertyNames": {
-            "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_.]*$"
-          },
-          "additionalProperties": {
-            "type": "object"
-          },
-          "description": "有命名空间的可选扩展"
+          "$ref": "#/$defs/RegisteredExtensions"
         }
       },
       "required": [
@@ -443,14 +426,7 @@
           "description": ""
         },
         "extensions": {
-          "type": "object",
-          "propertyNames": {
-            "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_.]*$"
-          },
-          "additionalProperties": {
-            "type": "object"
-          },
-          "description": "有命名空间的可选扩展"
+          "$ref": "#/$defs/RegisteredExtensions"
         },
         "validation_error": {
           "anyOf": [
@@ -632,14 +608,7 @@
           "description": ""
         },
         "extensions": {
-          "type": "object",
-          "propertyNames": {
-            "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_.]*$"
-          },
-          "additionalProperties": {
-            "type": "object"
-          },
-          "description": "有命名空间的可选扩展"
+          "$ref": "#/$defs/RegisteredExtensions"
         }
       },
       "required": [
@@ -859,14 +828,7 @@
           "format": "date-time"
         },
         "extensions": {
-          "type": "object",
-          "propertyNames": {
-            "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_.]*$"
-          },
-          "additionalProperties": {
-            "type": "object"
-          },
-          "description": "有命名空间的可选扩展"
+          "$ref": "#/$defs/RegisteredExtensions"
         }
       },
       "required": [
@@ -1007,14 +969,7 @@
           "maxLength": 2048
         },
         "extensions": {
-          "type": "object",
-          "propertyNames": {
-            "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_.]*$"
-          },
-          "additionalProperties": {
-            "type": "object"
-          },
-          "description": "有命名空间的可选扩展"
+          "$ref": "#/$defs/RegisteredExtensions"
         }
       },
       "required": [
@@ -1245,14 +1200,7 @@
           "format": "date-time"
         },
         "extensions": {
-          "type": "object",
-          "propertyNames": {
-            "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_.]*$"
-          },
-          "additionalProperties": {
-            "type": "object"
-          },
-          "description": "有命名空间的可选扩展"
+          "$ref": "#/$defs/RegisteredExtensions"
         }
       },
       "required": [
@@ -1422,14 +1370,7 @@
           "description": ""
         },
         "extensions": {
-          "type": "object",
-          "propertyNames": {
-            "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_.]*$"
-          },
-          "additionalProperties": {
-            "type": "object"
-          },
-          "description": "有命名空间的可选扩展"
+          "$ref": "#/$defs/RegisteredExtensions"
         }
       },
       "required": [
@@ -1549,14 +1490,7 @@
           "description": ""
         },
         "extensions": {
-          "type": "object",
-          "propertyNames": {
-            "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_.]*$"
-          },
-          "additionalProperties": {
-            "type": "object"
-          },
-          "description": "有命名空间的可选扩展"
+          "$ref": "#/$defs/RegisteredExtensions"
         }
       },
       "required": [
@@ -1642,14 +1576,7 @@
           "description": ""
         },
         "extensions": {
-          "type": "object",
-          "propertyNames": {
-            "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_.]*$"
-          },
-          "additionalProperties": {
-            "type": "object"
-          },
-          "description": "有命名空间的可选扩展"
+          "$ref": "#/$defs/RegisteredExtensions"
         },
         "previous_snapshot": {
           "anyOf": [
@@ -1818,14 +1745,7 @@
           "description": ""
         },
         "extensions": {
-          "type": "object",
-          "propertyNames": {
-            "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_.]*$"
-          },
-          "additionalProperties": {
-            "type": "object"
-          },
-          "description": "有命名空间的可选扩展"
+          "$ref": "#/$defs/RegisteredExtensions"
         }
       },
       "required": [
@@ -1914,14 +1834,7 @@
           "description": ""
         },
         "extensions": {
-          "type": "object",
-          "propertyNames": {
-            "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_.]*$"
-          },
-          "additionalProperties": {
-            "type": "object"
-          },
-          "description": "有命名空间的可选扩展"
+          "$ref": "#/$defs/RegisteredExtensions"
         }
       },
       "required": [
@@ -2051,14 +1964,7 @@
           "description": ""
         },
         "extensions": {
-          "type": "object",
-          "propertyNames": {
-            "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_.]*$"
-          },
-          "additionalProperties": {
-            "type": "object"
-          },
-          "description": "有命名空间的可选扩展"
+          "$ref": "#/$defs/RegisteredExtensions"
         }
       },
       "required": [
@@ -2093,7 +1999,10 @@
             "world_revision_matches",
             "source_cursor_committed",
             "master_confirmed",
-            "consciousness_slot_committed"
+            "consciousness_slot_committed",
+            "alarm_session_recorded",
+            "briefing_artifact_recorded",
+            "source_sync_recorded"
           ],
           "description": ""
         },
@@ -2291,6 +2200,88 @@
               }
             }
           }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "alarm_session_recorded"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "expected": {
+                "type": "object",
+                "properties": {
+                  "device_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "audio_ref": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                },
+                "required": [
+                  "device_id",
+                  "audio_ref"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "briefing_artifact_recorded"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "expected": {
+                "type": "object",
+                "properties": {
+                  "media_type": {
+                    "const": "text/plain"
+                  }
+                },
+                "required": [
+                  "media_type"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "source_sync_recorded"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "expected": {
+                "type": "object",
+                "properties": {
+                  "source_id": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                },
+                "required": [
+                  "source_id"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
         }
       ]
     },
@@ -2412,14 +2403,7 @@
           "format": "date-time"
         },
         "extensions": {
-          "type": "object",
-          "propertyNames": {
-            "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_.]*$"
-          },
-          "additionalProperties": {
-            "type": "object"
-          },
-          "description": "有命名空间的可选扩展"
+          "$ref": "#/$defs/RegisteredExtensions"
         },
         "parent_root_id": {
           "anyOf": [
@@ -2500,14 +2484,7 @@
           "description": ""
         },
         "extensions": {
-          "type": "object",
-          "propertyNames": {
-            "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_.]*$"
-          },
-          "additionalProperties": {
-            "type": "object"
-          },
-          "description": "有命名空间的可选扩展"
+          "$ref": "#/$defs/RegisteredExtensions"
         }
       },
       "required": [
@@ -3360,14 +3337,7 @@
           "format": "date-time"
         },
         "extensions": {
-          "type": "object",
-          "propertyNames": {
-            "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_.]*$"
-          },
-          "additionalProperties": {
-            "type": "object"
-          },
-          "description": "有命名空间的可选扩展"
+          "$ref": "#/$defs/RegisteredExtensions"
         }
       },
       "required": [
@@ -4080,6 +4050,9 @@
               },
               "maxItems": 100,
               "description": ""
+            },
+            "questions": {
+              "$ref": "#/$defs/QuestionProposals"
             }
           },
           "required": [
@@ -4105,14 +4078,7 @@
           "description": ""
         },
         "extensions": {
-          "type": "object",
-          "propertyNames": {
-            "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_.]*$"
-          },
-          "additionalProperties": {
-            "type": "object"
-          },
-          "description": "有命名空间的可选扩展"
+          "$ref": "#/$defs/RegisteredExtensions"
         }
       },
       "required": [
@@ -4244,14 +4210,7 @@
           "description": ""
         },
         "extensions": {
-          "type": "object",
-          "propertyNames": {
-            "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_.]*$"
-          },
-          "additionalProperties": {
-            "type": "object"
-          },
-          "description": "有命名空间的可选扩展"
+          "$ref": "#/$defs/RegisteredExtensions"
         }
       },
       "required": [
@@ -4354,14 +4313,7 @@
           "description": "实际嵌入对应 JSON Schema，不只放名字"
         },
         "extensions": {
-          "type": "object",
-          "propertyNames": {
-            "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_.]*$"
-          },
-          "additionalProperties": {
-            "type": "object"
-          },
-          "description": "有命名空间的可选扩展"
+          "$ref": "#/$defs/RegisteredExtensions"
         },
         "context_id": {
           "type": "string",
@@ -4528,14 +4480,7 @@
           "description": ""
         },
         "extensions": {
-          "type": "object",
-          "propertyNames": {
-            "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_.]*$"
-          },
-          "additionalProperties": {
-            "type": "object"
-          },
-          "description": "有命名空间的可选扩展"
+          "$ref": "#/$defs/RegisteredExtensions"
         }
       },
       "required": [
@@ -4624,14 +4569,7 @@
           ]
         },
         "extensions": {
-          "type": "object",
-          "propertyNames": {
-            "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_.]*$"
-          },
-          "additionalProperties": {
-            "type": "object"
-          },
-          "description": "有命名空间的可选扩展"
+          "$ref": "#/$defs/RegisteredExtensions"
         }
       },
       "required": [
@@ -4761,14 +4699,7 @@
           "format": "date-time"
         },
         "extensions": {
-          "type": "object",
-          "propertyNames": {
-            "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_.]*$"
-          },
-          "additionalProperties": {
-            "type": "object"
-          },
-          "description": "有命名空间的可选扩展"
+          "$ref": "#/$defs/RegisteredExtensions"
         }
       },
       "required": [
@@ -4882,14 +4813,7 @@
           "format": "date-time"
         },
         "extensions": {
-          "type": "object",
-          "propertyNames": {
-            "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_.]*$"
-          },
-          "additionalProperties": {
-            "type": "object"
-          },
-          "description": "有命名空间的可选扩展"
+          "$ref": "#/$defs/RegisteredExtensions"
         }
       },
       "required": [
@@ -4986,14 +4910,7 @@
           "format": "date-time"
         },
         "extensions": {
-          "type": "object",
-          "propertyNames": {
-            "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_.]*$"
-          },
-          "additionalProperties": {
-            "type": "object"
-          },
-          "description": "有命名空间的可选扩展"
+          "$ref": "#/$defs/RegisteredExtensions"
         }
       },
       "required": [
@@ -5065,14 +4982,7 @@
           "description": ""
         },
         "extensions": {
-          "type": "object",
-          "propertyNames": {
-            "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_.]*$"
-          },
-          "additionalProperties": {
-            "type": "object"
-          },
-          "description": "有命名空间的可选扩展"
+          "$ref": "#/$defs/RegisteredExtensions"
         }
       },
       "required": [
@@ -5157,14 +5067,7 @@
           "description": "按 event_type 的增量 Schema 校验"
         },
         "extensions": {
-          "type": "object",
-          "propertyNames": {
-            "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_.]*$"
-          },
-          "additionalProperties": {
-            "type": "object"
-          },
-          "description": "有命名空间的可选扩展"
+          "$ref": "#/$defs/RegisteredExtensions"
         }
       },
       "required": [
@@ -5289,14 +5192,7 @@
           ]
         },
         "extensions": {
-          "type": "object",
-          "propertyNames": {
-            "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_.]*$"
-          },
-          "additionalProperties": {
-            "type": "object"
-          },
-          "description": "有命名空间的可选扩展"
+          "$ref": "#/$defs/RegisteredExtensions"
         }
       },
       "required": [
@@ -5370,14 +5266,7 @@
           "maxLength": 4096
         },
         "extensions": {
-          "type": "object",
-          "propertyNames": {
-            "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_.]*$"
-          },
-          "additionalProperties": {
-            "type": "object"
-          },
-          "description": "有命名空间的可选扩展"
+          "$ref": "#/$defs/RegisteredExtensions"
         }
       },
       "required": [
@@ -5436,14 +5325,7 @@
           "description": ""
         },
         "extensions": {
-          "type": "object",
-          "propertyNames": {
-            "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_.]*$"
-          },
-          "additionalProperties": {
-            "type": "object"
-          },
-          "description": "有命名空间的可选扩展"
+          "$ref": "#/$defs/RegisteredExtensions"
         }
       },
       "required": [
@@ -5502,14 +5384,7 @@
           "format": "date-time"
         },
         "extensions": {
-          "type": "object",
-          "propertyNames": {
-            "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_.]*$"
-          },
-          "additionalProperties": {
-            "type": "object"
-          },
-          "description": "有命名空间的可选扩展"
+          "$ref": "#/$defs/RegisteredExtensions"
         }
       },
       "required": [
@@ -5587,6 +5462,57 @@
                   },
                   "maxItems": 100,
                   "description": ""
+                },
+                "questions": {
+                  "type": "array",
+                  "maxItems": 3,
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "description": "UUID 标识",
+                        "format": "uuid"
+                      },
+                      "text": {
+                        "type": "string",
+                        "description": ""
+                      },
+                      "item_id": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "description": "UUID 标识",
+                            "format": "uuid"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "created_sequence": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "description": ""
+                      },
+                      "resolved": {
+                        "type": "boolean",
+                        "description": ""
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "text",
+                      "item_id",
+                      "created_sequence",
+                      "resolved"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "answered_question_id": {
+                  "type": "string",
+                  "format": "uuid"
                 }
               },
               "required": [
@@ -5638,14 +5564,7 @@
           "format": "date-time"
         },
         "extensions": {
-          "type": "object",
-          "propertyNames": {
-            "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_.]*$"
-          },
-          "additionalProperties": {
-            "type": "object"
-          },
-          "description": "有命名空间的可选扩展"
+          "$ref": "#/$defs/RegisteredExtensions"
         }
       },
       "required": [
@@ -5748,14 +5667,7 @@
           ]
         },
         "extensions": {
-          "type": "object",
-          "propertyNames": {
-            "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_.]*$"
-          },
-          "additionalProperties": {
-            "type": "object"
-          },
-          "description": "有命名空间的可选扩展"
+          "$ref": "#/$defs/RegisteredExtensions"
         }
       },
       "required": [
@@ -5797,14 +5709,7 @@
           "description": ""
         },
         "extensions": {
-          "type": "object",
-          "propertyNames": {
-            "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_.]*$"
-          },
-          "additionalProperties": {
-            "type": "object"
-          },
-          "description": "有命名空间的可选扩展"
+          "$ref": "#/$defs/RegisteredExtensions"
         }
       },
       "required": [
@@ -5868,14 +5773,7 @@
           ]
         },
         "extensions": {
-          "type": "object",
-          "propertyNames": {
-            "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_.]*$"
-          },
-          "additionalProperties": {
-            "type": "object"
-          },
-          "description": "有命名空间的可选扩展"
+          "$ref": "#/$defs/RegisteredExtensions"
         }
       },
       "required": [
@@ -6010,14 +5908,7 @@
           ]
         },
         "extensions": {
-          "type": "object",
-          "propertyNames": {
-            "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_.]*$"
-          },
-          "additionalProperties": {
-            "type": "object"
-          },
-          "description": "有命名空间的可选扩展"
+          "$ref": "#/$defs/RegisteredExtensions"
         }
       },
       "required": [
@@ -6110,14 +6001,7 @@
           ]
         },
         "extensions": {
-          "type": "object",
-          "propertyNames": {
-            "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_.]*$"
-          },
-          "additionalProperties": {
-            "type": "object"
-          },
-          "description": "有命名空间的可选扩展"
+          "$ref": "#/$defs/RegisteredExtensions"
         }
       },
       "required": [
@@ -6186,14 +6070,7 @@
           "description": ""
         },
         "extensions": {
-          "type": "object",
-          "propertyNames": {
-            "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_.]*$"
-          },
-          "additionalProperties": {
-            "type": "object"
-          },
-          "description": "有命名空间的可选扩展"
+          "$ref": "#/$defs/RegisteredExtensions"
         }
       },
       "required": [
@@ -6315,14 +6192,7 @@
           ]
         },
         "extensions": {
-          "type": "object",
-          "propertyNames": {
-            "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_.]*$"
-          },
-          "additionalProperties": {
-            "type": "object"
-          },
-          "description": "有命名空间的可选扩展"
+          "$ref": "#/$defs/RegisteredExtensions"
         }
       },
       "required": [
@@ -6595,14 +6465,7 @@
           "format": "date-time"
         },
         "extensions": {
-          "type": "object",
-          "propertyNames": {
-            "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_.]*$"
-          },
-          "additionalProperties": {
-            "type": "object"
-          },
-          "description": "有命名空间的可选扩展"
+          "$ref": "#/$defs/RegisteredExtensions"
         }
       },
       "required": [
@@ -6659,6 +6522,69 @@
         "reason"
       ],
       "additionalProperties": false
+    },
+    "QuestionProposals": {
+      "type": "array",
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 512
+          },
+          "item_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "text",
+          "item_id"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "SecurityClassification": {
+      "type": "object",
+      "properties": {
+        "data_class": {
+          "type": "string",
+          "enum": [
+            "SYNTHETIC",
+            "PERSONAL",
+            "SENSITIVE",
+            "SECRET"
+          ]
+        }
+      },
+      "required": [
+        "data_class"
+      ],
+      "additionalProperties": false
+    },
+    "RegisteredExtensions": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_.]*$"
+      },
+      "additionalProperties": {
+        "type": "object"
+      },
+      "description": "有命名空间的可选扩展",
+      "properties": {
+        "security.classification": {
+          "$ref": "#/$defs/SecurityClassification"
+        }
+      }
     }
   }
 }

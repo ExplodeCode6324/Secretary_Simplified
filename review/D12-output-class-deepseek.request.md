@@ -1,0 +1,10 @@
+Ayanami，Master指定仅DeepSeek v4.1 Flash/opencode-go。紧急真实复现设计缺陷D12，先输出可实施契约裁决，不改生产。无429继续Go；实际429立即停止报告，不自行换模型。禁止读取任何key/resource正文/真实用户数据，探针只有fake模型合成canary。
+请先只读 review/D11-output-class-probe-result.md 与 .go.txt，定向查看 src/store/retrieval.go、questions_repo.go/core_repo.go会话事件/最终回复写入、src/context/context.go EffectiveDataClass、src/memory/memory.go 和对应ConversationState/ConsciousnessSnapshot契约必要字段。不要扩展全仓审计；可在隔离副本执行同一fake探针一次验证，无新真实模型请求。
+事实：原session有PERSONAL输入，下一SYNTHETIC输入触发模型（effective request.DataClass=PERSONAL）输出包含该信息的ASSISTANT问题；独有检索词只匹配这条助手回复；SearchMemoryPage却继承其generating turn.input.data_class=SYNTHETIC；新session仅允许SYNTHETIC，Encode成功且canary入wire。probe PASS是缺陷复现不是安全PASS。现全session输入分类保住原session，却未持久化输出effective classification跨retrieval边界。
+root/Codex建议D12最小方向供商议：
+1. 程序持久化实际生成该输出的model.Request.DataClass到可检索ASSISTANT/问题记录，随最终成功回执/event同事务保存；模型/客户端不可写或降低该字段。InputTurn原始input class保持真实原值，不能反向伪造为PERSONAL来掩盖问题。
+2. SearchMemoryPage和后续Context继承输出分类，不允许PERSONAL/SECRET派生输出回落SYNTHETIC；分类来自程序verified请求，而非模型自己declared。
+3. 历史缺字段必须保守：不能默认SYNTHETIC或仅看起始input；请给最小确定策略（若无法严格恢复生成effective class，应阻止对外披露/按最高敏感拒绝，不静默泄露，兼容范围需写清）。
+4. 同时检查摘要/Consciousness等派生输出的持久化再输入路径；若当前没保存effective class，同一契约须覆盖，不能只修assistant检索又从summary/slot降级。禁止摘要自报更低class。
+请裁决：最小字段位置/类型与程序写入来源、新旧记录处理、Summary/Consciousness传播闭包、读取/校验拒绝码和原子边界、必要mechanical canary回归与正式docs路径。优先复用既有DataClass顺序/AllowedClasses/strict DTO，不增任意外部披露权限、不重写来源证据、不大改DDL或全局缓存。明确哪些是必要mustfix、哪些仅额外建议。没有完整输出传播闭包不得轻称安全PASS。Master已授权双方商议后同步设计实施，无二次审批。
+最后自然输出设计同意/反对及具体可实施条件，Codex保存（你不写同名报告）；预留3轮总结避免强制摘要MissingSessionID。当前D09双锚已设计通过并实施，但最终真实腿暂不作为D12安全证明。

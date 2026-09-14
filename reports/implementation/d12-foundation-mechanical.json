@@ -1,0 +1,45 @@
+{
+  "scope": "D12 foundation mechanical subset, synthetic canaries, fake model only",
+  "status": "SUBSET_PASS_NOT_FULL_D12_ACCEPTANCE",
+  "tests": [
+    {
+      "command": "go test -race ./store ./tests -run 'TestQuestion|TestRetrieval|TestServed|TestMemoryMore|TestOutputClass' -count=1",
+      "result": "PASS",
+      "seconds": {
+        "store": 1.835,
+        "tests": 12.373
+      }
+    },
+    {
+      "command": "go test ./store ./tests -run 'TestOutputClass|TestQuestion' -count=1",
+      "result": "PASS",
+      "note": "after illegal legacy label fixed-code handling"
+    }
+  ],
+  "coverage": [
+    "M1 assistant cross-session output classification",
+    "M2 Item create/update and background disclosure",
+    "M5 summary/consciousness persistence and legacy repush denial",
+    "M6 legacy unchanged bytes",
+    "classification helper and injection boundary",
+    "D09 and D11 targeted regression"
+  ],
+  "not_claimed": [
+    "runtime M3/world M4 full chain",
+    "all M7/M8 ingress checks",
+    "full go test -race ./...",
+    "independent final review",
+    "real model safety proof"
+  ],
+  "sha256": {
+    "src/contract/classification.go": "e0faf2492b969a1a01a30b6632e1ebe7dc974264202ded233eb95618577d33e9",
+    "src/contract/contract.go": "121fe2c49a00a617e42c205e71bcad2ceeb9546d1551e4a861a9c5baf6c9e54a",
+    "src/store/core_repo.go": "14a9381035817b6ab0007d471a7e750bcb45244c9377521dcca2fd3402bc8510",
+    "src/store/questions_repo.go": "ff567710f578026b54f8f9a64dd686e762ccc3419d9ec9d25c3784807446cca1",
+    "src/store/retrieval.go": "a8df75fcc025779ea2d0f05cd7b1dfa7deb7764c387a1a74351b2a95736c6581",
+    "src/store/memory_repo.go": "c025ac77d80a0f41e28ff24afdea66f4911454ad53a20bc29dc9a35a36ef6b7e",
+    "src/store/items.go": "c712678ba07da479bcdc7d3ce09ad8b3409429bf4cc16449ccd800b60e47e045",
+    "src/context/context.go": "bfe30046fbffd9b0f08ebc4bf0dad6166dae303c1c284b37badc065aa6367647",
+    "src/tests/output_class_propagation_test.go": "2232c9a8aee35eb6489ac43ae83965751d13bcc22fbfe9e82cede34da426b07d"
+  }
+}

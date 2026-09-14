@@ -1,0 +1,1 @@
+{"schema_version":1,"context_id":"3c28d182-588d-499e-a477-ba8f099d2db9","reply":{"text":"已提出将“合成事项20”标记为 CANCELLED，其他字段保持不变，未创建额外任务。","evidence":[]},"actions":[{"operation_key":"cancel-synthetic-item-20","kind":"UPDATE_ITEM","payload":{"item_id":"ee3e1705-804f-42c2-8938-b8f0026dd266","expected_revision":3,"changes":{"status":"CANCELLED"}}}],"controls":[],"extensions":{}}

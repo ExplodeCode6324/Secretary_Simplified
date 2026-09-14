@@ -39,3 +39,8 @@
 D06：不存在的本地时刻没有合法 scheduled_for UTC，因此不为 DST gap 伪造 JobRun。其遗漏事实通过原子 scheduled_job.skipped 审计保存；真正的 overlap/misfire occurrence 仍可生成 SKIPPED JobRun，二者不得混淆。
 
 复核依据：`review/D06-calendar-skip.response.md`。
+
+
+### D12 分类传播
+
+createRunTx保留Command/Job分类并merge授权，尝试/回执继续继承。 使用 [Common.md](Common.md) 的 security.classification 契约；缺失旧派生标记返回 OUTPUT_CLASS_UNKNOWN，不自动回填。

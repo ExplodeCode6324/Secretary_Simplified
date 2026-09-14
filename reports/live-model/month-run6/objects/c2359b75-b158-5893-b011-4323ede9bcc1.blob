@@ -1,0 +1,1 @@
+{"schema_version":1,"focal_goals":[],"priority_items":[],"open_loops":[],"important_changes":[{"entity":{"entity_type":"Item","id":"210c9344-4954-4500-8df0-15c0b5267b65","revision":4},"reason":"事项01由完成改为取消","evidence":[]}],"uncertainties":["任务优先级均为0","未说明实际执行细节"],"brief_summary":"当前20项任务中17项完成、3项取消；没有开放任务。","extensions":{}}

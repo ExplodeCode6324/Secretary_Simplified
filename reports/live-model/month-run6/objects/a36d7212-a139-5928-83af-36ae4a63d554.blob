@@ -1,0 +1,1 @@
+{"schema_version":1,"context_id":"8aab0943-c430-467c-a3ce-48376d788fc0","reply":{"text":"已提议将“合成事项01”的截止日期设为 null，其他字段不变。","evidence":[]},"actions":[{"operation_key":"update-synthetic-item-01-due-at","kind":"UPDATE_ITEM","payload":{"item_id":"210c9344-4954-4500-8df0-15c0b5267b65","expected_revision":4,"changes":{"due_at":null}}}],"controls":[],"extensions":{}}

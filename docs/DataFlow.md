@@ -55,3 +55,21 @@ Master 输入测试环境中的“明天 9 点提醒检查项目”后，Core �
 实例 Command.arguments.notification_key 与该实例 notification_recorded criterion.expected.notification_key 同步绑定后，才计算并冻结 criterion_hash。不得更改已存在 Task 的完成条件；修订模板仅作用于以后尚未物化的 occurrence。通知验收须同时核对实例键、当前 run 的持久通知及真实执行证据，不能用另一个 occurrence 的通知完成本次 Task。即时独立任务仍按其已接受的稳定通知键处理。
 
 修订同时适用于时间、事件和手动 occurrence；跳过的 occurrence 不产生通知。复核依据：[Ayanami D02 讨论结论](../review/D02-notification-occurrence.response.md).
+
+
+## 实施设计修订 D11：待答问题生命周期
+
+D11 输入顺序：原始 Schema 验证 → 语义 hash/既有 request 重放 → 显式回答范围检查 → 归档原文 → 受理事务复检并记录 MASTER event。正常 Decision 提交：复检目标和所有问题 proposals → readset/授权及业务动作 → 使用实际 ASSISTANT sequence 登记/解决 → 同事务写最终文本、event、InputTurn、receipt、ConversationState CAS。任一失败不部分接受；失败回复路径不操作问题。已受理输入审计和未提交业务状态须分开呈现。
+
+裁决：`review/D11-pending-question-deepseek.response.md`；原提案：`review/A09-pending-question-proposal.md`。无 DDL 变更。
+
+
+## 实施设计修订 D12：派生输出分类
+
+统一程序独占 `extensions["security.classification"]={"data_class":<enum>}`；enum 为 SYNTHETIC/PERSONAL/SENSITIVE/SECRET，严格单字段、禁止额外成员。分类是披露上界，与事实真假、授权或证据质量独立。程序使用实际冻结成功模型请求的有效 class，按旧对象／本次请求／逐字复制来源取最高分类；更新和复制不降级。无 Evidence 或只有低分类 Evidence 均不能证明派生文本为低分类。
+
+模型／客户端在任何结构层注入此键，整请求／整 Decision 拒绝；不读取其标签决定业务，原始拒绝证据保持原字节。持久写入仅使用程序值，其他合法 extension 保留。缺失／非法的旧派生标签保留 unknown，在披露／重推导入口返回 OUTPUT_CLASS_UNKNOWN，不回填 SYNTHETIC、不伪写 SECRET、不删除数据。空内容程序脚手架可无标，固定且不含用户／模型内容的字面量可显式 SYNTHETIC；真实输入原文仍用其原始 data_class。
+
+裁决：`review/D12-output-class-final-contract.response.md`（整体替代初稿），反注入补充：`review/D12-injection-oracle-clarification.response.md`。无 DDL 或顶层 class 字段扩张。
+
+有限闭包：Core 冻结 req.DataClass → Item/更新、Command/Job → Task/Run/REPLAN/Attempt/Receipt、WorldProposal → WorldFact 版本、ASSISTANT/问题/State/最终回执；memory 请求 → summary/Consciousness；产物/notification/briefing 从持久来源继承；ModelCallRecord/manifest/attempt诊断与raw request/output对象使用实际请求class。event、问题、InputTurn、receipt仍在同一提交事务，其他实体在既有登记事务，失败全回滚。

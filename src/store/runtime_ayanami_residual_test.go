@@ -21,7 +21,7 @@ func TestAyanamiResidualCriterionHashMutationMustReject(t *testing.T) {
 	if err = s.PutGrant(context.Background(), grant); err != nil {
 		t.Fatal(err)
 	}
-	cmd := contract.Command{SchemaVersion: 1, OperationKey: "notify", Capability: "notify.local", CapabilityVersion: 1, Arguments: map[string]any{"text": "x", "notification_key": "residual"}, ExpectedRevisions: []contract.ReadRef{}, Extensions: map[string]any{}}
+	cmd := contract.Command{SchemaVersion: 1, OperationKey: "notify", Capability: "notify.local", CapabilityVersion: 1, Arguments: map[string]any{"text": "x", "notification_key": "residual"}, ExpectedRevisions: []contract.ReadRef{}, Extensions: map[string]any{"security.classification": map[string]any{"data_class": "SYNTHETIC"}}}
 	criteria, err := DeriveCriteria(cmd)
 	if err != nil {
 		t.Fatal(err)

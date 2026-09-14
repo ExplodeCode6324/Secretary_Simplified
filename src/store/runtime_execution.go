@@ -147,6 +147,9 @@ func (s *Store) ClaimRunReady(ctx context.Context, owner string, now time.Time, 
 			return e
 		}
 		a := rtBase()
+		if e = rtInherit(a, r); e != nil {
+			return e
+		}
 		for k, v := range (runtimeObject{"run_id": r["id"], "attempt_no": r["attempt_no"], "fencing_token": r["fencing_token"], "dispatch_state": "PREPARED", "prepared_at": rtTime(now), "dispatched_at": nil, "finished_at": nil, "executor_id": owner, "command_hash": rtHash(r["command"]), "last_error": nil}) {
 			a[k] = v
 		}
@@ -225,6 +228,9 @@ func (s *Store) DispatchRun(ctx context.Context, run contract.JobRun, owner stri
 			}
 		}
 		p := rtBase()
+		if e = rtInherit(p, r); e != nil {
+			return e
+		}
 		for k, v := range (runtimeObject{"id": contract.NewID(), "run_id": r["id"], "grant_id": grant, "grant_revision": g["revision"], "fencing_token": r["fencing_token"], "cancel_generation": t["cancel_generation"], "capability": cmd["capability"], "proposal_hash": proposal, "expires_at": rtTime(now.Add(30 * time.Second)), "consumed_at": nil}) {
 			p[k] = v
 		}
@@ -287,6 +293,33 @@ func (s *Store) RecordReceipt(ctx context.Context, receipt contract.ExecutorRece
 		if readErr != nil {
 			return readErr
 		}
+		if e := rtInherit(p, durableRun, durableTask); e != nil {
+			return e
+		}
+		for _, artifact := range receipt.Artifacts {
+			class, e := rtObjectClassTx(ctx, tx, artifact.ID, artifact.SHA256)
+			if e != nil {
+				return e
+			}
+			if artifact.DataClass != class {
+				return errors.New("ARTIFACT_REFERENCE_MISMATCH")
+			}
+			if e = rtClass(p, class); e != nil {
+				return e
+			}
+		}
+		for _, evidence := range receipt.Evidence {
+			class, e := rtObjectClassTx(ctx, tx, evidence.ObjectID, evidence.SHA256)
+			if e != nil {
+				return e
+			}
+			if evidence.DataClass != class {
+				return errors.New("ARTIFACT_REFERENCE_MISMATCH")
+			}
+			if e = rtClass(p, class); e != nil {
+				return e
+			}
+		}
 		if durableTask["state"] == "CANCELLED" && p["effect_observed"] == true {
 			ext := rtObj(p["extensions"])
 			ext["runtime.cancellation"] = runtimeObject{"effect_observed": true, "cancel_generation": durableTask["cancel_generation"]}
@@ -313,6 +346,9 @@ func (s *Store) RecordReceipt(ctx context.Context, receipt contract.ExecutorRece
 		}
 		if rtInt(r["fencing_token"]) != rtInt(p["fencing_token"]) || rtInt(r["attempt_no"]) != rtInt(p["attempt_no"]) {
 			return nil
+		}
+		if e = rtInherit(r, r, p); e != nil {
+			return e
 		}
 		r["state"] = p["status"]
 		retry := false
@@ -406,6 +442,9 @@ func (s *Store) RecordReceipt(ctx context.Context, receipt contract.ExecutorRece
 		}
 		t, e := rtRead(ctx, tx, "task", rtStr(r["task_id"]))
 		if e != nil {
+			return e
+		}
+		if e = rtInherit(t, t, p); e != nil {
 			return e
 		}
 		switch p["status"] {
@@ -557,6 +596,9 @@ func checkLocalDispatchTx(ctx context.Context, tx *sql.Tx, run runtimeObject) er
 	}
 	if rtHash(r["command"]) != rtHash(run["command"]) {
 		return errors.New("COMMAND_HASH_MISMATCH")
+	}
+	if e = rtInherit(run, r); e != nil {
+		return e
 	}
 	if r["state"] != "RUNNING" || rtInt(r["fencing_token"]) != rtInt(run["fencing_token"]) {
 		return errors.New("STALE_FENCE")

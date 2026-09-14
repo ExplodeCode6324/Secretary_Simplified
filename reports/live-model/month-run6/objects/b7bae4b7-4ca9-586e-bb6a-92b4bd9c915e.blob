@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "context_id": "2b6cf1ba-47b5-4a97-a22f-03c826eff408",
+  "reply": {
+    "text": "已提议创建一个事项：“合成事项12”，领域为 school，截止时间为 2026-09-21T12:00:00.000Z。",
+    "evidence": []
+  },
+  "actions": [
+    {
+      "operation_key": "create-synthetic-item-12",
+      "kind": "CREATE_ITEM",
+      "payload": {
+        "title": "合成事项12",
+        "domain": "school",
+        "kind": "TASK",
+        "due_at": "2026-09-21T12:00:00.000Z",
+        "timezone": "UTC",
+        "priority": 0
+      }
+    }
+  ],
+  "controls": [],
+  "extensions": {}
+}

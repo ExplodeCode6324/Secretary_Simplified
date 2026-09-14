@@ -1,0 +1,1 @@
+{"schema_version":1,"context_id":"0520feb9-823f-4b10-8a46-3811d9e0ac86","reply":{"text":"已提出仅将“合成事项18”标记为 DONE，其他事项不变，也未安排额外任务。","evidence":[]},"actions":[{"operation_key":"update-item-260656eb-done","kind":"UPDATE_ITEM","payload":{"item_id":"260656eb-229f-4fec-a3e1-77a9546b8cb3","expected_revision":2,"changes":{"status":"DONE"}}}],"controls":[],"extensions":{}}

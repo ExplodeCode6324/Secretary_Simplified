@@ -1,0 +1,621 @@
+{
+  "input_turn_rows": [
+    {
+      "request_id": "31718bcd-b678-4426-97e2-137616f874f3",
+      "updated_at": "2026-09-13T23:50:20.529Z",
+      "payload_json": "{\"schema_version\":1,\"id\":\"1d873334-6ba3-47d8-874d-9ed59b2b5562\",\"session_id\":\"00000000-0000-4000-8000-000000000001\",\"principal_id\":\"master\",\"request_id\":\"31718bcd-b678-4426-97e2-137616f874f3\",\"intent_id\":\"afc3f348-d4f3-4c79-a610-3bb9582a9ac7\",\"state\":\"COMMITTED\",\"input\":{\"schema_version\":1,\"request_id\":\"31718bcd-b678-4426-97e2-137616f874f3\",\"session_id\":\"00000000-0000-4000-8000-000000000001\",\"principal_id\":\"master\",\"origin\":\"MASTER_CLI\",\"received_at\":\"2026-09-13T23:50:08.573Z\",\"text\":\"创建一个 project 领域 TASK 事项，标题严格为 synthetic-cli-reminder，截止时间为 2026-09-13T23:51:38.562Z (UTC)。同时在该时间发一次本地文字通知，通知文字为 synthetic-cli-reminder。只发通知，事项保持 OPEN，不要声称已完成事项。\",\"attachment_refs\":[{\"schema_version\":1,\"id\":\"f1e4a7ba-066d-5ddb-8b1f-0160570eb8ac\",\"relative_path\":\"f1e4a7ba-066d-5ddb-8b1f-0160570eb8ac.blob\",\"sha256\":\"3f32991f91697fcaac4c8c9e6278ea21f39206a4c651e9b4e31f08dcf7e3f232\",\"media_type\":\"text/plain\",\"byte_size\":286,\"data_class\":\"SYNTHETIC\",\"created_at\":\"2026-09-13T23:50:08.591Z\",\"extensions\":{}}],\"data_class\":\"SYNTHETIC\",\"extensions\":{}},\"reply\":{\"evidence\":[],\"text\":\"已提出创建事项并安排在截止时间发送一次本地文字通知。事项将保持 OPEN；未声称事项已完成。\"},\"committed_operation_keys\":[\"create-synthetic-cli-reminder\",\"notify-synthetic-cli-reminder-at-due\"],\"processing_owner\":null,\"lease_until\":null,\"updated_at\":\"2026-09-13T23:50:20.529Z\",\"extensions\":{}}"
+    }
+  ],
+  "change_events": [
+    {
+      "schema_version": 1,
+      "id": "564697ef-651f-4d1a-97fd-ef80bcc2f302",
+      "seq": 1,
+      "root_id": "dbf0ac19-e88c-5f7e-9950-3a02e7858b0b",
+      "entity_type": "task",
+      "entity_id": "89d4d654-b00a-464e-a3ac-5ec36304789b",
+      "entity_revision": 1,
+      "event_type": "task.updated",
+      "causation_id": null,
+      "origin": "runner",
+      "created_at": "2026-09-13T23:50:08.484Z",
+      "change": {
+        "after": {
+          "cancel_generation": 0,
+          "created_at": "2026-09-13T23:50:08.484Z",
+          "criteria": [
+            {
+              "evidence_policy": "exact persisted ConsciousnessState slot, schema validated",
+              "expected": {
+                "slot": 0
+              },
+              "id": "f2faf4d4-9df0-598d-8504-d3f74cff8de1",
+              "kind": "consciousness_slot_committed"
+            }
+          ],
+          "criterion_hash": "fc6843697cd0583d8f885dd35275b064627a0e197c96779ae4a06a20c2d81b90",
+          "deadline_at": null,
+          "extensions": {},
+          "goal": "Commit consciousness slot 0",
+          "id": "89d4d654-b00a-464e-a3ac-5ec36304789b",
+          "item_id": null,
+          "job_id": null,
+          "occurrence_key": "65e2ceca-a040-56e8-b98d-cd1c87d53066:memory_refresh",
+          "parent_root_id": null,
+          "revision": 1,
+          "root_id": "dbf0ac19-e88c-5f7e-9950-3a02e7858b0b",
+          "schema_version": 1,
+          "state": "PENDING",
+          "updated_at": "2026-09-13T23:50:08.484Z"
+        },
+        "before": null,
+        "evidence": []
+      },
+      "extensions": {}
+    },
+    {
+      "schema_version": 1,
+      "id": "a2e5e916-b613-4cb1-b5e7-20abf16d9a22",
+      "seq": 2,
+      "root_id": "dbf0ac19-e88c-5f7e-9950-3a02e7858b0b",
+      "entity_type": "run",
+      "entity_id": "a12fa668-adc4-45d2-ad86-4b6cde06df07",
+      "entity_revision": 2,
+      "event_type": "run.updated",
+      "causation_id": null,
+      "origin": "runner",
+      "created_at": "2026-09-13T23:50:09.465Z",
+      "change": {
+        "after": {
+          "attempt_no": 1,
+          "command": {
+            "arguments": {
+              "slot": 0
+            },
+            "capability": "memory.refresh",
+            "capability_version": 1,
+            "expected_revisions": [],
+            "extensions": {},
+            "operation_key": "memory_refresh",
+            "schema_version": 1
+          },
+          "extensions": {
+            "runtime.authorization": {
+              "grant_id": "183ada0e-c696-499a-97db-7fba1581efcc"
+            }
+          },
+          "external_idempotency_key": "a49c24bc-c931-49be-8858-f8aa660a2b22",
+          "fencing_token": 1,
+          "id": "a12fa668-adc4-45d2-ad86-4b6cde06df07",
+          "job_id": null,
+          "job_revision": null,
+          "lease_owner": "local-runner",
+          "lease_until": "2026-09-13T23:50:39.464Z",
+          "occurrence_key": "65e2ceca-a040-56e8-b98d-cd1c87d53066:memory_refresh",
+          "scheduled_for": "2026-09-13T23:50:08.463Z",
+          "schema_version": 1,
+          "state": "CLAIMED",
+          "task_id": "89d4d654-b00a-464e-a3ac-5ec36304789b",
+          "updated_at": "2026-09-13T23:50:09.464Z"
+        },
+        "before": {
+          "attempt_no": 0,
+          "command": {
+            "arguments": {
+              "slot": 0
+            },
+            "capability": "memory.refresh",
+            "capability_version": 1,
+            "expected_revisions": [],
+            "extensions": {},
+            "operation_key": "memory_refresh",
+            "schema_version": 1
+          },
+          "extensions": {
+            "runtime.authorization": {
+              "grant_id": "183ada0e-c696-499a-97db-7fba1581efcc"
+            }
+          },
+          "external_idempotency_key": "a49c24bc-c931-49be-8858-f8aa660a2b22",
+          "fencing_token": 0,
+          "id": "a12fa668-adc4-45d2-ad86-4b6cde06df07",
+          "job_id": null,
+          "job_revision": null,
+          "lease_owner": null,
+          "lease_until": null,
+          "occurrence_key": "65e2ceca-a040-56e8-b98d-cd1c87d53066:memory_refresh",
+          "scheduled_for": "2026-09-13T23:50:08.463Z",
+          "schema_version": 1,
+          "state": "QUEUED",
+          "task_id": "89d4d654-b00a-464e-a3ac-5ec36304789b",
+          "updated_at": "2026-09-13T23:50:08.484Z"
+        },
+        "evidence": []
+      },
+      "extensions": {}
+    },
+    {
+      "schema_version": 1,
+      "id": "faa5d18d-b5fa-4e11-a2bf-cdfa98b6dc9e",
+      "seq": 3,
+      "root_id": "dbf0ac19-e88c-5f7e-9950-3a02e7858b0b",
+      "entity_type": "task",
+      "entity_id": "89d4d654-b00a-464e-a3ac-5ec36304789b",
+      "entity_revision": 2,
+      "event_type": "task.updated",
+      "causation_id": null,
+      "origin": "runner",
+      "created_at": "2026-09-13T23:50:09.467Z",
+      "change": {
+        "after": {
+          "cancel_generation": 0,
+          "created_at": "2026-09-13T23:50:08.484Z",
+          "criteria": [
+            {
+              "evidence_policy": "exact persisted ConsciousnessState slot, schema validated",
+              "expected": {
+                "slot": 0
+              },
+              "id": "f2faf4d4-9df0-598d-8504-d3f74cff8de1",
+              "kind": "consciousness_slot_committed"
+            }
+          ],
+          "criterion_hash": "fc6843697cd0583d8f885dd35275b064627a0e197c96779ae4a06a20c2d81b90",
+          "deadline_at": null,
+          "extensions": {},
+          "goal": "Commit consciousness slot 0",
+          "id": "89d4d654-b00a-464e-a3ac-5ec36304789b",
+          "item_id": null,
+          "job_id": null,
+          "occurrence_key": "65e2ceca-a040-56e8-b98d-cd1c87d53066:memory_refresh",
+          "parent_root_id": null,
+          "revision": 2,
+          "root_id": "dbf0ac19-e88c-5f7e-9950-3a02e7858b0b",
+          "schema_version": 1,
+          "state": "RUNNING",
+          "updated_at": "2026-09-13T23:50:09.467Z"
+        },
+        "before": {
+          "cancel_generation": 0,
+          "created_at": "2026-09-13T23:50:08.484Z",
+          "criteria": [
+            {
+              "evidence_policy": "exact persisted ConsciousnessState slot, schema validated",
+              "expected": {
+                "slot": 0
+              },
+              "id": "f2faf4d4-9df0-598d-8504-d3f74cff8de1",
+              "kind": "consciousness_slot_committed"
+            }
+          ],
+          "criterion_hash": "fc6843697cd0583d8f885dd35275b064627a0e197c96779ae4a06a20c2d81b90",
+          "deadline_at": null,
+          "extensions": {},
+          "goal": "Commit consciousness slot 0",
+          "id": "89d4d654-b00a-464e-a3ac-5ec36304789b",
+          "item_id": null,
+          "job_id": null,
+          "occurrence_key": "65e2ceca-a040-56e8-b98d-cd1c87d53066:memory_refresh",
+          "parent_root_id": null,
+          "revision": 1,
+          "root_id": "dbf0ac19-e88c-5f7e-9950-3a02e7858b0b",
+          "schema_version": 1,
+          "state": "PENDING",
+          "updated_at": "2026-09-13T23:50:08.484Z"
+        },
+        "evidence": []
+      },
+      "extensions": {}
+    },
+    {
+      "schema_version": 1,
+      "id": "4637c331-3949-4042-9e15-fa8c4b391687",
+      "seq": 4,
+      "root_id": "dbf0ac19-e88c-5f7e-9950-3a02e7858b0b",
+      "entity_type": "run",
+      "entity_id": "a12fa668-adc4-45d2-ad86-4b6cde06df07",
+      "entity_revision": 2,
+      "event_type": "run.updated",
+      "causation_id": null,
+      "origin": "runner",
+      "created_at": "2026-09-13T23:50:09.468Z",
+      "change": {
+        "after": {
+          "attempt_no": 1,
+          "command": {
+            "arguments": {
+              "slot": 0
+            },
+            "capability": "memory.refresh",
+            "capability_version": 1,
+            "expected_revisions": [],
+            "extensions": {},
+            "operation_key": "memory_refresh",
+            "schema_version": 1
+          },
+          "extensions": {
+            "runtime.authorization": {
+              "grant_id": "183ada0e-c696-499a-97db-7fba1581efcc"
+            }
+          },
+          "external_idempotency_key": "a49c24bc-c931-49be-8858-f8aa660a2b22",
+          "fencing_token": 1,
+          "id": "a12fa668-adc4-45d2-ad86-4b6cde06df07",
+          "job_id": null,
+          "job_revision": null,
+          "lease_owner": "local-runner",
+          "lease_until": "2026-09-13T23:50:39.464Z",
+          "occurrence_key": "65e2ceca-a040-56e8-b98d-cd1c87d53066:memory_refresh",
+          "scheduled_for": "2026-09-13T23:50:08.463Z",
+          "schema_version": 1,
+          "state": "RUNNING",
+          "task_id": "89d4d654-b00a-464e-a3ac-5ec36304789b",
+          "updated_at": "2026-09-13T23:50:09.464Z"
+        },
+        "before": {
+          "attempt_no": 1,
+          "command": {
+            "arguments": {
+              "slot": 0
+            },
+            "capability": "memory.refresh",
+            "capability_version": 1,
+            "expected_revisions": [],
+            "extensions": {},
+            "operation_key": "memory_refresh",
+            "schema_version": 1
+          },
+          "extensions": {
+            "runtime.authorization": {
+              "grant_id": "183ada0e-c696-499a-97db-7fba1581efcc"
+            }
+          },
+          "external_idempotency_key": "a49c24bc-c931-49be-8858-f8aa660a2b22",
+          "fencing_token": 1,
+          "id": "a12fa668-adc4-45d2-ad86-4b6cde06df07",
+          "job_id": null,
+          "job_revision": null,
+          "lease_owner": "local-runner",
+          "lease_until": "2026-09-13T23:50:39.464Z",
+          "occurrence_key": "65e2ceca-a040-56e8-b98d-cd1c87d53066:memory_refresh",
+          "scheduled_for": "2026-09-13T23:50:08.463Z",
+          "schema_version": 1,
+          "state": "CLAIMED",
+          "task_id": "89d4d654-b00a-464e-a3ac-5ec36304789b",
+          "updated_at": "2026-09-13T23:50:09.464Z"
+        },
+        "evidence": []
+      },
+      "extensions": {}
+    },
+    {
+      "schema_version": 1,
+      "id": "821c4876-e981-493b-9a58-f8dfc581e495",
+      "seq": 5,
+      "root_id": "dbf0ac19-e88c-5f7e-9950-3a02e7858b0b",
+      "entity_type": "run",
+      "entity_id": "a12fa668-adc4-45d2-ad86-4b6cde06df07",
+      "entity_revision": 2,
+      "event_type": "run.updated",
+      "causation_id": null,
+      "origin": "runner",
+      "created_at": "2026-09-13T23:50:14.226Z",
+      "change": {
+        "after": {
+          "attempt_no": 1,
+          "command": {
+            "arguments": {
+              "slot": 0
+            },
+            "capability": "memory.refresh",
+            "capability_version": 1,
+            "expected_revisions": [],
+            "extensions": {},
+            "operation_key": "memory_refresh",
+            "schema_version": 1
+          },
+          "extensions": {
+            "runtime.authorization": {
+              "grant_id": "183ada0e-c696-499a-97db-7fba1581efcc"
+            }
+          },
+          "external_idempotency_key": "a49c24bc-c931-49be-8858-f8aa660a2b22",
+          "fencing_token": 1,
+          "id": "a12fa668-adc4-45d2-ad86-4b6cde06df07",
+          "job_id": null,
+          "job_revision": null,
+          "lease_owner": null,
+          "lease_until": null,
+          "occurrence_key": "65e2ceca-a040-56e8-b98d-cd1c87d53066:memory_refresh",
+          "scheduled_for": "2026-09-13T23:55:14.225Z",
+          "schema_version": 1,
+          "state": "QUEUED",
+          "task_id": "89d4d654-b00a-464e-a3ac-5ec36304789b",
+          "updated_at": "2026-09-13T23:50:14.225Z"
+        },
+        "before": {
+          "attempt_no": 1,
+          "command": {
+            "arguments": {
+              "slot": 0
+            },
+            "capability": "memory.refresh",
+            "capability_version": 1,
+            "expected_revisions": [],
+            "extensions": {},
+            "operation_key": "memory_refresh",
+            "schema_version": 1
+          },
+          "extensions": {
+            "runtime.authorization": {
+              "grant_id": "183ada0e-c696-499a-97db-7fba1581efcc"
+            }
+          },
+          "external_idempotency_key": "a49c24bc-c931-49be-8858-f8aa660a2b22",
+          "fencing_token": 1,
+          "id": "a12fa668-adc4-45d2-ad86-4b6cde06df07",
+          "job_id": null,
+          "job_revision": null,
+          "lease_owner": "local-runner",
+          "lease_until": "2026-09-13T23:50:39.464Z",
+          "occurrence_key": "65e2ceca-a040-56e8-b98d-cd1c87d53066:memory_refresh",
+          "scheduled_for": "2026-09-13T23:50:08.463Z",
+          "schema_version": 1,
+          "state": "RUNNING",
+          "task_id": "89d4d654-b00a-464e-a3ac-5ec36304789b",
+          "updated_at": "2026-09-13T23:50:09.464Z"
+        },
+        "evidence": []
+      },
+      "extensions": {}
+    },
+    {
+      "schema_version": 1,
+      "id": "085d323e-d4bd-4f3c-a2e4-dadc9767bfe6",
+      "seq": 6,
+      "root_id": "dbf0ac19-e88c-5f7e-9950-3a02e7858b0b",
+      "entity_type": "task",
+      "entity_id": "89d4d654-b00a-464e-a3ac-5ec36304789b",
+      "entity_revision": 3,
+      "event_type": "task.updated",
+      "causation_id": null,
+      "origin": "runner",
+      "created_at": "2026-09-13T23:50:14.227Z",
+      "change": {
+        "after": {
+          "cancel_generation": 0,
+          "created_at": "2026-09-13T23:50:08.484Z",
+          "criteria": [
+            {
+              "evidence_policy": "exact persisted ConsciousnessState slot, schema validated",
+              "expected": {
+                "slot": 0
+              },
+              "id": "f2faf4d4-9df0-598d-8504-d3f74cff8de1",
+              "kind": "consciousness_slot_committed"
+            }
+          ],
+          "criterion_hash": "fc6843697cd0583d8f885dd35275b064627a0e197c96779ae4a06a20c2d81b90",
+          "deadline_at": null,
+          "extensions": {},
+          "goal": "Commit consciousness slot 0",
+          "id": "89d4d654-b00a-464e-a3ac-5ec36304789b",
+          "item_id": null,
+          "job_id": null,
+          "occurrence_key": "65e2ceca-a040-56e8-b98d-cd1c87d53066:memory_refresh",
+          "parent_root_id": null,
+          "revision": 3,
+          "root_id": "dbf0ac19-e88c-5f7e-9950-3a02e7858b0b",
+          "schema_version": 1,
+          "state": "PENDING",
+          "updated_at": "2026-09-13T23:50:14.227Z"
+        },
+        "before": {
+          "cancel_generation": 0,
+          "created_at": "2026-09-13T23:50:08.484Z",
+          "criteria": [
+            {
+              "evidence_policy": "exact persisted ConsciousnessState slot, schema validated",
+              "expected": {
+                "slot": 0
+              },
+              "id": "f2faf4d4-9df0-598d-8504-d3f74cff8de1",
+              "kind": "consciousness_slot_committed"
+            }
+          ],
+          "criterion_hash": "fc6843697cd0583d8f885dd35275b064627a0e197c96779ae4a06a20c2d81b90",
+          "deadline_at": null,
+          "extensions": {},
+          "goal": "Commit consciousness slot 0",
+          "id": "89d4d654-b00a-464e-a3ac-5ec36304789b",
+          "item_id": null,
+          "job_id": null,
+          "occurrence_key": "65e2ceca-a040-56e8-b98d-cd1c87d53066:memory_refresh",
+          "parent_root_id": null,
+          "revision": 2,
+          "root_id": "dbf0ac19-e88c-5f7e-9950-3a02e7858b0b",
+          "schema_version": 1,
+          "state": "RUNNING",
+          "updated_at": "2026-09-13T23:50:09.467Z"
+        },
+        "evidence": []
+      },
+      "extensions": {}
+    },
+    {
+      "schema_version": 1,
+      "id": "5a33cdb0-131c-4734-87e8-74a567ee4f2c",
+      "seq": 7,
+      "root_id": "5e66c34c-4567-4158-b5ee-8379e243c9f0",
+      "entity_type": "Item",
+      "entity_id": "5e66c34c-4567-4158-b5ee-8379e243c9f0",
+      "entity_revision": 1,
+      "event_type": "item.created",
+      "causation_id": null,
+      "origin": "ItemService",
+      "created_at": "2026-09-13T23:50:20.527Z",
+      "change": {
+        "after": {
+          "schema_version": 1,
+          "id": "5e66c34c-4567-4158-b5ee-8379e243c9f0",
+          "revision": 1,
+          "domain": "project",
+          "kind": "TASK",
+          "title": "synthetic-cli-reminder",
+          "status": "OPEN",
+          "priority": 0,
+          "due_at": "2026-09-13T23:51:38.562Z",
+          "timezone": "UTC",
+          "time_state": "CONFIRMED",
+          "parent_id": null,
+          "dependency_ids": [],
+          "evidence": [
+            {
+              "object_id": "f1e4a7ba-066d-5ddb-8b1f-0160570eb8ac",
+              "sha256": "3f32991f91697fcaac4c8c9e6278ea21f39206a4c651e9b4e31f08dcf7e3f232",
+              "locator": "full_text",
+              "origin_id": "f1e4a7ba-066d-5ddb-8b1f-0160570eb8ac",
+              "data_class": "SYNTHETIC"
+            }
+          ],
+          "created_at": "2026-09-13T23:50:20.527Z",
+          "updated_at": "2026-09-13T23:50:20.527Z",
+          "extensions": {}
+        },
+        "before": null,
+        "evidence": [
+          {
+            "object_id": "f1e4a7ba-066d-5ddb-8b1f-0160570eb8ac",
+            "sha256": "3f32991f91697fcaac4c8c9e6278ea21f39206a4c651e9b4e31f08dcf7e3f232",
+            "locator": "full_text",
+            "origin_id": "f1e4a7ba-066d-5ddb-8b1f-0160570eb8ac",
+            "data_class": "SYNTHETIC"
+          }
+        ]
+      },
+      "extensions": {}
+    },
+    {
+      "schema_version": 1,
+      "id": "e7871372-1a9a-4eaa-a049-9cf8db42f646",
+      "seq": 8,
+      "root_id": "afc3f348-d4f3-4c79-a610-3bb9582a9ac7",
+      "entity_type": "scheduled_job",
+      "entity_id": "2c50fd8e-7d4a-45e4-875a-6ec8d34362c7",
+      "entity_revision": 1,
+      "event_type": "scheduled_job.updated",
+      "causation_id": null,
+      "origin": "runner",
+      "created_at": "2026-09-13T23:50:20.528Z",
+      "change": {
+        "after": {
+          "command": {
+            "arguments": {
+              "notification_key": "synthetic-cli-reminder-2026-09-13T23:51:38.562Z",
+              "text": "synthetic-cli-reminder"
+            },
+            "capability": "notify.local",
+            "capability_version": 1,
+            "expected_revisions": [],
+            "extensions": {},
+            "operation_key": "notify-synthetic-cli-reminder-at-due",
+            "schema_version": 1
+          },
+          "enabled": true,
+          "extensions": {
+            "runtime.authorization": {
+              "grant_id": "183ada0e-c696-499a-97db-7fba1581efcc"
+            }
+          },
+          "grace_seconds": 0,
+          "id": "2c50fd8e-7d4a-45e4-875a-6ec8d34362c7",
+          "max_attempts": 3,
+          "misfire": "SKIP",
+          "next_due_at": "2026-09-13T23:51:38.562Z",
+          "overlap": "SKIP",
+          "revision": 1,
+          "root_id": "afc3f348-d4f3-4c79-a610-3bb9582a9ac7",
+          "schedule": {
+            "after_seq": null,
+            "anchor_at": null,
+            "at": "2026-09-13T23:51:38.562Z",
+            "event_type": null,
+            "every_seconds": null,
+            "filter": null,
+            "kind": "once",
+            "local_time": null,
+            "timezone": "UTC",
+            "weekdays": []
+          },
+          "schema_version": 1,
+          "task_template": {
+            "criteria": [
+              {
+                "evidence_policy": "Authoritative persisted state or artifact bytes",
+                "expected": {
+                  "notification_key": "synthetic-cli-reminder-2026-09-13T23:51:38.562Z"
+                },
+                "id": "149004f9-8f1f-4bdb-86d0-e817bcfc8653",
+                "kind": "notification_recorded"
+              }
+            ],
+            "goal": "在指定时间发送一次本地文字通知 synthetic-cli-reminder",
+            "item_id": "5e66c34c-4567-4158-b5ee-8379e243c9f0",
+            "item_operation_key": null
+          },
+          "updated_at": "2026-09-13T23:50:20.528Z"
+        },
+        "before": null,
+        "evidence": []
+      },
+      "extensions": {}
+    },
+    {
+      "schema_version": 1,
+      "id": "f22b0ce1-b15e-43ce-bcce-171f892891f4",
+      "seq": 9,
+      "root_id": "4cb41818-cf4b-45e4-a177-432782701421",
+      "entity_type": "task",
+      "entity_id": "aef04b57-f208-4862-8c32-9df5c3f6d01e",
+      "entity_revision": 1,
+      "event_type": "task.updated",
+      "causation_id": null,
+      "origin": "scheduler",
+      "created_at": "2026-09-13T23:51:39.467Z",
+      "change": {
+        "after": {
+          "cancel_generation": 0,
+          "created_at": "2026-09-13T23:51:39.466Z",
+          "criteria": [
+            {
+              "evidence_policy": "Authoritative persisted state or artifact bytes",
+              "expected": {
+                "notification_key": "occ:v1:c3ludGhldGljLWNsaS1yZW1pbmRlci0yMDI2LTA5LTEzVDIzOjUxOjM4LjU2Mlo:MmM1MGZkOGUtN2Q0YS00NWU0LTg3NWEtNmVjOGQzNDM2MmM3OjIwMjYtMDktMTNUMjM6NTE6MzguNTYyWg"
+              },
+              "id": "149004f9-8f1f-4bdb-86d0-e817bcfc8653",
+              "kind": "notification_recorded"
+            }
+          ],
+          "criterion_hash": "78d7d799d734c044fde601ee208a621fb20b1eab16a14bb2d029063001151172",
+          "deadline_at": null,
+          "extensions": {},
+          "goal": "在指定时间发送一次本地文字通知 synthetic-cli-reminder",
+          "id": "aef04b57-f208-4862-8c32-9df5c3f6d01e",
+          "item_id": "5e66c34c-4567-4158-b5ee-8379e243c9f0",
+          "job_id": "2c50fd8e-7d4a-45e4-875a-6ec8d34362c7",
+          "occurrence_key": "2c50fd8e-7d4a-45e4-875a-6ec8d34362c7:2026-09-13T23:51:38.562Z",
+          "parent_root_id": "afc3f348-d4f3-4c79-a610-3bb9582a9ac7",
+          "revision": 1,
+          "root_id": "4cb41818-cf4b-45e4-a177-432782701421",
+          "schema_version": 1,
+          "state": "CANCELLED",
+          "updated_at": "2026-09-13T23:51:39.466Z"
+        },
+        "before": null,
+        "evidence": []
+      },
+      "extensions": {}
+    }
+  ],
+  "consciousness_snapshots": []
+}

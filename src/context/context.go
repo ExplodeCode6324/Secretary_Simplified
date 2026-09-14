@@ -9,6 +9,7 @@ import (
 	"secretarysimplified/contract"
 	"secretarysimplified/model"
 	"secretarysimplified/store"
+	"sort"
 	"strings"
 	"time"
 )
@@ -18,6 +19,7 @@ type Builder struct {
 	Store              *store.Store
 	Model              model.Client
 	Config             config.Config
+	RetrievalServed    bool
 	RetrievedEvents    []contract.ConversationEvent
 	RetrievedClasses   []string
 	RetrievalCursor    *string
@@ -35,13 +37,28 @@ func (b *Builder) Build(ctx context.Context, t contract.InputTurn, now time.Time
 	if e = CheckDisclosure(b.Config, all, t.Input); e != nil {
 		return req, manifest, e
 	}
+	for _, event := range b.RetrievedEvents {
+		if event.TurnID == t.ID {
+			continue
+		}
+		class, e := contract.ReadClassification(event.Extensions)
+		if e != nil {
+			// SearchMemoryPage annotates raw MASTER copies from their immutable input.
+			// A direct caller without that provenance must not guess a low class.
+			return req, manifest, e
+		}
+		if !b.Config.Allows(class) {
+			return req, manifest, errors.New("DISCLOSURE_DENIED")
+		}
+		all.DataClasses = append(all.DataClasses, class)
+	}
 	for _, class := range b.RetrievedClasses {
 		if !b.Config.Allows(class) {
 			return req, manifest, errors.New("DISCLOSURE_DENIED")
 		}
 		all.DataClasses = append(all.DataClasses, class)
 	}
-	s := selectRelevant(all, t)
+	s := selectRelevant(all, t, !b.RetrievalServed)
 	id := contract.NewID()
 	refs := []contract.ReadRef{{EntityType: "ConversationState", ID: s.Conversation.ID, Revision: s.Conversation.Revision}}
 	for _, it := range s.Items {
@@ -99,7 +116,31 @@ func (b *Builder) Build(ctx context.Context, t contract.InputTurn, now time.Time
 		feedback, _ := json.Marshal(b.ValidationFeedback)
 		input["system_rules"] = input["system_rules"].(string) + " Previous output was rejected. Correct these JSON paths/constraints in the next complete data instance: " + string(feedback)
 	}
-	retrieved := append([]contract.ConversationEvent{}, b.RetrievedEvents...)
+	retrieved := []contract.ConversationEvent{}
+	retrievalOmitted := b.RetrievalOmitted
+	for _, event := range b.RetrievedEvents {
+		if event.TurnID == t.ID {
+			continue
+		}
+		retrieved = append(retrieved, event)
+	}
+	// D09 dual anchors: retain the newest record in each existing E/N group.
+	sort.SliceStable(retrieved, func(i, j int) bool {
+		a, b := len(retrieved[i].Evidence) > 0, len(retrieved[j].Evidence) > 0
+		if a != b {
+			return a
+		}
+		return retrieved[i].CreatedAt > retrieved[j].CreatedAt
+	})
+	anchors := make([]bool, len(retrieved))
+	seenGroup := map[bool]bool{}
+	for i, event := range retrieved {
+		group := len(event.Evidence) > 0
+		if !seenGroup[group] {
+			anchors[i] = true
+			seenGroup[group] = true
+		}
+	}
 	refsFromEvents := func(events []contract.ConversationEvent) []contract.EvidenceRef {
 		refs := []contract.EvidenceRef{}
 		seen := map[string]bool{}
@@ -114,19 +155,34 @@ func (b *Builder) Build(ctx context.Context, t contract.InputTurn, now time.Time
 		return refs
 	}
 	retrievedRefs := refsFromEvents(retrieved)
-	retrievalSection := section("retrieved_evidence", len(retrievedRefs), len(retrievedRefs)+b.RetrievalOmitted, retrievedRefs, "bounded untrusted original evidence, oldest retrieval evicted first")
+	retrievalReason := "bounded untrusted original evidence, oldest retrieval evicted first"
+	if len(retrieved) > 0 {
+		retrievalReason = "retain evidence-bearing newest-to-oldest, then evidence-free newest-to-oldest; newest record in each nonempty E/N group required; only non-anchors evicted from tail"
+	}
+	retrievalSection := section("retrieved_evidence", len(retrievedRefs), len(retrievedRefs)+retrievalOmitted, retrievedRefs, retrievalReason)
 	input["sections"] = sections
 	input["retrieved_evidence"] = retrievedRefs
-	if len(retrieved) > 0 {
-		input["extensions"] = map[string]any{"context.retrieval": map[string]any{"events": retrieved, "next_cursor": b.RetrievalCursor, "omitted_count": b.RetrievalOmitted}}
+	if b.RetrievalServed {
+		input["extensions"] = map[string]any{"context.retrieval": map[string]any{"events": retrieved, "next_cursor": b.RetrievalCursor, "omitted_count": retrievalOmitted}}
 	}
 
 	req = model.Request{RootID: t.IntentID, ContextID: id, SessionID: t.SessionID, OutputType: "DecisionEnvelope", Input: input, DataClass: EffectiveDataClass(all, t.Input)}
 	wire, e := b.Model.Encode(req)
-	for e != nil && len(retrieved) > 0 {
-		retrieved = retrieved[1:]
+	for e != nil {
+		remove := -1
+		for i := len(retrieved) - 1; i >= 0; i-- {
+			if !anchors[i] {
+				remove = i
+				break
+			}
+		}
+		if remove < 0 {
+			break
+		}
+		retrieved = append(retrieved[:remove], retrieved[remove+1:]...)
+		anchors = append(anchors[:remove], anchors[remove+1:]...)
 		currentRefs := refsFromEvents(retrieved)
-		omitted := len(retrievedRefs) - len(currentRefs) + b.RetrievalOmitted
+		omitted := len(retrievedRefs) - len(currentRefs) + retrievalOmitted
 		input["retrieved_evidence"] = currentRefs
 		input["extensions"] = map[string]any{"context.retrieval": map[string]any{"events": retrieved, "next_cursor": b.RetrievalCursor, "omitted_count": omitted}}
 		retrievalSection["selected_count"] = len(currentRefs)
@@ -172,12 +228,16 @@ func (b *Builder) Build(ctx context.Context, t contract.InputTurn, now time.Time
 		return req, manifest, e
 	}
 	manifest = contract.ContextManifest{SchemaVersion: 1, ID: id, IntentID: t.IntentID, SnapshotSeq: s.Seq, AsOf: contract.Timestamp(now), ReadSet: refs, RequestHash: contract.Hash(wire), PolicyRevision: 1, OutputSchemaID: "DecisionEnvelope", OutputSchemaHash: contract.Hash(schema), ModelProfile: b.Config.Model.Profile, InputBytes: len(wire), InputTokens: len(wire), TokenCountMode: "CONSERVATIVE_ESTIMATE", Sections: sections, Extensions: map[string]any{}}
+	manifest.Extensions, e = contract.ClassifyExtensions(manifest.Extensions, req.DataClass)
+	if e != nil {
+		return req, manifest, e
+	}
 	if e = b.Store.SaveManifest(ctx, manifest); e != nil {
 		return req, manifest, e
 	}
 	return req, manifest, nil
 }
-func selectRelevant(all store.MemorySnapshot, t contract.InputTurn) store.MemorySnapshot {
+func selectRelevant(all store.MemorySnapshot, t contract.InputTurn, allowFallback bool) store.MemorySnapshot {
 	s := all
 	byID := map[string]contract.Item{}
 	selected := map[string]bool{}
@@ -197,7 +257,7 @@ func selectRelevant(all store.MemorySnapshot, t contract.InputTurn) store.Memory
 			}
 		}
 	}
-	if len(selected) == 0 {
+	if len(selected) == 0 && allowFallback {
 		for i := len(all.Items) - 1; i >= 0 && len(selected) < 3; i-- {
 			selected[all.Items[i].ID] = true
 		}
@@ -250,7 +310,7 @@ func selectRelevant(all store.MemorySnapshot, t contract.InputTurn) store.Memory
 			factIDs[fact.ID] = true
 		}
 	}
-	if len(s.Facts) == 0 {
+	if len(s.Facts) == 0 && allowFallback {
 		for i := len(all.Facts) - 1; i >= 0 && len(s.Facts) < 3; i-- {
 			s.Facts = append(s.Facts, all.Facts[i])
 			factIDs[all.Facts[i].ID] = true
@@ -308,6 +368,37 @@ func staleSnapshotRefs(s, all store.MemorySnapshot) []contract.ReadRef {
 // CheckDisclosure considers every retained source, historical input and nested
 // evidence classification, independently of the current turn's label.
 func CheckDisclosure(c config.Config, s store.MemorySnapshot, in contract.InputEnvelope) error {
+	derived := []any{}
+	for _, v := range s.Items {
+		derived = append(derived, v)
+	}
+	for _, v := range s.Facts {
+		derived = append(derived, v)
+	}
+	for _, v := range s.Tasks {
+		derived = append(derived, v)
+	}
+	if s.Consciousness != nil {
+		derived = append(derived, s.Consciousness)
+	}
+	if s.Conversation.Summary != "" || len(s.Conversation.PendingQuestions) > 0 || s.Conversation.Extensions[contract.ClassificationKey] != nil {
+		derived = append(derived, s.Conversation)
+	}
+	for _, v := range s.Recent {
+		if v.Role != "MASTER" {
+			derived = append(derived, v)
+		}
+	}
+	for _, v := range derived {
+		class, e := contract.RequireDerivedClass(v)
+		if e != nil {
+			return e
+		}
+		if !c.Allows(class) {
+			return errors.New("DISCLOSURE_DENIED")
+		}
+	}
+
 	for _, class := range append(append([]string{}, s.DataClasses...), in.DataClass) {
 		if class != "" && !c.Allows(class) {
 			return errors.New("DISCLOSURE_DENIED")

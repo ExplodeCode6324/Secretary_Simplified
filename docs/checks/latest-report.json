@@ -1,18 +1,18 @@
 {
-  "checked_at": "2026-09-13T20:15:17.619683+00:00",
+  "checked_at": "2026-09-14T01:31:35.595487+00:00",
   "scope": "DOC_ONLY",
   "status": "PASS",
   "draft_sha256": "81c528c11ca512c638d79c067df8e091fe50514ac3600d6c78630c6673f25ef5",
-  "contracts_sha256": "04283536b0b0221287d06725161f5062041b2e9e3e7bb7f6afdb569358b911eb",
+  "contracts_sha256": "066e6b7a055636a213b0ad9dd8dda3ca9a4789a6ebe71d95851e94126fd5f27d",
   "ddl_sha256": "75668022e95ba4c5c019aaa459a35e8e6869818038461a41a038ae836fcff12d",
   "sqlite_version": "3.43.2",
   "counts": {
     "primary_contracts": 40,
-    "schema_definitions": 55,
+    "schema_definitions": 58,
     "positive_examples": 14,
     "negative_examples": 8,
     "markdown_files": 63,
-    "local_links": 204,
+    "local_links": 239,
     "sqlite_tables": 34,
     "sql_constraint_and_smoke_checks": 14
   },

@@ -10,6 +10,7 @@ import (
 	"path/filepath"
 	ctxbuild "secretarysimplified/context"
 	"secretarysimplified/contract"
+	"secretarysimplified/diagnostics"
 	"secretarysimplified/ingest"
 	"secretarysimplified/memory"
 	"secretarysimplified/policy"
@@ -126,7 +127,7 @@ func (s *Service) InternalHandler() http.Handler {
 				break
 			}
 			adapter := ingest.Service{Store: s.Store, QuarantineDir: filepath.Join(s.Config.DataDir, "reports", "quarantine")}
-			_, e = adapter.Sync(r.Context(), id, records)
+			_, e = adapter.Sync(r.Context(), id, records, store.SourceSyncProvenance{RunID: in.Run.ID, AttemptNo: in.Run.AttemptNo, FencingToken: in.Run.FencingToken})
 		case "briefing.build":
 			now := contract.Now()
 			turn := contract.InputTurn{SchemaVersion: 1, ID: in.Run.ID, SessionID: in.Run.ID, IntentID: in.Run.ID, RequestID: in.Run.ID, Input: contract.InputEnvelope{SchemaVersion: 1, RequestID: in.Run.ID, SessionID: in.Run.ID, PrincipalID: "system", Origin: "SYSTEM", ReceivedAt: now, Text: "根据当前权威事项与事实生成简短中文晨报，明确未知和未完成事项。不要生成任何actions或controls，不宣称业务已完成。", AttachmentRefs: []contract.ObjectRef{}, DataClass: "SYNTHETIC", Extensions: map[string]any{}}}
@@ -137,7 +138,7 @@ func (s *Service) InternalHandler() http.Handler {
 				break
 			}
 			req.Background = true
-			result, err := s.Model.Generate(r.Context(), req)
+			result, err := diagnostics.Recorded(s.Model, s.Store, s.Config).Generate(r.Context(), req)
 			if err != nil {
 				e = err
 				break

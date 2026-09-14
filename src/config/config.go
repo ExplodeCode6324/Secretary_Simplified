@@ -76,10 +76,13 @@ func (c Config) Validate() error {
 	if _, e := time.Parse(time.RFC3339Nano, c.Epoch); e != nil {
 		return e
 	}
-	if c.Model.Profile != "fixture" && c.Model.Profile != "opencode-go" {
+	if c.Model.Profile != "fixture" && c.Model.Profile != "opencode-go" && c.Model.Profile != "deepseek" {
 		return errors.New("unsupported model profile")
 	}
 	if c.Model.Profile == "opencode-go" && (c.Model.Endpoint != "https://opencode.ai/zen/go/v1/responses" || c.Model.Model != "gpt-5.6-luna") {
+		return errors.New("unexpected provider endpoint or model")
+	}
+	if c.Model.Profile == "deepseek" && (c.Model.Endpoint != "https://api.deepseek.com/responses" || c.Model.Model != "deepseek-flash") {
 		return errors.New("unexpected provider endpoint or model")
 	}
 	if c.Limits.Queue < 1 || c.Limits.Queue > 100 || c.Limits.RequestBytes < 1024 || c.Limits.InputTokens < 1024 || c.Limits.OutputTokens < 1 {

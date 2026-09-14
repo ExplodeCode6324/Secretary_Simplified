@@ -1,0 +1,80 @@
+[
+  {
+    "schema_version": 1,
+    "id": "c2dac1fd-0137-47c4-b910-d37d381e1dc3",
+    "request_id": "55429c19-0526-40b6-a267-a132b85945fc",
+    "entity_id": "00000000-0000-4000-8000-000000000100",
+    "predicate": "master.preference",
+    "operation": "ASSERT",
+    "fact_id": "00000000-0000-4000-8000-000000000801",
+    "expected_revision": 0,
+    "value": {
+      "key": "preferred_drink",
+      "value": "tea"
+    },
+    "evidence": [
+      {
+        "object_id": "b3e676ee-471b-5828-8147-63a93252c336",
+        "sha256": "b0f9b107d84e3c148ddc82b1ac2d4ca0b90c0816b9d5f87d969ff85b38606bfe",
+        "locator": "full",
+        "origin_id": "b3e676ee-471b-5828-8147-63a93252c336",
+        "data_class": "SYNTHETIC"
+      }
+    ],
+    "basis": "MASTER_EXPLICIT",
+    "policy_revision": 1,
+    "reason": "Frozen synthetic authority fixture; model evaluates resulting read semantics only",
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "id": "69dabf45-f0d1-41d3-a4c8-4292523756ca",
+    "request_id": "bbc6f4fa-d32d-4000-9582-cfd8d0348655",
+    "entity_id": "00000000-0000-4000-8000-000000000100",
+    "predicate": "master.preference",
+    "operation": "ASSERT",
+    "fact_id": "00000000-0000-4000-8000-000000000802",
+    "expected_revision": 0,
+    "value": {
+      "key": "preferred_drink",
+      "value": "coffee"
+    },
+    "evidence": [
+      {
+        "object_id": "25b7d15e-7fca-5b6f-a60a-9fa8bccd2882",
+        "sha256": "ac3d48304292215ab9cd9f9732330f6d33b7df202131ece0422fffa47609f011",
+        "locator": "full",
+        "origin_id": "25b7d15e-7fca-5b6f-a60a-9fa8bccd2882",
+        "data_class": "SYNTHETIC"
+      }
+    ],
+    "basis": "MASTER_EXPLICIT",
+    "policy_revision": 1,
+    "reason": "Frozen synthetic authority fixture; model evaluates resulting read semantics only",
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "id": "08146a12-7721-4ec0-a229-be54f5be7d64",
+    "request_id": "3e1ada40-c4a9-4bb7-a95e-b6fa8f9b3f79",
+    "entity_id": "00000000-0000-4000-8000-000000000100",
+    "predicate": "master.preference",
+    "operation": "RETRACT",
+    "fact_id": "00000000-0000-4000-8000-000000000802",
+    "expected_revision": 1,
+    "value": null,
+    "evidence": [
+      {
+        "object_id": "35ff2a3f-bed9-51d8-b48d-a582aa7041bd",
+        "sha256": "920cd9dba710c9d10deb8118c91ad304fa91237eb60e84238dcb66c788280d07",
+        "locator": "full",
+        "origin_id": "35ff2a3f-bed9-51d8-b48d-a582aa7041bd",
+        "data_class": "SYNTHETIC"
+      }
+    ],
+    "basis": "MASTER_EXPLICIT",
+    "policy_revision": 1,
+    "reason": "Frozen synthetic authority fixture; model evaluates resulting read semantics only",
+    "extensions": {}
+  }
+]

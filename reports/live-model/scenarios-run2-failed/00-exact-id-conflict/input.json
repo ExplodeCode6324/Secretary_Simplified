@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "request_id": "967f834f-8a6e-48f0-afca-415cc1a208bf",
+  "session_id": "7364d06a-142a-4ef5-a075-1dbf597da68c",
+  "principal_id": "master",
+  "origin": "MASTER_CLI",
+  "received_at": "2026-09-13T23:23:38.813Z",
+  "text": "Change ONLY item 00000000-0000-4000-8000-000000000702 priority to 3. Leave the other same-title item 00000000-0000-4000-8000-000000000701 untouched.",
+  "attachment_refs": [],
+  "data_class": "SYNTHETIC",
+  "extensions": {}
+}

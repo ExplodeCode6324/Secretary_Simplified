@@ -1,0 +1,12 @@
+{
+  "world_before": null,
+  "expected_conflict_members": null,
+  "expected_world": null,
+  "name": "withdraw-agreement",
+  "text": "Withdraw the earlier BLUE731 password agreement. The current sea-salt-protocol password is GREEN842. Acknowledge only; do not create items.",
+  "session": "old",
+  "conflict_id": "",
+  "expected": {},
+  "reply_contains": "",
+  "min_calls": 0
+}

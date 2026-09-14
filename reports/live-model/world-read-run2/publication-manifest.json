@@ -1,0 +1,228 @@
+{
+  "scope": "SYNTHETIC public review copy; no runtime DB/config/token/grant files",
+  "files": [
+    {
+      "path": "00-world-conflict/actual-items.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "bytes": 2
+    },
+    {
+      "path": "00-world-conflict/actual-world.json",
+      "sha256": "c3440468b4e36ff180b0f5a12d2f8130b3dfc045f9cf2257b6ee5fd3f0b51bff",
+      "bytes": 1958
+    },
+    {
+      "path": "00-world-conflict/call-01.context.json",
+      "sha256": "9b669f1f87005774e058b7032d56d7cefebb3f63d105a347373c9a614b19cd7c",
+      "bytes": 63484
+    },
+    {
+      "path": "00-world-conflict/call-01.result.json",
+      "sha256": "f14b5290092c5f293eac4406154d8e0a2b4ca022fe03fadee86e2dca37ece19a",
+      "bytes": 3269
+    },
+    {
+      "path": "00-world-conflict/input.json",
+      "sha256": "de803e52c36ea9d205f0b60849033b60fb5a6e0a98b6d02f4741808f8133a978",
+      "bytes": 596
+    },
+    {
+      "path": "00-world-conflict/manifests.json",
+      "sha256": "6126d94b9dfa3b038fe963c2dedb5014bdcd92be30835447d450e253baed178a",
+      "bytes": 2632
+    },
+    {
+      "path": "00-world-conflict/model_calls/d31b054e-4866-4da8-959b-a9597ea337bd.json",
+      "sha256": "ef960d0a290611ed1e09808e33b6b7a44cb85530d9ed53f8083cf5ee5732cea3",
+      "bytes": 975
+    },
+    {
+      "path": "00-world-conflict/model_calls/d31b054e-4866-4da8-959b-a9597ea337bd.request.json",
+      "sha256": "f7faa959f24135bf86f9396370becb5f57c3f99bb387158d69b40dcff9992947",
+      "bytes": 368
+    },
+    {
+      "path": "00-world-conflict/oracle.json",
+      "sha256": "9aaba191cc68d751bcacb3b50f2c9773a6e4ceefb1c51c0757242b286a970981",
+      "bytes": 1351
+    },
+    {
+      "path": "00-world-conflict/turn.json",
+      "sha256": "f961cb0f9ce5bb25cd953565cca25df8535054911f2c8cf8bc49475616b2aa36",
+      "bytes": 1576
+    },
+    {
+      "path": "01-world-retraction/actual-items.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "bytes": 2
+    },
+    {
+      "path": "01-world-retraction/actual-world.json",
+      "sha256": "d4b550680c216d3814a26dd952023b60ffc3c2d6f21c6f53858a7fb69c234d4a",
+      "bytes": 1940
+    },
+    {
+      "path": "01-world-retraction/call-01.context.json",
+      "sha256": "d7a833b56bf3df335350860b755d1db50c80db2e1c8539db38bec6e9f0757048",
+      "bytes": 64610
+    },
+    {
+      "path": "01-world-retraction/call-01.result.json",
+      "sha256": "f82fa76005b04acf44131bb642f004c5f8b10323a512610c8abe5c20a5c1007d",
+      "bytes": 3286
+    },
+    {
+      "path": "01-world-retraction/call-02.context.json",
+      "sha256": "9720d138c6f14a7638c6a92589eb891bdc4960256cbb2ea694666a28efb7f4c8",
+      "bytes": 61699
+    },
+    {
+      "path": "01-world-retraction/call-02.result.json",
+      "sha256": "3b68975265166e2d3d1c940775e88260c6002cf3edb22d494b8fc39991a650ac",
+      "bytes": 3390
+    },
+    {
+      "path": "01-world-retraction/input.json",
+      "sha256": "051e3135b689bb90303f7c2e578c8f2ed912366ebd9f7e9a84e05a51f72e53f1",
+      "bytes": 696
+    },
+    {
+      "path": "01-world-retraction/manifests.json",
+      "sha256": "6886330f2f7eeca66cb35d34dc979b92e5d8dfc9a949c74f3db41e9fb5d533b0",
+      "bytes": 5259
+    },
+    {
+      "path": "01-world-retraction/model_calls/09d95f09-4dc3-4b2a-8815-20e6811189a1.json",
+      "sha256": "8ec065238b8cb07915193a89c56f0ded020eb01997fa7737b99438b8296174bb",
+      "bytes": 976
+    },
+    {
+      "path": "01-world-retraction/model_calls/09d95f09-4dc3-4b2a-8815-20e6811189a1.request.json",
+      "sha256": "737e7e8246397b63f30bd9a82687b46f7069d32263331ac86a39c9d4df5a1966",
+      "bytes": 368
+    },
+    {
+      "path": "01-world-retraction/model_calls/554bcdfa-7fbb-48b6-bdc3-c08b6e59d334.json",
+      "sha256": "a96de9411e669785fe0bc8d16654629bf5c683e53d6a53d023fb0ea5d814f545",
+      "bytes": 976
+    },
+    {
+      "path": "01-world-retraction/model_calls/554bcdfa-7fbb-48b6-bdc3-c08b6e59d334.request.json",
+      "sha256": "643b08caa2451e18cbda7291bfd58908c84543dceb10b4c41c7bbbcceb94ecad",
+      "bytes": 368
+    },
+    {
+      "path": "01-world-retraction/oracle.json",
+      "sha256": "3e21f60e951f96479725ed3b0ebb9b0dd830e9327fcace5d0a78c6ae212aba63",
+      "bytes": 1107
+    },
+    {
+      "path": "01-world-retraction/turn.json",
+      "sha256": "d391e2e0141aa29e0de04010b5f3d042db5035af816bf2e7ba3a41568ec5316e",
+      "bytes": 1684
+    },
+    {
+      "path": "audit-records.json",
+      "sha256": "a3c7cb4d81a56b34eb8a01f3966d35f7a5f531023d2f1b12708e5802614e87d4",
+      "bytes": 43852
+    },
+    {
+      "path": "context_manifest.json",
+      "sha256": "a2c89038e95212119247edf36ace43b33f4c1b684dadfb8675a3df00da4f736a",
+      "bytes": 7890
+    },
+    {
+      "path": "decision_record.json",
+      "sha256": "e17407a372a2ba19ce3b11e606b849eb088e3471d564445b14b8a884aaa2a230",
+      "bytes": 475
+    },
+    {
+      "path": "fixture.json",
+      "sha256": "5925ba7088f6fa9d1200e77424c1c67a1ac80beba77a3f970ebc4f01580643fe",
+      "bytes": 2982
+    },
+    {
+      "path": "object-index.json",
+      "sha256": "b9dbdef582ffdf3c79d022d3828caa544189a1b02328bbcc4fb5fab0c057ece1",
+      "bytes": 3750
+    },
+    {
+      "path": "objects/188eab6b-40e9-51a3-860b-312a091f65ce.blob",
+      "sha256": "ec74edd3346ef65e66a262f881efaf355d59a7b619635514c6f4f8e99255909e",
+      "bytes": 176
+    },
+    {
+      "path": "objects/25b7d15e-7fca-5b6f-a60a-9fa8bccd2882.blob",
+      "sha256": "ac3d48304292215ab9cd9f9732330f6d33b7df202131ece0422fffa47609f011",
+      "bytes": 67
+    },
+    {
+      "path": "objects/35ff2a3f-bed9-51d8-b48d-a582aa7041bd.blob",
+      "sha256": "920cd9dba710c9d10deb8118c91ad304fa91237eb60e84238dcb66c788280d07",
+      "bytes": 123
+    },
+    {
+      "path": "objects/46bb4c82-187f-5e05-b843-2485a42d6f1a.blob",
+      "sha256": "2efa9bfbb48b7969c9d58f966773548769278f9c4b931e695066cba56bb2ae8f",
+      "bytes": 31004
+    },
+    {
+      "path": "objects/73065750-611b-526c-93b5-ebe3ca278b29.blob",
+      "sha256": "ad3f0d105fc47c96d6fabc116b24781176689d5620feb93200d553c4a2c847b2",
+      "bytes": 29704
+    },
+    {
+      "path": "objects/7a9e37a8-c0e1-5d98-8dc9-701541fb2523.blob",
+      "sha256": "334e64991ca96dfa3498be3309cbec186295b52a855f082efb24fabe47195c74",
+      "bytes": 168
+    },
+    {
+      "path": "objects/aef8c237-2908-5398-b92b-17f4ac4c7864.blob",
+      "sha256": "6af82fb0b2c9094ed14ce0acd213f0fedbaad63d3cb736b104921336ac09ec79",
+      "bytes": 176
+    },
+    {
+      "path": "objects/b3e676ee-471b-5828-8147-63a93252c336.blob",
+      "sha256": "b0f9b107d84e3c148ddc82b1ac2d4ca0b90c0816b9d5f87d969ff85b38606bfe",
+      "bytes": 62
+    },
+    {
+      "path": "objects/bc651cf7-7142-5566-8cbc-2f19cf2f45c5.blob",
+      "sha256": "3a4d4f6a7857f2fb3e1c291da43848e0b26b3ab0b76d0d79fcae6f68457fe9f4",
+      "bytes": 31836
+    },
+    {
+      "path": "objects/dcd40d55-1e8d-5bef-abcd-cc696c6c3216.blob",
+      "sha256": "cd816fa55570f2e845bfbbdf9dd852b607a82ad8f9a537039bb50217cb77a9a9",
+      "bytes": 272
+    },
+    {
+      "path": "objects/f4a2ede5-f7d4-55bf-9caa-948a03c0e933.blob",
+      "sha256": "5df60d747e587ec5c088a8fd8f7cd4ecd2bef88aed351645620da580b17b2497",
+      "bytes": 372
+    },
+    {
+      "path": "report.json",
+      "sha256": "df3e7871254580c1ce4cc4efc32d2fca99d95aa356855e0e23a4edf79a66011f",
+      "bytes": 869
+    },
+    {
+      "path": "world_fact_version.json",
+      "sha256": "d14484bc9163715c13eb87ece548efcaaf045cda408d81758a0c253415ac5ec2",
+      "bytes": 3785
+    },
+    {
+      "path": "world_proposal.json",
+      "sha256": "4640952ef66df0d5c015385b974c876a4135f6b810434dc47493a140ec5274a6",
+      "bytes": 2681
+    }
+  ],
+  "object_count": 11,
+  "scan": {
+    "actual_credential_sources": 2,
+    "exact_key_matches": 0,
+    "home_or_private_data_path_matches": 0,
+    "non_synthetic_objects": 0
+  },
+  "notes": "Source report bytes preserved. Object closure follows embedded Context/request/output JSON and EvidenceRef/ObjectRef references; every object checked against authoritative metadata hash/size/class before copying."
+}

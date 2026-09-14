@@ -1,0 +1,72 @@
+{
+  "evidence": "input/oracle/final contexts/raw model outputs/manifests plus synthetic database and object files retained",
+  "failures": 1,
+  "results": [
+    {
+      "calls": 2,
+      "error": "\u003cnil\u003e",
+      "mismatches": [],
+      "name": "exact-id-conflict",
+      "reply": "Proposed changing item 00000000-0000-4000-8000-000000000702 priority from 2 to 3. Item 00000000-0000-4000-8000-000000000701 will remain untouched.",
+      "request_id": "967f834f-8a6e-48f0-afca-415cc1a208bf",
+      "status": "PASS"
+    },
+    {
+      "calls": 1,
+      "error": "\u003cnil\u003e",
+      "mismatches": [],
+      "name": "dependency-completion",
+      "reply": "Proposed marking item 00000000-0000-4000-8000-000000000701 DONE. Dependent item 00000000-0000-4000-8000-000000000703 will remain BLOCKED.",
+      "request_id": "0386926c-1c1c-410f-9e21-4ca1f14a9221",
+      "status": "PASS"
+    },
+    {
+      "calls": 2,
+      "error": "\u003cnil\u003e",
+      "mismatches": [],
+      "name": "dependency-unlock",
+      "reply": "Dependency item 00000000-0000-4000-8000-000000000701 is DONE. Proposing only item 00000000-0000-4000-8000-000000000703 change from BLOCKED to OPEN; its dependency ID will be preserved.",
+      "request_id": "56183718-2d17-4b96-8f4c-b7adb29f77c2",
+      "status": "PASS"
+    },
+    {
+      "calls": 1,
+      "error": "\u003cnil\u003e",
+      "mismatches": [],
+      "name": "remember-agreement",
+      "reply": "Acknowledged.",
+      "request_id": "9dcb7ce1-1590-405a-aa24-ecc850dd2a27",
+      "status": "PASS"
+    },
+    {
+      "calls": 1,
+      "error": "\u003cnil\u003e",
+      "mismatches": [],
+      "name": "withdraw-agreement",
+      "reply": "Acknowledged. The earlier BLUE731 password agreement is withdrawn, and GREEN842 is the current sea-salt-protocol password. No items created.",
+      "request_id": "57fcd450-69f9-4939-bbf4-f3db82e08135",
+      "status": "PASS"
+    },
+    {
+      "calls": 4,
+      "error": "\u003cnil\u003e",
+      "mismatches": [
+        "missing reply oracle token"
+      ],
+      "name": "prior-session-retrieval",
+      "reply": "Request was recorded, but no actions were committed: BUDGET_EXHAUSTED",
+      "request_id": "ecb33554-edcb-48af-8cd3-0c3846eea709",
+      "status": "FAIL"
+    },
+    {
+      "calls": 1,
+      "error": "\u003cnil\u003e",
+      "mismatches": [],
+      "name": "stale-source",
+      "reply": "SOURCE_STALE",
+      "request_id": "65774dc9-c316-4bfb-b633-658896ead31c",
+      "status": "PASS"
+    }
+  ],
+  "scope": "Synthetic real-model: exact IDs, optimistic conflict/rebuild, dependency completion/unlock, prior-session retrieval, conversational agreement withdrawal, source staleness. Does not cover WorldFact evidence withdrawal or contradiction resolution. Evaluated actions use real model, never typed."
+}

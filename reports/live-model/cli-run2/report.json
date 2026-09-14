@@ -1,0 +1,116 @@
+{
+  "suite": "LIVE_MODEL-real-CLI-reminder",
+  "status": "PASS",
+  "real_data": false,
+  "build_sha256": {
+    "secretary": "3870f8588264716ed8fd55722b5ee5905a9dfa4db9cd2656fc9839b0d08d5c9e",
+    "secretaryd": "8645f3bf911b48463adc2768a205d1084393936fe46ce831339551fc8ba7926b"
+  },
+  "provider_profile": "opencode-go",
+  "model": "gpt-5.6-luna",
+  "accepted": {
+    "request_id": "5ef65f78-a89f-4633-aea7-255f8aa50fd8",
+    "status": "ACCEPTED",
+    "result": {
+      "intent_id": "55f1a6ba-8966-4480-8a6a-d580d3ae3c3a",
+      "state": "PENDING",
+      "turn_id": "8ac9842b-4f9b-4ca7-9cd1-4c341cb3da81"
+    },
+    "error": null
+  },
+  "turn": {
+    "committed_operation_keys": [
+      "create-synthetic-cli-reminder-item",
+      "schedule-synthetic-cli-reminder-notification"
+    ],
+    "extensions": {},
+    "id": "8ac9842b-4f9b-4ca7-9cd1-4c341cb3da81",
+    "input": {
+      "attachment_refs": [
+        {
+          "byte_size": 286,
+          "created_at": "2026-09-14T00:05:16.411Z",
+          "data_class": "SYNTHETIC",
+          "extensions": {},
+          "id": "37e09416-6d74-5401-a536-ce1aa90c1215",
+          "media_type": "text/plain",
+          "relative_path": "37e09416-6d74-5401-a536-ce1aa90c1215.blob",
+          "schema_version": 1,
+          "sha256": "a61419a30a00cf537bf31c90bf7e0184f90636423fa58673e71b452187d1cd07"
+        }
+      ],
+      "data_class": "SYNTHETIC",
+      "extensions": {},
+      "origin": "MASTER_CLI",
+      "principal_id": "master",
+      "received_at": "2026-09-14T00:05:16.392Z",
+      "request_id": "5ef65f78-a89f-4633-aea7-255f8aa50fd8",
+      "schema_version": 1,
+      "session_id": "00000000-0000-4000-8000-000000000001",
+      "text": "创建一个 project 领域 TASK 事项，标题严格为 synthetic-cli-reminder，截止时间为 2026-09-14T00:06:46.381Z (UTC)。同时在该时间发一次本地文字通知，通知文字为 synthetic-cli-reminder。只发通知，事项保持 OPEN，不要声称已完成事项。"
+    },
+    "intent_id": "55f1a6ba-8966-4480-8a6a-d580d3ae3c3a",
+    "lease_until": null,
+    "principal_id": "master",
+    "processing_owner": null,
+    "reply": {
+      "evidence": [],
+      "text": "已提出创建事项和一次性本地通知的请求：事项标题为 synthetic-cli-reminder，领域为 project，类型为 TASK，截止时间为 2026-09-14T00:06:46.381Z（UTC），并保持 OPEN。通知将在该时间发送；当前未声称事项已完成。"
+    },
+    "request_id": "5ef65f78-a89f-4633-aea7-255f8aa50fd8",
+    "schema_version": 1,
+    "session_id": "00000000-0000-4000-8000-000000000001",
+    "state": "COMMITTED",
+    "updated_at": "2026-09-14T00:05:28.764Z"
+  },
+  "items": [
+    {
+      "created_at": "2026-09-14T00:05:28.761Z",
+      "dependency_ids": [],
+      "domain": "project",
+      "due_at": "2026-09-14T00:06:46.381Z",
+      "evidence": [
+        {
+          "data_class": "SYNTHETIC",
+          "locator": "full_text",
+          "object_id": "37e09416-6d74-5401-a536-ce1aa90c1215",
+          "origin_id": "37e09416-6d74-5401-a536-ce1aa90c1215",
+          "sha256": "a61419a30a00cf537bf31c90bf7e0184f90636423fa58673e71b452187d1cd07"
+        }
+      ],
+      "extensions": {},
+      "id": "f2bbd983-2191-4332-af96-7a2c81b740f0",
+      "kind": "TASK",
+      "parent_id": null,
+      "priority": 0,
+      "revision": 1,
+      "schema_version": 1,
+      "status": "OPEN",
+      "time_state": "CONFIRMED",
+      "timezone": "UTC",
+      "title": "synthetic-cli-reminder",
+      "updated_at": "2026-09-14T00:05:28.761Z"
+    }
+  ],
+  "notifications": [
+    {
+      "acknowledged_at": null,
+      "created_at": "2026-09-14T00:06:47.374Z",
+      "delivered_at": "2026-09-14T00:06:47.822Z",
+      "extensions": {},
+      "id": "da113145-627c-4c28-9ca0-dae0d9edb135",
+      "notification_key": "occ:v1:c3ludGhldGljLWNsaS1yZW1pbmRlcg:MGYyMTBiNWEtMmIyNy00OTk1LWFhNGYtMDA0ZjMyMGNjODJjOjIwMjYtMDktMTRUMDA6MDY6NDYuMzgxWg",
+      "run_id": "337418b6-14b7-4339-9357-d4adc0a74ecc",
+      "schema_version": 1,
+      "state": "DELIVERED",
+      "text": "synthetic-cli-reminder"
+    }
+  ],
+  "counts": {
+    "input_turn": 1,
+    "item": 1,
+    "notification": 1
+  },
+  "ack_with_core_offline": true,
+  "completed_at": "2026-09-14T00:06:47.859456+00:00"
+}

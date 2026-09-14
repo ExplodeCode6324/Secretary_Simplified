@@ -25,3 +25,8 @@
 同 principal/request 键只对应一个语义载荷，response 不包含密钥。
 
 通用空值、版本、扩展、引用和错误规则见 [Common.md](Common.md)；事件与提交关系见 [DataFlow.md](../DataFlow.md)。
+
+
+### D12 分类传播
+
+最终回复extension标记与同事务InputTurn/ASSISTANT一致；固定无内容失败字面量可SYN。 使用 [Common.md](Common.md) 的 security.classification 契约；缺失旧派生标记返回 OUTPUT_CLASS_UNKNOWN，不自动回填。

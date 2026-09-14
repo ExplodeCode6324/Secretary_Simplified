@@ -1,0 +1,21 @@
+{
+  "world_before": null,
+  "expected_conflict_members": null,
+  "expected_world": null,
+  "name": "exact-id-conflict",
+  "text": "Change ONLY item 00000000-0000-4000-8000-000000000702 priority to 3. Leave the other same-title item 00000000-0000-4000-8000-000000000701 untouched.",
+  "session": "a",
+  "conflict_id": "00000000-0000-4000-8000-000000000702",
+  "expected": {
+    "00000000-0000-4000-8000-000000000701": {
+      "priority": 1,
+      "revision": 1
+    },
+    "00000000-0000-4000-8000-000000000702": {
+      "priority": 3,
+      "revision": 3
+    }
+  },
+  "reply_contains": "",
+  "min_calls": 2
+}

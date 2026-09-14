@@ -211,6 +211,10 @@ func validateExtensions(v any) error {
 					if e := schemas["VersionRef"].Validate(map[string]any{"id": id, "revision": float64(1)}); e != nil {
 						return fmt.Errorf("INVALID_EXTENSION: %s", k)
 					}
+				case "security.classification":
+					if _, e := ReadClassification(map[string]any{ClassificationKey: raw}); e != nil {
+						return e
+					}
 				case "runtime.artifacts":
 					refs, ok := m["refs"].([]any)
 					if len(m) != 1 || !ok || len(refs) > 20 {
@@ -230,6 +234,23 @@ func validateExtensions(v any) error {
 					}
 					for _, event := range events {
 						if e := schemas["ConversationEvent"].Validate(event); e != nil {
+							return fmt.Errorf("INVALID_EXTENSION: %s", k)
+						}
+					}
+				case "runtime.source_sync":
+					if len(m) != 4 {
+						return fmt.Errorf("INVALID_EXTENSION: %s", k)
+					}
+					if e := schemas["VersionRef"].Validate(map[string]any{"id": m["run_id"], "revision": float64(1)}); e != nil {
+						return fmt.Errorf("INVALID_EXTENSION: %s", k)
+					}
+					for _, field := range []string{"attempt_no", "fencing_token", "records_processed"} {
+						n, ok := m[field].(float64)
+						minimum := float64(1)
+						if field == "records_processed" {
+							minimum = 0
+						}
+						if !ok || n < minimum || n != float64(int(n)) {
 							return fmt.Errorf("INVALID_EXTENSION: %s", k)
 						}
 					}

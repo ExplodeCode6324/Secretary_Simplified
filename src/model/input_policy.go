@@ -21,11 +21,6 @@ func ValidateInputPolicy(c config.Config, r Request) error {
 	default:
 		return errors.New("UNKNOWN_MODEL_ROLE")
 	}
-	if name != "" {
-		if e := contract.Validate(name, r.Input); e != nil {
-			return errors.New("INVALID_MODEL_INPUT")
-		}
-	}
 	raw, e := json.Marshal(r.Input)
 	if e != nil {
 		return e
@@ -33,6 +28,14 @@ func ValidateInputPolicy(c config.Config, r Request) error {
 	v, e := contract.ParseJSON(raw)
 	if e != nil {
 		return e
+	}
+	if e := validateDerivedInput(r.OutputType, v); e != nil {
+		return e
+	}
+	if name != "" {
+		if e := contract.Validate(name, r.Input); e != nil {
+			return errors.New("INVALID_MODEL_INPUT")
+		}
 	}
 	if r.OutputType == "ConversationSummaryDraft" {
 		m, ok := v.(map[string]any)
@@ -98,3 +101,91 @@ func ValidateInputPolicy(c config.Config, r Request) error {
 	}
 	return scan(v)
 }
+
+// The role schemas identify derived carriers. Missing marks on those carriers
+// cannot be justified by their surviving evidence or by the current input label.
+func validateDerivedInput(role string, value any) error {
+	m, ok := value.(map[string]any)
+	if !ok {
+		return errors.New("INVALID_MODEL_INPUT")
+	}
+	check := func(v any) error {
+		if v == nil {
+			return nil
+		}
+		_, e := contract.RequireDerivedClass(v)
+		return e
+	}
+	array := func(v any) error {
+		for _, x := range asArray(v) {
+			if e := check(x); e != nil {
+				return e
+			}
+		}
+		return nil
+	}
+	state := func(v any) error {
+		x, ok := v.(map[string]any)
+		if !ok {
+			return errors.New("INVALID_MODEL_INPUT")
+		}
+		if x["summary"] == "" && len(asArray(x["pending_questions"])) == 0 {
+			return nil
+		}
+		return check(v)
+	}
+	changes := func(v any) error {
+		for _, raw := range asArray(v) {
+			ev, _ := raw.(map[string]any)
+			typ, _ := ev["event_type"].(string)
+			switch typ {
+			case "item.created", "item.updated", "task.updated", "world.updated", "run.updated", "memory.refreshed", "scheduled_job.updated", "scheduled_job.skipped":
+				change, _ := ev["change"].(map[string]any)
+				for _, k := range []string{"before", "after"} {
+					if e := check(change[k]); e != nil {
+						return e
+					}
+				}
+			}
+		}
+		return nil
+	}
+	if role == "ConversationSummaryDraft" {
+		if e := state(m["previous"]); e != nil {
+			return e
+		}
+		if e := array(m["events"]); e != nil {
+			return e
+		}
+		return array(m["items"])
+	}
+	world, _ := m["world"].(map[string]any)
+	live, _ := m["live"].(map[string]any)
+	for _, v := range []any{world["facts"], live["items"], m["tasks"]} {
+		if e := array(v); e != nil {
+			return e
+		}
+	}
+	if role == "ConsciousnessDraft" {
+		if e := check(m["previous_snapshot"]); e != nil {
+			return e
+		}
+		return changes(m["recent_changes"])
+	}
+	if e := state(m["conversation"]); e != nil {
+		return e
+	}
+	if e := check(m["consciousness"]); e != nil {
+		return e
+	}
+	if e := array(m["recent_events"]); e != nil {
+		return e
+	}
+	ext, _ := m["extensions"].(map[string]any)
+	retrieval, _ := ext["context.retrieval"].(map[string]any)
+	if e := array(retrieval["events"]); e != nil {
+		return e
+	}
+	return changes(m["delta_events"])
+}
+func asArray(v any) []any { a, _ := v.([]any); return a }

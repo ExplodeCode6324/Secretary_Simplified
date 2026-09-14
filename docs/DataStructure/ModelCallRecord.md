@@ -32,3 +32,8 @@
 服务商未报告 token 时记录估计方式；预算应先预留再结算，崩溃未结算按预留上限计费。
 
 通用空值、版本、扩展、引用和错误规则见 [Common.md](Common.md)；事件与提交关系见 [DataFlow.md](../DataFlow.md)。
+
+
+### D12 分类传播
+
+标记实际模型请求class；原始request/output对象归档同class，不能按SYN回填。 使用 [Common.md](Common.md) 的 security.classification 契约；缺失旧派生标记返回 OUTPUT_CLASS_UNKNOWN，不自动回填。

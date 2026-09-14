@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "request_id": "4a2e385a-1899-414b-87c2-5f5601aff99e",
+  "session_id": "ac7b1aa7-0fab-424a-9b19-3e2424a1ddef",
+  "principal_id": "master",
+  "origin": "MASTER_CLI",
+  "received_at": "2026-09-13T23:35:51.288Z",
+  "text": "Read current authoritative WorldFacts 00000000-0000-4000-8000-000000000801 and 00000000-0000-4000-8000-000000000802. If the preferred_drink facts are CONTESTED, reply exactly UNRESOLVED_CONFLICT; do not choose either value, propose changes, or use prior text as authority.",
+  "attachment_refs": [],
+  "data_class": "SYNTHETIC",
+  "extensions": {}
+}

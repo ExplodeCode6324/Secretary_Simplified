@@ -1,0 +1,70 @@
+{
+  "items": [],
+  "scope": "Real-model WorldFact read semantics over frozen synthetic assertions and retractions committed through real authorization permits. This is not model-generated world mutation authorization acceptance.",
+  "steps": [
+    {
+      "name": "world-conflict",
+      "session": "world",
+      "world_before": [
+        {
+          "fact_id": "00000000-0000-4000-8000-000000000801",
+          "operation": "ASSERT",
+          "expected_revision": 0,
+          "value": {
+            "key": "preferred_drink",
+            "value": "tea"
+          },
+          "evidence_text": "Synthetic independent explicit statement: preferred drink tea."
+        },
+        {
+          "fact_id": "00000000-0000-4000-8000-000000000802",
+          "operation": "ASSERT",
+          "expected_revision": 0,
+          "value": {
+            "key": "preferred_drink",
+            "value": "coffee"
+          },
+          "evidence_text": "Synthetic contradictory explicit statement: preferred drink coffee."
+        }
+      ],
+      "text": "Read current authoritative WorldFacts 00000000-0000-4000-8000-000000000801 and 00000000-0000-4000-8000-000000000802. If the preferred_drink facts are CONTESTED, reply exactly UNRESOLVED_CONFLICT; do not choose either value, propose changes, or use prior text as authority.",
+      "reply_contains": "UNRESOLVED_CONFLICT",
+      "expected": {},
+      "expected_world": {
+        "00000000-0000-4000-8000-000000000801": "CONTESTED",
+        "00000000-0000-4000-8000-000000000802": "CONTESTED"
+      },
+      "expected_conflict_members": [
+        [
+          "00000000-0000-4000-8000-000000000801",
+          "00000000-0000-4000-8000-000000000802"
+        ]
+      ]
+    },
+    {
+      "name": "world-retraction",
+      "session": "world",
+      "world_before": [
+        {
+          "fact_id": "00000000-0000-4000-8000-000000000802",
+          "operation": "RETRACT",
+          "expected_revision": 1,
+          "value": null,
+          "evidence_text": "Synthetic explicit withdrawal: the earlier coffee evidence is withdrawn and must not establish the current preferred drink."
+        }
+      ],
+      "text": "Read the latest revisions of WorldFacts 00000000-0000-4000-8000-000000000801 and 00000000-0000-4000-8000-000000000802, overriding earlier conversation. Reply exactly COFFEE_WITHDRAWN_UNRESOLVED if the coffee fact is RETRACTED and the tea fact remains CONTESTED. Do not treat withdrawn evidence as active or resolve the remaining conflict automatically. Do not mutate data.",
+      "reply_contains": "COFFEE_WITHDRAWN_UNRESOLVED",
+      "expected": {},
+      "expected_world": {
+        "00000000-0000-4000-8000-000000000801": "CONTESTED",
+        "00000000-0000-4000-8000-000000000802": "RETRACTED"
+      },
+      "expected_conflict_members": [
+        [
+          "00000000-0000-4000-8000-000000000801"
+        ]
+      ]
+    }
+  ]
+}

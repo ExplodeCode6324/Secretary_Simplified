@@ -32,7 +32,7 @@ type Service struct {
 // process so lookup/object/record admission cannot race another fixture sync.
 var fixtureMu sync.Mutex
 
-func (s *Service) Sync(ctx context.Context, sourceID string, records []FixtureRecord) (Result, error) {
+func (s *Service) Sync(ctx context.Context, sourceID string, records []FixtureRecord, provenance ...store.SourceSyncProvenance) (Result, error) {
 	fixtureMu.Lock()
 	defer fixtureMu.Unlock()
 	out := Result{}
@@ -96,7 +96,7 @@ func (s *Service) Sync(ctx context.Context, sourceID string, records []FixtureRe
 			out.Inserted++
 		}
 	}
-	return out, s.Store.SourceSynced(ctx, sourceID, len(records))
+	return out, s.Store.SourceSynced(ctx, sourceID, len(records), provenance...)
 }
 func (s *Service) quarantine(sourceID, version string, raw []byte, reason string) error {
 	if s.QuarantineDir == "" {

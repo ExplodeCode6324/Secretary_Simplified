@@ -1,0 +1,1 @@
+{"schema_version":1,"context_id":"c5ea0705-3e54-47a8-a49c-111490f0cfc7","reply":{"text":"已提出仅将“合成事项19”标记为 DONE，其他事项不变，也未安排额外任务。","evidence":[]},"actions":[{"operation_key":"update-item-aaac2eeb","kind":"UPDATE_ITEM","payload":{"item_id":"aaac2eeb-ccf2-45c9-8742-7a7cc2a530b4","expected_revision":2,"changes":{"status":"DONE"}}}],"controls":[],"extensions":{}}

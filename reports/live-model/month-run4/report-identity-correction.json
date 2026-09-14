@@ -1,0 +1,4136 @@
+{
+  "source_report_sha256": "2526b58155430036d3e06363a5f1e70b17c41bc13fcd86f7236006771d262199",
+  "source_item_events_sha256": "e2b9e8bb3a834feaf3b84c96233e8ae785f13b34ac9be27c00fe94e26d4c4157",
+  "method": "Read immutable Item change_event rows in seq order; for each InputTurn physical updated_at retain only Item events created_at <= that timestamp, replay by entity_id, then compare the resulting title set and fields to independent oracle. Verify increasing non-overlapping completion boundaries and exactly one Item event per checkpoint. Original aliased item_ids map is never read for reconstruction.",
+  "status": "PASS",
+  "failures": [],
+  "results": [
+    {
+      "index": 0,
+      "request_id": "256cf2ae-0e08-4590-9a92-b8087a158fe0",
+      "turn_id": "2b85f120-8aa2-4aa4-967b-ad8614f45a98",
+      "turn_payload_sha256": "94d5f01f839e1d869678ae94c419b41c34f10648b4a10bd5edcd65935e1b30e4",
+      "commit_updated_at": "2026-09-13T23:24:08.018Z",
+      "previous_commit_updated_at": null,
+      "interval_item_events": [
+        {
+          "seq": 1,
+          "id": "87320ae3-b377-4ca8-9e56-3f6d64fb6bb4",
+          "entity_id": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+          "revision": 1,
+          "created_at": "2026-09-13T23:24:08.018Z"
+        }
+      ],
+      "last_included_item_seq": 1,
+      "first_excluded_item_event": {
+        "seq": 2,
+        "created_at": "2026-09-13T23:24:11.023Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d"
+      },
+      "oracle_title_count": 1,
+      "actual_title_count": 1,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 1,
+      "request_id": "e20b5932-0e42-4be4-b516-fccd64a6fbcd",
+      "turn_id": "0e781332-a4ef-4fc3-90fa-206106106e35",
+      "turn_payload_sha256": "adef6aac4957196a28f1673fd1507f69599d05706a1f519c1a66c8d7e5b8aaf7",
+      "commit_updated_at": "2026-09-13T23:24:11.023Z",
+      "previous_commit_updated_at": "2026-09-13T23:24:08.018Z",
+      "interval_item_events": [
+        {
+          "seq": 2,
+          "id": "3b186269-28d8-4402-9c9e-51c118b45219",
+          "entity_id": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+          "revision": 1,
+          "created_at": "2026-09-13T23:24:11.023Z"
+        }
+      ],
+      "last_included_item_seq": 2,
+      "first_excluded_item_event": {
+        "seq": 3,
+        "created_at": "2026-09-13T23:24:14.183Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390"
+      },
+      "oracle_title_count": 2,
+      "actual_title_count": 2,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 2,
+      "request_id": "f512e699-619c-4e2f-ace8-8a02d8b9b5ab",
+      "turn_id": "7b4f57cc-aa1e-4c09-a25d-94416d323800",
+      "turn_payload_sha256": "e9764946690bf7d9cb23ebd9c0aa0004a78d8e6ffe4cebaeff27307e0e714bf5",
+      "commit_updated_at": "2026-09-13T23:24:14.184Z",
+      "previous_commit_updated_at": "2026-09-13T23:24:11.023Z",
+      "interval_item_events": [
+        {
+          "seq": 3,
+          "id": "68eae594-0a6b-47c0-9db5-c9929212ae76",
+          "entity_id": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+          "revision": 1,
+          "created_at": "2026-09-13T23:24:14.183Z"
+        }
+      ],
+      "last_included_item_seq": 3,
+      "first_excluded_item_event": {
+        "seq": 5,
+        "created_at": "2026-09-13T23:24:21.074Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238"
+      },
+      "oracle_title_count": 3,
+      "actual_title_count": 3,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 3,
+      "request_id": "fe18b3b0-35cb-4df1-bc77-1f2df4589cb1",
+      "turn_id": "00f1d148-3796-424a-ab8d-7e20e24f3c28",
+      "turn_payload_sha256": "10fb2918018ee66947a63dabb77284747119391e5542890a11748fec2dc84d8c",
+      "commit_updated_at": "2026-09-13T23:24:21.075Z",
+      "previous_commit_updated_at": "2026-09-13T23:24:14.184Z",
+      "interval_item_events": [
+        {
+          "seq": 5,
+          "id": "dfd4ba31-9110-4ebb-9f34-00ed36ef50d9",
+          "entity_id": "8611bac7-0eb4-431e-b594-088969fba6b6",
+          "revision": 1,
+          "created_at": "2026-09-13T23:24:21.074Z"
+        }
+      ],
+      "last_included_item_seq": 5,
+      "first_excluded_item_event": {
+        "seq": 6,
+        "created_at": "2026-09-13T23:24:24.355Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6"
+      },
+      "oracle_title_count": 4,
+      "actual_title_count": 4,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 4,
+      "request_id": "411505fd-fcfc-4a7d-a5a5-a0561ce67404",
+      "turn_id": "6d13fe38-fd06-4c86-ab8d-73c9d5611b51",
+      "turn_payload_sha256": "d143cd71e80ff706c22a4b6d548ef63b7117538a9dd02f67a17feb1ffb28c108",
+      "commit_updated_at": "2026-09-13T23:24:24.356Z",
+      "previous_commit_updated_at": "2026-09-13T23:24:21.075Z",
+      "interval_item_events": [
+        {
+          "seq": 6,
+          "id": "d5c043b6-131e-4669-b6fe-0efb42490e2d",
+          "entity_id": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+          "revision": 1,
+          "created_at": "2026-09-13T23:24:24.355Z"
+        }
+      ],
+      "last_included_item_seq": 6,
+      "first_excluded_item_event": {
+        "seq": 7,
+        "created_at": "2026-09-13T23:24:27.809Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1"
+      },
+      "oracle_title_count": 5,
+      "actual_title_count": 5,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 5,
+      "request_id": "34d2b2b1-2c28-4631-a78d-0e50a05ae785",
+      "turn_id": "a1964e67-f6ad-4606-b3f4-43cb4dfb89b7",
+      "turn_payload_sha256": "5e1778270772ab02778f087a2b4fcaa45a0103e11d32c62af90f51d84f2863c1",
+      "commit_updated_at": "2026-09-13T23:24:27.810Z",
+      "previous_commit_updated_at": "2026-09-13T23:24:24.356Z",
+      "interval_item_events": [
+        {
+          "seq": 7,
+          "id": "97e92794-64ab-4177-b44e-6923cf87fd81",
+          "entity_id": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+          "revision": 1,
+          "created_at": "2026-09-13T23:24:27.809Z"
+        }
+      ],
+      "last_included_item_seq": 7,
+      "first_excluded_item_event": {
+        "seq": 9,
+        "created_at": "2026-09-13T23:24:37.246Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e"
+      },
+      "oracle_title_count": 6,
+      "actual_title_count": 6,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 6,
+      "request_id": "a43e6d14-dc9d-44fc-8246-93072665e79b",
+      "turn_id": "15120a1f-7c16-43b6-89ec-8b99c4875e70",
+      "turn_payload_sha256": "88a15947ddb7620dd070fbef3fc3c4bac2f2cc4afe4e1ca33c568a7c0ba46dfa",
+      "commit_updated_at": "2026-09-13T23:24:37.246Z",
+      "previous_commit_updated_at": "2026-09-13T23:24:27.810Z",
+      "interval_item_events": [
+        {
+          "seq": 9,
+          "id": "14ef3e3c-2e6b-4ba9-a7ed-b545b41b91c9",
+          "entity_id": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+          "revision": 1,
+          "created_at": "2026-09-13T23:24:37.246Z"
+        }
+      ],
+      "last_included_item_seq": 9,
+      "first_excluded_item_event": {
+        "seq": 10,
+        "created_at": "2026-09-13T23:24:40.581Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5"
+      },
+      "oracle_title_count": 7,
+      "actual_title_count": 7,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 7,
+      "request_id": "ff0b78f4-6ae7-4ef0-a5b7-b903cc183ffc",
+      "turn_id": "05d0dd42-273f-4a92-9fde-e836c4050d71",
+      "turn_payload_sha256": "a881462efac0073b307efed19166d76f5bec7ab0aca80a6411f5e9293c21585f",
+      "commit_updated_at": "2026-09-13T23:24:40.582Z",
+      "previous_commit_updated_at": "2026-09-13T23:24:37.246Z",
+      "interval_item_events": [
+        {
+          "seq": 10,
+          "id": "cd617cda-b72d-4381-9add-6b0ceb9b2c3d",
+          "entity_id": "f6deae88-927e-444a-9522-0bef7f7d6599",
+          "revision": 1,
+          "created_at": "2026-09-13T23:24:40.581Z"
+        }
+      ],
+      "last_included_item_seq": 10,
+      "first_excluded_item_event": {
+        "seq": 11,
+        "created_at": "2026-09-13T23:24:44.058Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599"
+      },
+      "oracle_title_count": 8,
+      "actual_title_count": 8,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 8,
+      "request_id": "9c864c6a-7838-449d-b620-8319b4191378",
+      "turn_id": "fa698db6-c5c9-4eb5-98e2-965bc744a909",
+      "turn_payload_sha256": "730e45159416563c0e9c74ed59ae820860a7ffaa7066d32b5b1cf14df4b1c4db",
+      "commit_updated_at": "2026-09-13T23:24:44.059Z",
+      "previous_commit_updated_at": "2026-09-13T23:24:40.582Z",
+      "interval_item_events": [
+        {
+          "seq": 11,
+          "id": "f7567659-8dd5-40ad-903d-614d1a5fdf57",
+          "entity_id": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+          "revision": 1,
+          "created_at": "2026-09-13T23:24:44.058Z"
+        }
+      ],
+      "last_included_item_seq": 11,
+      "first_excluded_item_event": {
+        "seq": 13,
+        "created_at": "2026-09-13T23:24:53.686Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0"
+      },
+      "oracle_title_count": 9,
+      "actual_title_count": 9,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 9,
+      "request_id": "ad5d98cd-bfe6-4d56-8e00-95fa36ec06ce",
+      "turn_id": "d57bf7de-4d7e-4338-ba63-541a5208a755",
+      "turn_payload_sha256": "85cc674e994552ef380a4c3789d1428492547d831e21272135170fef3b8ece13",
+      "commit_updated_at": "2026-09-13T23:24:53.687Z",
+      "previous_commit_updated_at": "2026-09-13T23:24:44.059Z",
+      "interval_item_events": [
+        {
+          "seq": 13,
+          "id": "237dcfba-13d5-4617-84c4-91e6077c3998",
+          "entity_id": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+          "revision": 1,
+          "created_at": "2026-09-13T23:24:53.686Z"
+        }
+      ],
+      "last_included_item_seq": 13,
+      "first_excluded_item_event": {
+        "seq": 14,
+        "created_at": "2026-09-13T23:24:56.697Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac"
+      },
+      "oracle_title_count": 10,
+      "actual_title_count": 10,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 10,
+      "request_id": "ff3bb7b8-c216-4604-a968-1f7292015d1c",
+      "turn_id": "e100a46e-b850-4207-92e0-b0c199e930c7",
+      "turn_payload_sha256": "77ce11b86cb66a9e38da21d1419401c8ae54a683aa866fbf85ac0f4862908e55",
+      "commit_updated_at": "2026-09-13T23:24:56.697Z",
+      "previous_commit_updated_at": "2026-09-13T23:24:53.687Z",
+      "interval_item_events": [
+        {
+          "seq": 14,
+          "id": "48236cdb-e3ef-4d22-84cd-fec34c660052",
+          "entity_id": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+          "revision": 1,
+          "created_at": "2026-09-13T23:24:56.697Z"
+        }
+      ],
+      "last_included_item_seq": 14,
+      "first_excluded_item_event": {
+        "seq": 15,
+        "created_at": "2026-09-13T23:25:00.312Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d"
+      },
+      "oracle_title_count": 11,
+      "actual_title_count": 11,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 11,
+      "request_id": "161c3ab5-8f4f-45d4-a1a6-366abd2ecf44",
+      "turn_id": "626a087b-9cc2-49d7-af73-fd949d4133fd",
+      "turn_payload_sha256": "496323acc55e9e14c17401c682bd46a3a25222db6f0fa2c81a09ca5af5e958f3",
+      "commit_updated_at": "2026-09-13T23:25:00.313Z",
+      "previous_commit_updated_at": "2026-09-13T23:24:56.697Z",
+      "interval_item_events": [
+        {
+          "seq": 15,
+          "id": "852346ee-e812-444f-93df-996dcb9e030d",
+          "entity_id": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+          "revision": 1,
+          "created_at": "2026-09-13T23:25:00.312Z"
+        }
+      ],
+      "last_included_item_seq": 15,
+      "first_excluded_item_event": {
+        "seq": 17,
+        "created_at": "2026-09-13T23:25:07.841Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a"
+      },
+      "oracle_title_count": 12,
+      "actual_title_count": 12,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 12,
+      "request_id": "240d0678-5936-43ab-b0a1-e1b9e6b8dbb4",
+      "turn_id": "d9321fe9-7d06-497e-b2a4-9b9dad1ff5b6",
+      "turn_payload_sha256": "655b526df8c76793caff35cd07d0b8f6a0be7dcb77607771766fbd75fd56a724",
+      "commit_updated_at": "2026-09-13T23:25:07.842Z",
+      "previous_commit_updated_at": "2026-09-13T23:25:00.313Z",
+      "interval_item_events": [
+        {
+          "seq": 17,
+          "id": "29671e31-d5c7-4b53-a0ab-bf968e28135b",
+          "entity_id": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+          "revision": 1,
+          "created_at": "2026-09-13T23:25:07.841Z"
+        }
+      ],
+      "last_included_item_seq": 17,
+      "first_excluded_item_event": {
+        "seq": 18,
+        "created_at": "2026-09-13T23:25:11.004Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a"
+      },
+      "oracle_title_count": 13,
+      "actual_title_count": 13,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 13,
+      "request_id": "11a7e76a-19b7-4be9-bd3e-ffbb6cb11f73",
+      "turn_id": "70e6da37-dbb5-446e-a899-89e8006a1910",
+      "turn_payload_sha256": "aac5ae34668d488788e6d81308f73bbeef9020ac86709d51b304fedfe0c00c3e",
+      "commit_updated_at": "2026-09-13T23:25:11.005Z",
+      "previous_commit_updated_at": "2026-09-13T23:25:07.842Z",
+      "interval_item_events": [
+        {
+          "seq": 18,
+          "id": "4bc82462-6743-4579-945b-b9f3e7413171",
+          "entity_id": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+          "revision": 1,
+          "created_at": "2026-09-13T23:25:11.004Z"
+        }
+      ],
+      "last_included_item_seq": 18,
+      "first_excluded_item_event": {
+        "seq": 19,
+        "created_at": "2026-09-13T23:25:15.250Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf"
+      },
+      "oracle_title_count": 14,
+      "actual_title_count": 14,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 14,
+      "request_id": "1c6f54aa-4bb9-4f72-9887-f94a3d4d1468",
+      "turn_id": "02a8426c-1ae6-44b9-987e-7002b08bee6d",
+      "turn_payload_sha256": "1da1073a21eec0540686e72855a221cdf7852b8fbfca162cae91d2d95932173d",
+      "commit_updated_at": "2026-09-13T23:25:15.251Z",
+      "previous_commit_updated_at": "2026-09-13T23:25:11.005Z",
+      "interval_item_events": [
+        {
+          "seq": 19,
+          "id": "90ba2aa0-5158-48dc-9a1c-cc135dafb96a",
+          "entity_id": "16b72551-a942-4016-8bf5-de35286922ce",
+          "revision": 1,
+          "created_at": "2026-09-13T23:25:15.250Z"
+        }
+      ],
+      "last_included_item_seq": 19,
+      "first_excluded_item_event": {
+        "seq": 21,
+        "created_at": "2026-09-13T23:25:23.570Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce"
+      },
+      "oracle_title_count": 15,
+      "actual_title_count": 15,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 15,
+      "request_id": "a2548ea6-c1a7-47a6-9c6b-1b470e248bac",
+      "turn_id": "929df15e-55b2-47f0-9f4b-a2b9ee1e2533",
+      "turn_payload_sha256": "e21bf303a83b909f0c9ab25345e926c3207b7b05622fcfa002190b302616a160",
+      "commit_updated_at": "2026-09-13T23:25:23.571Z",
+      "previous_commit_updated_at": "2026-09-13T23:25:15.251Z",
+      "interval_item_events": [
+        {
+          "seq": 21,
+          "id": "547aab1e-7217-48ad-b6ca-dfc3312c6a3b",
+          "entity_id": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+          "revision": 1,
+          "created_at": "2026-09-13T23:25:23.570Z"
+        }
+      ],
+      "last_included_item_seq": 21,
+      "first_excluded_item_event": {
+        "seq": 22,
+        "created_at": "2026-09-13T23:25:28.173Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e"
+      },
+      "oracle_title_count": 16,
+      "actual_title_count": 16,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 16,
+      "request_id": "2d1bc1be-8979-4d16-8801-9385945e3b70",
+      "turn_id": "1096e129-0253-4699-9da5-6111eac872b5",
+      "turn_payload_sha256": "4d3bcb1427cce18274825eeb0a69884e87adb1339ca0a90a175329582d6fba34",
+      "commit_updated_at": "2026-09-13T23:25:28.174Z",
+      "previous_commit_updated_at": "2026-09-13T23:25:23.571Z",
+      "interval_item_events": [
+        {
+          "seq": 22,
+          "id": "9c8a3c49-a2be-49d3-aa82-4620da7176c9",
+          "entity_id": "26610116-e84a-46ca-a0dc-92160a085068",
+          "revision": 1,
+          "created_at": "2026-09-13T23:25:28.173Z"
+        }
+      ],
+      "last_included_item_seq": 22,
+      "first_excluded_item_event": {
+        "seq": 23,
+        "created_at": "2026-09-13T23:25:31.642Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068"
+      },
+      "oracle_title_count": 17,
+      "actual_title_count": 17,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 17,
+      "request_id": "e6b6586d-dad8-41bd-be55-1b91f5e79302",
+      "turn_id": "d553f885-d57a-4bff-8498-267ac4402e3d",
+      "turn_payload_sha256": "f87ba6e9b3cc2de5e4de7e61e53632a7304bf5c9de8a86fd5d2dd57f2fd0b804",
+      "commit_updated_at": "2026-09-13T23:25:31.643Z",
+      "previous_commit_updated_at": "2026-09-13T23:25:28.174Z",
+      "interval_item_events": [
+        {
+          "seq": 23,
+          "id": "e343921d-c309-4565-a6f3-ba27db53a347",
+          "entity_id": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+          "revision": 1,
+          "created_at": "2026-09-13T23:25:31.642Z"
+        }
+      ],
+      "last_included_item_seq": 23,
+      "first_excluded_item_event": {
+        "seq": 25,
+        "created_at": "2026-09-13T23:25:39.827Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f"
+      },
+      "oracle_title_count": 18,
+      "actual_title_count": 18,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 18,
+      "request_id": "be516f2e-90eb-42a4-b18d-f234a498cf78",
+      "turn_id": "542d041a-1aa9-45a1-89dd-bce35417c0f9",
+      "turn_payload_sha256": "8bb0598a339352410872f2cea7f06b39e7cb64e68951bf2e66156b63d1199e47",
+      "commit_updated_at": "2026-09-13T23:25:39.828Z",
+      "previous_commit_updated_at": "2026-09-13T23:25:31.643Z",
+      "interval_item_events": [
+        {
+          "seq": 25,
+          "id": "c5850058-02a4-4f04-86e7-51ba29d5d137",
+          "entity_id": "2f63eada-64ba-4080-93e4-995296bc30b3",
+          "revision": 1,
+          "created_at": "2026-09-13T23:25:39.827Z"
+        }
+      ],
+      "last_included_item_seq": 25,
+      "first_excluded_item_event": {
+        "seq": 26,
+        "created_at": "2026-09-13T23:25:43.822Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3"
+      },
+      "oracle_title_count": 19,
+      "actual_title_count": 19,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 19,
+      "request_id": "4d5a4c39-2b8b-4c65-9f54-3ae730ddcc8a",
+      "turn_id": "299ee543-b569-4253-ab28-1e235c94ead5",
+      "turn_payload_sha256": "3de79938555f87279200d35abf6ff1e31f451ea494950ca09cf3821099f47c9e",
+      "commit_updated_at": "2026-09-13T23:25:43.823Z",
+      "previous_commit_updated_at": "2026-09-13T23:25:39.828Z",
+      "interval_item_events": [
+        {
+          "seq": 26,
+          "id": "7c5db904-a50e-4e03-974c-8c9eddeec983",
+          "entity_id": "ee3e1705-804f-42c2-8938-b8f0026dd266",
+          "revision": 1,
+          "created_at": "2026-09-13T23:25:43.822Z"
+        }
+      ],
+      "last_included_item_seq": 26,
+      "first_excluded_item_event": {
+        "seq": 27,
+        "created_at": "2026-09-13T23:25:49.401Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 20,
+      "request_id": "60721377-1029-4b27-baa4-31989daebc9b",
+      "turn_id": "da740104-5c69-4774-9900-a5ced2afde6d",
+      "turn_payload_sha256": "dcec7423c84b4b72708af15e2e02392ac4c657c173e8a45a96cfa0d9bb991218",
+      "commit_updated_at": "2026-09-13T23:25:49.403Z",
+      "previous_commit_updated_at": "2026-09-13T23:25:43.823Z",
+      "interval_item_events": [
+        {
+          "seq": 27,
+          "id": "9f9d4528-51c3-4298-bccf-9ebf13df3a7a",
+          "entity_id": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+          "revision": 2,
+          "created_at": "2026-09-13T23:25:49.401Z"
+        }
+      ],
+      "last_included_item_seq": 27,
+      "first_excluded_item_event": {
+        "seq": 29,
+        "created_at": "2026-09-13T23:25:58.505Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 21,
+      "request_id": "291cc086-e985-46fa-8ec6-c468722f7615",
+      "turn_id": "bad91534-2cfa-4047-8cba-fe9c061364a6",
+      "turn_payload_sha256": "e3ebbe7d5adf2a843a8200c21d271474b577b8305bd90612b3526d10a1b0cb9e",
+      "commit_updated_at": "2026-09-13T23:25:58.506Z",
+      "previous_commit_updated_at": "2026-09-13T23:25:49.403Z",
+      "interval_item_events": [
+        {
+          "seq": 29,
+          "id": "41c7695a-07b2-421a-b931-71c25471fdfa",
+          "entity_id": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+          "revision": 2,
+          "created_at": "2026-09-13T23:25:58.505Z"
+        }
+      ],
+      "last_included_item_seq": 29,
+      "first_excluded_item_event": {
+        "seq": 30,
+        "created_at": "2026-09-13T23:26:01.410Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 22,
+      "request_id": "c97a2cb4-1716-4114-b5d6-39ac12c1801d",
+      "turn_id": "13dd93c8-55b8-4794-afa2-2fc912795f14",
+      "turn_payload_sha256": "42f27b6cf9a881821b61aa4b5aba85c2163b81bd344fbec90fca4fa0480b8531",
+      "commit_updated_at": "2026-09-13T23:26:01.415Z",
+      "previous_commit_updated_at": "2026-09-13T23:25:58.506Z",
+      "interval_item_events": [
+        {
+          "seq": 30,
+          "id": "79637123-a76d-4557-a816-24252ad67dc5",
+          "entity_id": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+          "revision": 2,
+          "created_at": "2026-09-13T23:26:01.410Z"
+        }
+      ],
+      "last_included_item_seq": 30,
+      "first_excluded_item_event": {
+        "seq": 31,
+        "created_at": "2026-09-13T23:26:04.483Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 23,
+      "request_id": "985bde9c-f664-4d1d-bd7b-14afda3a33bd",
+      "turn_id": "07018ef1-6ea0-42e6-9188-67d049e058e1",
+      "turn_payload_sha256": "caba11359536e55ec1c863404a51abc3a421e9f344f262501ceb66418d016325",
+      "commit_updated_at": "2026-09-13T23:26:04.484Z",
+      "previous_commit_updated_at": "2026-09-13T23:26:01.415Z",
+      "interval_item_events": [
+        {
+          "seq": 31,
+          "id": "50aa229a-834e-4139-8129-2a1e7612634f",
+          "entity_id": "8611bac7-0eb4-431e-b594-088969fba6b6",
+          "revision": 2,
+          "created_at": "2026-09-13T23:26:04.483Z"
+        }
+      ],
+      "last_included_item_seq": 31,
+      "first_excluded_item_event": {
+        "seq": 33,
+        "created_at": "2026-09-13T23:26:12.737Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 24,
+      "request_id": "aadc77e0-796c-4a71-af10-98ebf18ebdd7",
+      "turn_id": "70594fa8-9327-4614-9951-4702f7823443",
+      "turn_payload_sha256": "4d8044d25ae12073a00f00dd10b55e89643bfca89afb025e8a836439bb2aafb8",
+      "commit_updated_at": "2026-09-13T23:26:12.739Z",
+      "previous_commit_updated_at": "2026-09-13T23:26:04.484Z",
+      "interval_item_events": [
+        {
+          "seq": 33,
+          "id": "50926173-cede-4fc0-ab7e-718cb62c11d5",
+          "entity_id": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+          "revision": 2,
+          "created_at": "2026-09-13T23:26:12.737Z"
+        }
+      ],
+      "last_included_item_seq": 33,
+      "first_excluded_item_event": {
+        "seq": 34,
+        "created_at": "2026-09-13T23:26:16.859Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 25,
+      "request_id": "79ed68bf-0a69-49e6-8673-a0e7fa5dca16",
+      "turn_id": "d4a41efe-50c2-4e84-b931-7848df8083b0",
+      "turn_payload_sha256": "044715d5054b4a97281632613a35fd5d0550818dcbf91337b1cbd0cbde150b0c",
+      "commit_updated_at": "2026-09-13T23:26:16.861Z",
+      "previous_commit_updated_at": "2026-09-13T23:26:12.739Z",
+      "interval_item_events": [
+        {
+          "seq": 34,
+          "id": "a878942c-5c1d-4679-80d4-0b5411945ae9",
+          "entity_id": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+          "revision": 2,
+          "created_at": "2026-09-13T23:26:16.859Z"
+        }
+      ],
+      "last_included_item_seq": 34,
+      "first_excluded_item_event": {
+        "seq": 35,
+        "created_at": "2026-09-13T23:26:20.342Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 26,
+      "request_id": "fff19dc8-d236-4605-a162-111366db1237",
+      "turn_id": "2346a438-3812-4636-a4ca-639e5ca5e3b2",
+      "turn_payload_sha256": "2fb09469fc1e42a5b38458cd1465a2745ff6a4db6fba662de157250664f88df8",
+      "commit_updated_at": "2026-09-13T23:26:20.343Z",
+      "previous_commit_updated_at": "2026-09-13T23:26:16.861Z",
+      "interval_item_events": [
+        {
+          "seq": 35,
+          "id": "aab6f9e4-ada0-44a0-94f9-26d8703a20ab",
+          "entity_id": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+          "revision": 2,
+          "created_at": "2026-09-13T23:26:20.342Z"
+        }
+      ],
+      "last_included_item_seq": 35,
+      "first_excluded_item_event": {
+        "seq": 37,
+        "created_at": "2026-09-13T23:26:28.389Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 27,
+      "request_id": "4ac8edd5-a9a3-487e-8eec-c3ee5892c839",
+      "turn_id": "2e7167c6-1301-4e39-a854-d04b943aa7ca",
+      "turn_payload_sha256": "0ee0bbe834a21a64298b5d23f68676877fa962114dc12762bfaa68718d41eb1e",
+      "commit_updated_at": "2026-09-13T23:26:28.391Z",
+      "previous_commit_updated_at": "2026-09-13T23:26:20.343Z",
+      "interval_item_events": [
+        {
+          "seq": 37,
+          "id": "1bb4d974-68a7-4c55-ba4e-a5714940e591",
+          "entity_id": "f6deae88-927e-444a-9522-0bef7f7d6599",
+          "revision": 2,
+          "created_at": "2026-09-13T23:26:28.389Z"
+        }
+      ],
+      "last_included_item_seq": 37,
+      "first_excluded_item_event": {
+        "seq": 38,
+        "created_at": "2026-09-13T23:26:31.663Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 28,
+      "request_id": "53467000-8438-432d-879f-ddf080afbe41",
+      "turn_id": "3bda28f0-1555-42fa-b08e-a2ebb515cad7",
+      "turn_payload_sha256": "2b29e961a0035bdf0f591741ec0f773dd59f1319b40732bdcc5fdd89629c5fc3",
+      "commit_updated_at": "2026-09-13T23:26:31.663Z",
+      "previous_commit_updated_at": "2026-09-13T23:26:28.391Z",
+      "interval_item_events": [
+        {
+          "seq": 38,
+          "id": "d8c595a0-ecf9-44c8-8294-71198dd57fb7",
+          "entity_id": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+          "revision": 2,
+          "created_at": "2026-09-13T23:26:31.663Z"
+        }
+      ],
+      "last_included_item_seq": 38,
+      "first_excluded_item_event": {
+        "seq": 39,
+        "created_at": "2026-09-13T23:26:35.030Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 29,
+      "request_id": "af63f4c2-62c5-419a-9b87-d7c75a572b23",
+      "turn_id": "efb49d3b-33ce-4ac7-9eaf-50e1ea3f5cf2",
+      "turn_payload_sha256": "15a524c9b80404ee000ed06636cb9c1b671e97f2a5d6e8c95e982c8fad8f981d",
+      "commit_updated_at": "2026-09-13T23:26:35.032Z",
+      "previous_commit_updated_at": "2026-09-13T23:26:31.663Z",
+      "interval_item_events": [
+        {
+          "seq": 39,
+          "id": "afde4bd2-6906-43af-a191-e7a6f871062d",
+          "entity_id": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+          "revision": 2,
+          "created_at": "2026-09-13T23:26:35.030Z"
+        }
+      ],
+      "last_included_item_seq": 39,
+      "first_excluded_item_event": {
+        "seq": 41,
+        "created_at": "2026-09-13T23:26:42.439Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 30,
+      "request_id": "11272aea-d636-42f6-bd79-6e1990f54f5d",
+      "turn_id": "14eede07-1fd5-433c-a295-423d3e0f35c8",
+      "turn_payload_sha256": "9c9451dc8588872276a200032502c403dbb3620572419f00436b6ec210d91462",
+      "commit_updated_at": "2026-09-13T23:26:42.440Z",
+      "previous_commit_updated_at": "2026-09-13T23:26:35.032Z",
+      "interval_item_events": [
+        {
+          "seq": 41,
+          "id": "2cb03d57-d24c-4c20-b3c7-329aa8f97f73",
+          "entity_id": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+          "revision": 2,
+          "created_at": "2026-09-13T23:26:42.439Z"
+        }
+      ],
+      "last_included_item_seq": 41,
+      "first_excluded_item_event": {
+        "seq": 42,
+        "created_at": "2026-09-13T23:26:45.691Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 31,
+      "request_id": "53a880b1-3e06-4c34-90bd-69590abb21e3",
+      "turn_id": "51e74038-532c-40c5-a7f8-9a9b8347c593",
+      "turn_payload_sha256": "1522e075a28892f6c42e168b41550141d93165c4db345e9eee8f257f57c9fcff",
+      "commit_updated_at": "2026-09-13T23:26:45.693Z",
+      "previous_commit_updated_at": "2026-09-13T23:26:42.440Z",
+      "interval_item_events": [
+        {
+          "seq": 42,
+          "id": "4cf76378-846e-4fdd-9c72-6c49c70d6ee3",
+          "entity_id": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+          "revision": 2,
+          "created_at": "2026-09-13T23:26:45.691Z"
+        }
+      ],
+      "last_included_item_seq": 42,
+      "first_excluded_item_event": {
+        "seq": 43,
+        "created_at": "2026-09-13T23:26:48.971Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 32,
+      "request_id": "763832c1-19aa-447c-9025-e7d8be1f97b9",
+      "turn_id": "31ba63df-8172-4c64-8fdb-6fea9d90cc39",
+      "turn_payload_sha256": "190df4645a1cc5a8f4d0b775f9addc472c41013c2e2d54a70c4414bcbdff10a3",
+      "commit_updated_at": "2026-09-13T23:26:48.972Z",
+      "previous_commit_updated_at": "2026-09-13T23:26:45.693Z",
+      "interval_item_events": [
+        {
+          "seq": 43,
+          "id": "812b44ad-b07b-46c2-bf46-bc278f2f63e6",
+          "entity_id": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+          "revision": 2,
+          "created_at": "2026-09-13T23:26:48.971Z"
+        }
+      ],
+      "last_included_item_seq": 43,
+      "first_excluded_item_event": {
+        "seq": 45,
+        "created_at": "2026-09-13T23:26:56.523Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 33,
+      "request_id": "af9337db-361c-4af6-b45a-c9ec29688a35",
+      "turn_id": "9d7aa5b0-2353-44ea-9e5d-c634a1c71e2b",
+      "turn_payload_sha256": "42772d1352bcb885c16dcf835485792cd35026ceb384e757e91544190af8c990",
+      "commit_updated_at": "2026-09-13T23:26:56.525Z",
+      "previous_commit_updated_at": "2026-09-13T23:26:48.972Z",
+      "interval_item_events": [
+        {
+          "seq": 45,
+          "id": "1fba9133-95ec-4ffa-b4b1-03ff4cba66dd",
+          "entity_id": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+          "revision": 2,
+          "created_at": "2026-09-13T23:26:56.523Z"
+        }
+      ],
+      "last_included_item_seq": 45,
+      "first_excluded_item_event": {
+        "seq": 46,
+        "created_at": "2026-09-13T23:26:59.733Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 34,
+      "request_id": "6d21853a-a658-47fd-99c3-ed3a5f955a7d",
+      "turn_id": "3ff751a3-ad4e-446e-a9b2-05e33c818eeb",
+      "turn_payload_sha256": "bef6c329aa2413d68cab34e376fa8776d91c1888d4cb186055dc7b3a8b4ef8d5",
+      "commit_updated_at": "2026-09-13T23:26:59.734Z",
+      "previous_commit_updated_at": "2026-09-13T23:26:56.525Z",
+      "interval_item_events": [
+        {
+          "seq": 46,
+          "id": "3bc27e5a-e8b9-464a-be1f-8e0f9bfad32d",
+          "entity_id": "16b72551-a942-4016-8bf5-de35286922ce",
+          "revision": 2,
+          "created_at": "2026-09-13T23:26:59.733Z"
+        }
+      ],
+      "last_included_item_seq": 46,
+      "first_excluded_item_event": {
+        "seq": 47,
+        "created_at": "2026-09-13T23:27:03.019Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 35,
+      "request_id": "5d483fa0-65bf-4bdf-8ee5-0422a4feb8bb",
+      "turn_id": "51f76f34-2e9c-49df-9f0e-39dd914674d3",
+      "turn_payload_sha256": "ea7bf1f0a219f326169d1b1b170662d886fe3542219305a143b5aec3e114385b",
+      "commit_updated_at": "2026-09-13T23:27:03.020Z",
+      "previous_commit_updated_at": "2026-09-13T23:26:59.734Z",
+      "interval_item_events": [
+        {
+          "seq": 47,
+          "id": "8f727f1d-c210-40de-b652-12e58934a5f8",
+          "entity_id": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+          "revision": 2,
+          "created_at": "2026-09-13T23:27:03.019Z"
+        }
+      ],
+      "last_included_item_seq": 47,
+      "first_excluded_item_event": {
+        "seq": 49,
+        "created_at": "2026-09-13T23:27:10.434Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 36,
+      "request_id": "2e8273f4-62c4-418a-81c1-2343a4ec6b0b",
+      "turn_id": "cb800531-e332-4953-be2f-ccf46d04d632",
+      "turn_payload_sha256": "08af7a7bb4f3f3da5c138dea9c0ef3b6b2f4edbb2099e67dd3c7cd1ef5fb1a6b",
+      "commit_updated_at": "2026-09-13T23:27:10.436Z",
+      "previous_commit_updated_at": "2026-09-13T23:27:03.020Z",
+      "interval_item_events": [
+        {
+          "seq": 49,
+          "id": "8f35507d-53ae-455a-b635-5b759bb0a3cd",
+          "entity_id": "26610116-e84a-46ca-a0dc-92160a085068",
+          "revision": 2,
+          "created_at": "2026-09-13T23:27:10.434Z"
+        }
+      ],
+      "last_included_item_seq": 49,
+      "first_excluded_item_event": {
+        "seq": 50,
+        "created_at": "2026-09-13T23:27:13.499Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 37,
+      "request_id": "e401eca1-80b5-4c35-98b0-ba42961d014a",
+      "turn_id": "d75aef9a-994b-4ef7-b865-15ecff3990a7",
+      "turn_payload_sha256": "2c0d28b2aac06bc0d30721b3b1f9779d61d9bb68428d3539360a4b0e5b8ed11b",
+      "commit_updated_at": "2026-09-13T23:27:13.501Z",
+      "previous_commit_updated_at": "2026-09-13T23:27:10.436Z",
+      "interval_item_events": [
+        {
+          "seq": 50,
+          "id": "dde3a861-9ecb-4c82-b6df-c4bd4b65ca66",
+          "entity_id": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+          "revision": 2,
+          "created_at": "2026-09-13T23:27:13.499Z"
+        }
+      ],
+      "last_included_item_seq": 50,
+      "first_excluded_item_event": {
+        "seq": 51,
+        "created_at": "2026-09-13T23:27:20.554Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 38,
+      "request_id": "bd344bab-ea43-4c69-a4be-b996eb09c8e7",
+      "turn_id": "25d08c37-4e9b-4986-8e02-dbd679adea70",
+      "turn_payload_sha256": "0d19228f335e405ebc4514046d5af5148a2eae067b8583688e0b5909d099308c",
+      "commit_updated_at": "2026-09-13T23:27:20.556Z",
+      "previous_commit_updated_at": "2026-09-13T23:27:13.501Z",
+      "interval_item_events": [
+        {
+          "seq": 51,
+          "id": "2f712935-2805-419a-b034-1f02d3e65e81",
+          "entity_id": "2f63eada-64ba-4080-93e4-995296bc30b3",
+          "revision": 2,
+          "created_at": "2026-09-13T23:27:20.554Z"
+        }
+      ],
+      "last_included_item_seq": 51,
+      "first_excluded_item_event": {
+        "seq": 53,
+        "created_at": "2026-09-13T23:27:27.825Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 39,
+      "request_id": "61160e8b-9fe0-4f92-9ffb-5c5312a9f878",
+      "turn_id": "7154d4ba-cf0c-4ba5-b351-2e433b322b33",
+      "turn_payload_sha256": "a63b02c2e89740f2674b0112d7007e94a7a6b226f4b3f2dac0702f9d13af800e",
+      "commit_updated_at": "2026-09-13T23:27:27.826Z",
+      "previous_commit_updated_at": "2026-09-13T23:27:20.556Z",
+      "interval_item_events": [
+        {
+          "seq": 53,
+          "id": "8388992f-26e5-4be6-b13a-711e98dcdcbb",
+          "entity_id": "ee3e1705-804f-42c2-8938-b8f0026dd266",
+          "revision": 2,
+          "created_at": "2026-09-13T23:27:27.825Z"
+        }
+      ],
+      "last_included_item_seq": 53,
+      "first_excluded_item_event": {
+        "seq": 54,
+        "created_at": "2026-09-13T23:27:30.792Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 40,
+      "request_id": "2c2904d3-4e30-42d1-9750-0e9a65b60139",
+      "turn_id": "9ec9ef05-b436-408b-a2fc-5a1b33ea29d4",
+      "turn_payload_sha256": "bbfdc7a89fca678432dd6488063608558de40a59a8deacf6d517547d362debc5",
+      "commit_updated_at": "2026-09-13T23:27:30.793Z",
+      "previous_commit_updated_at": "2026-09-13T23:27:27.826Z",
+      "interval_item_events": [
+        {
+          "seq": 54,
+          "id": "7893d01d-617e-4a66-ae8d-da8fdf030e88",
+          "entity_id": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+          "revision": 3,
+          "created_at": "2026-09-13T23:27:30.792Z"
+        }
+      ],
+      "last_included_item_seq": 54,
+      "first_excluded_item_event": {
+        "seq": 55,
+        "created_at": "2026-09-13T23:27:36.545Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 41,
+      "request_id": "551101d9-99b9-4c83-9d73-d81807ca6971",
+      "turn_id": "a942e27e-8259-4aae-94fa-0a7f8942dc90",
+      "turn_payload_sha256": "680fe40b532824e98c9755d4a412ebc422d33a8ca252842afbe7b824e694636d",
+      "commit_updated_at": "2026-09-13T23:27:36.546Z",
+      "previous_commit_updated_at": "2026-09-13T23:27:30.793Z",
+      "interval_item_events": [
+        {
+          "seq": 55,
+          "id": "d01d5a99-b798-4ec2-a8f2-30f6887abb00",
+          "entity_id": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+          "revision": 3,
+          "created_at": "2026-09-13T23:27:36.545Z"
+        }
+      ],
+      "last_included_item_seq": 55,
+      "first_excluded_item_event": {
+        "seq": 57,
+        "created_at": "2026-09-13T23:27:44.810Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 42,
+      "request_id": "a963834a-86de-45e9-a33d-26d662e8a7a3",
+      "turn_id": "c1aef8cb-fce5-4340-99e5-1d8b68deaa4c",
+      "turn_payload_sha256": "0f5c0483c93cc65458318f2eddba8bb2a97f69d93baa635c3abace6238ad2dff",
+      "commit_updated_at": "2026-09-13T23:27:44.810Z",
+      "previous_commit_updated_at": "2026-09-13T23:27:36.546Z",
+      "interval_item_events": [
+        {
+          "seq": 57,
+          "id": "10701c9d-87f1-48c5-907d-8d79d481094b",
+          "entity_id": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+          "revision": 3,
+          "created_at": "2026-09-13T23:27:44.810Z"
+        }
+      ],
+      "last_included_item_seq": 57,
+      "first_excluded_item_event": {
+        "seq": 58,
+        "created_at": "2026-09-13T23:27:47.743Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 43,
+      "request_id": "21f99361-66ec-473c-937d-1fe6e9bee5d3",
+      "turn_id": "a335e646-da84-4d30-9c1d-b0f8c2b05f61",
+      "turn_payload_sha256": "f107cdce3c3f3781f636e9a792549a2e8862e73088da5bae4b4898cd036a7104",
+      "commit_updated_at": "2026-09-13T23:27:47.744Z",
+      "previous_commit_updated_at": "2026-09-13T23:27:44.810Z",
+      "interval_item_events": [
+        {
+          "seq": 58,
+          "id": "6ad3ec0b-4475-45a7-821a-445872726829",
+          "entity_id": "8611bac7-0eb4-431e-b594-088969fba6b6",
+          "revision": 3,
+          "created_at": "2026-09-13T23:27:47.743Z"
+        }
+      ],
+      "last_included_item_seq": 58,
+      "first_excluded_item_event": {
+        "seq": 59,
+        "created_at": "2026-09-13T23:27:51.416Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 44,
+      "request_id": "ca1c71bb-5d11-4ef2-9e79-7f0857953fe4",
+      "turn_id": "7f3c9dc3-3438-42b0-b83c-6e65c3fb98cb",
+      "turn_payload_sha256": "03ff371f63429d3642302bfeac0b99e18e0beac3e944101965a6fb270b200976",
+      "commit_updated_at": "2026-09-13T23:27:51.418Z",
+      "previous_commit_updated_at": "2026-09-13T23:27:47.744Z",
+      "interval_item_events": [
+        {
+          "seq": 59,
+          "id": "7fcce640-5196-4d95-b7e9-e8d961052f57",
+          "entity_id": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+          "revision": 3,
+          "created_at": "2026-09-13T23:27:51.416Z"
+        }
+      ],
+      "last_included_item_seq": 59,
+      "first_excluded_item_event": {
+        "seq": 61,
+        "created_at": "2026-09-13T23:27:59.468Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 45,
+      "request_id": "74555474-0bf8-4a38-b99a-878a71cba97d",
+      "turn_id": "abd6fe9e-fe00-413d-9a76-761f8afdf9ca",
+      "turn_payload_sha256": "40225fdc64fefbbcc674fb0d0924009750f70cd3c66ba797b0783398bddf895f",
+      "commit_updated_at": "2026-09-13T23:27:59.470Z",
+      "previous_commit_updated_at": "2026-09-13T23:27:51.418Z",
+      "interval_item_events": [
+        {
+          "seq": 61,
+          "id": "55867c76-5ce4-43f3-b0fe-8146b84ed0aa",
+          "entity_id": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+          "revision": 3,
+          "created_at": "2026-09-13T23:27:59.468Z"
+        }
+      ],
+      "last_included_item_seq": 61,
+      "first_excluded_item_event": {
+        "seq": 62,
+        "created_at": "2026-09-13T23:28:02.521Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 46,
+      "request_id": "10ca71e0-69c9-4235-beb3-7361b6a5eb27",
+      "turn_id": "b72a8ad0-0c70-43bb-a87d-ea9a1967675d",
+      "turn_payload_sha256": "e2b0463bd1570fc5bee766f18873f4a37dbeb73ddd82c03499cff85ae0c88de7",
+      "commit_updated_at": "2026-09-13T23:28:02.523Z",
+      "previous_commit_updated_at": "2026-09-13T23:27:59.470Z",
+      "interval_item_events": [
+        {
+          "seq": 62,
+          "id": "472b4b91-dbe5-48a7-b5d0-9cef04300a42",
+          "entity_id": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+          "revision": 3,
+          "created_at": "2026-09-13T23:28:02.521Z"
+        }
+      ],
+      "last_included_item_seq": 62,
+      "first_excluded_item_event": {
+        "seq": 63,
+        "created_at": "2026-09-13T23:28:05.597Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 47,
+      "request_id": "b8c6b047-7a2b-456c-9daf-0032fef211d5",
+      "turn_id": "6d30b8f1-a0e5-4657-9aac-57f099841014",
+      "turn_payload_sha256": "33e455be6349cb642803a70d02ec54d63fbc0a028a57c3238e0d6e3f10c140af",
+      "commit_updated_at": "2026-09-13T23:28:05.598Z",
+      "previous_commit_updated_at": "2026-09-13T23:28:02.523Z",
+      "interval_item_events": [
+        {
+          "seq": 63,
+          "id": "e9a80cbd-f30c-41d1-8eaf-fdb4f44de7bb",
+          "entity_id": "f6deae88-927e-444a-9522-0bef7f7d6599",
+          "revision": 3,
+          "created_at": "2026-09-13T23:28:05.597Z"
+        }
+      ],
+      "last_included_item_seq": 63,
+      "first_excluded_item_event": {
+        "seq": 65,
+        "created_at": "2026-09-13T23:28:13.016Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 48,
+      "request_id": "28ab4699-6552-40f9-b477-2f45ab8a14b8",
+      "turn_id": "2b94c1c3-b571-421a-ac39-7df7f18f5e8a",
+      "turn_payload_sha256": "e64a0e08ccc4f044cbc24c2b90db5bf3833c742db3dc8a63f3e1d00eb4fc1ca9",
+      "commit_updated_at": "2026-09-13T23:28:13.017Z",
+      "previous_commit_updated_at": "2026-09-13T23:28:05.598Z",
+      "interval_item_events": [
+        {
+          "seq": 65,
+          "id": "fffbb304-5cd1-40cf-b0dc-18370b6f4519",
+          "entity_id": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+          "revision": 3,
+          "created_at": "2026-09-13T23:28:13.016Z"
+        }
+      ],
+      "last_included_item_seq": 65,
+      "first_excluded_item_event": {
+        "seq": 66,
+        "created_at": "2026-09-13T23:28:15.870Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 49,
+      "request_id": "bf1f6bcd-d1d3-4854-9520-482aae65997b",
+      "turn_id": "2a371d83-1848-4998-87ba-540382a42198",
+      "turn_payload_sha256": "e3dc7d4b3bd5b0a1119ec5c16b775d69aa31f71383ba046674394e79b69f8603",
+      "commit_updated_at": "2026-09-13T23:28:15.871Z",
+      "previous_commit_updated_at": "2026-09-13T23:28:13.017Z",
+      "interval_item_events": [
+        {
+          "seq": 66,
+          "id": "a7f6682b-ba18-42aa-b31d-7c2600ba2c5f",
+          "entity_id": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+          "revision": 3,
+          "created_at": "2026-09-13T23:28:15.870Z"
+        }
+      ],
+      "last_included_item_seq": 66,
+      "first_excluded_item_event": {
+        "seq": 67,
+        "created_at": "2026-09-13T23:28:18.543Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 50,
+      "request_id": "9d117c76-50a7-47be-a9da-787405156174",
+      "turn_id": "38948764-aa99-461e-8d37-25b428b172b2",
+      "turn_payload_sha256": "231534a783edb6072f7cb3d433776b69c5935441d3abeb755683283741d939a7",
+      "commit_updated_at": "2026-09-13T23:28:18.544Z",
+      "previous_commit_updated_at": "2026-09-13T23:28:15.871Z",
+      "interval_item_events": [
+        {
+          "seq": 67,
+          "id": "7b5c559f-44a8-44a4-b5ad-eb05dc2f00aa",
+          "entity_id": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+          "revision": 3,
+          "created_at": "2026-09-13T23:28:18.543Z"
+        }
+      ],
+      "last_included_item_seq": 67,
+      "first_excluded_item_event": {
+        "seq": 69,
+        "created_at": "2026-09-13T23:28:26.066Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 51,
+      "request_id": "ad8a64b1-9775-4bc4-818e-0b1b7bb17976",
+      "turn_id": "05645dc8-1dfe-4b19-b063-e8f739dabf06",
+      "turn_payload_sha256": "4c25a550d046f00452efe64496ea55337ddd19bf081fa04ce062aa4e13305a86",
+      "commit_updated_at": "2026-09-13T23:28:26.067Z",
+      "previous_commit_updated_at": "2026-09-13T23:28:18.544Z",
+      "interval_item_events": [
+        {
+          "seq": 69,
+          "id": "cf79ad9b-c7be-4139-8080-2d748c0c7408",
+          "entity_id": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+          "revision": 3,
+          "created_at": "2026-09-13T23:28:26.066Z"
+        }
+      ],
+      "last_included_item_seq": 69,
+      "first_excluded_item_event": {
+        "seq": 70,
+        "created_at": "2026-09-13T23:28:29.166Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 52,
+      "request_id": "ccbf5ba4-fa54-422d-90ef-89ad75253b4d",
+      "turn_id": "ac53c76e-1b31-440a-8247-cd8fc386bde5",
+      "turn_payload_sha256": "5bc041f16b3c3c96cae7b667335ea13d1218a60799cb89b423387b1624facc90",
+      "commit_updated_at": "2026-09-13T23:28:29.167Z",
+      "previous_commit_updated_at": "2026-09-13T23:28:26.067Z",
+      "interval_item_events": [
+        {
+          "seq": 70,
+          "id": "ee137f87-956d-408d-a7fa-8e37b847d43b",
+          "entity_id": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+          "revision": 3,
+          "created_at": "2026-09-13T23:28:29.166Z"
+        }
+      ],
+      "last_included_item_seq": 70,
+      "first_excluded_item_event": {
+        "seq": 71,
+        "created_at": "2026-09-13T23:28:32.195Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 53,
+      "request_id": "fc72b95b-2ce5-44ab-a47f-1ce74de7c8dd",
+      "turn_id": "871bd879-cf9e-4b8c-9297-5a329fccc9f4",
+      "turn_payload_sha256": "e9bc60fd8293cf569aecb0286b710f3bacc71d00bf56d995f0e625a4fe704b8d",
+      "commit_updated_at": "2026-09-13T23:28:32.195Z",
+      "previous_commit_updated_at": "2026-09-13T23:28:29.167Z",
+      "interval_item_events": [
+        {
+          "seq": 71,
+          "id": "30e148d7-ca41-4e31-9112-0ce123a2ad98",
+          "entity_id": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+          "revision": 3,
+          "created_at": "2026-09-13T23:28:32.195Z"
+        }
+      ],
+      "last_included_item_seq": 71,
+      "first_excluded_item_event": {
+        "seq": 73,
+        "created_at": "2026-09-13T23:28:40.504Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 54,
+      "request_id": "f222b431-c4e3-44ba-b9fc-4c602709e4f4",
+      "turn_id": "539827b2-4ec3-48cd-8e9f-9e021ca8f0ef",
+      "turn_payload_sha256": "724b6233d99ac97b0e09040b4f381a636fbd9b79e258956c77f112d483ee169d",
+      "commit_updated_at": "2026-09-13T23:28:40.504Z",
+      "previous_commit_updated_at": "2026-09-13T23:28:32.195Z",
+      "interval_item_events": [
+        {
+          "seq": 73,
+          "id": "b7244d4a-4ff5-4d85-b888-4e73c4802fd9",
+          "entity_id": "16b72551-a942-4016-8bf5-de35286922ce",
+          "revision": 3,
+          "created_at": "2026-09-13T23:28:40.504Z"
+        }
+      ],
+      "last_included_item_seq": 73,
+      "first_excluded_item_event": {
+        "seq": 74,
+        "created_at": "2026-09-13T23:28:43.534Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 55,
+      "request_id": "86015df3-79cb-4620-974e-6dd51d091e5b",
+      "turn_id": "fccae0a8-6403-4dab-9846-fdf5e5d28e29",
+      "turn_payload_sha256": "c7cabb2361124d2a4737bf455ce45cd6cd969bfd165afb63be7b39703c303a44",
+      "commit_updated_at": "2026-09-13T23:28:43.535Z",
+      "previous_commit_updated_at": "2026-09-13T23:28:40.504Z",
+      "interval_item_events": [
+        {
+          "seq": 74,
+          "id": "232accae-4a19-4b50-9294-8e8720f840da",
+          "entity_id": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+          "revision": 3,
+          "created_at": "2026-09-13T23:28:43.534Z"
+        }
+      ],
+      "last_included_item_seq": 74,
+      "first_excluded_item_event": {
+        "seq": 75,
+        "created_at": "2026-09-13T23:28:50.818Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 56,
+      "request_id": "756f1349-dfaf-4b61-814d-825f5849158f",
+      "turn_id": "65cd2d52-1512-477c-8427-d74480015a3a",
+      "turn_payload_sha256": "e6ff362fe8105fbb5a8333a7cd554c757d23919a60c7121a80ecb83dd7c8dbca",
+      "commit_updated_at": "2026-09-13T23:28:50.819Z",
+      "previous_commit_updated_at": "2026-09-13T23:28:43.535Z",
+      "interval_item_events": [
+        {
+          "seq": 75,
+          "id": "272dca6c-4b2b-46a5-a712-ad4ccc5e0e3f",
+          "entity_id": "26610116-e84a-46ca-a0dc-92160a085068",
+          "revision": 3,
+          "created_at": "2026-09-13T23:28:50.818Z"
+        }
+      ],
+      "last_included_item_seq": 75,
+      "first_excluded_item_event": {
+        "seq": 77,
+        "created_at": "2026-09-13T23:28:57.821Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 57,
+      "request_id": "ff480bac-d794-41ea-819f-cbb68e258ced",
+      "turn_id": "b1804127-b437-4406-9652-e733fe8aa5db",
+      "turn_payload_sha256": "af6299d37dd18f87ce48b7942f721b40c824483f5ff235ecd425f47363163d6c",
+      "commit_updated_at": "2026-09-13T23:28:57.823Z",
+      "previous_commit_updated_at": "2026-09-13T23:28:50.819Z",
+      "interval_item_events": [
+        {
+          "seq": 77,
+          "id": "3d2c17de-d7b3-4778-a6be-b6a2aa604724",
+          "entity_id": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+          "revision": 3,
+          "created_at": "2026-09-13T23:28:57.821Z"
+        }
+      ],
+      "last_included_item_seq": 77,
+      "first_excluded_item_event": {
+        "seq": 78,
+        "created_at": "2026-09-13T23:29:00.717Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 58,
+      "request_id": "aebeaeca-fea9-4ab4-953d-48e9a55022fe",
+      "turn_id": "b4093080-cc3a-4195-bbdc-94a684851ee0",
+      "turn_payload_sha256": "6b813e64eda5486c48f62b6af9ce1e86e94b17c92b491a7ce506d1dfb0fba876",
+      "commit_updated_at": "2026-09-13T23:29:00.718Z",
+      "previous_commit_updated_at": "2026-09-13T23:28:57.823Z",
+      "interval_item_events": [
+        {
+          "seq": 78,
+          "id": "088b03a8-ab76-4a6e-8871-48aed7a42ef7",
+          "entity_id": "2f63eada-64ba-4080-93e4-995296bc30b3",
+          "revision": 3,
+          "created_at": "2026-09-13T23:29:00.717Z"
+        }
+      ],
+      "last_included_item_seq": 78,
+      "first_excluded_item_event": {
+        "seq": 79,
+        "created_at": "2026-09-13T23:29:04.290Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 59,
+      "request_id": "0fca4d39-5d11-4baa-a9d8-b02b07df0d17",
+      "turn_id": "5c9ab1a5-0a2a-4219-9701-908f0ed908c2",
+      "turn_payload_sha256": "db1b45d2826f1ff0b10316a167da2cd918eba949d37a4c553a11e8ba689971ea",
+      "commit_updated_at": "2026-09-13T23:29:04.291Z",
+      "previous_commit_updated_at": "2026-09-13T23:29:00.718Z",
+      "interval_item_events": [
+        {
+          "seq": 79,
+          "id": "5be8e0b5-be9d-41d8-8d95-e7d237c50a85",
+          "entity_id": "ee3e1705-804f-42c2-8938-b8f0026dd266",
+          "revision": 3,
+          "created_at": "2026-09-13T23:29:04.290Z"
+        }
+      ],
+      "last_included_item_seq": 79,
+      "first_excluded_item_event": {
+        "seq": 81,
+        "created_at": "2026-09-13T23:29:13.542Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 60,
+      "request_id": "fdf34997-428f-4a04-afd5-3639fbeff055",
+      "turn_id": "a8e1bbca-2e88-4605-9be0-ea6aa989b16c",
+      "turn_payload_sha256": "3a2fc3f4e282692e70baaf2f050f23534b907d030e60d932dd56572e0730538e",
+      "commit_updated_at": "2026-09-13T23:29:13.543Z",
+      "previous_commit_updated_at": "2026-09-13T23:29:04.291Z",
+      "interval_item_events": [
+        {
+          "seq": 81,
+          "id": "56967868-fbf0-4e14-be88-4f19eb0d6b4d",
+          "entity_id": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+          "revision": 4,
+          "created_at": "2026-09-13T23:29:13.542Z"
+        }
+      ],
+      "last_included_item_seq": 81,
+      "first_excluded_item_event": {
+        "seq": 82,
+        "created_at": "2026-09-13T23:29:16.249Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 61,
+      "request_id": "657d3a57-34a5-473c-b13c-3657e6d70e14",
+      "turn_id": "9ef3e01f-8446-46e5-806a-00e8e71f53eb",
+      "turn_payload_sha256": "26e5799c15d5dc5f9250236da7afe5d49f8715020ff4725f277b8ae7a43a8fde",
+      "commit_updated_at": "2026-09-13T23:29:16.250Z",
+      "previous_commit_updated_at": "2026-09-13T23:29:13.543Z",
+      "interval_item_events": [
+        {
+          "seq": 82,
+          "id": "3b27c6f9-936e-43ae-a0ac-9e805dc55bcb",
+          "entity_id": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+          "revision": 4,
+          "created_at": "2026-09-13T23:29:16.249Z"
+        }
+      ],
+      "last_included_item_seq": 82,
+      "first_excluded_item_event": {
+        "seq": 83,
+        "created_at": "2026-09-13T23:29:19.820Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 62,
+      "request_id": "c7676689-c411-4287-97f6-24f31ab5b639",
+      "turn_id": "02409c21-a4bc-48ff-8c70-06e00c3771fe",
+      "turn_payload_sha256": "8e2712f78b159ccca815c8a83c07b18e3ad5d85f0e734ea801dd78bc208e6eeb",
+      "commit_updated_at": "2026-09-13T23:29:19.820Z",
+      "previous_commit_updated_at": "2026-09-13T23:29:16.250Z",
+      "interval_item_events": [
+        {
+          "seq": 83,
+          "id": "54b05e99-4d6a-4014-a0b6-fe7a88a8032c",
+          "entity_id": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+          "revision": 4,
+          "created_at": "2026-09-13T23:29:19.820Z"
+        }
+      ],
+      "last_included_item_seq": 83,
+      "first_excluded_item_event": {
+        "seq": 85,
+        "created_at": "2026-09-13T23:29:27.051Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 63,
+      "request_id": "f160ddc6-96a9-420b-afac-cbbe63c30048",
+      "turn_id": "9dacbd35-74a3-414d-9d88-3a154ca54b34",
+      "turn_payload_sha256": "d98ea052e3b5277ab36f4796049b63b81ab44cc05ec74dfa12c9c4224780b597",
+      "commit_updated_at": "2026-09-13T23:29:27.052Z",
+      "previous_commit_updated_at": "2026-09-13T23:29:19.820Z",
+      "interval_item_events": [
+        {
+          "seq": 85,
+          "id": "b2232875-9edb-498d-ad05-a2345a061731",
+          "entity_id": "8611bac7-0eb4-431e-b594-088969fba6b6",
+          "revision": 4,
+          "created_at": "2026-09-13T23:29:27.051Z"
+        }
+      ],
+      "last_included_item_seq": 85,
+      "first_excluded_item_event": {
+        "seq": 86,
+        "created_at": "2026-09-13T23:29:29.982Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 64,
+      "request_id": "53fe6697-bb25-47ca-8b7e-031b4871ec33",
+      "turn_id": "ee141e0b-79db-4b8d-b90d-67e6f1e31ddb",
+      "turn_payload_sha256": "c531eca6e5c0cf03ae49678f3c2785985265b676c5a46a176c2bd7f15c285f68",
+      "commit_updated_at": "2026-09-13T23:29:29.983Z",
+      "previous_commit_updated_at": "2026-09-13T23:29:27.052Z",
+      "interval_item_events": [
+        {
+          "seq": 86,
+          "id": "28728f69-db49-429f-8790-a00166cb3ea4",
+          "entity_id": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+          "revision": 4,
+          "created_at": "2026-09-13T23:29:29.982Z"
+        }
+      ],
+      "last_included_item_seq": 86,
+      "first_excluded_item_event": {
+        "seq": 87,
+        "created_at": "2026-09-13T23:29:32.939Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 65,
+      "request_id": "12060b9f-fb42-431f-922b-4acb79a7b36b",
+      "turn_id": "647db48a-c877-478c-b7ea-e796022656e8",
+      "turn_payload_sha256": "851111a2a8796331328be6cfd38ed8655758b6c733e34e4fdacb34626b9778a0",
+      "commit_updated_at": "2026-09-13T23:29:32.940Z",
+      "previous_commit_updated_at": "2026-09-13T23:29:29.983Z",
+      "interval_item_events": [
+        {
+          "seq": 87,
+          "id": "6379cd7a-f6f4-4f61-8e91-106dc92b24ca",
+          "entity_id": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+          "revision": 4,
+          "created_at": "2026-09-13T23:29:32.939Z"
+        }
+      ],
+      "last_included_item_seq": 87,
+      "first_excluded_item_event": {
+        "seq": 89,
+        "created_at": "2026-09-13T23:29:38.258Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 66,
+      "request_id": "a03d179b-4aeb-418d-afd1-8aa1bcf73ec9",
+      "turn_id": "76867f05-d7b8-455c-a776-7ba820ae820a",
+      "turn_payload_sha256": "fe245ceafb9cbb6d15e9d07897b1d7195456101bbba0467d13016324eba38026",
+      "commit_updated_at": "2026-09-13T23:29:38.258Z",
+      "previous_commit_updated_at": "2026-09-13T23:29:32.940Z",
+      "interval_item_events": [
+        {
+          "seq": 89,
+          "id": "b0abccac-6a48-4284-9272-ed78f398e0cb",
+          "entity_id": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+          "revision": 4,
+          "created_at": "2026-09-13T23:29:38.258Z"
+        }
+      ],
+      "last_included_item_seq": 89,
+      "first_excluded_item_event": {
+        "seq": 90,
+        "created_at": "2026-09-13T23:29:40.889Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 67,
+      "request_id": "18ccd976-5010-4457-941d-cdf0c15f1890",
+      "turn_id": "fa970397-84d6-496b-b8f7-f531bd4ccc34",
+      "turn_payload_sha256": "08c0ce1e5ac87639cf81090ece54c0d3224bbcba0c627de7148c0f7fa2d3c3f1",
+      "commit_updated_at": "2026-09-13T23:29:40.889Z",
+      "previous_commit_updated_at": "2026-09-13T23:29:38.258Z",
+      "interval_item_events": [
+        {
+          "seq": 90,
+          "id": "2d1d6d58-3933-40c4-a9da-a2c93a61ec7f",
+          "entity_id": "f6deae88-927e-444a-9522-0bef7f7d6599",
+          "revision": 4,
+          "created_at": "2026-09-13T23:29:40.889Z"
+        }
+      ],
+      "last_included_item_seq": 90,
+      "first_excluded_item_event": {
+        "seq": 91,
+        "created_at": "2026-09-13T23:29:44.004Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 68,
+      "request_id": "d265f7d4-ac31-452d-906c-d3831ffbc9af",
+      "turn_id": "83eeb27f-c5b2-4441-9199-662329a54339",
+      "turn_payload_sha256": "da1e3deffa9e2d5a3c924b3ca84f9907cda96f56edc413be8f55247159adf44b",
+      "commit_updated_at": "2026-09-13T23:29:44.005Z",
+      "previous_commit_updated_at": "2026-09-13T23:29:40.889Z",
+      "interval_item_events": [
+        {
+          "seq": 91,
+          "id": "30729c29-6073-40df-8b53-283fdfb8db41",
+          "entity_id": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+          "revision": 4,
+          "created_at": "2026-09-13T23:29:44.004Z"
+        }
+      ],
+      "last_included_item_seq": 91,
+      "first_excluded_item_event": {
+        "seq": 93,
+        "created_at": "2026-09-13T23:29:50.599Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 69,
+      "request_id": "bfa907d5-b922-433a-9da2-74824f9a6fd7",
+      "turn_id": "71713945-6769-4996-9e5c-1dfacb9d003c",
+      "turn_payload_sha256": "db13d87b882ac9161813657ab15d614dfa198c4c4d458be6b8015b9895650622",
+      "commit_updated_at": "2026-09-13T23:29:50.600Z",
+      "previous_commit_updated_at": "2026-09-13T23:29:44.005Z",
+      "interval_item_events": [
+        {
+          "seq": 93,
+          "id": "0791bcc6-2270-42f2-9289-2fd4b0a92aeb",
+          "entity_id": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+          "revision": 4,
+          "created_at": "2026-09-13T23:29:50.599Z"
+        }
+      ],
+      "last_included_item_seq": 93,
+      "first_excluded_item_event": {
+        "seq": 94,
+        "created_at": "2026-09-13T23:29:53.696Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 70,
+      "request_id": "3d0b7b37-0d93-4017-a27f-9a4e2f82452b",
+      "turn_id": "dc452b29-b99a-432c-8fad-106b8016a9ca",
+      "turn_payload_sha256": "5756ddc8a6f34c12c388ef481149f8db1c84a874457d6a2f8bbf0d350d4474e1",
+      "commit_updated_at": "2026-09-13T23:29:53.697Z",
+      "previous_commit_updated_at": "2026-09-13T23:29:50.600Z",
+      "interval_item_events": [
+        {
+          "seq": 94,
+          "id": "0cc5b6a3-7f13-421a-999b-0857cc65d3b2",
+          "entity_id": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+          "revision": 4,
+          "created_at": "2026-09-13T23:29:53.696Z"
+        }
+      ],
+      "last_included_item_seq": 94,
+      "first_excluded_item_event": {
+        "seq": 95,
+        "created_at": "2026-09-13T23:29:57.583Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 71,
+      "request_id": "5ef0cd88-4eb4-441d-bae5-33a0bdb7040e",
+      "turn_id": "b63e6ea6-17a4-4c63-ab46-76bae0cbee2c",
+      "turn_payload_sha256": "e2fe2061ff0e9f0a1298d94170e17212ec684fdbd3596c75eebb18f268b9edb2",
+      "commit_updated_at": "2026-09-13T23:29:57.583Z",
+      "previous_commit_updated_at": "2026-09-13T23:29:53.697Z",
+      "interval_item_events": [
+        {
+          "seq": 95,
+          "id": "84c694f9-79d1-4065-9dd4-f228041258f1",
+          "entity_id": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+          "revision": 4,
+          "created_at": "2026-09-13T23:29:57.583Z"
+        }
+      ],
+      "last_included_item_seq": 95,
+      "first_excluded_item_event": {
+        "seq": 97,
+        "created_at": "2026-09-13T23:30:03.866Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 72,
+      "request_id": "cba3605b-5cfe-4735-b286-4ffec3efbf98",
+      "turn_id": "6b1c7ef3-699e-4fd8-bcea-9c5b2cdf37a1",
+      "turn_payload_sha256": "d33635b5a01fdcd8a4fb696d2a84e7ec1d3886d456c243f9ad5328be10783274",
+      "commit_updated_at": "2026-09-13T23:30:03.867Z",
+      "previous_commit_updated_at": "2026-09-13T23:29:57.583Z",
+      "interval_item_events": [
+        {
+          "seq": 97,
+          "id": "8eab2da7-896d-4b85-aff7-f61bb73ca139",
+          "entity_id": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+          "revision": 4,
+          "created_at": "2026-09-13T23:30:03.866Z"
+        }
+      ],
+      "last_included_item_seq": 97,
+      "first_excluded_item_event": {
+        "seq": 98,
+        "created_at": "2026-09-13T23:30:07.807Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 73,
+      "request_id": "f3efe72a-b065-43ad-8a12-20d3e849890a",
+      "turn_id": "c3aef17f-54e0-4fce-8bbc-b1108116aa75",
+      "turn_payload_sha256": "1c22bc0d1f01e429c3bd4de366d7eedb643cfab4f1314ece85dd1b19f5d19cfb",
+      "commit_updated_at": "2026-09-13T23:30:07.808Z",
+      "previous_commit_updated_at": "2026-09-13T23:30:03.867Z",
+      "interval_item_events": [
+        {
+          "seq": 98,
+          "id": "0a38b6ce-1ada-482e-aaf9-9e1df5bc6dcd",
+          "entity_id": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+          "revision": 4,
+          "created_at": "2026-09-13T23:30:07.807Z"
+        }
+      ],
+      "last_included_item_seq": 98,
+      "first_excluded_item_event": {
+        "seq": 99,
+        "created_at": "2026-09-13T23:30:11.732Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 74,
+      "request_id": "325f6bd9-907e-4f09-b406-79e0bafd1e05",
+      "turn_id": "e9f209eb-0853-464b-a9bb-892df2ebf538",
+      "turn_payload_sha256": "ad01d43835a898f3d94c4a2317f9d95d3fc23ecb53fff314756741f39180e1bb",
+      "commit_updated_at": "2026-09-13T23:30:11.733Z",
+      "previous_commit_updated_at": "2026-09-13T23:30:07.808Z",
+      "interval_item_events": [
+        {
+          "seq": 99,
+          "id": "40ea0692-06d9-49e4-bfa6-2c472f88f8cb",
+          "entity_id": "16b72551-a942-4016-8bf5-de35286922ce",
+          "revision": 4,
+          "created_at": "2026-09-13T23:30:11.732Z"
+        }
+      ],
+      "last_included_item_seq": 99,
+      "first_excluded_item_event": {
+        "seq": 101,
+        "created_at": "2026-09-13T23:30:17.546Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 75,
+      "request_id": "094727e7-6dcd-430e-9d16-26df357c64a2",
+      "turn_id": "4813dd73-162f-41b3-b410-baaac2a607aa",
+      "turn_payload_sha256": "7720dd440166ebf6549884fbdb8a5ade6d126ae997e8ea8c774fc69cd81fac6b",
+      "commit_updated_at": "2026-09-13T23:30:17.547Z",
+      "previous_commit_updated_at": "2026-09-13T23:30:11.733Z",
+      "interval_item_events": [
+        {
+          "seq": 101,
+          "id": "f973e030-6dc6-47f7-bc21-b925147bcd12",
+          "entity_id": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+          "revision": 4,
+          "created_at": "2026-09-13T23:30:17.546Z"
+        }
+      ],
+      "last_included_item_seq": 101,
+      "first_excluded_item_event": {
+        "seq": 102,
+        "created_at": "2026-09-13T23:30:20.641Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 76,
+      "request_id": "e26433e8-ec85-4c24-8ecf-aa57182ea028",
+      "turn_id": "3c6e1690-69e7-42f1-ac7d-66a1cc23ecfc",
+      "turn_payload_sha256": "27860a58ae75b33b0d8b7516ba482dad325efc1b501fe0febd0b7378cd1774d7",
+      "commit_updated_at": "2026-09-13T23:30:20.642Z",
+      "previous_commit_updated_at": "2026-09-13T23:30:17.547Z",
+      "interval_item_events": [
+        {
+          "seq": 102,
+          "id": "4dfa1d03-73c7-494d-bedd-727c894fcd2c",
+          "entity_id": "26610116-e84a-46ca-a0dc-92160a085068",
+          "revision": 4,
+          "created_at": "2026-09-13T23:30:20.641Z"
+        }
+      ],
+      "last_included_item_seq": 102,
+      "first_excluded_item_event": {
+        "seq": 103,
+        "created_at": "2026-09-13T23:30:23.795Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 77,
+      "request_id": "9161ec36-75e3-4e51-8be6-89d75ec96a6f",
+      "turn_id": "2852f96a-2c4b-45f0-807f-b323a8fa93c2",
+      "turn_payload_sha256": "2334d6298e91de1aa5c702edbfd016aba493c5cac12495f8024c46d4ecb685d4",
+      "commit_updated_at": "2026-09-13T23:30:23.796Z",
+      "previous_commit_updated_at": "2026-09-13T23:30:20.642Z",
+      "interval_item_events": [
+        {
+          "seq": 103,
+          "id": "c08b5c77-6612-492f-933a-bacfe75909e7",
+          "entity_id": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+          "revision": 4,
+          "created_at": "2026-09-13T23:30:23.795Z"
+        }
+      ],
+      "last_included_item_seq": 103,
+      "first_excluded_item_event": {
+        "seq": 105,
+        "created_at": "2026-09-13T23:30:30.401Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 78,
+      "request_id": "261cb593-8fee-4820-8f62-6592bed36969",
+      "turn_id": "41253d29-8f4e-4b16-b05f-77a533d7a836",
+      "turn_payload_sha256": "66577beb6abf9750a9110cea37c19ad23e5c31f7eb51853742160eceecedee96",
+      "commit_updated_at": "2026-09-13T23:30:30.402Z",
+      "previous_commit_updated_at": "2026-09-13T23:30:23.796Z",
+      "interval_item_events": [
+        {
+          "seq": 105,
+          "id": "3ebf66d8-3aa0-48cb-a5fd-f948311a8c8c",
+          "entity_id": "2f63eada-64ba-4080-93e4-995296bc30b3",
+          "revision": 4,
+          "created_at": "2026-09-13T23:30:30.401Z"
+        }
+      ],
+      "last_included_item_seq": 105,
+      "first_excluded_item_event": {
+        "seq": 106,
+        "created_at": "2026-09-13T23:30:33.302Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 79,
+      "request_id": "049743aa-7059-4929-84f5-183e891d0e91",
+      "turn_id": "158a8bc4-ab28-490b-89a5-593d99ea5fc3",
+      "turn_payload_sha256": "1824f97eac2c3bd9549e7f0a5b6f9b68bad1ef8883811879e1c589c2d4528fcf",
+      "commit_updated_at": "2026-09-13T23:30:33.303Z",
+      "previous_commit_updated_at": "2026-09-13T23:30:30.402Z",
+      "interval_item_events": [
+        {
+          "seq": 106,
+          "id": "a145159b-2c52-4281-9f1a-0a188834dda2",
+          "entity_id": "ee3e1705-804f-42c2-8938-b8f0026dd266",
+          "revision": 4,
+          "created_at": "2026-09-13T23:30:33.302Z"
+        }
+      ],
+      "last_included_item_seq": 106,
+      "first_excluded_item_event": {
+        "seq": 107,
+        "created_at": "2026-09-13T23:30:36.562Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 80,
+      "request_id": "58692b12-18f7-45c0-a024-6a04f18c4e1a",
+      "turn_id": "ce1eeeee-a568-4867-84e3-3e6b41453848",
+      "turn_payload_sha256": "6cd8b42e6f77ff76af2b7eee73589a7b085e3b9a0b3fa601b88006ddc018ba56",
+      "commit_updated_at": "2026-09-13T23:30:36.563Z",
+      "previous_commit_updated_at": "2026-09-13T23:30:33.303Z",
+      "interval_item_events": [
+        {
+          "seq": 107,
+          "id": "84c8ec88-24a6-4d86-ab3a-b3c1691e8305",
+          "entity_id": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+          "revision": 5,
+          "created_at": "2026-09-13T23:30:36.562Z"
+        }
+      ],
+      "last_included_item_seq": 107,
+      "first_excluded_item_event": {
+        "seq": 109,
+        "created_at": "2026-09-13T23:30:43.187Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 81,
+      "request_id": "5a975c15-8f49-4fff-8fc5-0cc2274ca4b6",
+      "turn_id": "b2fa04b0-f8fe-47e5-a4cf-386d682f227a",
+      "turn_payload_sha256": "5619fb2aefc0155f0becb9a461f7fabdba52bd060226a2c92a3c95b5bc1c1d29",
+      "commit_updated_at": "2026-09-13T23:30:43.188Z",
+      "previous_commit_updated_at": "2026-09-13T23:30:36.563Z",
+      "interval_item_events": [
+        {
+          "seq": 109,
+          "id": "5863d382-4dc4-4b92-9f9c-55110f8b8f80",
+          "entity_id": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+          "revision": 5,
+          "created_at": "2026-09-13T23:30:43.187Z"
+        }
+      ],
+      "last_included_item_seq": 109,
+      "first_excluded_item_event": {
+        "seq": 110,
+        "created_at": "2026-09-13T23:30:46.333Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 82,
+      "request_id": "b2a8554e-b146-468a-a104-939b39458f83",
+      "turn_id": "a7cdddb3-ef30-4e9d-855c-9aaa78a5f67f",
+      "turn_payload_sha256": "5c12915334ff8f079fc3354288bb03e007975d4ff53fec9003b6c15f1ca0e418",
+      "commit_updated_at": "2026-09-13T23:30:46.334Z",
+      "previous_commit_updated_at": "2026-09-13T23:30:43.188Z",
+      "interval_item_events": [
+        {
+          "seq": 110,
+          "id": "82652fae-d879-4b79-8041-8c1cc45ca95e",
+          "entity_id": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+          "revision": 5,
+          "created_at": "2026-09-13T23:30:46.333Z"
+        }
+      ],
+      "last_included_item_seq": 110,
+      "first_excluded_item_event": {
+        "seq": 111,
+        "created_at": "2026-09-13T23:30:49.307Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 83,
+      "request_id": "1c27a02f-6c20-4a60-b869-54ba884a2bec",
+      "turn_id": "aeba5f5b-2390-47f2-b44b-d35f26ddaa50",
+      "turn_payload_sha256": "d41729aea9d4398c78164e931f58a5434a23b64117b0419870c81d46ae924759",
+      "commit_updated_at": "2026-09-13T23:30:49.308Z",
+      "previous_commit_updated_at": "2026-09-13T23:30:46.334Z",
+      "interval_item_events": [
+        {
+          "seq": 111,
+          "id": "4273551a-f668-47e3-b196-2f5b0d0c1db4",
+          "entity_id": "8611bac7-0eb4-431e-b594-088969fba6b6",
+          "revision": 5,
+          "created_at": "2026-09-13T23:30:49.307Z"
+        }
+      ],
+      "last_included_item_seq": 111,
+      "first_excluded_item_event": {
+        "seq": 113,
+        "created_at": "2026-09-13T23:30:55.817Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 84,
+      "request_id": "7c2716f3-42ed-4206-9f1d-3e792a57aafa",
+      "turn_id": "146e369e-ece1-4f7d-af50-2b344b40cbbe",
+      "turn_payload_sha256": "f3c95f23e0b5887294b1910225c56fe2043ce6c3c790f164c1e64fa561be7df5",
+      "commit_updated_at": "2026-09-13T23:30:55.818Z",
+      "previous_commit_updated_at": "2026-09-13T23:30:49.308Z",
+      "interval_item_events": [
+        {
+          "seq": 113,
+          "id": "3c2ee6f9-9cc5-4ea3-bef5-2114e0e109cf",
+          "entity_id": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+          "revision": 5,
+          "created_at": "2026-09-13T23:30:55.817Z"
+        }
+      ],
+      "last_included_item_seq": 113,
+      "first_excluded_item_event": {
+        "seq": 114,
+        "created_at": "2026-09-13T23:30:58.986Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 85,
+      "request_id": "99fc19f5-e76a-496d-846e-e424a23ea544",
+      "turn_id": "7982905d-3b82-4fcd-add7-abdb269a7758",
+      "turn_payload_sha256": "82c9a14772897cdfeec725f0c1988f9fc1376e0b39fa6c301c02461fcdfc47af",
+      "commit_updated_at": "2026-09-13T23:30:58.986Z",
+      "previous_commit_updated_at": "2026-09-13T23:30:55.818Z",
+      "interval_item_events": [
+        {
+          "seq": 114,
+          "id": "7fae6cc5-c3aa-461a-8d48-7a5a2cc79155",
+          "entity_id": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+          "revision": 5,
+          "created_at": "2026-09-13T23:30:58.986Z"
+        }
+      ],
+      "last_included_item_seq": 114,
+      "first_excluded_item_event": {
+        "seq": 115,
+        "created_at": "2026-09-13T23:31:02.250Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 86,
+      "request_id": "f3a45264-6f0c-4e93-8aec-31fc39e9e823",
+      "turn_id": "9d3919db-1601-4b1d-8385-d7667af13bc4",
+      "turn_payload_sha256": "21b5717d103c34411b14938a2d2eb9a3ee29e8b5131247e2b20b82f1655aef78",
+      "commit_updated_at": "2026-09-13T23:31:02.250Z",
+      "previous_commit_updated_at": "2026-09-13T23:30:58.986Z",
+      "interval_item_events": [
+        {
+          "seq": 115,
+          "id": "ce16cfa2-d520-48ff-91bd-bcd8b52306d3",
+          "entity_id": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+          "revision": 5,
+          "created_at": "2026-09-13T23:31:02.250Z"
+        }
+      ],
+      "last_included_item_seq": 115,
+      "first_excluded_item_event": {
+        "seq": 117,
+        "created_at": "2026-09-13T23:31:08.017Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 87,
+      "request_id": "6331ca67-03ff-450b-abb3-646769379a1a",
+      "turn_id": "f805dcd0-7c8f-4cf8-8ec8-dbaadef3a619",
+      "turn_payload_sha256": "a7b12c41433fc12f9f32d409a539b4c95f8ce2fcca9b5a170b50c04f3889711c",
+      "commit_updated_at": "2026-09-13T23:31:08.019Z",
+      "previous_commit_updated_at": "2026-09-13T23:31:02.250Z",
+      "interval_item_events": [
+        {
+          "seq": 117,
+          "id": "629aafc6-2987-432d-a24a-3082bbc6add0",
+          "entity_id": "f6deae88-927e-444a-9522-0bef7f7d6599",
+          "revision": 5,
+          "created_at": "2026-09-13T23:31:08.017Z"
+        }
+      ],
+      "last_included_item_seq": 117,
+      "first_excluded_item_event": {
+        "seq": 118,
+        "created_at": "2026-09-13T23:31:11.173Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 88,
+      "request_id": "3ed2edb4-786b-40f0-a974-0f003a3c5e79",
+      "turn_id": "ffdd1d16-7e9f-4580-a36e-c369ac568c58",
+      "turn_payload_sha256": "b9022ff4f5c2de3e2ddc83769609a1a6e972b7282dc0d785f697cef4aab8a70a",
+      "commit_updated_at": "2026-09-13T23:31:11.174Z",
+      "previous_commit_updated_at": "2026-09-13T23:31:08.019Z",
+      "interval_item_events": [
+        {
+          "seq": 118,
+          "id": "c5667647-bd2a-4781-aeda-22a6b9530dbd",
+          "entity_id": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+          "revision": 5,
+          "created_at": "2026-09-13T23:31:11.173Z"
+        }
+      ],
+      "last_included_item_seq": 118,
+      "first_excluded_item_event": {
+        "seq": 119,
+        "created_at": "2026-09-13T23:31:14.318Z"
+      },
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    },
+    {
+      "index": 89,
+      "request_id": "63a7e37e-edf2-4ac4-873f-713700840431",
+      "turn_id": "ab5d3f61-bf09-4291-8d68-e66a5e5d09ad",
+      "turn_payload_sha256": "8ccb189ffec9a8cd34a2f18b2aa0a10446e54fdef582b2dd7157e58ca835da5f",
+      "commit_updated_at": "2026-09-13T23:31:14.319Z",
+      "previous_commit_updated_at": "2026-09-13T23:31:11.174Z",
+      "interval_item_events": [
+        {
+          "seq": 119,
+          "id": "ce0b51d2-4a6e-421d-8628-dd7fe4f5da13",
+          "entity_id": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+          "revision": 5,
+          "created_at": "2026-09-13T23:31:14.318Z"
+        }
+      ],
+      "last_included_item_seq": 119,
+      "first_excluded_item_event": null,
+      "item_ids": {
+        "合成事项01": "8fe084d3-12a7-40e0-ac76-8c4a8012597d",
+        "合成事项02": "cf9237e1-cfdc-49f3-89a5-17f9d0f45390",
+        "合成事项03": "4d8db4ab-cf2e-4097-9ebe-04063f8b2238",
+        "合成事项04": "8611bac7-0eb4-431e-b594-088969fba6b6",
+        "合成事项05": "e9b6a722-5f62-4524-9720-b42e9c5bebf1",
+        "合成事项06": "6885741c-dbbf-4c18-b73f-3064654eac3e",
+        "合成事项07": "8bdd3492-8d22-4390-8ae5-f602ed4d09c5",
+        "合成事项08": "f6deae88-927e-444a-9522-0bef7f7d6599",
+        "合成事项09": "28b0a948-ec47-4865-98c0-fbe6612ff6d0",
+        "合成事项10": "63976f25-eb3b-4cb2-88e7-636810e384ac",
+        "合成事项11": "35bd8725-c076-4e92-9c8a-bc01505cf32d",
+        "合成事项12": "33cc8c53-a4fa-4121-8b48-b59c63b2a32a",
+        "合成事项13": "8aca33a0-f98d-4439-a3f9-15764a1b682a",
+        "合成事项14": "dcce6c45-9fcd-49bc-a6a0-fd1b6dc0fdbf",
+        "合成事项15": "16b72551-a942-4016-8bf5-de35286922ce",
+        "合成事项16": "63e2ab6b-a522-482c-a5ae-ea889670ec8e",
+        "合成事项17": "26610116-e84a-46ca-a0dc-92160a085068",
+        "合成事项18": "aa8cc1e0-959e-49f9-bb21-526978d1ad3f",
+        "合成事项19": "2f63eada-64ba-4080-93e4-995296bc30b3",
+        "合成事项20": "ee3e1705-804f-42c2-8938-b8f0026dd266"
+      },
+      "oracle_title_count": 20,
+      "actual_title_count": 20,
+      "status": "PASS",
+      "mismatches": []
+    }
+  ]
+}

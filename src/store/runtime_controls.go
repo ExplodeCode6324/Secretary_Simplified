@@ -10,7 +10,7 @@ import (
 )
 
 // ApplyControlTx composes control effects with Core's decision transaction.
-func (s *Store) ApplyControlTx(ctx context.Context, tx *sql.Tx, control contract.Control, rootID, artifactRoot string) error {
+func (s *Store) ApplyControlTx(ctx context.Context, tx *sql.Tx, control contract.Control, rootID, artifactRoot string, outputClasses ...string) error {
 	if e := contract.Validate("Control", control); e != nil {
 		return e
 	}
@@ -26,10 +26,27 @@ func (s *Store) ApplyControlTx(ctx context.Context, tx *sql.Tx, control contract
 	case "SUCCEEDED", "FAILED", "CANCELLED":
 		return errors.New("TERMINAL_TASK")
 	}
+	if e = rtInherit(t, t); e != nil {
+		return e
+	}
+	for _, class := range outputClasses {
+		if e = rtClass(t, class); e != nil {
+			return e
+		}
+	}
+	if len(outputClasses) > 0 {
+		if e = rtSaveTask(ctx, tx, t); e != nil {
+			return e
+		}
+	}
 	payload := control.Payload
 	switch control.Kind {
 	case "WAIT":
 		w := contract.WaitSubscription{SchemaVersion: 1, ID: contract.NewID(), TaskID: id, Generation: 1, EventType: rtStr(payload["event_type"]), EntityID: rtStr(payload["entity_id"]), ExpectedState: rtStr(payload["expected_state"]), DeadlineAt: rtStr(payload["deadline_at"]), State: "ARMED", Extensions: map[string]any{}}
+		w.Extensions, e = contract.ClassifyExtensions(w.Extensions, rtStr(rtObj(rtObj(t["extensions"])[contract.ClassificationKey])["data_class"]))
+		if e != nil {
+			return e
+		}
 		return s.WaitTx(ctx, tx, w)
 	case "REQUEST_COMPLETION":
 		if payload["criterion_hash"] != t["criterion_hash"] {
@@ -45,12 +62,12 @@ func (s *Store) ApplyControlTx(ctx context.Context, tx *sql.Tx, control contract
 		if e = contract.Validate("ObjectRef", artifact); e != nil {
 			return e
 		}
-		var path, hash string
+		var path, hash, class string
 		var size int
-		if e = tx.QueryRowContext(ctx, `SELECT relative_path,sha256,byte_size FROM object_ref WHERE id=?`, artifact.ID).Scan(&path, &hash, &size); e != nil {
+		if e = tx.QueryRowContext(ctx, `SELECT relative_path,sha256,byte_size,data_class FROM object_ref WHERE id=?`, artifact.ID).Scan(&path, &hash, &size, &class); e != nil {
 			return e
 		}
-		if artifact.RelativePath != path || artifact.SHA256 != hash || artifact.ByteSize != size {
+		if artifact.RelativePath != path || artifact.SHA256 != hash || artifact.ByteSize != size || artifact.DataClass != class {
 			return errors.New("ARTIFACT_REFERENCE_MISMATCH")
 		}
 		safe, e := SafeArtifactPath(s.ObjectsDir, path)
@@ -63,6 +80,9 @@ func (s *Store) ApplyControlTx(ctx context.Context, tx *sql.Tx, control contract
 		}
 		if contract.Hash(content) != hash || len(content) != size {
 			return errors.New("ARTIFACT_HASH_MISMATCH")
+		}
+		if e = rtClass(t, class); e != nil {
+			return e
 		}
 		ext := rtObj(t["extensions"])
 		existing := rtObj(ext["runtime.artifacts"])
@@ -84,6 +104,12 @@ func (s *Store) ApplyControlTx(ctx context.Context, tx *sql.Tx, control contract
 		if e = json.Unmarshal([]byte(rtJSON(payload["command"])), &command); e != nil {
 			return e
 		}
+		for _, class := range outputClasses {
+			command.Extensions, e = contract.ClassifyExtensions(command.Extensions, class)
+			if e != nil {
+				return e
+			}
+		}
 		if e = contract.Validate("Command", command); e != nil {
 			return e
 		}
@@ -103,6 +129,12 @@ func (s *Store) ApplyControlTx(ctx context.Context, tx *sql.Tx, control contract
 		}
 		var previous runtimeObject
 		_ = json.Unmarshal([]byte(raw), &previous)
+		if e = rtInherit(t, t, previous, rtMap(command)); e != nil {
+			return e
+		}
+		if e = rtSaveTask(ctx, tx, t); e != nil {
+			return e
+		}
 		if e = s.ReplanTx(ctx, tx, id); e != nil {
 			return e
 		}
@@ -133,7 +165,14 @@ func (s *Store) ApplyControlTx(ctx context.Context, tx *sql.Tx, control contract
 		}
 		run := rtMap(previous)
 		run["id"] = contract.NewID()
-		run["command"] = rtMap(command)
+		cm := rtMap(command)
+		if e = rtInherit(cm, t, previous, cm); e != nil {
+			return e
+		}
+		run["command"] = cm
+		if e = rtInherit(run, t, cm); e != nil {
+			return e
+		}
 		run["occurrence_key"] = rtStr(previous["occurrence_key"]) + ":replan:" + rtStr(run["id"])
 		run["external_idempotency_key"] = contract.NewID()
 		run["attempt_no"] = 0

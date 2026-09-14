@@ -25,3 +25,8 @@
 路径必须在受控根目录，拒绝 ..、绝对路径和符号链接逃逸；内容哈希不匹配则不可用。
 
 通用空值、版本、扩展、引用和错误规则见 [Common.md](Common.md)；事件与提交关系见 [DataFlow.md](../DataFlow.md)。
+
+
+### D12 分类传播
+
+既有顶层data_class仍是对象实际原始/派生字节分类；原文用inputclass，模型wire/产物用reqclass，复制不降级。 使用 [Common.md](Common.md) 的 security.classification 契约；缺失旧派生标记返回 OUTPUT_CLASS_UNKNOWN，不自动回填。

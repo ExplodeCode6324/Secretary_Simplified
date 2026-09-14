@@ -1,0 +1,1066 @@
+{
+  "scope": "Independent immutable event/revision verification, not complete free-text correctness",
+  "count": 30,
+  "status": "PASS",
+  "results": [
+    {
+      "slot": 0,
+      "snapshot_id": "fda139aa-78cf-4573-9578-79d95f2aeb52",
+      "snapshot_seq": 3,
+      "reference_checks": [
+        {
+          "group": "focal_goals",
+          "ref": {
+            "entity_type": "Item",
+            "id": "ab751a1f-db47-4674-9e0c-74efb4b1f63c",
+            "revision": 1
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "priority_items",
+          "ref": {
+            "entity_type": "Item",
+            "id": "59308c12-f345-4f35-9bce-66404db385b5",
+            "revision": 1
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "open_loops",
+          "ref": {
+            "entity_type": "Item",
+            "id": "92ef80d0-8052-452d-ae94-a9fda03d4e0b",
+            "revision": 1
+          },
+          "matches_immutable_event_revision": true
+        }
+      ],
+      "status": "PASS",
+      "summary": "当前有3项工作任务，均为开放且时间已确认；最早截止的是合成事项01。",
+      "historical_item_count": 3,
+      "historical_open_count": 3
+    },
+    {
+      "slot": 1,
+      "snapshot_id": "ad7b2d21-edc4-499b-88c4-6d4994df9386",
+      "snapshot_seq": 7,
+      "reference_checks": [
+        {
+          "group": "focal_goals",
+          "ref": {
+            "entity_type": "Item",
+            "id": "ab751a1f-db47-4674-9e0c-74efb4b1f63c",
+            "revision": 1
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "priority_items",
+          "ref": {
+            "entity_type": "Item",
+            "id": "59308c12-f345-4f35-9bce-66404db385b5",
+            "revision": 1
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "open_loops",
+          "ref": {
+            "entity_type": "Item",
+            "id": "92ef80d0-8052-452d-ae94-a9fda03d4e0b",
+            "revision": 1
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "important_changes",
+          "ref": {
+            "entity_type": "Item",
+            "id": "01c80671-9593-42c2-8372-39fdf1669963",
+            "revision": 1
+          },
+          "matches_immutable_event_revision": true
+        }
+      ],
+      "status": "PASS",
+      "summary": "当前有6项开放任务，时间均已确认；最早截止的是合成事项01。",
+      "historical_item_count": 6,
+      "historical_open_count": 6
+    },
+    {
+      "slot": 2,
+      "snapshot_id": "3e1e95b0-4a04-4dc9-be1f-ffc5ab7e1787",
+      "snapshot_seq": 11,
+      "reference_checks": [
+        {
+          "group": "focal_goals",
+          "ref": {
+            "entity_type": "Item",
+            "id": "ab751a1f-db47-4674-9e0c-74efb4b1f63c",
+            "revision": 1
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "priority_items",
+          "ref": {
+            "entity_type": "Item",
+            "id": "59308c12-f345-4f35-9bce-66404db385b5",
+            "revision": 1
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "open_loops",
+          "ref": {
+            "entity_type": "Item",
+            "id": "92ef80d0-8052-452d-ae94-a9fda03d4e0b",
+            "revision": 1
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "important_changes",
+          "ref": {
+            "entity_type": "Item",
+            "id": "1601a101-4566-4b39-8ce0-70f42f26eaa5",
+            "revision": 1
+          },
+          "matches_immutable_event_revision": true
+        }
+      ],
+      "status": "PASS",
+      "summary": "当前有9项开放任务，截止时间均已确认；最早截止的是合成事项01。",
+      "historical_item_count": 9,
+      "historical_open_count": 9
+    },
+    {
+      "slot": 3,
+      "snapshot_id": "6dc2b4ca-3c70-47a1-bf8a-5beb8864f7f7",
+      "snapshot_seq": 15,
+      "reference_checks": [
+        {
+          "group": "focal_goals",
+          "ref": {
+            "entity_type": "Item",
+            "id": "ab751a1f-db47-4674-9e0c-74efb4b1f63c",
+            "revision": 1
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "priority_items",
+          "ref": {
+            "entity_type": "Item",
+            "id": "59308c12-f345-4f35-9bce-66404db385b5",
+            "revision": 1
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "open_loops",
+          "ref": {
+            "entity_type": "Item",
+            "id": "92ef80d0-8052-452d-ae94-a9fda03d4e0b",
+            "revision": 1
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "important_changes",
+          "ref": {
+            "entity_type": "Item",
+            "id": "ad5ed238-f974-44d4-8064-f3848432dfc1",
+            "revision": 1
+          },
+          "matches_immutable_event_revision": true
+        }
+      ],
+      "status": "PASS",
+      "summary": "当前有12项开放任务，截止时间均已确认；最早截止的是合成事项01。",
+      "historical_item_count": 12,
+      "historical_open_count": 12
+    },
+    {
+      "slot": 4,
+      "snapshot_id": "aa2e18f5-a878-4fd0-beb7-4892c4692644",
+      "snapshot_seq": 19,
+      "reference_checks": [
+        {
+          "group": "focal_goals",
+          "ref": {
+            "entity_type": "Item",
+            "id": "ab751a1f-db47-4674-9e0c-74efb4b1f63c",
+            "revision": 1
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "priority_items",
+          "ref": {
+            "entity_type": "Item",
+            "id": "59308c12-f345-4f35-9bce-66404db385b5",
+            "revision": 1
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "open_loops",
+          "ref": {
+            "entity_type": "Item",
+            "id": "92ef80d0-8052-452d-ae94-a9fda03d4e0b",
+            "revision": 1
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "important_changes",
+          "ref": {
+            "entity_type": "Item",
+            "id": "773f344a-c58d-4fe6-a297-f71be9a19f4d",
+            "revision": 1
+          },
+          "matches_immutable_event_revision": true
+        }
+      ],
+      "status": "PASS",
+      "summary": "当前有15项开放任务，截止时间均已确认；最早截止的是合成事项01。",
+      "historical_item_count": 15,
+      "historical_open_count": 15
+    },
+    {
+      "slot": 5,
+      "snapshot_id": "e0ceee3a-0fae-4728-a24c-43a1ec2c0003",
+      "snapshot_seq": 23,
+      "reference_checks": [
+        {
+          "group": "focal_goals",
+          "ref": {
+            "entity_type": "Item",
+            "id": "ab751a1f-db47-4674-9e0c-74efb4b1f63c",
+            "revision": 1
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "priority_items",
+          "ref": {
+            "entity_type": "Item",
+            "id": "59308c12-f345-4f35-9bce-66404db385b5",
+            "revision": 1
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "open_loops",
+          "ref": {
+            "entity_type": "Item",
+            "id": "92ef80d0-8052-452d-ae94-a9fda03d4e0b",
+            "revision": 1
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "important_changes",
+          "ref": {
+            "entity_type": "Item",
+            "id": "260656eb-229f-4fec-a3e1-77a9546b8cb3",
+            "revision": 1
+          },
+          "matches_immutable_event_revision": true
+        }
+      ],
+      "status": "PASS",
+      "summary": "当前有18项开放任务，截止时间均已确认；合成事项01至03已逾期，最早截止的是合成事项01。",
+      "historical_item_count": 18,
+      "historical_open_count": 18
+    },
+    {
+      "slot": 6,
+      "snapshot_id": "16fc33c7-9791-44c2-adb2-02370a3f052f",
+      "snapshot_seq": 27,
+      "reference_checks": [
+        {
+          "group": "focal_goals",
+          "ref": {
+            "entity_type": "Item",
+            "id": "59308c12-f345-4f35-9bce-66404db385b5",
+            "revision": 1
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "priority_items",
+          "ref": {
+            "entity_type": "Item",
+            "id": "92ef80d0-8052-452d-ae94-a9fda03d4e0b",
+            "revision": 1
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "open_loops",
+          "ref": {
+            "entity_type": "Item",
+            "id": "7146dc55-15f5-4f45-b334-67851bc1fe59",
+            "revision": 1
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "important_changes",
+          "ref": {
+            "entity_type": "Item",
+            "id": "ab751a1f-db47-4674-9e0c-74efb4b1f63c",
+            "revision": 2
+          },
+          "matches_immutable_event_revision": true
+        }
+      ],
+      "status": "PASS",
+      "summary": "当前有20项开放任务；合成事项02至09已逾期，最早逾期的是合成事项02。",
+      "historical_item_count": 20,
+      "historical_open_count": 20
+    },
+    {
+      "slot": 7,
+      "snapshot_id": "fc06ed44-ab4f-4a47-879e-410628b6b743",
+      "snapshot_seq": 31,
+      "reference_checks": [
+        {
+          "group": "focal_goals",
+          "ref": {
+            "entity_type": "Item",
+            "id": "8a29b0a5-2375-4912-a61b-4059e10baa36",
+            "revision": 1
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "priority_items",
+          "ref": {
+            "entity_type": "Item",
+            "id": "01c80671-9593-42c2-8372-39fdf1669963",
+            "revision": 1
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "open_loops",
+          "ref": {
+            "entity_type": "Item",
+            "id": "ad5ed238-f974-44d4-8064-f3848432dfc1",
+            "revision": 1
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "important_changes",
+          "ref": {
+            "entity_type": "Item",
+            "id": "59308c12-f345-4f35-9bce-66404db385b5",
+            "revision": 2
+          },
+          "matches_immutable_event_revision": true
+        }
+      ],
+      "status": "PASS",
+      "summary": "当前有20项开放任务；事项02至04已延期，事项05至12陆续逾期，最早逾期的是事项05。",
+      "historical_item_count": 20,
+      "historical_open_count": 20
+    },
+    {
+      "slot": 8,
+      "snapshot_id": "f00d1ac8-c5d0-498d-b48e-2ed67d9739ef",
+      "snapshot_seq": 35,
+      "reference_checks": [
+        {
+          "group": "focal_goals",
+          "ref": {
+            "entity_type": "Item",
+            "id": "1defab93-ba95-4b03-b974-264626ca659f",
+            "revision": 1
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "priority_items",
+          "ref": {
+            "entity_type": "Item",
+            "id": "1601a101-4566-4b39-8ce0-70f42f26eaa5",
+            "revision": 1
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "open_loops",
+          "ref": {
+            "entity_type": "Item",
+            "id": "773f344a-c58d-4fe6-a297-f71be9a19f4d",
+            "revision": 1
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "important_changes",
+          "ref": {
+            "entity_type": "Item",
+            "id": "8a29b0a5-2375-4912-a61b-4059e10baa36",
+            "revision": 2
+          },
+          "matches_immutable_event_revision": true
+        }
+      ],
+      "status": "PASS",
+      "summary": "当前有20项开放任务；事项08至14已逾期，事项15今日到期，最早逾期的是事项08。",
+      "historical_item_count": 20,
+      "historical_open_count": 20
+    },
+    {
+      "slot": 9,
+      "snapshot_id": "568a8de0-c71c-40c3-880f-d3276486b700",
+      "snapshot_seq": 39,
+      "reference_checks": [
+        {
+          "group": "focal_goals",
+          "ref": {
+            "entity_type": "Item",
+            "id": "e7b7b02d-6b67-4b4b-b524-2038c4a4d2f5",
+            "revision": 1
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "priority_items",
+          "ref": {
+            "entity_type": "Item",
+            "id": "ad5ed238-f974-44d4-8064-f3848432dfc1",
+            "revision": 1
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "open_loops",
+          "ref": {
+            "entity_type": "Item",
+            "id": "260656eb-229f-4fec-a3e1-77a9546b8cb3",
+            "revision": 1
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "important_changes",
+          "ref": {
+            "entity_type": "Item",
+            "id": "7b80bbac-df8d-416b-a74e-862636e921cf",
+            "revision": 2
+          },
+          "matches_immutable_event_revision": true
+        }
+      ],
+      "status": "PASS",
+      "summary": "当前有20项开放任务；事项11至17已逾期，事项18今日到期，最早逾期的是事项11。",
+      "historical_item_count": 20,
+      "historical_open_count": 20
+    },
+    {
+      "slot": 10,
+      "snapshot_id": "79246dac-544b-48d8-8e3c-b4ccd5c2b2a0",
+      "snapshot_seq": 43,
+      "reference_checks": [
+        {
+          "group": "focal_goals",
+          "ref": {
+            "entity_type": "Item",
+            "id": "872517fb-49a1-4889-bc46-ea5786cd6642",
+            "revision": 1
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "priority_items",
+          "ref": {
+            "entity_type": "Item",
+            "id": "773f344a-c58d-4fe6-a297-f71be9a19f4d",
+            "revision": 1
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "open_loops",
+          "ref": {
+            "entity_type": "Item",
+            "id": "11dc2ab9-dd71-4f5c-82c6-48c1a945d928",
+            "revision": 1
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "important_changes",
+          "ref": {
+            "entity_type": "Item",
+            "id": "e7b7b02d-6b67-4b4b-b524-2038c4a4d2f5",
+            "revision": 2
+          },
+          "matches_immutable_event_revision": true
+        }
+      ],
+      "status": "PASS",
+      "summary": "当前有20项开放任务；事项14至20已逾期或今日到期，最早逾期的是事项14。",
+      "historical_item_count": 20,
+      "historical_open_count": 20
+    },
+    {
+      "slot": 11,
+      "snapshot_id": "aedbbc9f-7857-470d-a269-6b8cead87443",
+      "snapshot_seq": 47,
+      "reference_checks": [
+        {
+          "group": "focal_goals",
+          "ref": {
+            "entity_type": "Item",
+            "id": "4bf95312-bdb4-4886-beb5-15dfec7c5704",
+            "revision": 1
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "priority_items",
+          "ref": {
+            "entity_type": "Item",
+            "id": "260656eb-229f-4fec-a3e1-77a9546b8cb3",
+            "revision": 1
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "open_loops",
+          "ref": {
+            "entity_type": "Item",
+            "id": "11dc2ab9-dd71-4f5c-82c6-48c1a945d928",
+            "revision": 1
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "important_changes",
+          "ref": {
+            "entity_type": "Item",
+            "id": "f86898b3-902f-47fb-99c3-1125e11534ec",
+            "revision": 2
+          },
+          "matches_immutable_event_revision": true
+        }
+      ],
+      "status": "PASS",
+      "summary": "当前有20项开放任务；事项17至20已逾期，事项14至16的截止时间已后移。",
+      "historical_item_count": 20,
+      "historical_open_count": 20
+    },
+    {
+      "slot": 12,
+      "snapshot_id": "b0cf7198-dcdc-4caf-a213-e44d4de160eb",
+      "snapshot_seq": 51,
+      "reference_checks": [
+        {
+          "group": "focal_goals",
+          "ref": {
+            "entity_type": "Item",
+            "id": "11dc2ab9-dd71-4f5c-82c6-48c1a945d928",
+            "revision": 1
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "priority_items",
+          "ref": {
+            "entity_type": "Item",
+            "id": "ab751a1f-db47-4674-9e0c-74efb4b1f63c",
+            "revision": 2
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "important_changes",
+          "ref": {
+            "entity_type": "Item",
+            "id": "4bf95312-bdb4-4886-beb5-15dfec7c5704",
+            "revision": 2
+          },
+          "matches_immutable_event_revision": true
+        }
+      ],
+      "status": "PASS",
+      "summary": "当前有20项开放任务；事项20已逾期，事项17至19的截止时间近期后移。",
+      "historical_item_count": 20,
+      "historical_open_count": 20
+    },
+    {
+      "slot": 13,
+      "snapshot_id": "6b60f17e-0e65-4178-90f6-57d2bba4ce13",
+      "snapshot_seq": 55,
+      "reference_checks": [
+        {
+          "group": "focal_goals",
+          "ref": {
+            "entity_type": "Item",
+            "id": "92ef80d0-8052-452d-ae94-a9fda03d4e0b",
+            "revision": 2
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "important_changes",
+          "ref": {
+            "entity_type": "Item",
+            "id": "ab751a1f-db47-4674-9e0c-74efb4b1f63c",
+            "revision": 3
+          },
+          "matches_immutable_event_revision": true
+        }
+      ],
+      "status": "PASS",
+      "summary": "事项01和02已完成；当前重点是最早到期的开放任务事项03，其余开放任务按日期顺延。",
+      "historical_item_count": 20,
+      "historical_open_count": 18
+    },
+    {
+      "slot": 14,
+      "snapshot_id": "66ffc7e5-975f-42bb-a125-61f2dabcb386",
+      "snapshot_seq": 59,
+      "reference_checks": [
+        {
+          "group": "focal_goals",
+          "ref": {
+            "entity_type": "Item",
+            "id": "01c80671-9593-42c2-8372-39fdf1669963",
+            "revision": 2
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "priority_items",
+          "ref": {
+            "entity_type": "Item",
+            "id": "d93df09e-7117-43d0-9cb0-87498fb96349",
+            "revision": 2
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "important_changes",
+          "ref": {
+            "entity_type": "Item",
+            "id": "8a29b0a5-2375-4912-a61b-4059e10baa36",
+            "revision": 3
+          },
+          "matches_immutable_event_revision": true
+        }
+      ],
+      "status": "PASS",
+      "summary": "事项03至05已完成；当前重点是最早到期的开放任务事项06，其余任务按日期顺延。",
+      "historical_item_count": 20,
+      "historical_open_count": 15
+    },
+    {
+      "slot": 15,
+      "snapshot_id": "f991d3a2-5ced-4efa-9393-f56899678ced",
+      "snapshot_seq": 63,
+      "reference_checks": [
+        {
+          "group": "focal_goals",
+          "ref": {
+            "entity_type": "Item",
+            "id": "1601a101-4566-4b39-8ce0-70f42f26eaa5",
+            "revision": 2
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "priority_items",
+          "ref": {
+            "entity_type": "Item",
+            "id": "7b80bbac-df8d-416b-a74e-862636e921cf",
+            "revision": 2
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "important_changes",
+          "ref": {
+            "entity_type": "Item",
+            "id": "1defab93-ba95-4b03-b974-264626ca659f",
+            "revision": 3
+          },
+          "matches_immutable_event_revision": true
+        }
+      ],
+      "status": "PASS",
+      "summary": "事项06至08已完成；当前重点是最早到期的开放任务事项09，其余任务按日期顺延。",
+      "historical_item_count": 20,
+      "historical_open_count": 12
+    },
+    {
+      "slot": 16,
+      "snapshot_id": "1998c7ac-dca5-48a4-a140-025e1a31e8f7",
+      "snapshot_seq": 67,
+      "reference_checks": [
+        {
+          "group": "focal_goals",
+          "ref": {
+            "entity_type": "Item",
+            "id": "ad5ed238-f974-44d4-8064-f3848432dfc1",
+            "revision": 2
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "priority_items",
+          "ref": {
+            "entity_type": "Item",
+            "id": "4ce1da65-f2d5-46f4-b88f-bef2ff79598c",
+            "revision": 2
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "open_loops",
+          "ref": {
+            "entity_type": "Item",
+            "id": "872517fb-49a1-4889-bc46-ea5786cd6642",
+            "revision": 2
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "important_changes",
+          "ref": {
+            "entity_type": "Item",
+            "id": "e7b7b02d-6b67-4b4b-b524-2038c4a4d2f5",
+            "revision": 3
+          },
+          "matches_immutable_event_revision": true
+        }
+      ],
+      "status": "PASS",
+      "summary": "事项09至11已完成；当前重点转为最早到期的开放任务事项12，其余开放任务按日期顺延。",
+      "historical_item_count": 20,
+      "historical_open_count": 9
+    },
+    {
+      "slot": 17,
+      "snapshot_id": "0fec3a1b-8678-4de1-b57a-454073c76f61",
+      "snapshot_seq": 71,
+      "reference_checks": [
+        {
+          "group": "focal_goals",
+          "ref": {
+            "entity_type": "Item",
+            "id": "773f344a-c58d-4fe6-a297-f71be9a19f4d",
+            "revision": 2
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "priority_items",
+          "ref": {
+            "entity_type": "Item",
+            "id": "f86898b3-902f-47fb-99c3-1125e11534ec",
+            "revision": 2
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "open_loops",
+          "ref": {
+            "entity_type": "Item",
+            "id": "4bf95312-bdb4-4886-beb5-15dfec7c5704",
+            "revision": 2
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "important_changes",
+          "ref": {
+            "entity_type": "Item",
+            "id": "872517fb-49a1-4889-bc46-ea5786cd6642",
+            "revision": 3
+          },
+          "matches_immutable_event_revision": true
+        }
+      ],
+      "status": "PASS",
+      "summary": "事项12至14已完成；当前重点转为最早到期的开放任务事项15，其余开放任务按日期顺延。",
+      "historical_item_count": 20,
+      "historical_open_count": 6
+    },
+    {
+      "slot": 18,
+      "snapshot_id": "47fca5b0-96d4-43a5-be59-f4119de2e85e",
+      "snapshot_seq": 75,
+      "reference_checks": [
+        {
+          "group": "focal_goals",
+          "ref": {
+            "entity_type": "Item",
+            "id": "260656eb-229f-4fec-a3e1-77a9546b8cb3",
+            "revision": 2
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "priority_items",
+          "ref": {
+            "entity_type": "Item",
+            "id": "aaac2eeb-ccf2-45c9-8742-7a7cc2a530b4",
+            "revision": 2
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "open_loops",
+          "ref": {
+            "entity_type": "Item",
+            "id": "11dc2ab9-dd71-4f5c-82c6-48c1a945d928",
+            "revision": 2
+          },
+          "matches_immutable_event_revision": true
+        },
+        {
+          "group": "important_changes",
+          "ref": {
+            "entity_type": "Item",
+            "id": "4bf95312-bdb4-4886-beb5-15dfec7c5704",
+            "revision": 3
+          },
+          "matches_immutable_event_revision": true
+        }
+      ],
+      "status": "PASS",
+      "summary": "事项15至17已完成；当前重点转为最早到期的开放任务事项18，其余开放任务按日期顺延。",
+      "historical_item_count": 20,
+      "historical_open_count": 3
+    },
+    {
+      "slot": 19,
+      "snapshot_id": "25793d40-ad47-425d-b10b-6428d934fa61",
+      "snapshot_seq": 79,
+      "reference_checks": [
+        {
+          "group": "important_changes",
+          "ref": {
+            "entity_type": "Item",
+            "id": "11dc2ab9-dd71-4f5c-82c6-48c1a945d928",
+            "revision": 3
+          },
+          "matches_immutable_event_revision": true
+        }
+      ],
+      "status": "PASS",
+      "summary": "事项18至20均已完成；当前没有开放任务或待处理事项。",
+      "historical_item_count": 20,
+      "historical_open_count": 0
+    },
+    {
+      "slot": 20,
+      "snapshot_id": "32a2c967-0a50-4d48-8789-12779091087d",
+      "snapshot_seq": 83,
+      "reference_checks": [
+        {
+          "group": "important_changes",
+          "ref": {
+            "entity_type": "Item",
+            "id": "ab751a1f-db47-4674-9e0c-74efb4b1f63c",
+            "revision": 4
+          },
+          "matches_immutable_event_revision": true
+        }
+      ],
+      "status": "PASS",
+      "summary": "事项01至03已取消，事项04至20已完成；当前没有开放任务或待处理事项。",
+      "historical_item_count": 20,
+      "historical_open_count": 0
+    },
+    {
+      "slot": 21,
+      "snapshot_id": "f1bcd21e-5896-478e-a160-0306b0abb913",
+      "snapshot_seq": 87,
+      "reference_checks": [
+        {
+          "group": "important_changes",
+          "ref": {
+            "entity_type": "Item",
+            "id": "7146dc55-15f5-4f45-b334-67851bc1fe59",
+            "revision": 4
+          },
+          "matches_immutable_event_revision": true
+        }
+      ],
+      "status": "PASS",
+      "summary": "事项01至06已取消，事项07至20已完成；当前没有开放任务或待处理事项。",
+      "historical_item_count": 20,
+      "historical_open_count": 0
+    },
+    {
+      "slot": 22,
+      "snapshot_id": "7524b37f-5ee2-40c2-86cd-26d5172b2ee3",
+      "snapshot_seq": 91,
+      "reference_checks": [
+        {
+          "group": "important_changes",
+          "ref": {
+            "entity_type": "Item",
+            "id": "1601a101-4566-4b39-8ce0-70f42f26eaa5",
+            "revision": 4
+          },
+          "matches_immutable_event_revision": true
+        }
+      ],
+      "status": "PASS",
+      "summary": "事项01至09已取消，事项10至20已完成；当前没有开放任务或待处理事项。",
+      "historical_item_count": 20,
+      "historical_open_count": 0
+    },
+    {
+      "slot": 23,
+      "snapshot_id": "64c3c6c2-4b51-4ef2-93f1-3830d2f81de1",
+      "snapshot_seq": 95,
+      "reference_checks": [
+        {
+          "group": "important_changes",
+          "ref": {
+            "entity_type": "Item",
+            "id": "ad5ed238-f974-44d4-8064-f3848432dfc1",
+            "revision": 4
+          },
+          "matches_immutable_event_revision": true
+        }
+      ],
+      "status": "PASS",
+      "summary": "事项01至12已取消，事项13至20已完成；当前没有开放任务或待处理事项。",
+      "historical_item_count": 20,
+      "historical_open_count": 0
+    },
+    {
+      "slot": 24,
+      "snapshot_id": "0a9859ea-77c4-4983-b41c-561acf236ab2",
+      "snapshot_seq": 99,
+      "reference_checks": [
+        {
+          "group": "important_changes",
+          "ref": {
+            "entity_type": "Item",
+            "id": "4ce1da65-f2d5-46f4-b88f-bef2ff79598c",
+            "revision": 4
+          },
+          "matches_immutable_event_revision": true
+        }
+      ],
+      "status": "PASS",
+      "summary": "事项01至15已取消，事项16至20已完成；当前没有开放任务或待处理事项。",
+      "historical_item_count": 20,
+      "historical_open_count": 0
+    },
+    {
+      "slot": 25,
+      "snapshot_id": "471c2e15-3027-4eb0-a0e6-1b128f4ac495",
+      "snapshot_seq": 103,
+      "reference_checks": [
+        {
+          "group": "important_changes",
+          "ref": {
+            "entity_type": "Item",
+            "id": "260656eb-229f-4fec-a3e1-77a9546b8cb3",
+            "revision": 4
+          },
+          "matches_immutable_event_revision": true
+        }
+      ],
+      "status": "PASS",
+      "summary": "事项01至18均已取消，事项19至20已完成；当前没有开放任务或待处理事项。",
+      "historical_item_count": 20,
+      "historical_open_count": 0
+    },
+    {
+      "slot": 26,
+      "snapshot_id": "91b50dfb-6b96-43ed-8267-1aac2b6a6a1d",
+      "snapshot_seq": 107,
+      "reference_checks": [
+        {
+          "group": "important_changes",
+          "ref": {
+            "entity_type": "Item",
+            "id": "aaac2eeb-ccf2-45c9-8742-7a7cc2a530b4",
+            "revision": 4
+          },
+          "matches_immutable_event_revision": true
+        }
+      ],
+      "status": "PASS",
+      "summary": "当前20项任务均已取消，没有开放任务或待处理事项。",
+      "historical_item_count": 20,
+      "historical_open_count": 0
+    },
+    {
+      "slot": 27,
+      "snapshot_id": "2af51167-1afd-4508-bf73-2e6a8ca8defe",
+      "snapshot_seq": 111,
+      "reference_checks": [
+        {
+          "group": "important_changes",
+          "ref": {
+            "entity_type": "Item",
+            "id": "59308c12-f345-4f35-9bce-66404db385b5",
+            "revision": 5
+          },
+          "matches_immutable_event_revision": true
+        }
+      ],
+      "status": "PASS",
+      "summary": "当前20项任务均已取消，无开放任务或待处理事项。",
+      "historical_item_count": 20,
+      "historical_open_count": 0
+    },
+    {
+      "slot": 28,
+      "snapshot_id": "c2e49544-6523-477a-87b3-6f531cd7c53d",
+      "snapshot_seq": 115,
+      "reference_checks": [
+        {
+          "group": "important_changes",
+          "ref": {
+            "entity_type": "Item",
+            "id": "d93df09e-7117-43d0-9cb0-87498fb96349",
+            "revision": 5
+          },
+          "matches_immutable_event_revision": true
+        }
+      ],
+      "status": "PASS",
+      "summary": "当前20项任务均已取消，无开放任务或待处理事项。近期事项05至07移除截止时间。",
+      "historical_item_count": 20,
+      "historical_open_count": 0
+    },
+    {
+      "slot": 29,
+      "snapshot_id": "5cfd9633-dd02-44df-b729-5523532c23ec",
+      "snapshot_seq": 119,
+      "reference_checks": [
+        {
+          "group": "important_changes",
+          "ref": {
+            "entity_type": "Item",
+            "id": "7b80bbac-df8d-416b-a74e-862636e921cf",
+            "revision": 5
+          },
+          "matches_immutable_event_revision": true
+        }
+      ],
+      "status": "PASS",
+      "summary": "当前20项任务均已取消，无开放任务或待处理事项。事项08至10近期移除截止时间。",
+      "historical_item_count": 20,
+      "historical_open_count": 0
+    }
+  ]
+}

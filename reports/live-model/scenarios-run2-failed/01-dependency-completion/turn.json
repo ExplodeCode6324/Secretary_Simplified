@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "id": "f40ecaac-13dc-4b4e-b841-414ba3f5f84f",
+  "session_id": "7364d06a-142a-4ef5-a075-1dbf597da68c",
+  "principal_id": "master",
+  "request_id": "0386926c-1c1c-410f-9e21-4ca1f14a9221",
+  "intent_id": "143787f2-fcf0-45b6-84f5-dd130dcd1196",
+  "state": "COMMITTED",
+  "input": {
+    "schema_version": 1,
+    "request_id": "0386926c-1c1c-410f-9e21-4ca1f14a9221",
+    "session_id": "7364d06a-142a-4ef5-a075-1dbf597da68c",
+    "principal_id": "master",
+    "origin": "MASTER_CLI",
+    "received_at": "2026-09-13T23:23:46.995Z",
+    "text": "I completed prerequisite item 00000000-0000-4000-8000-000000000701. Mark it DONE. Keep dependent item 00000000-0000-4000-8000-000000000703 BLOCKED; do not automatically complete it.",
+    "attachment_refs": [
+      {
+        "schema_version": 1,
+        "id": "10acb706-2900-5236-9a87-7636bf282459",
+        "relative_path": "10acb706-2900-5236-9a87-7636bf282459.blob",
+        "sha256": "43be7cfee1822c40ed62c2a428369f6a37636d53335aac7f6e25af2129207005",
+        "media_type": "text/plain",
+        "byte_size": 181,
+        "data_class": "SYNTHETIC",
+        "created_at": "2026-09-13T23:23:46.996Z",
+        "extensions": {}
+      }
+    ],
+    "data_class": "SYNTHETIC",
+    "extensions": {}
+  },
+  "reply": {
+    "evidence": [],
+    "text": "Proposed marking item 00000000-0000-4000-8000-000000000701 DONE. Dependent item 00000000-0000-4000-8000-000000000703 will remain BLOCKED."
+  },
+  "committed_operation_keys": [
+    "mark-item-701-done"
+  ],
+  "processing_owner": null,
+  "lease_until": null,
+  "updated_at": "2026-09-13T23:23:50.586Z",
+  "extensions": {}
+}

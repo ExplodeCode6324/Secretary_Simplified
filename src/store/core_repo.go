@@ -17,6 +17,9 @@ func (s *Store) AcceptInput(ctx context.Context, in contract.InputEnvelope, limi
 	if e := contract.Validate("InputEnvelope", in); e != nil {
 		return out, e
 	}
+	if e := contract.CheckNoClassification(in); e != nil {
+		return out, e
+	}
 	hash, e := inputSemanticHash(in)
 	if e != nil {
 		return out, e
@@ -28,6 +31,17 @@ func (s *Store) AcceptInput(ctx context.Context, in contract.InputEnvelope, limi
 	}
 	if lookupErr != nil && lookupErr != sql.ErrNoRows {
 		return out, lookupErr
+	}
+	if lookupErr == nil {
+		var raw []byte
+		if e = s.DB.QueryRowContext(ctx, "SELECT payload_json FROM input_turn WHERE principal_id=? AND request_id=?", in.PrincipalID, in.RequestID).Scan(&raw); e != nil {
+			return out, e
+		}
+		e = contract.Decode("InputTurn", raw, &out)
+		return out, e
+	}
+	if e = CheckAnswerTarget(ctx, s.DB, in); e != nil {
+		return out, e
 	}
 	in, e = s.archiveInput(ctx, in)
 	if e != nil {
@@ -53,6 +67,9 @@ func acceptInputTx(ctx context.Context, tx *sql.Tx, in contract.InputEnvelope, h
 			return contract.Decode("InputTurn", raw, &out)
 		}
 		if !errors.Is(err, sql.ErrNoRows) {
+			return err
+		}
+		if err = CheckAnswerTarget(ctx, tx, in); err != nil {
 			return err
 		}
 		var count int
@@ -81,9 +98,37 @@ func acceptInputTx(ctx context.Context, tx *sql.Tx, in contract.InputEnvelope, h
 	return out, err
 }
 func appendConversationTx(ctx context.Context, tx *sql.Tx, t contract.InputTurn, role, text string) error {
+	return appendConversationWithQuestionsTx(ctx, tx, t, role, text, t.Input.DataClass, nil, nil)
+}
+func appendConversationWithQuestionsTx(ctx context.Context, tx *sql.Tx, t contract.InputTurn, role, text, class string, reply map[string]any, mutate func(*contract.ConversationState, int) error) error {
 	var seq int
 	if e := tx.QueryRowContext(ctx, "SELECT coalesce(max(sequence),0)+1 FROM conversation_event WHERE session_id=?", t.SessionID).Scan(&seq); e != nil {
 		return e
+	}
+	var raw []byte
+	if e := tx.QueryRowContext(ctx, "SELECT payload_json FROM conversation_session WHERE id=?", t.SessionID).Scan(&raw); e != nil {
+		return e
+	}
+	var session contract.ConversationState
+	if e := contract.Decode("ConversationState", raw, &session); e != nil {
+		return e
+	}
+	if mutate != nil {
+		if e := mutate(&session, seq); e != nil {
+			return e
+		}
+		text, _ = reply["text"].(string)
+		if session.Summary != "" || len(session.PendingQuestions) > 0 {
+			stateClass, e := contract.ReadClassification(session.Extensions)
+			if e != nil {
+				return e
+			}
+			class, e = contract.JoinClass(class, stateClass)
+			if e != nil {
+				return e
+			}
+		}
+
 	}
 	v := contract.ConversationEvent{SchemaVersion: 1, ID: contract.NewID(), SessionID: t.SessionID, Sequence: seq, TurnID: t.ID, Role: role, Text: text, CreatedAt: t.UpdatedAt, DeliveryState: "RECORDED", Evidence: []contract.EvidenceRef{}, Extensions: map[string]any{}}
 	if role == "MASTER" {
@@ -93,20 +138,17 @@ func appendConversationTx(ctx context.Context, tx *sql.Tx, t contract.InputTurn,
 			}
 		}
 	}
+	var classErr error
+	v.Extensions, classErr = contract.ClassifyExtensions(v.Extensions, class)
+	if classErr != nil {
+		return classErr
+	}
 	if e := contract.Validate("ConversationEvent", v); e != nil {
 		return e
 	}
 	b, _ := json.Marshal(v)
 	_, e := tx.ExecContext(ctx, "INSERT INTO conversation_event VALUES(?,?,?,?,?,?)", v.ID, v.SessionID, v.Sequence, v.Role, string(b), v.CreatedAt)
 	if e != nil {
-		return e
-	}
-	var raw []byte
-	if e = tx.QueryRowContext(ctx, "SELECT payload_json FROM conversation_session WHERE id=?", t.SessionID).Scan(&raw); e != nil {
-		return e
-	}
-	var session contract.ConversationState
-	if e = contract.Decode("ConversationState", raw, &session); e != nil {
 		return e
 	}
 	oldRevision := session.Revision
@@ -163,7 +205,15 @@ func (s *Store) Request(ctx context.Context, principal, id string) (map[string]a
 func (s *Store) FinishTurn(ctx context.Context, id string, reply map[string]any, keys []string, apply func(*sql.Tx, contract.InputTurn) error) error {
 	return s.Write(ctx, func(tx *sql.Tx) error { return finishTurnTx(ctx, tx, id, reply, keys, apply) })
 }
+func (s *Store) FinishTurnClass(ctx context.Context, id string, reply map[string]any, keys []string, class string, apply func(*sql.Tx, contract.InputTurn) error) error {
+	return s.Write(ctx, func(tx *sql.Tx) error {
+		return finishTurnWithQuestionsTx(ctx, tx, id, reply, keys, nil, class, apply, false)
+	})
+}
 func finishTurnTx(ctx context.Context, tx *sql.Tx, id string, reply map[string]any, keys []string, apply func(*sql.Tx, contract.InputTurn) error) error {
+	return finishTurnWithQuestionsTx(ctx, tx, id, reply, keys, nil, "SYNTHETIC", apply, false)
+}
+func finishTurnWithQuestionsTx(ctx context.Context, tx *sql.Tx, id string, reply map[string]any, keys []string, refs []contract.ReadRef, class string, apply func(*sql.Tx, contract.InputTurn) error, questions bool) error {
 
 	var t contract.InputTurn
 	var b []byte
@@ -176,25 +226,68 @@ func finishTurnTx(ctx context.Context, tx *sql.Tx, id string, reply map[string]a
 	if t.State == "COMMITTED" {
 		return nil
 	}
+	if questions {
+		var stateRaw []byte
+		if e := tx.QueryRowContext(ctx, "SELECT payload_json FROM conversation_session WHERE id=?", t.SessionID).Scan(&stateRaw); e != nil {
+			return e
+		}
+		var state contract.ConversationState
+		if e := contract.Decode("ConversationState", stateRaw, &state); e != nil {
+			return e
+		}
+		if state.Summary != "" || len(state.PendingQuestions) > 0 {
+			old, e := contract.ReadClassification(state.Extensions)
+			if e != nil {
+				return e
+			}
+			class, e = contract.JoinClass(class, old)
+			if e != nil {
+				return e
+			}
+		}
+	}
+	var mutate func(*contract.ConversationState, int) error
+	if questions {
+		var e error
+		mutate, e = prepareQuestionsTx(ctx, tx, t, reply, refs, class)
+		if e != nil {
+			return e
+		}
+	}
 	if apply != nil {
 		if e := apply(tx, t); e != nil {
 			return e
 		}
 	}
+	var classErr error
+	t.Extensions, classErr = contract.ClassifyExtensions(t.Extensions, class)
+	if classErr != nil {
+		return classErr
+	}
 	t.State = "COMMITTED"
 	t.Reply = &reply
+	if keys == nil {
+		keys = []string{}
+	}
 	t.CommittedOperationKeys = keys
 	t.UpdatedAt = contract.Now()
+	text, _ := reply["text"].(string)
+	if e := appendConversationWithQuestionsTx(ctx, tx, t, "ASSISTANT", text, class, reply, mutate); e != nil {
+		return e
+	}
+
+	if e := contract.Validate("InputTurn", t); e != nil {
+		return e
+	}
 	b, _ = json.Marshal(t)
 	if _, e := tx.ExecContext(ctx, "UPDATE input_turn SET state=?,payload_json=?,updated_at=? WHERE id=?", t.State, string(b), t.UpdatedAt, id); e != nil {
 		return e
 	}
-	r, _ := json.Marshal(map[string]any{"turn_id": id, "intent_id": t.IntentID, "state": "COMMITTED", "reply": reply, "operation_keys": keys})
+	r, _ := json.Marshal(map[string]any{"turn_id": id, "intent_id": t.IntentID, "state": "COMMITTED", "reply": reply, "operation_keys": keys, "extensions": t.Extensions})
 	if _, e := tx.ExecContext(ctx, "UPDATE request_receipt SET state='COMMITTED',response_json=? WHERE principal_id=? AND request_id=?", string(r), t.PrincipalID, t.RequestID); e != nil {
 		return e
 	}
-	text, _ := reply["text"].(string)
-	return appendConversationTx(ctx, tx, t, "ASSISTANT", text)
+	return nil
 }
 func (s *Store) SaveManifest(ctx context.Context, v contract.ContextManifest) error {
 	if e := contract.Validate("ContextManifest", v); e != nil {
@@ -230,6 +323,9 @@ func CheckReadSetTx(ctx context.Context, tx *sql.Tx, refs []contract.ReadRef) er
 func (s *Store) AcceptTyped(ctx context.Context, in contract.InputEnvelope, limit int, reply map[string]any, keys []string, apply func(*sql.Tx, contract.InputTurn) error) (out contract.InputTurn, err error) {
 	if err = contract.Validate("InputEnvelope", in); err != nil {
 		return
+	}
+	if e := contract.CheckNoClassification(in); e != nil {
+		return out, e
 	}
 	hash, e := inputSemanticHash(in)
 	if e != nil {

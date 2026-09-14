@@ -1,0 +1,1 @@
+{"schema_version":1,"context_id":"7f67d16d-497e-40e6-972a-25b80bb2af07","reply":{"text":"已提出将“合成事项17”标记为 CANCELLED，其他字段不变，未创建额外任务。","evidence":[]},"actions":[{"operation_key":"cancel-item-17","kind":"UPDATE_ITEM","payload":{"item_id":"4bf95312-bdb4-4886-beb5-15dfec7c5704","expected_revision":3,"changes":{"status":"CANCELLED"}}}],"controls":[],"extensions":{}}

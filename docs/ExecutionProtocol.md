@@ -99,3 +99,27 @@ ChangeEvent 带 root_id、causation_id 和 origin。消费者忽略自己已处�
 实施过程中发现：仅计算下一个有效 UTC 时刻会跳过 DST gap 的审计。Ayanami 复核 D06 后增加 `scheduled_job.skipped` 审计事件。不存在的本地日期/时刻不伪造 JobRun.scheduled_for；事件与 next_due_at 推进同事务，before 为事务读到的完整计划，after 为推进运行字段后的完整计划，业务 revision 不增加。事件 origin 固定 scheduler.calendar，extensions.runtime.calendar_skip 记录 local_date、timezone、local_time、reason=DST_GAP。事件 ID 由 job_id、本地日期与规范规则哈希确定；相同事件重放核对语义后不阻断推进。该审计事件不能触发事件规则。
 
 复核依据：`review/D06-calendar-skip.response.md`。
+
+
+## 实施过程中发现的缺陷：D08 能力准入与固定验收条件
+
+实施发现 `alarm.play`、`briefing.build`、`source.sync` 已有执行器，但公共准入的程序派生与 Criterion 判别联合不完整。经 [Ayanami D08 复核](../review/D08-capability-criteria-deepseek.response.md) 同意，新增以下严格闭合的 kind，schema_version 保持 1；登记时冻结 criterion_hash，模型必须逐字段匹配程序派生值，不得事后改写。
+
+- `alarm_session_recorded`：expected 仅 `{device_id, audio_ref}`，audio_ref 为命令 ObjectRef 的 UUID。Verifier 解析 Task 当前 run，交叉核对 alarm.play 及 args，并要求该 run 的会话 DTO 身份一致、状态 PLAYING 或 STOPPED。稍后提醒的新 Task/run 不得复用旧会话；不需要 D02 通知键实例化，因为会话按 run 绑定。PASS 仅证明已持久记录播放会话，不等于已叫醒、真实发声或 Item DONE；静音断言属于 A21 测试。
+- `briefing_artifact_recorded`：expected 仅 `{media_type: "text/plain"}`。要求当前 run 当前 attempt/fence 的最终持久成功 receipt、effect_observed=true、至少一个非空对象，ObjectRef 与对象记录一致，实际字节 SHA256 自洽。旧回执、缺失或损坏对象不能 PASS。只证明产物持久化，不证明内容正确或有引用；不得读取模型自述判定 verdict，也不得事后回填 hash 自证。
+- `source_sync_recorded`：expected 仅 `{source_id: UUID}`。当前 run 命令参数必须一致；SourceState 全 DTO 与 SQL 镜像一致且 cursor 非 NULL；追加 source.synced 事件必须带当前 run/attempt/fence provenance。`runtime.source_sync` 严格包含 `{run_id: UUID, attempt_no: integer>=1, fencing_token: integer>=1, records_processed: integer>=0}`，由 IngestService 在 SourceSynced 的同一事务内写入事件，禁止模型提供。其 records_processed 与事件 after.cursor.processed 一致。后续同步不覆盖旧事件。原 source_cursor_committed 保留旧语义；拒绝准入期猜测 cursor_hash 或依赖可变 fixture 内容计算标准。
+
+三个新判定任一必要证据缺失或不一致均 UNKNOWN，不弱化 CRITERION_TAMPERED、授权和 fencing 检查。D05 memory.refresh 仍由专属 SlotController 登记，禁止普通公共准入。
+
+
+### D08 修订 1：REPLAN 的当前 run 定义
+
+前轮“同 Task 总共恰一条 run”的规则与合法 REPLAN 保留历史 run 冲突，已由 [Ayanami 补充裁决](../review/D08-replan-current-run-deepseek.response.md) 纠正。当前 run = 同 Task `ORDER BY rowid DESC LIMIT 1` 的最新已接纳 run，和 REPLAN 选择 previous 的追加顺序相同。只查询其证据；禁止按成功状态回捞历史 run。任何更旧 run 仍为 QUEUED/CLAIMED/RUNNING/RESULT_UNKNOWN 都令新判定 UNKNOWN；当前 RESULT_UNKNOWN 须先完成对账。列与 DTO 的 ID/task/attempt/fence/state 始终交叉核对。
+
+本规则依赖 job_run 只追加、不 DELETE、不 VACUUM 的存储不变量，插入与 REPLAN 修改在同一写事务内；当前无清理这类行的实现。未来引入清理/整理必须先迁移为显式 current_run_id 或代际，不能悄然沿用 rowid 假设。alarm 证据是 run 级（同 run 回收不额外要求会话 fence）；briefing receipt 和 source event 仍要求当前 attempt/fence。新标准内容和 criterion_hash 不改变，旧证据不满足新 REPLAN、连续两次 REPLAN 只认最后一代、重启不改变归属。
+
+## 实施过程中发现的缺陷（D10，2026-09-14）
+
+实际自然语言 CLI 提醒回放发现：模型未收到既有提醒默认规则，生成 SKIP/0 秒，正常扫描迟到 904 毫秒就合法跳过。根据 Ayanami DeepSeek 商议（`review/reminder-defaults-v1-boundary-deepseek.response.md`、`review/reminder-defaults-scope-deepseek.response.md`），v1 自然语言 Decision 的 CREATE_JOB 在 capability 为 notify.local 或 alarm.play 时，只支持 FIRE_ONCE_WITHIN_GRACE 与 grace_seconds=300。非默认整笔决策拒绝并反馈 REMINDER_POLICY_UNSUPPORTED，沿用既定最多三次生成及持久预算，不静默改值或回填。其他能力的计划不受此限制。
+
+自定义迟到策略须由已认证 Typed 入口显式提交，模型不得通过该入口代填。自然语言明确要求自定义策略时，只说明此能力边界，不生成替代默认动作；“一次”表示 occurrence 数量，不表示允许迟到跳过。系统说明与拒绝反馈都须陈述此边界。原 Scheduler 的严格宽限语义不变，Typed 的显式 SKIP/0 原样保留。原文子串或模型自填锚点不作为授权证明。

@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "request_id": "0386926c-1c1c-410f-9e21-4ca1f14a9221",
+  "session_id": "7364d06a-142a-4ef5-a075-1dbf597da68c",
+  "principal_id": "master",
+  "origin": "MASTER_CLI",
+  "received_at": "2026-09-13T23:23:46.995Z",
+  "text": "I completed prerequisite item 00000000-0000-4000-8000-000000000701. Mark it DONE. Keep dependent item 00000000-0000-4000-8000-000000000703 BLOCKED; do not automatically complete it.",
+  "attachment_refs": [],
+  "data_class": "SYNTHETIC",
+  "extensions": {}
+}

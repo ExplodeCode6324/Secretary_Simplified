@@ -1,0 +1,31 @@
+{
+  "item": {
+    "schema_version": 1,
+    "id": "bf581062-52b7-53dd-b61b-4cb0c99fcf7b",
+    "revision": 1,
+    "domain": "project",
+    "kind": "TASK",
+    "title": "synthetic-question-project-date",
+    "status": "OPEN",
+    "priority": 1,
+    "due_at": null,
+    "timezone": "Asia/Hong_Kong",
+    "time_state": "UNKNOWN",
+    "parent_id": null,
+    "dependency_ids": [],
+    "evidence": [
+      {
+        "object_id": "95ecc230-9ab9-5fb9-9a27-09dc6b4f6661",
+        "sha256": "5c6885bc9e2db0548dc63b2450f1aa7982621df7d53353ae1892677b9092d06c",
+        "locator": "full_text",
+        "origin_id": "95ecc230-9ab9-5fb9-9a27-09dc6b4f6661",
+        "data_class": "SYNTHETIC"
+      }
+    ],
+    "created_at": "2026-09-14T01:00:12.559Z",
+    "updated_at": "2026-09-14T01:00:12.559Z",
+    "extensions": {}
+  },
+  "create_text": "现有 Item bf581062-52b7-53dd-b61b-4cb0c99fcf7b（synthetic-question-project-date）缺少截止日期。请仅通过 reply.questions 登记一个关联这个 exact Item ID 的问题，text 严格为“synthetic-question-project-date 的截止日期是什么？”。actions 和 controls 必须为空；不要修改事项、猜测日期或创建新事项。",
+  "fixture_sha256": "61b35e670ade92d6c809c2048198a84020965b6fe0ec1b76ce4d73801b24222b"
+}

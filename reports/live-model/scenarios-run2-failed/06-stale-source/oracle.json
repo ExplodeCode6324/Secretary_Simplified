@@ -1,0 +1,9 @@
+{
+  "name": "stale-source",
+  "text": "Check freshness of source 00000000-0000-4000-8000-000000000900. Reply exactly SOURCE_STALE if stale, or SOURCE_CURRENT if current. Do not modify items.",
+  "session": "a",
+  "conflict_id": "",
+  "expected": {},
+  "reply_contains": "SOURCE_STALE",
+  "min_calls": 0
+}

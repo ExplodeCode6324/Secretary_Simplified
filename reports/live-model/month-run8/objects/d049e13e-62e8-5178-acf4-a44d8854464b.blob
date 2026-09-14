@@ -1,0 +1,1 @@
+{"schema_version":1,"context_id":"3c66dab7-d267-4b86-8434-d68aab3917c2","reply":{"text":"已提出创建事项“合成事项11”的请求。","evidence":[]},"actions":[{"operation_key":"create_synthetic_item_11","kind":"CREATE_ITEM","payload":{"domain":"school","kind":"TASK","title":"合成事项11","due_at":"2026-09-21T06:00:00.000Z","timezone":"UTC","priority":0}}],"controls":[],"extensions":{}}

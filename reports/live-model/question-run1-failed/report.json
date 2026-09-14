@@ -1,0 +1,24 @@
+{
+  "suite": "D11-real-CLI-question-lifecycle",
+  "status": "FAIL",
+  "real_data": false,
+  "provider_fallback": false,
+  "build_sha256": {
+    "secretary": "759469a1c9b0c97e07f8ce30e06fc56eae05858d2428117325f2e924fa53fdba",
+    "secretaryd": "9a496c43967b11d8656c9f0d142b2432e30b90b20781cc8249be53abd87488bb"
+  },
+  "provider": {
+    "profile": "opencode-go",
+    "model": "gpt-5.6-luna",
+    "endpoint": "https://opencode.ai/zen/go/v1/responses"
+  },
+  "question_created": {
+    "created_sequence": 2,
+    "id": "d305db51-0753-5f49-82f1-065bbff81229",
+    "item_id": "1b2b211f-791d-59bb-9a48-9736af79fcf7",
+    "resolved": false,
+    "text": "synthetic-question-project-date 的截止日期是什么？"
+  },
+  "error": "Expecting value: line 1 column 1 (char 0)",
+  "completed_at": "2026-09-14T00:29:43.415431+00:00"
+}

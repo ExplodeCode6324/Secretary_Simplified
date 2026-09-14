@@ -1,0 +1,24 @@
+{
+  "suite": "D11-real-CLI-question-lifecycle",
+  "status": "FAIL",
+  "real_data": false,
+  "provider_fallback": false,
+  "build_sha256": {
+    "secretary": "e3b18771da95b6382ec38000305f79feda683ee3667aeb138d712b0d799b17e9",
+    "secretaryd": "7e5eed0b0930c8c1168f5618e86dff4738bbaac9b7edba9d277c6b7177002898"
+  },
+  "provider": {
+    "profile": "opencode-go",
+    "model": "gpt-5.6-luna",
+    "endpoint": "https://opencode.ai/zen/go/v1/responses"
+  },
+  "question_created": {
+    "created_sequence": 2,
+    "id": "d305db51-0753-5f49-82f1-065bbff81229",
+    "item_id": "bf581062-52b7-53dd-b61b-4cb0c99fcf7b",
+    "resolved": false,
+    "text": "synthetic-question-project-date 的截止日期是什么？"
+  },
+  "error": "retrieval returned non-JSON product reply: Request was recorded, but no actions were committed: BUDGET_EXHAUSTED",
+  "completed_at": "2026-09-14T01:00:36.821104+00:00"
+}

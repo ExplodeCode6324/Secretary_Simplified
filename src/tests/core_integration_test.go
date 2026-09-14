@@ -79,14 +79,14 @@ func TestTypedItemsAnd24HourMemory(t *testing.T) {
 	svc := core.Service{Store: s, Model: p, Config: c}
 	rid, session := contract.NewID(), contract.NewID()
 	a := createAction()
-	turn, e := svc.Typed(ctx, rid, session, []contract.ActionProposal{a})
+	turn, e := svc.TypedClass(ctx, rid, session, []contract.ActionProposal{a}, "SYNTHETIC")
 	if e != nil {
 		t.Fatal(e)
 	}
 	if turn.State != "COMMITTED" {
 		t.Fatal(turn.State)
 	}
-	if _, e = svc.Typed(ctx, rid, session, []contract.ActionProposal{a}); e != nil {
+	if _, e = svc.TypedClass(ctx, rid, session, []contract.ActionProposal{a}, "SYNTHETIC"); e != nil {
 		t.Fatal(e)
 	}
 	items, e := s.ListItems(ctx)
@@ -158,7 +158,7 @@ func TestMemoryDisclosureDeniesSecretEvidence(t *testing.T) {
 		t.Fatal(e)
 	}
 	now := contract.Now()
-	it := contract.Item{SchemaVersion: 1, ID: contract.NewID(), Revision: 1, Domain: "work", Kind: "NOTE", Title: "classified fixture", Status: "OPEN", Priority: 1, Timezone: "UTC", TimeState: "UNKNOWN", DependencyIDs: []string{}, Evidence: []contract.EvidenceRef{{ObjectID: obj.ID, SHA256: obj.SHA256, Locator: "all", OriginID: obj.ID, DataClass: "SECRET"}}, CreatedAt: now, UpdatedAt: now, Extensions: map[string]any{}}
+	it := contract.Item{SchemaVersion: 1, ID: contract.NewID(), Revision: 1, Domain: "work", Kind: "NOTE", Title: "classified fixture", Status: "OPEN", Priority: 1, Timezone: "UTC", TimeState: "UNKNOWN", DependencyIDs: []string{}, Evidence: []contract.EvidenceRef{{ObjectID: obj.ID, SHA256: obj.SHA256, Locator: "all", OriginID: obj.ID, DataClass: "SECRET"}}, CreatedAt: now, UpdatedAt: now, Extensions: map[string]any{contract.ClassificationKey: map[string]any{"data_class": "SYNTHETIC"}}}
 	if e = s.PutItem(ctx, it, 0); e != nil {
 		t.Fatal(e)
 	}
@@ -212,7 +212,7 @@ func TestTypedFailureCannotBecomeModelInput(t *testing.T) {
 	ctx := context.Background()
 	svc := core.Service{Store: s, Model: p, Config: c}
 	a := contract.ActionProposal{OperationKey: "missing", Kind: "UPDATE_ITEM", Payload: map[string]any{"item_id": contract.NewID(), "expected_revision": 1, "changes": map[string]any{"title": "impossible"}}}
-	if _, e := svc.Typed(ctx, contract.NewID(), contract.NewID(), []contract.ActionProposal{a}); e == nil {
+	if _, e := svc.TypedClass(ctx, contract.NewID(), contract.NewID(), []contract.ActionProposal{a}, "SYNTHETIC"); e == nil {
 		t.Fatal("missing item update succeeded")
 	}
 	pending, e := s.PendingTurns(ctx)
@@ -302,7 +302,7 @@ func TestRelevantContextKeepsExplicitDependencyClosure(t *testing.T) {
 	ids := []string{}
 	for i := 0; i < 30; i++ {
 		now := contract.Now()
-		v := contract.Item{SchemaVersion: 1, ID: contract.NewID(), Revision: 1, Domain: "work", Kind: "TASK", Title: fmt.Sprintf("synthetic item %d", i), Status: "OPEN", Priority: 1, Timezone: "UTC", TimeState: "UNKNOWN", DependencyIDs: []string{}, Evidence: []contract.EvidenceRef{}, CreatedAt: now, UpdatedAt: now, Extensions: map[string]any{}}
+		v := contract.Item{SchemaVersion: 1, ID: contract.NewID(), Revision: 1, Domain: "work", Kind: "TASK", Title: fmt.Sprintf("synthetic item %d", i), Status: "OPEN", Priority: 1, Timezone: "UTC", TimeState: "UNKNOWN", DependencyIDs: []string{}, Evidence: []contract.EvidenceRef{}, CreatedAt: now, UpdatedAt: now, Extensions: map[string]any{contract.ClassificationKey: map[string]any{"data_class": "SYNTHETIC"}}}
 		if i == 1 {
 			v.DependencyIDs = []string{ids[0]}
 		}

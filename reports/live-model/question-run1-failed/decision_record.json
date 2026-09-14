@@ -1,0 +1,19 @@
+[
+  {
+    "schema_version": 1,
+    "context_id": "94c0b3a1-fa41-4d55-a9b9-e3802ffb24c8",
+    "reply": {
+      "evidence": [],
+      "questions": [
+        {
+          "item_id": "1b2b211f-791d-59bb-9a48-9736af79fcf7",
+          "text": "synthetic-question-project-date 的截止日期是什么？"
+        }
+      ],
+      "text": "已登记问题。"
+    },
+    "actions": [],
+    "controls": [],
+    "extensions": {}
+  }
+]

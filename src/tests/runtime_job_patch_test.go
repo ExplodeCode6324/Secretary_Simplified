@@ -15,7 +15,7 @@ func TestRuntimeJobPatchAtomicIdempotency(t *testing.T) {
 	cmd := runtimeCommand()
 	criteria, _ := store.DeriveCriteria(cmd)
 	due := contract.Timestamp(time.Now().Add(time.Hour))
-	j := contract.ScheduledJob{SchemaVersion: 1, ID: contract.NewID(), Revision: 1, RootID: contract.NewID(), Enabled: true, Schedule: contract.Schedule{Kind: "once", At: &due, Timezone: "UTC", Weekdays: []int{}}, Command: cmd, TaskTemplate: map[string]any{"goal": "patch", "criteria": criteria, "item_id": nil, "item_operation_key": nil}, NextDueAt: &due, Misfire: "FIRE_ONCE_WITHIN_GRACE", GraceSeconds: 300, Overlap: "SKIP", MaxAttempts: 3, UpdatedAt: contract.Now(), Extensions: map[string]any{}}
+	j := contract.ScheduledJob{SchemaVersion: 1, ID: contract.NewID(), Revision: 1, RootID: contract.NewID(), Enabled: true, Schedule: contract.Schedule{Kind: "once", At: &due, Timezone: "UTC", Weekdays: []int{}}, Command: cmd, TaskTemplate: map[string]any{"goal": "patch", "criteria": criteria, "item_id": nil, "item_operation_key": nil}, NextDueAt: &due, Misfire: "FIRE_ONCE_WITHIN_GRACE", GraceSeconds: 300, Overlap: "SKIP", MaxAttempts: 3, UpdatedAt: contract.Now(), Extensions: map[string]any{"security.classification": map[string]any{"data_class": "SYNTHETIC"}}}
 	if e := s.RegisterJob(ctx, j, g); e != nil {
 		t.Fatal(e)
 	}

@@ -23,7 +23,7 @@ start=time.time()
 with sqlite3.connect(d/'state/secretary.sqlite') as db:baseline=db.execute('SELECT count(*) FROM item').fetchone()[0]
 while time.time()-start<a.seconds:
  request=str(uuid.uuid4());title='synthetic-soak-%04d'%len(records)
- command=[a.cli,'items','create','--title',title,'--domain','project','--request-id',request,'--config',str(d/'config.json'),'--json']
+ command=[a.cli,'items','create','--data-class','SYNTHETIC','--title',title,'--domain','project','--request-id',request,'--config',str(d/'config.json'),'--json']
  # Same request crosses two independent CLI processes; only one durable effect.
  writes=[subprocess.run(command,capture_output=True,text=True,timeout=15).returncode for _ in range(2)]
  rc,v=doctor()

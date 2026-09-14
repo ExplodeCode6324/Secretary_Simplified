@@ -1,0 +1,11 @@
+{
+  "request_id": "31718bcd-b678-4426-97e2-137616f874f3",
+  "text": "创建一个 project 领域 TASK 事项，标题严格为 synthetic-cli-reminder，截止时间为 2026-09-13T23:51:38.562Z (UTC)。同时在该时间发一次本地文字通知，通知文字为 synthetic-cli-reminder。只发通知，事项保持 OPEN，不要声称已完成事项。",
+  "expected": {
+    "title": "synthetic-cli-reminder",
+    "domain": "project",
+    "status": "OPEN",
+    "due_at": "2026-09-13T23:51:38.562Z",
+    "notification_count": 1
+  }
+}

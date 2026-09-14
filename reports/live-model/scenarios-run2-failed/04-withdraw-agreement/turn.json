@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "id": "cd6ec4d3-7eba-4453-978b-5c0594d71b59",
+  "session_id": "908344b2-f168-406f-8e36-a5251cd375cb",
+  "principal_id": "master",
+  "request_id": "57fcd450-69f9-4939-bbf4-f3db82e08135",
+  "intent_id": "17b7b1c5-6280-456b-82cd-5776a41c8ca5",
+  "state": "COMMITTED",
+  "input": {
+    "schema_version": 1,
+    "request_id": "57fcd450-69f9-4939-bbf4-f3db82e08135",
+    "session_id": "908344b2-f168-406f-8e36-a5251cd375cb",
+    "principal_id": "master",
+    "origin": "MASTER_CLI",
+    "received_at": "2026-09-13T23:23:58.996Z",
+    "text": "Withdraw the earlier BLUE731 password agreement. The current sea-salt-protocol password is GREEN842. Acknowledge only; do not create items.",
+    "attachment_refs": [
+      {
+        "schema_version": 1,
+        "id": "5b274418-ad5b-579e-98c0-810bc368c387",
+        "relative_path": "5b274418-ad5b-579e-98c0-810bc368c387.blob",
+        "sha256": "42f556bbd44f1cdb5fdb32d1df4d76e7e78580f648810688f4ab22d0a0a095ab",
+        "media_type": "text/plain",
+        "byte_size": 139,
+        "data_class": "SYNTHETIC",
+        "created_at": "2026-09-13T23:23:58.996Z",
+        "extensions": {}
+      }
+    ],
+    "data_class": "SYNTHETIC",
+    "extensions": {}
+  },
+  "reply": {
+    "evidence": [],
+    "text": "Acknowledged. The earlier BLUE731 password agreement is withdrawn, and GREEN842 is the current sea-salt-protocol password. No items created."
+  },
+  "committed_operation_keys": [],
+  "processing_owner": null,
+  "lease_until": null,
+  "updated_at": "2026-09-13T23:24:03.019Z",
+  "extensions": {}
+}

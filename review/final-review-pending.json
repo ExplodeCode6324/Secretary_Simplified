@@ -1,4 +1,9 @@
 {
+  "record_type": "historical_quota_blocker",
+  "superseded": true,
+  "current_status": "ALL_MODULE_AND_FINAL_EQUIVALENCE_AND_ARCHIVE_REVIEWS_COMPLETE",
+  "current_index": "review/README.md",
+  "model_provenance": "review/model-provenance.json",
   "recorded_at": "2026-09-13T20:11:21.614853+00:00",
   "reason": "Provider quota exhausted; no new inference retries authorized. Coordinator status, not Ayanami verdict.",
   "reviews": [
@@ -23,5 +28,7 @@
       "tool_outputs": 72,
       "status": "BLOCKED_NO_REVIEW_CONCLUSION"
     }
-  ]
+  ],
+  "open_review_mustfix": [],
+  "latest_correction": "review/final-archive-metadata-correction.response.md"
 }

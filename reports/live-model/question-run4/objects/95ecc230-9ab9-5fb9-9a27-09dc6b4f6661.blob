@@ -1,0 +1,1 @@
+[{"operation_key":"create_item","kind":"CREATE_ITEM","payload":{"domain":"project","due_at":null,"kind":"TASK","priority":1,"timezone":"Asia/Hong_Kong","title":"synthetic-question-project-date"}}]

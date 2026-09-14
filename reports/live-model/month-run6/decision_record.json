@@ -1,0 +1,2092 @@
+[
+  {
+    "schema_version": 1,
+    "context_id": "b8e2f71e-0ff2-46a9-a237-7c6c9e2c5174",
+    "reply": {
+      "evidence": [],
+      "text": "已提议创建一个事项“合成事项01”，domain 为 work，截止时间为 2026-09-18T00:00:00.000Z；未创建提醒或其他任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "create-synthetic-item-01",
+        "kind": "CREATE_ITEM",
+        "payload": {
+          "domain": "work",
+          "due_at": "2026-09-18T00:00:00.000Z",
+          "kind": "TASK",
+          "priority": 0,
+          "timezone": "UTC",
+          "title": "合成事项01"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "3d3322cd-1e2c-4a6b-8e3f-006ba3e50348",
+    "reply": {
+      "evidence": [],
+      "text": "已提出创建一个事项“合成事项02”，截止时间为2026-09-18T06:00:00.000Z；未提出提醒或其他任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "create-synthetic-item-02",
+        "kind": "CREATE_ITEM",
+        "payload": {
+          "domain": "work",
+          "due_at": "2026-09-18T06:00:00.000Z",
+          "kind": "TASK",
+          "priority": 0,
+          "timezone": "UTC",
+          "title": "合成事项02"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "6498fdc4-9fbb-4ecb-93ad-5e42a5e473da",
+    "reply": {
+      "evidence": [],
+      "text": "已提议创建一个事项“合成事项03”，截止时间为2026-09-18T12:00:00.000Z（UTC），未创建提醒或其他任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "create-synthetic-item-03",
+        "kind": "CREATE_ITEM",
+        "payload": {
+          "domain": "work",
+          "due_at": "2026-09-18T12:00:00.000Z",
+          "kind": "TASK",
+          "priority": 0,
+          "timezone": "UTC",
+          "title": "合成事项03"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "3dae4660-fdba-4e51-b9b0-b853309bda1e",
+    "reply": {
+      "evidence": [],
+      "text": "已提议创建事项“合成事项04”，截止时间为2026-09-19T00:00:00.000Z；未创建提醒或其他任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "create-synthetic-item-04",
+        "kind": "CREATE_ITEM",
+        "payload": {
+          "domain": "work",
+          "due_at": "2026-09-19T00:00:00.000Z",
+          "kind": "TASK",
+          "priority": 0,
+          "timezone": "UTC",
+          "title": "合成事项04"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "a3b7a9a8-3fe5-4449-ac90-b6081760bdf8",
+    "reply": {
+      "evidence": [],
+      "text": "已提议创建一个事项“合成事项05”，截止时间为2026-09-19T06:00:00.000Z；未创建提醒或其他任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "create-synthetic-item-05",
+        "kind": "CREATE_ITEM",
+        "payload": {
+          "domain": "work",
+          "due_at": "2026-09-19T06:00:00.000Z",
+          "kind": "TASK",
+          "priority": 0,
+          "timezone": "UTC",
+          "title": "合成事项05"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "bd86dcd4-16a5-434d-a888-eea4de741ec7",
+    "reply": {
+      "evidence": [],
+      "text": "已提出创建一个事项“合成事项06”，截止时间为2026-09-19T12:00:00.000Z；未创建提醒或其他任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "create-synthetic-item-06",
+        "kind": "CREATE_ITEM",
+        "payload": {
+          "domain": "project",
+          "due_at": "2026-09-19T12:00:00.000Z",
+          "kind": "TASK",
+          "priority": 0,
+          "timezone": "UTC",
+          "title": "合成事项06"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "00c42921-2343-4a81-8a45-3318f94a1548",
+    "reply": {
+      "evidence": [],
+      "text": "已提议创建一个事项“合成事项07”，domain 为 project，截止时间为 2026-09-20T00:00:00.000Z（UTC）。未创建提醒或其他任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "create-synthetic-item-07",
+        "kind": "CREATE_ITEM",
+        "payload": {
+          "domain": "project",
+          "due_at": "2026-09-20T00:00:00.000Z",
+          "kind": "TASK",
+          "priority": 0,
+          "timezone": "UTC",
+          "title": "合成事项07"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "93ea38e6-fbce-47d1-bedd-aa54b290bcfd",
+    "reply": {
+      "evidence": [],
+      "text": "已提议创建一个事项“合成事项08”，领域为 project，截止时间为 2026-09-20T06:00:00.000Z；未创建提醒或其他任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "create-synthetic-item-08",
+        "kind": "CREATE_ITEM",
+        "payload": {
+          "domain": "project",
+          "due_at": "2026-09-20T06:00:00.000Z",
+          "kind": "TASK",
+          "priority": 0,
+          "timezone": "UTC",
+          "title": "合成事项08"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "989363d5-e80f-4e34-8ed8-3bc0a1f3fcd9",
+    "reply": {
+      "evidence": [],
+      "text": "已提议创建一个事项“合成事项09”，领域为 project，截止时间为 2026-09-20T12:00:00.000Z；未创建提醒或其他任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "create-synthetic-item-09",
+        "kind": "CREATE_ITEM",
+        "payload": {
+          "domain": "project",
+          "due_at": "2026-09-20T12:00:00.000Z",
+          "kind": "TASK",
+          "priority": 0,
+          "timezone": "UTC",
+          "title": "合成事项09"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "417df865-3554-43ad-ad53-728019b8ba31",
+    "reply": {
+      "evidence": [],
+      "text": "将创建一个事项“合成事项10”，截止时间为2026-09-21T00:00:00.000Z；不会创建提醒或其他任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "create-synthetic-item-10",
+        "kind": "CREATE_ITEM",
+        "payload": {
+          "domain": "project",
+          "due_at": "2026-09-21T00:00:00.000Z",
+          "kind": "TASK",
+          "priority": 0,
+          "timezone": "UTC",
+          "title": "合成事项10"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "5e8fc073-465d-4cd3-bba2-875654afe533",
+    "reply": {
+      "evidence": [],
+      "text": "将创建一个事项“合成事项11”，领域为 school，截止时间为 2026-09-21T06:00:00.000Z；不会创建提醒或其他任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "create-synthetic-item-11",
+        "kind": "CREATE_ITEM",
+        "payload": {
+          "domain": "school",
+          "due_at": "2026-09-21T06:00:00.000Z",
+          "kind": "TASK",
+          "priority": 0,
+          "timezone": "UTC",
+          "title": "合成事项11"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "2b6cf1ba-47b5-4a97-a22f-03c826eff408",
+    "reply": {
+      "evidence": [],
+      "text": "已提议创建一个事项：“合成事项12”，领域为 school，截止时间为 2026-09-21T12:00:00.000Z。"
+    },
+    "actions": [
+      {
+        "operation_key": "create-synthetic-item-12",
+        "kind": "CREATE_ITEM",
+        "payload": {
+          "domain": "school",
+          "due_at": "2026-09-21T12:00:00.000Z",
+          "kind": "TASK",
+          "priority": 0,
+          "timezone": "UTC",
+          "title": "合成事项12"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "8d88c8b6-24f8-4cf2-98d2-b5bb4a2668cb",
+    "reply": {
+      "evidence": [],
+      "text": "已提出创建事项“合成事项13”的请求，不创建提醒或其他任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "create-synthetic-item-13",
+        "kind": "CREATE_ITEM",
+        "payload": {
+          "domain": "school",
+          "due_at": "2026-09-22T00:00:00.000Z",
+          "kind": "TASK",
+          "priority": 0,
+          "timezone": "UTC",
+          "title": "合成事项13"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "ec753014-f3b0-47dd-8755-f46b592bb44a",
+    "reply": {
+      "evidence": [],
+      "text": "将创建一个事项“合成事项14”，截止时间为2026-09-22T06:00:00.000Z。未创建提醒或其他任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "create-synthetic-item-14",
+        "kind": "CREATE_ITEM",
+        "payload": {
+          "domain": "school",
+          "due_at": "2026-09-22T06:00:00.000Z",
+          "kind": "TASK",
+          "priority": 0,
+          "timezone": "UTC",
+          "title": "合成事项14"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "307445b0-1543-4d3b-a35d-bf5ad0114314",
+    "reply": {
+      "evidence": [],
+      "text": "已提出创建一个事项“合成事项15”，domain 为 school，截止时间为 2026-09-22T12:00:00.000Z；未创建提醒或其他任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "create-synthetic-item-15",
+        "kind": "CREATE_ITEM",
+        "payload": {
+          "domain": "school",
+          "due_at": "2026-09-22T12:00:00.000Z",
+          "kind": "TASK",
+          "priority": 0,
+          "timezone": "UTC",
+          "title": "合成事项15"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "53bd14ad-3689-4fb6-b65d-da07154ad6c6",
+    "reply": {
+      "evidence": [],
+      "text": "已提议创建一个事项：“合成事项16”，领域为 life，截止时间为 2026-09-23T00:00:00.000Z。未创建提醒或其他任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "create-synthetic-item-16",
+        "kind": "CREATE_ITEM",
+        "payload": {
+          "domain": "life",
+          "due_at": "2026-09-23T00:00:00.000Z",
+          "kind": "TASK",
+          "priority": 0,
+          "timezone": "UTC",
+          "title": "合成事项16"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "9f81f7c5-a9c3-45b8-962a-58a058ab8763",
+    "reply": {
+      "evidence": [],
+      "text": "已提议创建一个事项“合成事项17”，领域为 life，截止时间为 2026-09-23T06:00:00.000Z；未创建提醒或其他任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "create-synthetic-item-17",
+        "kind": "CREATE_ITEM",
+        "payload": {
+          "domain": "life",
+          "due_at": "2026-09-23T06:00:00.000Z",
+          "kind": "TASK",
+          "priority": 0,
+          "timezone": "UTC",
+          "title": "合成事项17"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "23f327cc-5d3a-4238-b2ac-8212d5dd7c25",
+    "reply": {
+      "evidence": [],
+      "text": "已提议创建一个事项“合成事项18”，截止时间为2026-09-23T12:00:00.000Z；未创建提醒或其他任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "create-synthetic-item-18",
+        "kind": "CREATE_ITEM",
+        "payload": {
+          "domain": "life",
+          "due_at": "2026-09-23T12:00:00.000Z",
+          "kind": "TASK",
+          "priority": 0,
+          "timezone": "UTC",
+          "title": "合成事项18"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "f016edc9-c515-4b6b-9912-606459692ff7",
+    "reply": {
+      "evidence": [],
+      "text": "已提议创建一个事项“合成事项19”，截止时间为2026-09-24T00:00:00.000Z；未创建提醒或其他任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "create-synthetic-item-19",
+        "kind": "CREATE_ITEM",
+        "payload": {
+          "domain": "life",
+          "due_at": "2026-09-24T00:00:00.000Z",
+          "kind": "TASK",
+          "priority": 0,
+          "timezone": "UTC",
+          "title": "合成事项19"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "dc171ad9-a6bd-4e1e-8c8b-cb19a1d72d83",
+    "reply": {
+      "evidence": [],
+      "text": "已提议创建一个事项“合成事项20”，截止时间为2026-09-24T06:00:00.000Z；未创建提醒或其他任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "create-synthetic-item-20",
+        "kind": "CREATE_ITEM",
+        "payload": {
+          "domain": "life",
+          "due_at": "2026-09-24T06:00:00.000Z",
+          "kind": "TASK",
+          "priority": 0,
+          "timezone": "UTC",
+          "title": "合成事项20"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "26f36858-8fca-491a-a2bb-cbee09b6b70f",
+    "reply": {
+      "evidence": [],
+      "text": "已提议仅将“合成事项01”的截止时间改为2026-09-27T12:00:00.000Z，其余事项保持不变。"
+    },
+    "actions": [
+      {
+        "operation_key": "update-synthetic-item-01-due",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "due_at": "2026-09-27T12:00:00.000Z"
+          },
+          "expected_revision": 1,
+          "item_id": "210c9344-4954-4500-8df0-15c0b5267b65"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "3d5a8dee-e5c5-49b2-b9e4-d3ddd57d17f2",
+    "reply": {
+      "evidence": [],
+      "text": "已提议仅将“合成事项02”的截止时间改为2026-09-28T00:00:00.000Z，其余事项保持不变。"
+    },
+    "actions": [
+      {
+        "operation_key": "update-item-02-due-date",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "due_at": "2026-09-28T00:00:00.000Z"
+          },
+          "expected_revision": 1,
+          "item_id": "4baa81c2-65b0-4704-82d5-e62fcc3d9a51"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "d2250367-46f4-4fef-8f77-f789c01345ad",
+    "reply": {
+      "evidence": [],
+      "text": "已提议仅将“合成事项03”的截止时间改为2026-09-28T06:00:00.000Z，其余事项保持不变。"
+    },
+    "actions": [
+      {
+        "operation_key": "update-item-hecheng-shixiang-03-due",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "due_at": "2026-09-28T06:00:00.000Z"
+          },
+          "expected_revision": 1,
+          "item_id": "b7df9081-4559-4a12-a7dc-a6c289d7ab84"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "a6471e01-2bc5-4a98-ac20-10fe463398dc",
+    "reply": {
+      "evidence": [],
+      "text": "已提议仅将“合成事项04”的截止时间改为2026-09-28T12:00:00.000Z，其余事项保持不变。"
+    },
+    "actions": [
+      {
+        "operation_key": "update-synthetic-item04-due",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "due_at": "2026-09-28T12:00:00.000Z"
+          },
+          "expected_revision": 1,
+          "item_id": "f58ed459-7407-4782-8172-112f9fd0f125"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "b718fa58-cfe0-4591-90f3-f6f328abf905",
+    "reply": {
+      "evidence": [],
+      "text": "已提议仅将“合成事项05”的截止时间更新为2026-09-29T00:00:00.000Z，其余事项保持不变。"
+    },
+    "actions": [
+      {
+        "operation_key": "update-synthetic-item-05-due",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "due_at": "2026-09-29T00:00:00.000Z"
+          },
+          "expected_revision": 1,
+          "item_id": "94410a78-22a8-4c48-b5ba-487c6e449905"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "b4c05eae-3fc3-4c96-8df5-c71a4ba50a87",
+    "reply": {
+      "evidence": [],
+      "text": "已提议仅将“合成事项06”的截止时间更新为2026-09-29T06:00:00.000Z，其余事项保持不变。"
+    },
+    "actions": [
+      {
+        "operation_key": "update-synthetic-item-06-due",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "due_at": "2026-09-29T06:00:00.000Z"
+          },
+          "expected_revision": 1,
+          "item_id": "54adeaf8-ab46-4889-8a27-b1c315928e12"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "3bb066c8-cc7e-4b6c-b0b5-7f94caaa8347",
+    "reply": {
+      "evidence": [],
+      "text": "已提议仅将“合成事项07”的截止时间更新为2026-09-29T12:00:00.000Z，其余事项保持不变。"
+    },
+    "actions": [
+      {
+        "operation_key": "update_synthetic_07_due",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "due_at": "2026-09-29T12:00:00.000Z"
+          },
+          "expected_revision": 1,
+          "item_id": "7cb734a2-0fa4-4d3e-a068-b571cc88e0c7"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "c5cebc3f-c622-494d-b6c6-3b348e4fb48a",
+    "reply": {
+      "evidence": [],
+      "text": "已提议仅将“合成事项08”的截止时间更新为2026-09-30T00:00:00.000Z，其余事项保持不变。"
+    },
+    "actions": [
+      {
+        "operation_key": "update-synthetic-item-08-due-date",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "due_at": "2026-09-30T00:00:00.000Z"
+          },
+          "expected_revision": 1,
+          "item_id": "963fc537-4762-45fc-9b4c-2f327659bb17"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "7b93cd9b-6615-4945-905a-19e16c7d3137",
+    "reply": {
+      "evidence": [],
+      "text": "已提议仅将“合成事项09”的截止时间更新为2026-09-30T06:00:00.000Z，其余事项保持不变。"
+    },
+    "actions": [
+      {
+        "operation_key": "update-item-09-due-date",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "due_at": "2026-09-30T06:00:00.000Z"
+          },
+          "expected_revision": 1,
+          "item_id": "b3eab228-6bf8-498f-9845-a083a87974e0"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "e1439e6b-1c43-498b-b569-7c235b1ecd49",
+    "reply": {
+      "evidence": [],
+      "text": "已提议仅将“合成事项10”的截止时间更新为2026-09-30T12:00:00.000Z，其余事项保持不变。"
+    },
+    "actions": [
+      {
+        "operation_key": "update-hecheng-shixiang-10-due",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "due_at": "2026-09-30T12:00:00.000Z"
+          },
+          "expected_revision": 1,
+          "item_id": "f04abc10-62ff-43b0-aa8c-e9f48837b44d"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "e9d2c7e4-27fe-4dbb-8fe2-a45d6c8b0e59",
+    "reply": {
+      "evidence": [],
+      "text": "已提议仅将“合成事项11”的截止时间更新为2026-10-01T00:00:00.000Z，其余事项保持不变。"
+    },
+    "actions": [
+      {
+        "operation_key": "update-item-11-due",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "due_at": "2026-10-01T00:00:00.000Z"
+          },
+          "expected_revision": 1,
+          "item_id": "48d5c91d-cb6c-44fc-9cc4-ffc9fe2535e6"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "dd59ea1e-87b5-4c28-897e-1065c5295258",
+    "reply": {
+      "evidence": [],
+      "text": "已提议仅将“合成事项12”的截止时间更新为2026-10-01T06:00:00.000Z，其余事项保持不变。"
+    },
+    "actions": [
+      {
+        "operation_key": "update-synthetic12-due",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "due_at": "2026-10-01T06:00:00.000Z"
+          },
+          "expected_revision": 1,
+          "item_id": "94369512-3a74-486e-9667-402fcd6f53ae"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "393fb84d-0392-4e98-9b7b-7bbb8f6f1771",
+    "reply": {
+      "evidence": [],
+      "text": "已提议仅将“合成事项13”的截止时间更新为2026-10-01T12:00:00.000Z，其余事项保持不变。"
+    },
+    "actions": [
+      {
+        "operation_key": "update-synthetic-item-13-due",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "due_at": "2026-10-01T12:00:00.000Z"
+          },
+          "expected_revision": 1,
+          "item_id": "b87af106-9129-4486-bcf0-3fa5eb8d06ea"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "eab62cac-7d04-4bd4-ac51-de02dd5af70b",
+    "reply": {
+      "evidence": [],
+      "text": "已提议仅将“合成事项14”的截止时间更新为2026-10-02T00:00:00.000Z，其余事项保持不变。"
+    },
+    "actions": [
+      {
+        "operation_key": "update-hecheng-shixiang-14-due",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "due_at": "2026-10-02T00:00:00.000Z"
+          },
+          "expected_revision": 1,
+          "item_id": "8974831d-7091-4a86-91d9-622bfcaa68e0"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "918f807c-613d-4488-9836-8ae4253b39c5",
+    "reply": {
+      "evidence": [],
+      "text": "已提议仅将“合成事项15”的截止时间更新为2026-10-02T06:00:00.000Z，其余事项保持不变。"
+    },
+    "actions": [
+      {
+        "operation_key": "update-item-15-due",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "due_at": "2026-10-02T06:00:00.000Z"
+          },
+          "expected_revision": 1,
+          "item_id": "17c77082-f547-48aa-abdc-93a516d20859"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "2d2146e7-9070-4eb1-92b1-6f062f2f2252",
+    "reply": {
+      "evidence": [],
+      "text": "已提议仅将“合成事项16”的截止时间更新为2026-10-02T12:00:00.000Z，其余事项保持不变。"
+    },
+    "actions": [
+      {
+        "operation_key": "update-synthetic-item-16-due",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "due_at": "2026-10-02T12:00:00.000Z"
+          },
+          "expected_revision": 1,
+          "item_id": "ed92ef7a-87bd-43c8-926b-3d7fd7c80b18"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "8d4a2283-5032-4e54-8e83-13d0741de437",
+    "reply": {
+      "evidence": [],
+      "text": "已提议仅将“合成事项17”的截止时间更新为2026-10-03T00:00:00.000Z，其余事项保持不变。"
+    },
+    "actions": [
+      {
+        "operation_key": "update-synthetic-17-due",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "due_at": "2026-10-03T00:00:00.000Z"
+          },
+          "expected_revision": 1,
+          "item_id": "007f1f09-063c-4d0a-beb8-ed2a033ad6a5"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "635fbcd1-85be-4b95-9848-9e9cdc5312f1",
+    "reply": {
+      "evidence": [],
+      "text": "已提议仅将“合成事项18”的截止时间更新为2026-10-03T06:00:00.000Z，其余事项保持不变。"
+    },
+    "actions": [
+      {
+        "operation_key": "update-synthetic-item-18-due",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "due_at": "2026-10-03T06:00:00.000Z"
+          },
+          "expected_revision": 1,
+          "item_id": "4ff380d7-60a8-467e-89b5-b835b339efe8"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "f8974b40-7fb2-4fa0-8a32-179abf616f68",
+    "reply": {
+      "evidence": [],
+      "text": "已提议仅将“合成事项19”的截止时间更新为2026-10-03T12:00:00.000Z，其余事项保持不变。"
+    },
+    "actions": [
+      {
+        "operation_key": "update-item-19-due-date",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "due_at": "2026-10-03T12:00:00.000Z"
+          },
+          "expected_revision": 1,
+          "item_id": "ee1030e0-05f9-40bf-ad94-d363bf969d56"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "6819f4fa-a63e-453a-bf0e-95ff4de070c2",
+    "reply": {
+      "evidence": [],
+      "text": "已提议仅将“合成事项20”的截止时间更新为2026-10-04T00:00:00.000Z，其余事项保持不变。"
+    },
+    "actions": [
+      {
+        "operation_key": "update-synthetic-item-20-due-date",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "due_at": "2026-10-04T00:00:00.000Z"
+          },
+          "expected_revision": 1,
+          "item_id": "3d16a173-a6d4-4ead-a46c-16b60f89704d"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "ea42d837-c771-4c45-80c8-98bfdd243b39",
+    "reply": {
+      "evidence": [],
+      "text": "已提议仅将“合成事项01”标记为DONE，其他事项不变，也未安排额外任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "mark-synthetic-item-01-done",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "status": "DONE"
+          },
+          "expected_revision": 2,
+          "item_id": "210c9344-4954-4500-8df0-15c0b5267b65"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "c0e799dc-c2a0-49f1-aa97-0fcb1dd89a3a",
+    "reply": {
+      "evidence": [],
+      "text": "已提议仅将“合成事项02”标记为DONE，其他事项不变，也未安排额外任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "mark_synthetic_item_02_done",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "status": "DONE"
+          },
+          "expected_revision": 2,
+          "item_id": "4baa81c2-65b0-4704-82d5-e62fcc3d9a51"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "7d15de01-8447-45a6-ac98-3edf3bdda125",
+    "reply": {
+      "evidence": [],
+      "text": "已提议仅将“合成事项03”标记为DONE，其他事项不变，也未安排额外任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "mark-synthetic-item-03-done",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "status": "DONE"
+          },
+          "expected_revision": 2,
+          "item_id": "b7df9081-4559-4a12-a7dc-a6c289d7ab84"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "1f57ea0e-370e-47e8-8f5e-fa70d7c95918",
+    "reply": {
+      "evidence": [],
+      "text": "已提议仅将“合成事项04”标记为DONE，其他事项不变，也未安排额外任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "mark-synthetic-item-04-done",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "status": "DONE"
+          },
+          "expected_revision": 2,
+          "item_id": "f58ed459-7407-4782-8172-112f9fd0f125"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "d904dee6-6f69-411e-92bb-f8e07a7f2c65",
+    "reply": {
+      "evidence": [],
+      "text": "已提议仅将“合成事项05”标记为DONE，其他事项不变，也未安排额外任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "mark-synthetic-item-05-done",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "status": "DONE"
+          },
+          "expected_revision": 2,
+          "item_id": "94410a78-22a8-4c48-b5ba-487c6e449905"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "9b873451-03b3-498b-8a6c-4c8dfd49ae06",
+    "reply": {
+      "evidence": [],
+      "text": "已提议仅将“合成事项06”标记为 DONE，其他事项不变，也未安排额外任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "mark-synthetic-item-06-done",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "status": "DONE"
+          },
+          "expected_revision": 2,
+          "item_id": "54adeaf8-ab46-4889-8a27-b1c315928e12"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "d75cba40-2335-4a24-ba17-9de02da98318",
+    "reply": {
+      "evidence": [],
+      "text": "已提议仅将“合成事项07”标记为 DONE，其他事项不变，也未安排额外任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "mark_synthetic_item_07_done",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "status": "DONE"
+          },
+          "expected_revision": 2,
+          "item_id": "7cb734a2-0fa4-4d3e-a068-b571cc88e0c7"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "7b6f7afa-68c1-4abf-9d45-9d7bad022d14",
+    "reply": {
+      "evidence": [],
+      "text": "已提议仅将“合成事项08”标记为 DONE，其他事项不变，也未安排额外任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "mark-synthetic-item-08-done",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "status": "DONE"
+          },
+          "expected_revision": 2,
+          "item_id": "963fc537-4762-45fc-9b4c-2f327659bb17"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "eb6d5551-b004-4942-8902-e1abe4247d00",
+    "reply": {
+      "evidence": [],
+      "text": "已提议仅将“合成事项09”标记为 DONE，其他事项不变，也未安排额外任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "mark_synthetic_item_09_done",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "status": "DONE"
+          },
+          "expected_revision": 2,
+          "item_id": "b3eab228-6bf8-498f-9845-a083a87974e0"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "8714e720-33d6-4335-91f2-38d051c72f62",
+    "reply": {
+      "evidence": [],
+      "text": "已提议仅将“合成事项10”标记为 DONE，其他事项不变，也未安排额外任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "mark-synthetic-item-10-done",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "status": "DONE"
+          },
+          "expected_revision": 2,
+          "item_id": "f04abc10-62ff-43b0-aa8c-e9f48837b44d"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "6c43bb79-783e-4d9c-976b-d0c7fd5b581b",
+    "reply": {
+      "evidence": [],
+      "text": "已提议仅将“合成事项11”标记为 DONE，其他事项不变，也未安排额外任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "mark-synthetic-item-11-done",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "status": "DONE"
+          },
+          "expected_revision": 2,
+          "item_id": "48d5c91d-cb6c-44fc-9cc4-ffc9fe2535e6"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "c4e6c7a4-1a26-46a6-acf1-06aa413d594f",
+    "reply": {
+      "evidence": [],
+      "text": "已提议仅将“合成事项12”标记为 DONE，其他事项不变，也未安排额外任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "mark-item-12-done",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "status": "DONE"
+          },
+          "expected_revision": 2,
+          "item_id": "94369512-3a74-486e-9667-402fcd6f53ae"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "5e321856-4065-4135-bbe6-529058533ed8",
+    "reply": {
+      "evidence": [],
+      "text": "已提议仅将“合成事项13”标记为 DONE，其他事项不变，也未安排额外任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "mark-synthetic-13-done",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "status": "DONE"
+          },
+          "expected_revision": 2,
+          "item_id": "b87af106-9129-4486-bcf0-3fa5eb8d06ea"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "217ff153-8b33-4b44-b0dd-ef07e0312bb9",
+    "reply": {
+      "evidence": [],
+      "text": "已提议仅将“合成事项14”标记为 DONE，其他事项不变，也未安排额外任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "mark-synthetic-14-done",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "status": "DONE"
+          },
+          "expected_revision": 2,
+          "item_id": "8974831d-7091-4a86-91d9-622bfcaa68e0"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "6e519e08-6641-41af-8858-ecabab5276c0",
+    "reply": {
+      "evidence": [],
+      "text": "已提议仅将“合成事项15”标记为 DONE，其他事项不变，也未安排额外任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "mark-synthetic-item-15-done",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "status": "DONE"
+          },
+          "expected_revision": 2,
+          "item_id": "17c77082-f547-48aa-abdc-93a516d20859"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "ae1aefb5-a4e5-4b85-b926-81298ffc16fe",
+    "reply": {
+      "evidence": [],
+      "text": "已提议仅将“合成事项16”标记为 DONE，其他事项不变，也未安排额外任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "mark-synthetic-item-16-done",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "status": "DONE"
+          },
+          "expected_revision": 2,
+          "item_id": "ed92ef7a-87bd-43c8-926b-3d7fd7c80b18"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "337f16d8-b731-4221-ad0f-87bb93cb7551",
+    "reply": {
+      "evidence": [],
+      "text": "已提议仅将“合成事项17”标记为 DONE，其他事项不变，未安排额外任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "mark-synthetic-item-17-done",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "status": "DONE"
+          },
+          "expected_revision": 2,
+          "item_id": "007f1f09-063c-4d0a-beb8-ed2a033ad6a5"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "2813ae2b-a894-4d15-af0f-d91e36b7b69b",
+    "reply": {
+      "evidence": [],
+      "text": "已提议仅将“合成事项18”标记为 DONE，其他事项不变，未安排额外任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "mark-synthetic-item-18-done",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "status": "DONE"
+          },
+          "expected_revision": 2,
+          "item_id": "4ff380d7-60a8-467e-89b5-b835b339efe8"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "12ee27b5-3fe6-4d42-bc34-8ae92f72baae",
+    "reply": {
+      "evidence": [],
+      "text": "已提议仅将“合成事项19”标记为 DONE，其他事项不变，未安排额外任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "mark-synthetic-19-done",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "status": "DONE"
+          },
+          "expected_revision": 2,
+          "item_id": "ee1030e0-05f9-40bf-ad94-d363bf969d56"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "b4e8c3f1-15ae-4f90-b92a-75a3342b249f",
+    "reply": {
+      "evidence": [],
+      "text": "已提议仅将“合成事项20”标记为 DONE，其他事项不变，未安排额外任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "mark-item-20-done",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "status": "DONE"
+          },
+          "expected_revision": 2,
+          "item_id": "3d16a173-a6d4-4ead-a46c-16b60f89704d"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "5d95ddbc-ff0f-42d3-890c-6753a3bd76de",
+    "reply": {
+      "evidence": [],
+      "text": "已提议将“合成事项01”标记为 CANCELLED，其他字段不变，未创建额外任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "cancel-synthetic-item-01",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "status": "CANCELLED"
+          },
+          "expected_revision": 3,
+          "item_id": "210c9344-4954-4500-8df0-15c0b5267b65"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "17c9672e-d5f4-4728-907c-74fb2301a10d",
+    "reply": {
+      "evidence": [],
+      "text": "已提议将“合成事项02”标记为 CANCELLED，其他字段不变，未创建额外任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "cancel-synthetic-item-02",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "status": "CANCELLED"
+          },
+          "expected_revision": 3,
+          "item_id": "4baa81c2-65b0-4704-82d5-e62fcc3d9a51"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "212ff76d-56cc-48c3-a002-5fe9adbb3dad",
+    "reply": {
+      "evidence": [],
+      "text": "已提议将“合成事项03”标记为 CANCELLED，其他字段不变，未创建额外任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "cancel-synthetic-item-03",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "status": "CANCELLED"
+          },
+          "expected_revision": 3,
+          "item_id": "b7df9081-4559-4a12-a7dc-a6c289d7ab84"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "949ec08f-ae52-4e65-b182-62fd227cf00f",
+    "reply": {
+      "evidence": [],
+      "text": "已提议将“合成事项04”标记为 CANCELLED，其他字段不变，未创建额外任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "cancel-synthetic-item-04",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "status": "CANCELLED"
+          },
+          "expected_revision": 3,
+          "item_id": "f58ed459-7407-4782-8172-112f9fd0f125"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "e8d968a0-8511-4da8-b9a0-108bdff07e87",
+    "reply": {
+      "evidence": [],
+      "text": "已提议将“合成事项05”标记为 CANCELLED，其他字段不变，未创建额外任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "cancel-synthetic-item-05",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "status": "CANCELLED"
+          },
+          "expected_revision": 3,
+          "item_id": "94410a78-22a8-4c48-b5ba-487c6e449905"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "2f42761a-587c-487b-9a06-f1c2f26bd615",
+    "reply": {
+      "evidence": [],
+      "text": "已提议将“合成事项06”标记为 CANCELLED，其他字段不变，未创建额外任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "cancel-synthetic-item-06",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "status": "CANCELLED"
+          },
+          "expected_revision": 3,
+          "item_id": "54adeaf8-ab46-4889-8a27-b1c315928e12"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "5232bced-1ccf-4643-8394-513c05d5073c",
+    "reply": {
+      "evidence": [],
+      "text": "已提议将“合成事项07”标记为 CANCELLED，其他字段不变，未创建额外任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "cancel-synthetic-item-07",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "status": "CANCELLED"
+          },
+          "expected_revision": 3,
+          "item_id": "7cb734a2-0fa4-4d3e-a068-b571cc88e0c7"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "d5b99470-37fe-4fd8-88f2-da85de27826a",
+    "reply": {
+      "evidence": [],
+      "text": "已提议将“合成事项08”标记为 CANCELLED，其他字段不变，未创建额外任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "cancel-synthetic-item-08",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "status": "CANCELLED"
+          },
+          "expected_revision": 3,
+          "item_id": "963fc537-4762-45fc-9b4c-2f327659bb17"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "97c589f6-bdd2-41d2-8a17-bcdf4383b0a9",
+    "reply": {
+      "evidence": [],
+      "text": "已提议将“合成事项09”标记为 CANCELLED，其他字段不变，未创建额外任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "cancel-synthetic-item-09",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "status": "CANCELLED"
+          },
+          "expected_revision": 3,
+          "item_id": "b3eab228-6bf8-498f-9845-a083a87974e0"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "101a39aa-40b4-441b-894f-9d9d0c1bf965",
+    "reply": {
+      "evidence": [],
+      "text": "已提议将“合成事项10”标记为 CANCELLED，其他字段不变，未创建额外任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "cancel-synthetic-item-10",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "status": "CANCELLED"
+          },
+          "expected_revision": 3,
+          "item_id": "f04abc10-62ff-43b0-aa8c-e9f48837b44d"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "86406166-0366-4c9e-b33a-132c0a2d03e3",
+    "reply": {
+      "evidence": [],
+      "text": "已提议将“合成事项11”标记为 CANCELLED，其他字段不变，未创建额外任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "cancel-synthetic-item-11",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "status": "CANCELLED"
+          },
+          "expected_revision": 3,
+          "item_id": "48d5c91d-cb6c-44fc-9cc4-ffc9fe2535e6"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "c31e250e-0448-463e-845c-474c7dc293eb",
+    "reply": {
+      "evidence": [],
+      "text": "已提议将“合成事项12”标记为 CANCELLED，其他字段不变，未创建额外任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "cancel-synthetic-item-12",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "status": "CANCELLED"
+          },
+          "expected_revision": 3,
+          "item_id": "94369512-3a74-486e-9667-402fcd6f53ae"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "c1872423-9544-4c3b-b1d9-1b74ef09f9c8",
+    "reply": {
+      "evidence": [],
+      "text": "已提议将“合成事项13”标记为 CANCELLED，其他字段不变，未创建额外任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "cancel-synthetic-item-13",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "status": "CANCELLED"
+          },
+          "expected_revision": 3,
+          "item_id": "b87af106-9129-4486-bcf0-3fa5eb8d06ea"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "10d588c7-5dcd-48c6-843e-1eddf3326f1c",
+    "reply": {
+      "evidence": [],
+      "text": "已提议将“合成事项14”标记为 CANCELLED，其他字段不变，未创建额外任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "cancel-synthetic-item-14",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "status": "CANCELLED"
+          },
+          "expected_revision": 3,
+          "item_id": "8974831d-7091-4a86-91d9-622bfcaa68e0"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "6b52ee05-b994-4d19-81d8-feb542683b75",
+    "reply": {
+      "evidence": [],
+      "text": "已提议将“合成事项15”标记为 CANCELLED，其他字段不变，未创建额外任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "cancel-synthetic-item-15",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "status": "CANCELLED"
+          },
+          "expected_revision": 3,
+          "item_id": "17c77082-f547-48aa-abdc-93a516d20859"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "1bd3dd25-5652-4ee2-952c-70df8d1d411f",
+    "reply": {
+      "evidence": [],
+      "text": "已提议将“合成事项16”标记为 CANCELLED，其他字段不变，未创建额外任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "cancel-synthetic-item-16",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "status": "CANCELLED"
+          },
+          "expected_revision": 3,
+          "item_id": "ed92ef7a-87bd-43c8-926b-3d7fd7c80b18"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "24ddee9d-6bb0-42ec-ac02-10f6eea6cfe4",
+    "reply": {
+      "evidence": [],
+      "text": "已提议将“合成事项17”标记为 CANCELLED，其他字段不变，未创建额外任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "cancel-synthetic-item-17",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "status": "CANCELLED"
+          },
+          "expected_revision": 3,
+          "item_id": "007f1f09-063c-4d0a-beb8-ed2a033ad6a5"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "0ebab5b2-9c96-4e36-ac9d-cd101d948e01",
+    "reply": {
+      "evidence": [],
+      "text": "已提议将“合成事项18”标记为 CANCELLED，其他字段不变，未创建额外任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "cancel-synthetic-item-18",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "status": "CANCELLED"
+          },
+          "expected_revision": 3,
+          "item_id": "4ff380d7-60a8-467e-89b5-b835b339efe8"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "3cf16af3-198f-41e2-8fec-34f5e64aadb5",
+    "reply": {
+      "evidence": [],
+      "text": "已提议将“合成事项19”标记为 CANCELLED，其他字段不变，未创建额外任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "cancel_synthetic_item_19",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "status": "CANCELLED"
+          },
+          "expected_revision": 3,
+          "item_id": "ee1030e0-05f9-40bf-ad94-d363bf969d56"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "01176f13-13cf-4c85-8c3e-d1ce6a802942",
+    "reply": {
+      "evidence": [],
+      "text": "已提议将“合成事项20”标记为 CANCELLED，其他字段不变，未创建额外任务。"
+    },
+    "actions": [
+      {
+        "operation_key": "cancel-synthetic-item-20",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "status": "CANCELLED"
+          },
+          "expected_revision": 3,
+          "item_id": "3d16a173-a6d4-4ead-a46c-16b60f89704d"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "8aab0943-c430-467c-a3ce-48376d788fc0",
+    "reply": {
+      "evidence": [],
+      "text": "已提议将“合成事项01”的截止日期设为 null，其他字段不变。"
+    },
+    "actions": [
+      {
+        "operation_key": "update-synthetic-item-01-due-at",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "due_at": null
+          },
+          "expected_revision": 4,
+          "item_id": "210c9344-4954-4500-8df0-15c0b5267b65"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "dc296bc6-34e1-4d0f-a59e-db0b09c5bddb",
+    "reply": {
+      "evidence": [],
+      "text": "已提议将“合成事项02”的截止日期设为 null，其他字段不变。"
+    },
+    "actions": [
+      {
+        "operation_key": "clear-due-at-synthetic-item-02",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "due_at": null
+          },
+          "expected_revision": 4,
+          "item_id": "4baa81c2-65b0-4704-82d5-e62fcc3d9a51"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "1b400fe9-08a1-4a0f-85f6-8a5345a20701",
+    "reply": {
+      "evidence": [],
+      "text": "已提议将“合成事项03”的截止日期设为 null，其余字段不变。"
+    },
+    "actions": [
+      {
+        "operation_key": "update-synthetic-item-03-due-null",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "due_at": null
+          },
+          "expected_revision": 4,
+          "item_id": "b7df9081-4559-4a12-a7dc-a6c289d7ab84"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "ba04691b-fcd7-4128-8d59-6ebef60355ed",
+    "reply": {
+      "evidence": [],
+      "text": "已提议将“合成事项04”的截止日期设为 null，其余字段不变。"
+    },
+    "actions": [
+      {
+        "operation_key": "update-synthetic-item-04-due",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "due_at": null
+          },
+          "expected_revision": 4,
+          "item_id": "f58ed459-7407-4782-8172-112f9fd0f125"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "4cf3dfec-8939-4ee8-bf84-b02f657f3d7d",
+    "reply": {
+      "evidence": [],
+      "text": "已提议将“合成事项05”的截止日期设为 null，其余字段不变。"
+    },
+    "actions": [
+      {
+        "operation_key": "update-synthetic-item-05-due-at",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "due_at": null
+          },
+          "expected_revision": 4,
+          "item_id": "94410a78-22a8-4c48-b5ba-487c6e449905"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "c163836d-bb3e-49a5-9e7d-7276ef361875",
+    "reply": {
+      "evidence": [],
+      "text": "已提议将“合成事项06”的截止日期设为 null，其余字段不变。"
+    },
+    "actions": [
+      {
+        "operation_key": "update-item-06-due-null",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "due_at": null
+          },
+          "expected_revision": 4,
+          "item_id": "54adeaf8-ab46-4889-8a27-b1c315928e12"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "b698e4d8-566e-4894-8503-71b808a4330d",
+    "reply": {
+      "evidence": [],
+      "text": "已提议将“合成事项07”的截止日期设为 null，其余字段不变。"
+    },
+    "actions": [
+      {
+        "operation_key": "update-item-07-due-at-null",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "due_at": null
+          },
+          "expected_revision": 4,
+          "item_id": "7cb734a2-0fa4-4d3e-a068-b571cc88e0c7"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "d993bd06-d003-445f-affc-8013b5cb7713",
+    "reply": {
+      "evidence": [],
+      "text": "已提议将“合成事项08”的截止日期设为 null，其余字段不变。"
+    },
+    "actions": [
+      {
+        "operation_key": "update-item-08-due-at",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "due_at": null
+          },
+          "expected_revision": 4,
+          "item_id": "963fc537-4762-45fc-9b4c-2f327659bb17"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "f02a2767-ca7e-41f5-8114-8cc58530eb5c",
+    "reply": {
+      "evidence": [],
+      "text": "已提议将“合成事项09”的截止时间设为 null，其余字段不变。"
+    },
+    "actions": [
+      {
+        "operation_key": "update-item-09-due-null",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "due_at": null
+          },
+          "expected_revision": 4,
+          "item_id": "b3eab228-6bf8-498f-9845-a083a87974e0"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  },
+  {
+    "schema_version": 1,
+    "context_id": "74e709f1-bb3e-468f-b95b-5182fb8f008e",
+    "reply": {
+      "evidence": [],
+      "text": "已提议将“合成事项10”的截止时间设为 null，其余字段不变。"
+    },
+    "actions": [
+      {
+        "operation_key": "update-item-10-due-at-null",
+        "kind": "UPDATE_ITEM",
+        "payload": {
+          "changes": {
+            "due_at": null
+          },
+          "expected_revision": 4,
+          "item_id": "f04abc10-62ff-43b0-aa8c-e9f48837b44d"
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  }
+]

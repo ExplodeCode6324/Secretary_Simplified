@@ -9,7 +9,7 @@ import (
 )
 
 // UpdateJobRequest atomically applies an allowlisted patch and stores its exact response.
-func (s *Store) UpdateJobRequest(ctx context.Context, id, request string, expected int, patch map[string]any) (out contract.ScheduledJob, err error) {
+func (s *Store) UpdateJobRequest(ctx context.Context, id, request string, expected int, patch map[string]any, outputClasses ...string) (out contract.ScheduledJob, err error) {
 	if request == "" || expected < 1 || len(patch) == 0 {
 		return out, errors.New("INVALID_CONTROL")
 	}
@@ -21,7 +21,7 @@ func (s *Store) UpdateJobRequest(ctx context.Context, id, request string, expect
 		}
 	}
 	err = s.Write(ctx, func(tx *sql.Tx) error {
-		hash := rtHash(runtimeObject{"operation": "job_update", "job_id": id, "expected_revision": expected, "patch": patch})
+		hash := rtHash(runtimeObject{"operation": "job_update", "job_id": id, "expected_revision": expected, "patch": patch, "data_classes": outputClasses})
 		done, e := controlReceipt(ctx, tx, request, hash)
 		if e != nil {
 			return e
@@ -36,6 +36,14 @@ func (s *Store) UpdateJobRequest(ctx context.Context, id, request string, expect
 		m, e := rtRead(ctx, tx, "scheduled_job", id)
 		if e != nil {
 			return e
+		}
+		if e = rtInherit(m, m); e != nil {
+			return e
+		}
+		for _, class := range outputClasses {
+			if e = rtClass(m, class); e != nil {
+				return e
+			}
 		}
 		if rtInt(m["revision"]) != expected {
 			return errors.New("REVISION_CONFLICT")

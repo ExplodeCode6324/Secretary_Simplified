@@ -149,6 +149,9 @@ func (s *Store) AlarmControl(ctx context.Context, id, request string, delay int,
 		if delay > 0 {
 			due := now.Add(time.Duration(delay) * time.Second)
 			job := rtBase()
+			if e := rtInherit(job, original, task, m); e != nil {
+				return e
+			}
 			for k, v := range (runtimeObject{"id": contract.NewID(), "revision": 1, "root_id": root, "enabled": true, "schedule": runtimeObject{"kind": "once", "at": rtTime(due), "anchor_at": nil, "every_seconds": nil, "local_time": nil, "timezone": "UTC", "weekdays": []any{}, "event_type": nil, "filter": nil, "after_seq": nil}, "command": original["command"], "task_template": runtimeObject{"goal": task["goal"], "criteria": task["criteria"], "item_id": task["item_id"], "item_operation_key": nil}, "next_due_at": rtTime(due), "misfire": "FIRE_ONCE_WITHIN_GRACE", "grace_seconds": 300, "overlap": "SKIP", "max_attempts": 3, "updated_at": rtTime(now)}) {
 				job[k] = v
 			}

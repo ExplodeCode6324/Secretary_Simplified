@@ -79,7 +79,7 @@ func run() error {
 	pos, f := flags(os.Args[1:])
 	jsonOutput = f["json"] == "true"
 	if len(pos) == 0 {
-		fmt.Println("secretary init|input|chat|items|jobs|tasks|runs|alarm|world|memory|doctor|backup|verify --config PATH [--json]")
+		fmt.Println("secretary init|input|chat|items|jobs|tasks|runs|alarm|world|memory|doctor|backup|verify --config PATH [--json] [--data-class PERSONAL|SYNTHETIC|SENSITIVE|SECRET] (default PERSONAL)")
 		return nil
 	}
 	dir := f["data-dir"]
@@ -185,6 +185,13 @@ func run() error {
 		}
 		return nil
 	}
+	dataClass := "PERSONAL"
+	if value, present := f["data-class"]; present {
+		dataClass = value
+	}
+	if _, err := contract.JoinClass(dataClass); err != nil {
+		return errors.New("invalid --data-class")
+	}
 	session := f["session"]
 	if session == "" {
 		session = "00000000-0000-4000-8000-000000000001"
@@ -225,15 +232,19 @@ func run() error {
 		return call("POST", "/v1/"+resource+"/"+id+"/"+verb, body)
 	}
 	action := func(a contract.ActionProposal) error {
-		return call("POST", "/v1/actions", map[string]any{"schema_version": 1, "request_id": request, "session_id": session, "actions": []contract.ActionProposal{a}})
+		return call("POST", "/v1/actions", map[string]any{"schema_version": 1, "request_id": request, "session_id": session, "actions": []contract.ActionProposal{a}, "data_class": dataClass})
 	}
 	switch pos[0] {
 	case "input":
-		return call("POST", "/v1/inputs", contract.InputEnvelope{SchemaVersion: 1, RequestID: request, SessionID: session, PrincipalID: "master", Origin: "MASTER_CLI", ReceivedAt: contract.Now(), Text: f["text"], AttachmentRefs: []contract.ObjectRef{}, DataClass: "SYNTHETIC", Extensions: map[string]any{}})
+		in := contract.InputEnvelope{SchemaVersion: 1, RequestID: request, SessionID: session, PrincipalID: "master", Origin: "MASTER_CLI", ReceivedAt: contract.Now(), Text: f["text"], AttachmentRefs: []contract.ObjectRef{}, DataClass: dataClass, Extensions: map[string]any{}}
+		if answer, present := f["answer-to"]; present {
+			in.AnswerToQuestionID = &answer
+		}
+		return call("POST", "/v1/inputs", in)
 	case "chat":
 		scan := bufio.NewScanner(os.Stdin)
 		scan.Buffer(make([]byte, 4096), 32768)
-		fmt.Println("Secretary chat; /quit exits. Accepted turns execute asynchronously.")
+		fmt.Println("Secretary chat; /quit exits. Accepted turns execute asynchronously. Answer a registered question with: secretary input --session <session-id> --answer-to <question-id> --text <answer>.")
 		for {
 			fmt.Print("> ")
 			if !scan.Scan() {
@@ -242,7 +253,7 @@ func run() error {
 			if scan.Text() == "/quit" {
 				return nil
 			}
-			in := contract.InputEnvelope{SchemaVersion: 1, RequestID: contract.NewID(), SessionID: session, PrincipalID: "master", Origin: "MASTER_CLI", ReceivedAt: contract.Now(), Text: scan.Text(), AttachmentRefs: []contract.ObjectRef{}, DataClass: "SYNTHETIC", Extensions: map[string]any{}}
+			in := contract.InputEnvelope{SchemaVersion: 1, RequestID: contract.NewID(), SessionID: session, PrincipalID: "master", Origin: "MASTER_CLI", ReceivedAt: contract.Now(), Text: scan.Text(), AttachmentRefs: []contract.ObjectRef{}, DataClass: dataClass, Extensions: map[string]any{}}
 			v, code, e := client.Call(context.Background(), "POST", "/v1/inputs", in)
 			if e != nil {
 				return e

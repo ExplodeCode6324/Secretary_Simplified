@@ -1,0 +1,3 @@
+Ayanami，Master指定仅DeepSeek v4.1 Flash/opencode-go。本次独立窄范围只读核证A23解释与映射，不审源码/不跑真实模型/不委派。先读 review/foundation-world-diagnostics-deepseek-final.response.md §7，你此前建议选项1：零新运行补组合固定集映射，保留预冻结来源、全失败史，不新增同一DB门槛。现runtime产出 reports/implementation/A23-coverage-ledger.json 与 .md：129固定case、各版本失败史/pre-call membership索引；明确是事后统一审计索引，不声称组合manifest先于调用。请核验映射的真实关联（源oracle/hash/原先membership/报告pass与失败史），可用程序读JSON核对所有129条但不要把全文巨量输出。只检查本轮指定文件与其直接引用的冻结源和报告；不凭自述PASS。
+请明确裁决：是否满足你选项1、A23可按所列组合范围定稿；若不满足，指出具体先前条款对应缺口而非突然添加新的组合集预注册要求。预冻结是各组成固定集先前已存在且全量未挑选，组合索引现在整理需诚实标事后。不能把新的oracle当旧冻结，不可忽略失败/重试，不可把World set-up授权测试等于模型语义。
+输出只需实际检查/精确范围/缺口/裁决。预留自然总结，不写同名文件（Codex保存），不触凭据、系统、其他进程。遇429立停通知。max预算内完成，不新增测试或修改docs。

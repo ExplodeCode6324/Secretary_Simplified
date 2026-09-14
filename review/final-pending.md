@@ -1,3 +1,5 @@
+> 当前协调状态：全部模块、D12两组、最终Schema/prompt等价与真实档案/hash核证已完成，无开放的review must-fix。question-run4脚本断言级边界/自由文本抽样范围保持；month8公开报告与90身份/30快照审计绑定已核对。26份实际DeepSeek来源见 model-provenance.json。产品最终2h稳定性由root继续，不属于未完成review。下方旧BLOCKED/Luna/历史缺口记录均已被后续报告取代。
+
 # 最终复核待办（Codex 协调记录）
 
 状态：**BLOCKED_NO_REVIEW_CONCLUSION**。这是复核协调状态，不是 Ayanami 的技术裁决，也不是验收通过。
@@ -50,3 +52,15 @@ hermes chat --in . --resume 20260914_040103_f0abc3 --provider opencode-go --mode
 ### M2 F9 最新实施者补充（待独立复核）
 
 新增 `src/memory/manifest.go` 与更新 `src/memory/memory.go`：实现者声明先按 Schema max100 裁剪再 Validate，total 纳入 Snapshot.DeltaOmitted，保留旧 MissingReasons 并追加准确省略数；每次 refresh 生成新 ContextID，持久化标准 Manifest DTO，包含 ReadSet、输出 Schema hash、最终 provider wire hash、各段计数/bytes。`TestMemoryMoreThanHundredDeltasPersistsExactManifest` 使用 125 条真实 DB 变更通过，24h 测试通过；证据见 `reports/implementation/M2-core-memory.md`。本段仅记录实现者交接，不构成 Ayanami 已核验结论；额度恢复后一并检查。
+
+### 恢复进度
+
+Master 已确认额度恢复，本轮改为单并发续审，首先恢复 M2 原会话并保存新 `M2-core-final-resume1-*` attempt；随后依次 runtime、transport/CLI。上文 BLOCKED 是上一轮暂停时的历史状态，最终裁决须以新的真实 response 文件为准。出现 429 即停止新增调用并报告，不重跑已有全仓测试，不把恢复调用本身视为通过。
+
+### Master 指定 DeepSeek 的新终审要求
+
+Master 已明确禁止 Luna 作为 reviewer。上方续审 Luna 命令仅为历史记录，**不得再执行**。已停止本轮恢复的自建 Luna CLI，固定 Hermes 默认 `deepseek-v4.1-flash`；真实握手 usage 见 `03-deepseek-reviewer-restored.usage.json`，确认 provider=opencode-go、model=deepseek-v4.1-flash、completed=true。所有 Luna 报告只能作为 model-qualified 历史线索，最终模块与 D01–D07 需 DeepSeek 检视；新增 D08 能力准入/criteria 也先由 DeepSeek 商议。为避免旧会话约30万token历史重复消耗，使用同一 Ayanami 身份的全新专用会话、单并发、明确禁止 fallback。
+
+### M2 检索预算新增（DeepSeek 待审）
+
+真实场景 run2 出现 READ_MEMORY 三条命中均被预算裁为空、耗尽检索预算。实施者在 `src/context/context.go` 修复：检索轮取消非关联 fallback items/facts，保留显式事项/依赖闭包；按最新有原始 Evidence 命中排序，禁止全部裁空，必要内容仍放不下返回 CONTEXT_REQUIRED_OVERFLOW。独立待核验 `src/tests/retrieval_budget_test.go` 的 `TestRetrievalBudgetPreservesEvidenceAndRequiredAuthority`；实现者普通测试通过、race 运行中，真实同 oracle run3 由 root 控制。本段不是 DeepSeek 已通过结论。

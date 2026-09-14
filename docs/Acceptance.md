@@ -79,3 +79,43 @@ D06 增补验收（不替代既有门槛）：对 America/New_York 2026-03-08 02
 原文已有 manifest 是本地外层、不得参与自身 wire 哈希的边界，但机器 Schema 仍把整个 ContextManifest 放入 Context，二者冲突。经 Ayanami 同意（`review/D07-context-manifest.response.md`），Context 不含 manifest，required metadata 为 context_id/as_of/snapshot_seq/sections；read_set 留在外部 Manifest。sections 每段字段严格为 name/selected_count/omitted_count/bytes/reason，name 不重复。完整 output_contract 在 Context 中只嵌入一次，adapter 引用它而不再次发送Schema。最终 wire 编码后计算外部 Manifest.request_hash，发送相同字节；Context.context_id、Manifest.id 和 Decision.context_id 必须一致。可选 stale_refs 与 registered_entity_ids 都有长度和去重约束。
 
 D07 检索补充经 Ayanami 同意（`review/D07-retrieval-section.response.md`）：sections 的第七种 name 为 retrieved_evidence；selected_count 为实际 EvidenceRef 数，omitted_count 只计本次有界检索已发现而省略的候选，不声称统计未检索空间。bytes 是最终字段 JSON 的 UTF-8 字节数；正文不复制进 sections。每次 READ_MEMORY 后重新构建 Context、外部 Manifest 和 wire hash。
+
+
+## 实施过程中发现的缺陷：D08 能力准入与固定验收条件
+
+实施发现 `alarm.play`、`briefing.build`、`source.sync` 已有执行器，但公共准入的程序派生与 Criterion 判别联合不完整。经 [Ayanami D08 复核](../review/D08-capability-criteria-deepseek.response.md) 同意，新增以下严格闭合的 kind，schema_version 保持 1；登记时冻结 criterion_hash，模型必须逐字段匹配程序派生值，不得事后改写。
+
+- `alarm_session_recorded`：expected 仅 `{device_id, audio_ref}`，audio_ref 为命令 ObjectRef 的 UUID。Verifier 解析 Task 当前 run，交叉核对 alarm.play 及 args，并要求该 run 的会话 DTO 身份一致、状态 PLAYING 或 STOPPED。稍后提醒的新 Task/run 不得复用旧会话；不需要 D02 通知键实例化，因为会话按 run 绑定。PASS 仅证明已持久记录播放会话，不等于已叫醒、真实发声或 Item DONE；静音断言属于 A21 测试。
+- `briefing_artifact_recorded`：expected 仅 `{media_type: "text/plain"}`。要求当前 run 当前 attempt/fence 的最终持久成功 receipt、effect_observed=true、至少一个非空对象，ObjectRef 与对象记录一致，实际字节 SHA256 自洽。旧回执、缺失或损坏对象不能 PASS。只证明产物持久化，不证明内容正确或有引用；不得读取模型自述判定 verdict，也不得事后回填 hash 自证。
+- `source_sync_recorded`：expected 仅 `{source_id: UUID}`。当前 run 命令参数必须一致；SourceState 全 DTO 与 SQL 镜像一致且 cursor 非 NULL；追加 source.synced 事件必须带当前 run/attempt/fence provenance。`runtime.source_sync` 严格包含 `{run_id: UUID, attempt_no: integer>=1, fencing_token: integer>=1, records_processed: integer>=0}`，由 IngestService 在 SourceSynced 的同一事务内写入事件，禁止模型提供。其 records_processed 与事件 after.cursor.processed 一致。后续同步不覆盖旧事件。原 source_cursor_committed 保留旧语义；拒绝准入期猜测 cursor_hash 或依赖可变 fixture 内容计算标准。
+
+三个新判定任一必要证据缺失或不一致均 UNKNOWN，不弱化 CRITERION_TAMPERED、授权和 fencing 检查。D05 memory.refresh 仍由专属 SlotController 登记，禁止普通公共准入。
+
+D08 补充验收：A16 覆盖三个新 kind 的固定派生、额外字段拒绝、错 run/旧 attempt/fence、空或篡改对象、伪造 provenance；A21 主证据增加 Core Typed 公共登记→静音 Runner 执行→独立 Verifier、Core 离线 stop/snooze、旧 session 不复用、新 session 可判定以及到期 STOPPED 可判定。晨报内容质量与真实音频不在这些机械 PASS 语义内。
+
+
+### D08 修订 1：REPLAN 的当前 run 定义
+
+前轮“同 Task 总共恰一条 run”的规则与合法 REPLAN 保留历史 run 冲突，已由 [Ayanami 补充裁决](../review/D08-replan-current-run-deepseek.response.md) 纠正。当前 run = 同 Task `ORDER BY rowid DESC LIMIT 1` 的最新已接纳 run，和 REPLAN 选择 previous 的追加顺序相同。只查询其证据；禁止按成功状态回捞历史 run。任何更旧 run 仍为 QUEUED/CLAIMED/RUNNING/RESULT_UNKNOWN 都令新判定 UNKNOWN；当前 RESULT_UNKNOWN 须先完成对账。列与 DTO 的 ID/task/attempt/fence/state 始终交叉核对。
+
+本规则依赖 job_run 只追加、不 DELETE、不 VACUUM 的存储不变量，插入与 REPLAN 修改在同一写事务内；当前无清理这类行的实现。未来引入清理/整理必须先迁移为显式 current_run_id 或代际，不能悄然沿用 rowid 假设。alarm 证据是 run 级（同 run 回收不额外要求会话 fence）；briefing receipt 和 source event 仍要求当前 attempt/fence。新标准内容和 criterion_hash 不改变，旧证据不满足新 REPLAN、连续两次 REPLAN 只认最后一代、重启不改变归属。
+
+## 实施过程中发现的缺陷（D10，2026-09-14）
+
+提醒默认的验收增加四项：自然语言默认准入且持久策略为 FIRE_ONCE_WITHIN_GRACE/300；非默认自然语言决策整笔拒绝、错误码正确、有限重试与重复处理不产生动作；认证 Typed 显式 SKIP/0 不改写且迟到后跳过；原自然语言 CLI 场景与固定期待重跑，恰好一次通知、Item 保持 OPEN。CLI 场景的唯一时钟参数为启动时 UTC+90 秒，原话模板与字段 oracle 不变，每轮保存实际绝对时间，不把旧已过期日期作为新未来提醒。
+
+保留第一次失败原始报告，不以改调度规则或静默修正模型返回通过。Ayanami 裁决为 `review/reminder-defaults-v1-boundary-deepseek.response.md` 与 `review/reminder-defaults-scope-deepseek.response.md`；后者明确撤回新增二次调用限制，沿用既有 Core 有限重试与持久预算。
+
+
+## 实施设计修订 D11：待答问题生命周期
+
+A09 的 D11 本期验收：正常公共 CLI/Core 由模型提出澄清问题，程序返回稳定 UUID、关联 Item、实际 ASSISTANT sequence；新 session READ_MEMORY 取回原问题正文/session/ID，重启后在原 session 用 --answer-to 显式回答。不同 request 抢答只有一笔业务成功；另一笔稳定 QUESTION_ALREADY_RESOLVED，重试不再模型。覆盖同请求 10 次重试、换指针幂等冲突、非 MASTER/foreign/错 session/null/伪程序字段拒绝、任一非法 proposal 全 Decision 零业务副作用、20 槽回收不丢未解、事务故障全回滚、摘要水位不动且旧 CAS 拒绝。resolved 不作为任务完成 oracle。回收/未知/错 session 为 404 QUESTION_NOT_FOUND_IN_SESSION，槽内已解决为 409。机械、真实模型公共链、独立复核证据分别报告；不以手工预置 pending_questions 代替正常生成验收。
+
+裁决：`review/D11-pending-question-deepseek.response.md`；原提案：`review/A09-pending-question-proposal.md`。无 DDL 变更。
+
+
+## D12 有限污染链机械验收
+
+M1 PERSONAL Context+SYN输入生成ASSISTANT问题→跨session SYN-only拒绝；合法PERSONAL正对照wire可含合成canary且声明PERSONAL。M2同条件Item创建/更新→新session和background拒低，更新不降且Evidence原字节不变。M3 Job→Task→Run→REPLAN→artifact/receipt逐级join、授权merge保留、持久ref优先。M4 World版本join不降。M5 summary/意识缺标拒重推导。M6 legacy unknown拒绝且零改写/删除。M7模型/client任意结构层伪注入整笔拒绝。M8默认PERSONAL、显式SYN、固定字面量例外。M9 D09/D11/完整race、vet、双入口build、docs checker回归。
+
+全部使用合成canary，无真实秘密；逐条区分动态与源码检查。真实模型链不代替安全证明，有限闭包未全绿不能称 D12 安全PASS。证据包括初始失败 `review/D11-output-class-probe-result.md`；最终裁决与补充见 `review/D12-output-class-final-contract.response.md`、`review/D12-injection-oracle-clarification.response.md`。

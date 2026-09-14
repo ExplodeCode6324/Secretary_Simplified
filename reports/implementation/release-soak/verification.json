@@ -1,0 +1,17 @@
+{
+  "checked_at": "2026-09-13T23:27:35.762478+00:00",
+  "release_binary_sha256": "d8ac67cb2586cc2a321cbb96b44072e5079ea1f7ed3c8127d4860ba8d5b700fa",
+  "report_build_matches": true,
+  "elapsed_seconds": 7200.010340213776,
+  "status": "PASS",
+  "failures": 0,
+  "report_sha256": "3024a81615786f95a5338efc3accda21d0e54127317ebd7bbf50f34b470d5b73",
+  "scope": "REAL_WALL_CLOCK fixture, no real user data; final binary SHA256 matched at audit",
+  "document_check": {
+    "status": "PASS",
+    "scope": "DOC_ONLY",
+    "checked_at": "2026-09-13T20:15:17.619683+00:00",
+    "contracts_matches": true,
+    "ddl_matches": true
+  }
+}

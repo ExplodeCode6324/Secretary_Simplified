@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "kind": "OFFLINE_MECHANICAL",
+  "production_files_modified": false,
+  "test_files": [
+    {
+      "path": "src/tests/m2_acceptance_security_test.go",
+      "sha256": "94b0a8702e25995a70926971a2f56835d69ac0d63c2bc31b67e2bad225cebb0e"
+    },
+    {
+      "path": "src/tests/m2_acceptance_continuity_test.go",
+      "sha256": "90eccbaddaf8697ca4dc45c550b4b3ce0e33cdb9b00af74f5b56833f767dadda"
+    }
+  ],
+  "command": "go test -race ./tests -run 'TestAcceptanceA0[6789]|TestAcceptanceA17|TestRetrieval|TestServed|TestWireManifest|TestContextDisclosure|TestMemoryMore' -count=1",
+  "actual_result": "ok secretarysimplified/tests 11.614s",
+  "world_permit_cases": 10,
+  "secret_payload": "synthetic random canary only; no actual credential used",
+  "a09_limit": "Existing question metadata persistence tested; normal-path natural-language question creation and reference-resolution still needs evidence",
+  "independent_review": "requested separately, not asserted by this result"
+}

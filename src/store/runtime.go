@@ -224,6 +224,27 @@ func (s *Store) RegisterImmediateTx(ctx context.Context, tx *sql.Tx, root, inten
 	return out, err
 }
 func createRunTx(ctx context.Context, tx *sql.Tx, root string, job runtimeObject, key string, due time.Time, command, template runtimeObject, grant, state string) (runtimeObject, error) {
+	if err := rtInherit(command, command); err != nil {
+		return nil, err
+	}
+	if job != nil {
+		if err := rtInherit(command, job, command); err != nil {
+			return nil, err
+		}
+	}
+	if itemID := rtStr(template["item_id"]); itemID != "" {
+		var raw string
+		if e := tx.QueryRowContext(ctx, "SELECT payload_json FROM item WHERE id=?", itemID).Scan(&raw); e != nil {
+			return nil, e
+		}
+		var item runtimeObject
+		if e := json.Unmarshal([]byte(raw), &item); e != nil {
+			return nil, e
+		}
+		if e := rtInherit(command, command, item); e != nil {
+			return nil, e
+		}
+	}
 	if err := ensureBudget(ctx, tx, root); err != nil {
 		return nil, err
 	}
@@ -266,6 +287,9 @@ func createRunTx(ctx context.Context, tx *sql.Tx, root string, job runtimeObject
 	if state == "SKIPPED" {
 		task["state"] = "CANCELLED"
 	}
+	if err := rtInherit(task, command); err != nil {
+		return nil, err
+	}
 	if err := contract.Validate("Task", task); err != nil {
 		return nil, err
 	}
@@ -276,6 +300,9 @@ func createRunTx(ctx context.Context, tx *sql.Tx, root string, job runtimeObject
 	run := rtBase()
 	for k, v := range (runtimeObject{"id": contract.NewID(), "task_id": task["id"], "job_id": jobID, "job_revision": rev, "occurrence_key": key, "scheduled_for": rtTime(due), "state": state, "attempt_no": 0, "fencing_token": 0, "lease_owner": nil, "lease_until": nil, "external_idempotency_key": contract.NewID(), "command": command, "updated_at": now, "extensions": runtimeObject{"runtime.authorization": runtimeObject{"grant_id": grant}}}) {
 		run[k] = v
+	}
+	if err = rtInherit(run, task, command); err != nil {
+		return nil, err
 	}
 	if err = contract.Validate("JobRun", run); err != nil {
 		return nil, err
@@ -315,6 +342,12 @@ func rtSaveRun(ctx context.Context, tx *sql.Tx, r runtimeObject) error {
 	if e != nil {
 		return e
 	}
+	if e = rtInherit(r, before, r); e != nil {
+		return e
+	}
+	if e = rtInherit(rtObj(r["command"]), rtObj(r["command"]), rtObj(before["command"])); e != nil {
+		return e
+	}
 	result, e := tx.ExecContext(ctx, `UPDATE job_run SET state=?,attempt_no=?,fencing_token=?,lease_owner=?,lease_until=?,scheduled_for=?,payload_json=?,updated_at=? WHERE id=? AND fencing_token=? AND attempt_no=?`, r["state"], r["attempt_no"], r["fencing_token"], r["lease_owner"], r["lease_until"], r["scheduled_for"], rtJSON(r), r["updated_at"], r["id"], before["fencing_token"], before["attempt_no"])
 	if e != nil {
 		return e
@@ -335,6 +368,9 @@ func rtSaveRun(ctx context.Context, tx *sql.Tx, r runtimeObject) error {
 func rtSaveTask(ctx context.Context, tx *sql.Tx, t runtimeObject) error {
 	before, e := rtRead(ctx, tx, "task", rtStr(t["id"]))
 	if e != nil {
+		return e
+	}
+	if e = rtInherit(t, before, t); e != nil {
 		return e
 	}
 	if t["criterion_hash"] != before["criterion_hash"] || rtHash(t["criteria"]) != before["criterion_hash"] {

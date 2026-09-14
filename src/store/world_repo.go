@@ -9,6 +9,9 @@ import (
 )
 
 func (s *Store) PutProposalTx(ctx context.Context, tx *sql.Tx, p contract.WorldUpdateProposal) error {
+	if _, e := contract.ReadClassification(p.Extensions); e != nil {
+		return e
+	}
 	if e := contract.Validate("WorldUpdateProposal", p); e != nil {
 		return e
 	}
@@ -28,6 +31,11 @@ func (s *Store) PutProposalTx(ctx context.Context, tx *sql.Tx, p contract.WorldU
 		}
 		if hash != ref.SHA256 || class != ref.DataClass {
 			return errors.New("INVALID_EVIDENCE")
+		}
+		var classErr error
+		p.Extensions, classErr = contract.ClassifyExtensions(p.Extensions, class)
+		if classErr != nil {
+			return classErr
 		}
 	}
 	b, _ := json.Marshal(p)
@@ -112,6 +120,24 @@ func (s *Store) CommitWorldAtomic(ctx context.Context, p contract.WorldUpdatePro
 			status = "RETRACTED"
 		}
 		result = contract.WorldFact{SchemaVersion: 1, ID: p.FactID, Revision: revision + 1, EntityID: p.EntityID, Predicate: p.Predicate, Value: p.Value, Status: status, Evidence: p.Evidence, ProposalID: p.ID, AcceptanceRule: p.Basis, PolicyRevision: p.PolicyRevision, Supersedes: previous, CreatedAt: contract.Now(), Extensions: map[string]any{}}
+		class, ce := contract.ReadClassification(p.Extensions)
+		if ce != nil {
+			return ce
+		}
+		if old, ok := before.(contract.WorldFact); ok {
+			oldClass, e := contract.ReadClassification(old.Extensions)
+			if e != nil {
+				return e
+			}
+			class, ce = contract.JoinClass(class, oldClass)
+			if ce != nil {
+				return ce
+			}
+		}
+		result.Extensions, ce = contract.ClassifyExtensions(result.Extensions, class)
+		if ce != nil {
+			return ce
+		}
 		if result.Status == "ACTIVE" && p.Operation == "ASSERT" && p.Predicate != "entity.relation" {
 			rows, e := tx.QueryContext(ctx, "SELECT v.payload_json FROM world_fact_version v JOIN world_fact_head h ON h.fact_id=v.fact_id AND h.revision=v.revision WHERE v.entity_id=? AND v.predicate=? AND v.status IN ('ACTIVE','CONTESTED')", p.EntityID, p.Predicate)
 			if e != nil {
@@ -155,6 +181,22 @@ func (s *Store) CommitWorldAtomic(ctx context.Context, p contract.WorldUpdatePro
 				result.Status = "CONTESTED"
 				result.ConflictGroup = &group
 				old := x
+				oldClass, e := contract.ReadClassification(x.Extensions)
+				if e != nil {
+					return e
+				}
+				joined, e := contract.JoinClass(oldClass, class)
+				if e != nil {
+					return e
+				}
+				result.Extensions, e = contract.ClassifyExtensions(result.Extensions, joined)
+				if e != nil {
+					return e
+				}
+				x.Extensions, e = contract.ClassifyExtensions(x.Extensions, joined)
+				if e != nil {
+					return e
+				}
 				x.Revision++
 				x.Status = "CONTESTED"
 				x.ConflictGroup = &group

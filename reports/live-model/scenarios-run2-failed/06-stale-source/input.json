@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "request_id": "65774dc9-c316-4bfb-b633-658896ead31c",
+  "session_id": "7364d06a-142a-4ef5-a075-1dbf597da68c",
+  "principal_id": "master",
+  "origin": "MASTER_CLI",
+  "received_at": "2026-09-13T23:24:14.196Z",
+  "text": "Check freshness of source 00000000-0000-4000-8000-000000000900. Reply exactly SOURCE_STALE if stale, or SOURCE_CURRENT if current. Do not modify items.",
+  "attachment_refs": [],
+  "data_class": "SYNTHETIC",
+  "extensions": {}
+}

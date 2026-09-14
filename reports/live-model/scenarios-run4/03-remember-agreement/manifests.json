@@ -1,0 +1,96 @@
+[
+  {
+    "schema_version": 1,
+    "id": "524d75f5-1000-4199-bb92-7a2565d6cd18",
+    "intent_id": "128fc23f-3278-4d2d-adac-3672fbcbbe43",
+    "snapshot_seq": 7,
+    "as_of": "2026-09-13T23:40:50.163Z",
+    "read_set": [
+      {
+        "entity_type": "ConversationState",
+        "id": "ee48bfe8-bca7-4144-822e-4584bc0c53f0",
+        "revision": 2
+      },
+      {
+        "entity_type": "Item",
+        "id": "00000000-0000-4000-8000-000000000701",
+        "revision": 2
+      },
+      {
+        "entity_type": "Item",
+        "id": "00000000-0000-4000-8000-000000000702",
+        "revision": 3
+      },
+      {
+        "entity_type": "Item",
+        "id": "00000000-0000-4000-8000-000000000703",
+        "revision": 2
+      },
+      {
+        "entity_type": "SourceState",
+        "id": "00000000-0000-4000-8000-000000000900",
+        "revision": 1
+      }
+    ],
+    "request_hash": "3205d1d509e0f49894fc1b987abf5a5b0f6956408c395b90f241bd5ff4831dc8",
+    "policy_revision": 1,
+    "output_schema_id": "DecisionEnvelope",
+    "output_schema_hash": "959ec9cbf7169816a1065b0d990cae00daa664e914b2e16b3414ddfcd281331d",
+    "model_profile": "opencode-go",
+    "input_bytes": 31374,
+    "input_tokens": 31374,
+    "token_count_mode": "CONSERVATIVE_ESTIMATE",
+    "sections": [
+      {
+        "bytes": 1140,
+        "name": "items",
+        "omitted_count": 0,
+        "reason": "explicit references and parent/dependency closure, otherwise recent bounded selection",
+        "selected_count": 3
+      },
+      {
+        "bytes": 2,
+        "name": "facts",
+        "omitted_count": 0,
+        "reason": "master preferences, conflicts and referenced entities retained; unrelated facts omitted",
+        "selected_count": 0
+      },
+      {
+        "bytes": 2,
+        "name": "tasks",
+        "omitted_count": 0,
+        "reason": "selected task criteria remain intact",
+        "selected_count": 0
+      },
+      {
+        "bytes": 2314,
+        "name": "delta_events",
+        "omitted_count": 5,
+        "reason": "latest relevant entity changes; current authority separately retained",
+        "selected_count": 2
+      },
+      {
+        "bytes": 2,
+        "name": "recent_events",
+        "omitted_count": 1,
+        "reason": "oldest original conversation removed first",
+        "selected_count": 0
+      },
+      {
+        "bytes": 4,
+        "name": "consciousness",
+        "omitted_count": 0,
+        "reason": "derived summary may be omitted",
+        "selected_count": 0
+      },
+      {
+        "bytes": 2,
+        "name": "retrieved_evidence",
+        "omitted_count": 0,
+        "reason": "bounded untrusted original evidence, oldest retrieval evicted first",
+        "selected_count": 0
+      }
+    ],
+    "extensions": {}
+  }
+]

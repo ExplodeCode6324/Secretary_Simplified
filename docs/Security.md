@@ -25,3 +25,14 @@
 ## 4. 本机与移动阶段
 
 初版使用本机 socket，凭据单独保存。阶段 6 的移动配对、传输认证、设备撤销、离线重试和远程停止必须另行通过验收。真实凭据、联网端点和网络暴露不能由设计中的示例自动启用；不要求修改现有服务器、代理或 FRP。
+
+
+## 实施设计修订 D12：派生输出分类
+
+统一程序独占 `extensions["security.classification"]={"data_class":<enum>}`；enum 为 SYNTHETIC/PERSONAL/SENSITIVE/SECRET，严格单字段、禁止额外成员。分类是披露上界，与事实真假、授权或证据质量独立。程序使用实际冻结成功模型请求的有效 class，按旧对象／本次请求／逐字复制来源取最高分类；更新和复制不降级。无 Evidence 或只有低分类 Evidence 均不能证明派生文本为低分类。
+
+模型／客户端在任何结构层注入此键，整请求／整 Decision 拒绝；不读取其标签决定业务，原始拒绝证据保持原字节。持久写入仅使用程序值，其他合法 extension 保留。缺失／非法的旧派生标签保留 unknown，在披露／重推导入口返回 OUTPUT_CLASS_UNKNOWN，不回填 SYNTHETIC、不伪写 SECRET、不删除数据。空内容程序脚手架可无标，固定且不含用户／模型内容的字面量可显式 SYNTHETIC；真实输入原文仍用其原始 data_class。
+
+裁决：`review/D12-output-class-final-contract.response.md`（整体替代初稿），反注入补充：`review/D12-injection-oracle-clarification.response.md`。无 DDL 或顶层 class 字段扩张。
+
+CLI/API/typed 普通输入缺省 PERSONAL；合成验收必须显式 SYNTHETIC。AllowedClasses 不扩权，SECRET 恒不允许出网。可信旧隔离合成库仅可凭完整来源证明离线显式升级并留审计；不得由“现存输入全合成”推断历史输出。完整请求上下文可重建时须 join 历史依赖并保留原字节，其他 unknown 明确阻断。

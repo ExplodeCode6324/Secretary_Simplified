@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "request_id": "57fcd450-69f9-4939-bbf4-f3db82e08135",
+  "session_id": "908344b2-f168-406f-8e36-a5251cd375cb",
+  "principal_id": "master",
+  "origin": "MASTER_CLI",
+  "received_at": "2026-09-13T23:23:58.996Z",
+  "text": "Withdraw the earlier BLUE731 password agreement. The current sea-salt-protocol password is GREEN842. Acknowledge only; do not create items.",
+  "attachment_refs": [],
+  "data_class": "SYNTHETIC",
+  "extensions": {}
+}

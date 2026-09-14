@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "context_id": "d3391bda-e886-4193-816f-9e07d92d21f2",
+  "reply": {
+    "text": "已拟创建一个事项：“合成事项06”，截止时间为2026-09-19T12:00:00.000Z。",
+    "evidence": []
+  },
+  "actions": [
+    {
+      "operation_key": "create-synthetic-item-06",
+      "kind": "CREATE_ITEM",
+      "payload": {
+        "domain": "project",
+        "kind": "TASK",
+        "title": "合成事项06",
+        "due_at": "2026-09-19T12:00:00.000Z",
+        "timezone": "UTC",
+        "priority": 0
+      }
+    }
+  ],
+  "controls": [],
+  "extensions": {}
+}

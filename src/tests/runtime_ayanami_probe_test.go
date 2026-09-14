@@ -33,7 +33,7 @@ func probeGrant(t *testing.T, s *store.Store, caps []string, roots []string) str
 func TestAyanamiProbeArtifactCancelMustDeny(t *testing.T) {
 	s, dir := runtimeDB(t)
 	g := probeGrant(t, s, []string{"artifact.write"}, []string{dir})
-	cmd := contract.Command{SchemaVersion: 1, OperationKey: "write", Capability: "artifact.write", CapabilityVersion: 1, Arguments: map[string]any{"relative_path": "cancel.txt", "content": "x"}, ExpectedRevisions: []contract.ReadRef{}, Extensions: map[string]any{}}
+	cmd := contract.Command{SchemaVersion: 1, OperationKey: "write", Capability: "artifact.write", CapabilityVersion: 1, Arguments: map[string]any{"relative_path": "cancel.txt", "content": "x"}, ExpectedRevisions: []contract.ReadRef{}, Extensions: map[string]any{"security.classification": map[string]any{"data_class": "SYNTHETIC"}}}
 	criteria, e := store.DeriveCriteria(cmd)
 	if e != nil {
 		t.Fatal(e)
@@ -131,7 +131,7 @@ func TestAyanamiProbeMutedAlarmPersistenceAndExpiry(t *testing.T) {
 	s, _ := runtimeDB(t)
 	g := probeGrant(t, s, []string{"alarm.play"}, []string{})
 	audio := contract.ObjectRef{SchemaVersion: 1, ID: contract.NewID(), RelativePath: "fixture.wav", SHA256: "0000000000000000000000000000000000000000000000000000000000000000", MediaType: "audio/wav", ByteSize: 0, DataClass: "SYNTHETIC", CreatedAt: contract.Now(), Extensions: map[string]any{}}
-	cmd := contract.Command{SchemaVersion: 1, OperationKey: "alarm", Capability: "alarm.play", CapabilityVersion: 1, Arguments: map[string]any{"audio_ref": audio, "device_id": "synthetic-muted", "max_duration_seconds": 1}, ExpectedRevisions: []contract.ReadRef{}, Extensions: map[string]any{}}
+	cmd := contract.Command{SchemaVersion: 1, OperationKey: "alarm", Capability: "alarm.play", CapabilityVersion: 1, Arguments: map[string]any{"audio_ref": audio, "device_id": "synthetic-muted", "max_duration_seconds": 1}, ExpectedRevisions: []contract.ReadRef{}, Extensions: map[string]any{"security.classification": map[string]any{"data_class": "SYNTHETIC"}}}
 	criteria := []contract.Criterion{{ID: contract.NewID(), Kind: "notification_recorded", Expected: map[string]any{"notification_key": "alarm-proof"}, EvidencePolicy: "synthetic"}}
 	run, e := s.RegisterImmediate(context.Background(), contract.NewID(), contract.NewID(), cmd, criteria, g)
 	if e != nil {

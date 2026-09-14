@@ -1,6 +1,7 @@
 package core
 
 import (
+	"encoding/json"
 	"errors"
 	"net/http"
 	"secretarysimplified/contract"
@@ -8,11 +9,13 @@ import (
 )
 
 type typedRequest struct {
-	SchemaVersion    int            `json:"schema_version"`
-	RequestID        string         `json:"request_id"`
-	SessionID        string         `json:"session_id"`
-	ExpectedRevision *int           `json:"expected_revision"`
-	Payload          map[string]any `json:"payload"`
+	SchemaVersion    int             `json:"schema_version"`
+	RequestID        string          `json:"request_id"`
+	SessionID        string          `json:"session_id"`
+	ExpectedRevision *int            `json:"expected_revision"`
+	Payload          map[string]any  `json:"payload"`
+	DataClassRaw     json.RawMessage `json:"data_class,omitempty"`
+	DataClass        string          `json:"-"`
 }
 
 func readTyped(r *http.Request) (typedRequest, error) {
@@ -20,6 +23,14 @@ func readTyped(r *http.Request) (typedRequest, error) {
 	if e := transport.Read(r, &q); e != nil {
 		return q, e
 	}
+	if e := contract.CheckNoClassification(q); e != nil {
+		return q, e
+	}
+	class, err := declaredClass(q.DataClassRaw)
+	if err != nil {
+		return q, err
+	}
+	q.DataClass = class
 	if q.SchemaVersion != 1 || q.RequestID == "" || q.ExpectedRevision == nil || *q.ExpectedRevision < 0 {
 		return q, errors.New("INVALID_SCHEMA")
 	}
@@ -44,7 +55,7 @@ func (s *Service) registerTypedRoutes(mux *http.ServeMux) {
 				transport.Reply(w, 400, q.RequestID, nil, e)
 				return
 			}
-			t, e := s.Typed(r.Context(), q.RequestID, q.SessionID, []contract.ActionProposal{{OperationKey: route.operation, Kind: route.kind, Payload: q.Payload}})
+			t, e := s.TypedClass(r.Context(), q.RequestID, q.SessionID, []contract.ActionProposal{{OperationKey: route.operation, Kind: route.kind, Payload: q.Payload}}, q.DataClass)
 			var result any = t
 			if e == nil {
 				switch route.kind {
@@ -73,7 +84,7 @@ func (s *Service) registerTypedRoutes(mux *http.ServeMux) {
 			transport.Reply(w, 400, q.RequestID, nil, e)
 			return
 		}
-		_, e = s.Typed(r.Context(), q.RequestID, q.SessionID, []contract.ActionProposal{{OperationKey: "update_item", Kind: "UPDATE_ITEM", Payload: map[string]any{"item_id": r.PathValue("id"), "expected_revision": *q.ExpectedRevision, "changes": q.Payload}}})
+		_, e = s.TypedClass(r.Context(), q.RequestID, q.SessionID, []contract.ActionProposal{{OperationKey: "update_item", Kind: "UPDATE_ITEM", Payload: map[string]any{"item_id": r.PathValue("id"), "expected_revision": *q.ExpectedRevision, "changes": q.Payload}}}, q.DataClass)
 		var result any
 		if e == nil {
 			result, e = s.Store.ItemRevision(r.Context(), r.PathValue("id"), *q.ExpectedRevision+1)
@@ -86,7 +97,7 @@ func (s *Service) registerTypedRoutes(mux *http.ServeMux) {
 			transport.Reply(w, 400, q.RequestID, nil, e)
 			return
 		}
-		v, e := s.Store.UpdateJobRequest(r.Context(), r.PathValue("id"), q.RequestID, *q.ExpectedRevision, q.Payload)
+		v, e := s.Store.UpdateJobRequest(r.Context(), r.PathValue("id"), q.RequestID, *q.ExpectedRevision, q.Payload, q.DataClass)
 		transport.Reply(w, 200, q.RequestID, v, e)
 	})
 	mux.HandleFunc("POST /v1/tasks/{id}/cancel", func(w http.ResponseWriter, r *http.Request) {
@@ -102,4 +113,18 @@ func (s *Service) registerTypedRoutes(mux *http.ServeMux) {
 		}
 		transport.Reply(w, 200, q.RequestID, result, e)
 	})
+}
+
+func declaredClass(raw json.RawMessage) (string, error) {
+	if len(raw) == 0 {
+		return "PERSONAL", nil
+	}
+	var class string
+	if err := json.Unmarshal(raw, &class); err != nil {
+		return "", errors.New("INVALID_DATA_CLASS")
+	}
+	if _, err := contract.JoinClass(class); err != nil {
+		return "", errors.New("INVALID_DATA_CLASS")
+	}
+	return class, nil
 }

@@ -1,0 +1,554 @@
+{
+  "item": [
+    {
+      "schema_version": 1,
+      "id": "203699e5-c039-5cbb-be96-820747219740",
+      "revision": 1,
+      "domain": "project",
+      "kind": "TASK",
+      "title": "synthetic-question-project-date",
+      "status": "OPEN",
+      "priority": 1,
+      "due_at": null,
+      "timezone": "Asia/Hong_Kong",
+      "time_state": "UNKNOWN",
+      "parent_id": null,
+      "dependency_ids": [],
+      "evidence": [
+        {
+          "object_id": "95ecc230-9ab9-5fb9-9a27-09dc6b4f6661",
+          "sha256": "5c6885bc9e2db0548dc63b2450f1aa7982621df7d53353ae1892677b9092d06c",
+          "locator": "full_text",
+          "origin_id": "95ecc230-9ab9-5fb9-9a27-09dc6b4f6661",
+          "data_class": "SYNTHETIC"
+        }
+      ],
+      "created_at": "2026-09-14T01:23:44.852Z",
+      "updated_at": "2026-09-14T01:23:44.852Z",
+      "extensions": {
+        "security.classification": {
+          "data_class": "SYNTHETIC"
+        }
+      }
+    }
+  ],
+  "input_turn": [
+    {
+      "schema_version": 1,
+      "id": "6971001d-aa8e-4ecb-b45b-b7e47ccad6c4",
+      "session_id": "00000000-0000-4000-8000-000000000001",
+      "principal_id": "master",
+      "request_id": "2c5232ff-03f0-41aa-b1ca-c7050b0e82f5",
+      "intent_id": "1b06ac73-a657-47ff-8833-d308ef1ccb33",
+      "state": "COMMITTED",
+      "input": {
+        "schema_version": 1,
+        "request_id": "2c5232ff-03f0-41aa-b1ca-c7050b0e82f5",
+        "session_id": "00000000-0000-4000-8000-000000000001",
+        "principal_id": "master",
+        "origin": "MASTER_CLI",
+        "received_at": "2026-09-14T01:23:44.835Z",
+        "text": "[{\"operation_key\":\"create_item\",\"kind\":\"CREATE_ITEM\",\"payload\":{\"domain\":\"project\",\"due_at\":null,\"kind\":\"TASK\",\"priority\":1,\"timezone\":\"Asia/Hong_Kong\",\"title\":\"synthetic-question-project-date\"}}]",
+        "attachment_refs": [
+          {
+            "schema_version": 1,
+            "id": "95ecc230-9ab9-5fb9-9a27-09dc6b4f6661",
+            "relative_path": "95ecc230-9ab9-5fb9-9a27-09dc6b4f6661.blob",
+            "sha256": "5c6885bc9e2db0548dc63b2450f1aa7982621df7d53353ae1892677b9092d06c",
+            "media_type": "text/plain",
+            "byte_size": 196,
+            "data_class": "SYNTHETIC",
+            "created_at": "2026-09-14T01:23:44.835Z",
+            "extensions": {}
+          }
+        ],
+        "data_class": "SYNTHETIC",
+        "extensions": {}
+      },
+      "reply": {
+        "evidence": [],
+        "text": "Typed actions committed. Execution is asynchronous."
+      },
+      "committed_operation_keys": [
+        "create_item"
+      ],
+      "processing_owner": null,
+      "lease_until": null,
+      "updated_at": "2026-09-14T01:23:44.853Z",
+      "extensions": {
+        "security.classification": {
+          "data_class": "SYNTHETIC"
+        }
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "328948fc-5566-40a1-8d9d-fa9eefbca386",
+      "session_id": "25d022b5-2951-42f2-9e1c-7be15861da77",
+      "principal_id": "master",
+      "request_id": "6320212d-82a2-430b-99a4-5b956238f946",
+      "intent_id": "14c51da6-9f43-4f0d-837f-7cbec535d566",
+      "state": "COMMITTED",
+      "input": {
+        "schema_version": 1,
+        "request_id": "6320212d-82a2-430b-99a4-5b956238f946",
+        "session_id": "25d022b5-2951-42f2-9e1c-7be15861da77",
+        "principal_id": "master",
+        "origin": "MASTER_CLI",
+        "received_at": "2026-09-14T01:23:44.866Z",
+        "text": "现有 Item 203699e5-c039-5cbb-be96-820747219740（synthetic-question-project-date）缺少截止日期。请仅通过 reply.questions 登记一个关联这个 exact Item ID 的问题，text 严格为“synthetic-question-project-date 的截止日期是什么？”。actions 和 controls 必须为空；不要修改事项、猜测日期或创建新事项。",
+        "attachment_refs": [
+          {
+            "schema_version": 1,
+            "id": "6caf57af-eb26-5b86-9e2b-ab44183f1106",
+            "relative_path": "6caf57af-eb26-5b86-9e2b-ab44183f1106.blob",
+            "sha256": "2534f9d4cc72c365738bb7c934923c6d094b8d5614184646f51310baef3f2c42",
+            "media_type": "text/plain",
+            "byte_size": 358,
+            "data_class": "SYNTHETIC",
+            "created_at": "2026-09-14T01:23:44.867Z",
+            "extensions": {}
+          }
+        ],
+        "data_class": "SYNTHETIC",
+        "extensions": {}
+      },
+      "reply": {
+        "evidence": [],
+        "questions": [
+          {
+            "created_sequence": 2,
+            "id": "d305db51-0753-5f49-82f1-065bbff81229",
+            "item_id": "203699e5-c039-5cbb-be96-820747219740",
+            "resolved": false,
+            "text": "synthetic-question-project-date 的截止日期是什么？"
+          }
+        ],
+        "text": "已登记问题。\n[question_id=d305db51-0753-5f49-82f1-065bbff81229 session_id=25d022b5-2951-42f2-9e1c-7be15861da77]\nsynthetic-question-project-date 的截止日期是什么？"
+      },
+      "committed_operation_keys": [],
+      "processing_owner": null,
+      "lease_until": null,
+      "updated_at": "2026-09-14T01:23:48.804Z",
+      "extensions": {
+        "security.classification": {
+          "data_class": "SYNTHETIC"
+        }
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "c6d01371-412f-4094-9e92-d66e368c4c33",
+      "session_id": "1a38a45d-26fe-4e02-a22f-f1d7f8dd0e1f",
+      "principal_id": "master",
+      "request_id": "6d502008-c20e-435d-924a-137b21b8a593",
+      "intent_id": "9f42c13a-6fc2-416d-bf99-f891fa46618c",
+      "state": "COMMITTED",
+      "input": {
+        "schema_version": 1,
+        "request_id": "6d502008-c20e-435d-924a-137b21b8a593",
+        "session_id": "1a38a45d-26fe-4e02-a22f-f1d7f8dd0e1f",
+        "principal_id": "master",
+        "origin": "MASTER_CLI",
+        "received_at": "2026-09-14T01:23:49.131Z",
+        "text": "请实际调用 READ_MEMORY，query 使用 synthetic-question-project-date，entity_ids 为空。取回之前真实登记的截止日期问题；从原始 ASSISTANT 程序问题块恢复 question_id 与原 session_id，并核对关联 Item。最终 reply.text 只返回 JSON 对象，字段严格为 question_id、session_id、item_id、text，值是原始问题记录，不要推测 ID。不创建问题，不修改任何事项。",
+        "attachment_refs": [
+          {
+            "schema_version": 1,
+            "id": "ddb9d005-468a-5450-9c6f-62ba0ff8c294",
+            "relative_path": "ddb9d005-468a-5450-9c6f-62ba0ff8c294.blob",
+            "sha256": "89616f200efc3669418efd99f0950cbf988edef4f84aaaa91cae062c794b530f",
+            "media_type": "text/plain",
+            "byte_size": 431,
+            "data_class": "SYNTHETIC",
+            "created_at": "2026-09-14T01:23:49.132Z",
+            "extensions": {}
+          }
+        ],
+        "data_class": "SYNTHETIC",
+        "extensions": {}
+      },
+      "reply": {
+        "evidence": [],
+        "text": "Request was recorded, but no actions were committed: CONTEXT_REQUIRED_OVERFLOW"
+      },
+      "committed_operation_keys": [],
+      "processing_owner": null,
+      "lease_until": null,
+      "updated_at": "2026-09-14T01:23:52.965Z",
+      "extensions": {
+        "security.classification": {
+          "data_class": "SYNTHETIC"
+        }
+      }
+    }
+  ],
+  "conversation_session": [
+    {
+      "schema_version": 1,
+      "id": "00000000-0000-4000-8000-000000000001",
+      "revision": 3,
+      "through_sequence": 0,
+      "summary_from_sequence": 0,
+      "summary": "",
+      "recent_event_ids": [],
+      "focus_entity_ids": [],
+      "pending_questions": [],
+      "commitment_item_ids": [],
+      "extensions": {}
+    },
+    {
+      "schema_version": 1,
+      "id": "25d022b5-2951-42f2-9e1c-7be15861da77",
+      "revision": 3,
+      "through_sequence": 0,
+      "summary_from_sequence": 0,
+      "summary": "",
+      "recent_event_ids": [],
+      "focus_entity_ids": [],
+      "pending_questions": [
+        {
+          "created_sequence": 2,
+          "id": "d305db51-0753-5f49-82f1-065bbff81229",
+          "item_id": "203699e5-c039-5cbb-be96-820747219740",
+          "resolved": false,
+          "text": "synthetic-question-project-date 的截止日期是什么？"
+        }
+      ],
+      "commitment_item_ids": [],
+      "extensions": {
+        "security.classification": {
+          "data_class": "SYNTHETIC"
+        }
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "1a38a45d-26fe-4e02-a22f-f1d7f8dd0e1f",
+      "revision": 3,
+      "through_sequence": 0,
+      "summary_from_sequence": 0,
+      "summary": "",
+      "recent_event_ids": [],
+      "focus_entity_ids": [],
+      "pending_questions": [],
+      "commitment_item_ids": [],
+      "extensions": {}
+    }
+  ],
+  "conversation_event": [
+    {
+      "schema_version": 1,
+      "id": "8b37e586-ca19-45c6-917f-73ce6aa6ab73",
+      "session_id": "00000000-0000-4000-8000-000000000001",
+      "sequence": 1,
+      "turn_id": "6971001d-aa8e-4ecb-b45b-b7e47ccad6c4",
+      "role": "MASTER",
+      "text": "[{\"operation_key\":\"create_item\",\"kind\":\"CREATE_ITEM\",\"payload\":{\"domain\":\"project\",\"due_at\":null,\"kind\":\"TASK\",\"priority\":1,\"timezone\":\"Asia/Hong_Kong\",\"title\":\"synthetic-question-project-date\"}}]",
+      "created_at": "2026-09-14T01:23:44.835Z",
+      "delivery_state": "RECORDED",
+      "evidence": [
+        {
+          "object_id": "95ecc230-9ab9-5fb9-9a27-09dc6b4f6661",
+          "sha256": "5c6885bc9e2db0548dc63b2450f1aa7982621df7d53353ae1892677b9092d06c",
+          "locator": "full_text",
+          "origin_id": "95ecc230-9ab9-5fb9-9a27-09dc6b4f6661",
+          "data_class": "SYNTHETIC"
+        }
+      ],
+      "extensions": {
+        "security.classification": {
+          "data_class": "SYNTHETIC"
+        }
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "8b0e0817-8f63-4da2-a357-ccca72a5f52a",
+      "session_id": "00000000-0000-4000-8000-000000000001",
+      "sequence": 2,
+      "turn_id": "6971001d-aa8e-4ecb-b45b-b7e47ccad6c4",
+      "role": "ASSISTANT",
+      "text": "Typed actions committed. Execution is asynchronous.",
+      "created_at": "2026-09-14T01:23:44.853Z",
+      "delivery_state": "RECORDED",
+      "evidence": [],
+      "extensions": {
+        "security.classification": {
+          "data_class": "SYNTHETIC"
+        }
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "09c29ff8-547c-4091-b9f2-0eafb0f42050",
+      "session_id": "25d022b5-2951-42f2-9e1c-7be15861da77",
+      "sequence": 1,
+      "turn_id": "328948fc-5566-40a1-8d9d-fa9eefbca386",
+      "role": "MASTER",
+      "text": "现有 Item 203699e5-c039-5cbb-be96-820747219740（synthetic-question-project-date）缺少截止日期。请仅通过 reply.questions 登记一个关联这个 exact Item ID 的问题，text 严格为“synthetic-question-project-date 的截止日期是什么？”。actions 和 controls 必须为空；不要修改事项、猜测日期或创建新事项。",
+      "created_at": "2026-09-14T01:23:44.866Z",
+      "delivery_state": "RECORDED",
+      "evidence": [
+        {
+          "object_id": "6caf57af-eb26-5b86-9e2b-ab44183f1106",
+          "sha256": "2534f9d4cc72c365738bb7c934923c6d094b8d5614184646f51310baef3f2c42",
+          "locator": "full_text",
+          "origin_id": "6caf57af-eb26-5b86-9e2b-ab44183f1106",
+          "data_class": "SYNTHETIC"
+        }
+      ],
+      "extensions": {
+        "security.classification": {
+          "data_class": "SYNTHETIC"
+        }
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "39f3b75b-470c-4f05-a8d5-93f8be945414",
+      "session_id": "25d022b5-2951-42f2-9e1c-7be15861da77",
+      "sequence": 2,
+      "turn_id": "328948fc-5566-40a1-8d9d-fa9eefbca386",
+      "role": "ASSISTANT",
+      "text": "已登记问题。\n[question_id=d305db51-0753-5f49-82f1-065bbff81229 session_id=25d022b5-2951-42f2-9e1c-7be15861da77]\nsynthetic-question-project-date 的截止日期是什么？",
+      "created_at": "2026-09-14T01:23:48.804Z",
+      "delivery_state": "RECORDED",
+      "evidence": [],
+      "extensions": {
+        "security.classification": {
+          "data_class": "SYNTHETIC"
+        }
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "c98934f0-17ce-4761-8bfc-09808c2767ec",
+      "session_id": "1a38a45d-26fe-4e02-a22f-f1d7f8dd0e1f",
+      "sequence": 1,
+      "turn_id": "c6d01371-412f-4094-9e92-d66e368c4c33",
+      "role": "MASTER",
+      "text": "请实际调用 READ_MEMORY，query 使用 synthetic-question-project-date，entity_ids 为空。取回之前真实登记的截止日期问题；从原始 ASSISTANT 程序问题块恢复 question_id 与原 session_id，并核对关联 Item。最终 reply.text 只返回 JSON 对象，字段严格为 question_id、session_id、item_id、text，值是原始问题记录，不要推测 ID。不创建问题，不修改任何事项。",
+      "created_at": "2026-09-14T01:23:49.131Z",
+      "delivery_state": "RECORDED",
+      "evidence": [
+        {
+          "object_id": "ddb9d005-468a-5450-9c6f-62ba0ff8c294",
+          "sha256": "89616f200efc3669418efd99f0950cbf988edef4f84aaaa91cae062c794b530f",
+          "locator": "full_text",
+          "origin_id": "ddb9d005-468a-5450-9c6f-62ba0ff8c294",
+          "data_class": "SYNTHETIC"
+        }
+      ],
+      "extensions": {
+        "security.classification": {
+          "data_class": "SYNTHETIC"
+        }
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "0f9819d4-9890-4305-abea-fda1473140fb",
+      "session_id": "1a38a45d-26fe-4e02-a22f-f1d7f8dd0e1f",
+      "sequence": 2,
+      "turn_id": "c6d01371-412f-4094-9e92-d66e368c4c33",
+      "role": "ASSISTANT",
+      "text": "Request was recorded, but no actions were committed: CONTEXT_REQUIRED_OVERFLOW",
+      "created_at": "2026-09-14T01:23:52.965Z",
+      "delivery_state": "RECORDED",
+      "evidence": [],
+      "extensions": {
+        "security.classification": {
+          "data_class": "SYNTHETIC"
+        }
+      }
+    }
+  ],
+  "decision_record": [
+    {
+      "schema_version": 1,
+      "context_id": "36f1f155-69e1-4d8b-9c47-62dd276ceaef",
+      "reply": {
+        "evidence": [],
+        "questions": [
+          {
+            "item_id": "203699e5-c039-5cbb-be96-820747219740",
+            "text": "synthetic-question-project-date 的截止日期是什么？"
+          }
+        ],
+        "text": "已登记问题。"
+      },
+      "actions": [],
+      "controls": [],
+      "extensions": {}
+    }
+  ],
+  "context_manifest": [
+    {
+      "schema_version": 1,
+      "id": "36f1f155-69e1-4d8b-9c47-62dd276ceaef",
+      "intent_id": "14c51da6-9f43-4f0d-837f-7cbec535d566",
+      "snapshot_seq": 1,
+      "as_of": "2026-09-14T01:23:45.796Z",
+      "read_set": [
+        {
+          "entity_type": "ConversationState",
+          "id": "25d022b5-2951-42f2-9e1c-7be15861da77",
+          "revision": 2
+        },
+        {
+          "entity_type": "Item",
+          "id": "203699e5-c039-5cbb-be96-820747219740",
+          "revision": 1
+        }
+      ],
+      "request_hash": "f34e4f5009037b80968f07fabf4345f7f0e4cb44463b22ad1b6b6a2148393d35",
+      "policy_revision": 1,
+      "output_schema_id": "DecisionEnvelope",
+      "output_schema_hash": "a4811be9270002a8037af6c708439389699e9ddb1d51c6e4638f145046cb0fdb",
+      "model_profile": "opencode-go",
+      "input_bytes": 30620,
+      "input_tokens": 30620,
+      "token_count_mode": "CONSERVATIVE_ESTIMATE",
+      "sections": [
+        {
+          "bytes": 673,
+          "name": "items",
+          "omitted_count": 0,
+          "reason": "explicit references and parent/dependency closure, otherwise recent bounded selection",
+          "selected_count": 1
+        },
+        {
+          "bytes": 2,
+          "name": "facts",
+          "omitted_count": 0,
+          "reason": "master preferences, conflicts and referenced entities retained; unrelated facts omitted",
+          "selected_count": 0
+        },
+        {
+          "bytes": 2,
+          "name": "tasks",
+          "omitted_count": 0,
+          "reason": "selected task criteria remain intact",
+          "selected_count": 0
+        },
+        {
+          "bytes": 2,
+          "name": "delta_events",
+          "omitted_count": 1,
+          "reason": "latest relevant entity changes; current authority separately retained",
+          "selected_count": 0
+        },
+        {
+          "bytes": 2,
+          "name": "recent_events",
+          "omitted_count": 1,
+          "reason": "oldest original conversation removed first",
+          "selected_count": 0
+        },
+        {
+          "bytes": 4,
+          "name": "consciousness",
+          "omitted_count": 0,
+          "reason": "derived summary may be omitted",
+          "selected_count": 0
+        },
+        {
+          "bytes": 2,
+          "name": "retrieved_evidence",
+          "omitted_count": 0,
+          "reason": "bounded untrusted original evidence, oldest retrieval evicted first",
+          "selected_count": 0
+        }
+      ],
+      "extensions": {
+        "security.classification": {
+          "data_class": "SYNTHETIC"
+        }
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "2623f5e9-1f46-4085-b93a-0ddcc5bc24ed",
+      "intent_id": "9f42c13a-6fc2-416d-bf99-f891fa46618c",
+      "snapshot_seq": 1,
+      "as_of": "2026-09-14T01:23:49.795Z",
+      "read_set": [
+        {
+          "entity_type": "ConversationState",
+          "id": "1a38a45d-26fe-4e02-a22f-f1d7f8dd0e1f",
+          "revision": 2
+        },
+        {
+          "entity_type": "Item",
+          "id": "203699e5-c039-5cbb-be96-820747219740",
+          "revision": 1
+        }
+      ],
+      "request_hash": "86112d34e1f8260c9d763d06d5be623dfe6ac24226315c747113ae22c4d0fc41",
+      "policy_revision": 1,
+      "output_schema_id": "DecisionEnvelope",
+      "output_schema_hash": "a4811be9270002a8037af6c708439389699e9ddb1d51c6e4638f145046cb0fdb",
+      "model_profile": "opencode-go",
+      "input_bytes": 30693,
+      "input_tokens": 30693,
+      "token_count_mode": "CONSERVATIVE_ESTIMATE",
+      "sections": [
+        {
+          "bytes": 673,
+          "name": "items",
+          "omitted_count": 0,
+          "reason": "explicit references and parent/dependency closure, otherwise recent bounded selection",
+          "selected_count": 1
+        },
+        {
+          "bytes": 2,
+          "name": "facts",
+          "omitted_count": 0,
+          "reason": "master preferences, conflicts and referenced entities retained; unrelated facts omitted",
+          "selected_count": 0
+        },
+        {
+          "bytes": 2,
+          "name": "tasks",
+          "omitted_count": 0,
+          "reason": "selected task criteria remain intact",
+          "selected_count": 0
+        },
+        {
+          "bytes": 2,
+          "name": "delta_events",
+          "omitted_count": 1,
+          "reason": "latest relevant entity changes; current authority separately retained",
+          "selected_count": 0
+        },
+        {
+          "bytes": 2,
+          "name": "recent_events",
+          "omitted_count": 1,
+          "reason": "oldest original conversation removed first",
+          "selected_count": 0
+        },
+        {
+          "bytes": 4,
+          "name": "consciousness",
+          "omitted_count": 0,
+          "reason": "derived summary may be omitted",
+          "selected_count": 0
+        },
+        {
+          "bytes": 2,
+          "name": "retrieved_evidence",
+          "omitted_count": 0,
+          "reason": "bounded untrusted original evidence, oldest retrieval evicted first",
+          "selected_count": 0
+        }
+      ],
+      "extensions": {
+        "security.classification": {
+          "data_class": "SYNTHETIC"
+        }
+      }
+    }
+  ]
+}

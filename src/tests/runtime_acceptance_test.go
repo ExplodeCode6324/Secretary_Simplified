@@ -79,6 +79,7 @@ func TestAcceptanceA02TenRetriesAcrossReopen(t *testing.T) {
 	g := runtimeGrant(t, s)
 	request, session := contract.NewID(), contract.NewID()
 	cmd := runtimeCommand()
+	cmd.Extensions = map[string]any{} // Authenticated synthetic typed fixture supplies data_class separately.
 	criteria, _ := store.DeriveCriteria(cmd)
 	due := contract.Timestamp(time.Now().Add(time.Hour))
 	actions := []contract.ActionProposal{createAction(), {OperationKey: "immediate", Kind: "SUBMIT_TASK", Payload: map[string]any{"goal": "retry immediate", "item_id": nil, "item_operation_key": nil, "criteria": criteria, "command": cmd, "deadline_at": nil}}, {OperationKey: "scheduled", Kind: "CREATE_JOB", Payload: map[string]any{"schedule": contract.Schedule{Kind: "once", At: &due, Timezone: "UTC", Weekdays: []int{}}, "command": cmd, "task_template": map[string]any{"goal": "retry scheduled", "item_id": nil, "item_operation_key": nil, "criteria": criteria}, "misfire": "FIRE_ONCE_WITHIN_GRACE", "grace_seconds": 300}}}
@@ -88,7 +89,7 @@ func TestAcceptanceA02TenRetriesAcrossReopen(t *testing.T) {
 		svc := core.Service{Store: s, Model: p, Config: c, GrantID: g}
 		var retryActions []contract.ActionProposal
 		json.Unmarshal(rawActions, &retryActions)
-		turn, e := svc.Typed(ctx, request, session, retryActions)
+		turn, e := svc.TypedClass(ctx, request, session, retryActions, "SYNTHETIC")
 		if e != nil {
 			t.Fatal(i, e)
 		}
@@ -112,7 +113,7 @@ func TestAcceptanceA02TenRetriesAcrossReopen(t *testing.T) {
 	}
 	actions[0].Payload["title"] = "different payload"
 	svc := core.Service{Store: s, Model: p, Config: c, GrantID: g}
-	if _, e := svc.Typed(ctx, request, session, actions); e == nil {
+	if _, e := svc.TypedClass(ctx, request, session, actions, "SYNTHETIC"); e == nil {
 		t.Fatal("different request accepted")
 	}
 }
@@ -125,7 +126,7 @@ func TestAcceptanceA15SixWaitPaths(t *testing.T) {
 			g := runtimeGrant(t, s)
 			run := runtimeRegister(t, s, g)
 			now := time.Now()
-			item := contract.Item{SchemaVersion: 1, ID: contract.NewID(), Revision: 1, Domain: "work", Kind: "TASK", Title: "wait dependency", Status: "OPEN", Priority: 1, Timezone: "UTC", TimeState: "UNKNOWN", DependencyIDs: []string{}, Evidence: []contract.EvidenceRef{}, CreatedAt: contract.Now(), UpdatedAt: contract.Now(), Extensions: map[string]any{}}
+			item := contract.Item{SchemaVersion: 1, ID: contract.NewID(), Revision: 1, Domain: "work", Kind: "TASK", Title: "wait dependency", Status: "OPEN", Priority: 1, Timezone: "UTC", TimeState: "UNKNOWN", DependencyIDs: []string{}, Evidence: []contract.EvidenceRef{}, CreatedAt: contract.Now(), UpdatedAt: contract.Now(), Extensions: map[string]any{"security.classification": map[string]any{"data_class": "SYNTHETIC"}}}
 			if e := s.PutItem(ctx, item, 0); e != nil {
 				t.Fatal(e)
 			}

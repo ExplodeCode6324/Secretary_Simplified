@@ -1,0 +1,73 @@
+[
+  {
+    "schema_version": 1,
+    "context_id": "98706a60-6a17-4f82-a196-77f9737b8b0c",
+    "reply": {
+      "evidence": [],
+      "text": "已提出创建事项和一次性本地通知的请求：事项标题为 synthetic-cli-reminder，领域为 project，类型为 TASK，截止时间为 2026-09-14T00:06:46.381Z（UTC），并保持 OPEN。通知将在该时间发送；当前未声称事项已完成。"
+    },
+    "actions": [
+      {
+        "operation_key": "create-synthetic-cli-reminder-item",
+        "kind": "CREATE_ITEM",
+        "payload": {
+          "domain": "project",
+          "due_at": "2026-09-14T00:06:46.381Z",
+          "kind": "TASK",
+          "priority": 0,
+          "timezone": "UTC",
+          "title": "synthetic-cli-reminder"
+        }
+      },
+      {
+        "operation_key": "schedule-synthetic-cli-reminder-notification",
+        "kind": "CREATE_JOB",
+        "payload": {
+          "command": {
+            "arguments": {
+              "notification_key": "synthetic-cli-reminder",
+              "text": "synthetic-cli-reminder"
+            },
+            "capability": "notify.local",
+            "capability_version": 1,
+            "expected_revisions": [],
+            "extensions": {},
+            "operation_key": "synthetic-cli-reminder-notify",
+            "schema_version": 1
+          },
+          "grace_seconds": 300,
+          "misfire": "FIRE_ONCE_WITHIN_GRACE",
+          "schedule": {
+            "after_seq": null,
+            "anchor_at": null,
+            "at": "2026-09-14T00:06:46.381Z",
+            "event_type": null,
+            "every_seconds": null,
+            "filter": null,
+            "kind": "once",
+            "local_time": null,
+            "timezone": "UTC",
+            "weekdays": []
+          },
+          "task_template": {
+            "criteria": [
+              {
+                "id": "85e886b4-7746-4bf2-beb0-feee1498568f",
+                "kind": "notification_recorded",
+                "expected": {
+                  "notification_key": "synthetic-cli-reminder"
+                },
+                "evidence_policy": "Authoritative persisted state or artifact bytes"
+              }
+            ],
+            "goal": "在截止时间发送一次本地文字通知 synthetic-cli-reminder；事项保持 OPEN，不完成事项。",
+            "item_id": "f2bbd983-2191-4332-af96-7a2c81b740f0",
+            "item_operation_key": null
+          }
+        }
+      }
+    ],
+    "controls": [],
+    "extensions": {}
+  }
+]

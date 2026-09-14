@@ -1,0 +1,56 @@
+{
+  "scope": "D12 runtime and World classification propagation; synthetic canaries with intentionally higher policy labels, no real model calls",
+  "status": "PASS_TARGETED",
+  "checked_at": "2026-09-14T01:18:01.239224+00:00",
+  "review_basis": "review/D12-output-class-final-contract.response.md",
+  "checks": [
+    {
+      "command": "go test -race ./tests -run TestD12 -count=1",
+      "status": "PASS",
+      "tests": 8
+    },
+    {
+      "command": "go test -race ./tests -run 'TestD12|TestRuntime|TestWorld|TestD11' -count=1",
+      "status": "PASS",
+      "duration_seconds": 15.851,
+      "scope_note": "before final alarm-only test addition; final D12 eight-test subset rerun afterward"
+    },
+    {
+      "command": "go vet ./store ./executor",
+      "status": "PASS"
+    },
+    {
+      "command": "go test ./store -run 'Runtime|A0|A1' -count=1",
+      "status": "PASS"
+    },
+    {
+      "command": "ast.parse of live_cli_acceptance/live_question_acceptance/process_soak/runtime_process_integration",
+      "status": "PASS",
+      "execution": "not run"
+    }
+  ],
+  "limitations": [
+    "A21 actual release process check awaits parent rebuild to recognize new extension; prior old-binary failure retained locally.",
+    "Full repository race and independent Ayanami incremental review are coordinated separately; this report does not replace them.",
+    "No migration or classification inference for historical unmarked derived records."
+  ],
+  "source_sha256": {
+    "src/store/runtime_job_patch.go": "869b71ffdedaa5a0ddc9aa61c906cdc3f5ac14fafd0da97996617eb263bc43d8",
+    "src/store/runtime_memory.go": "9200f17370e12a5a256b858131be4e6a82fd464a634d66c7f6109fc603f63e80",
+    "src/store/runtime_atomic_boundaries_test.go": "58f8c3a4baf07ab298303f9fbe19378679acc177898b09a148fa6bb2942f10b7",
+    "src/store/runtime.go": "cb6129aa6ca0b2f1a63933bbc54e812c5074416cb2790e54c9938aec84c7a7bf",
+    "src/store/runtime_schedule.go": "8eef8a2677fe87e4615d74fda58f7a6bbca0f7c47bb879a551d38f87c91cdd3a",
+    "src/store/runtime_classification.go": "c29a91424fef5b23acc9d3498c4892257141626ec642e47cf5a3404258ccb736",
+    "src/store/runtime_ayanami_residual_test.go": "5af4939eaebdc6cf4b76b65fea6192e58b3e5055d44f5a1e0b36fde38528c211",
+    "src/store/runtime_controls.go": "a8d23a8c920b1792c11de0ae118fae7f470e1206006fe2025eda2c4a4aa76e1b",
+    "src/store/runtime_criteria.go": "4e8f5231c29545f6aebc9ca6a96aa4218f6707fa036aeacff2186308b8c08e9c",
+    "src/store/runtime_control.go": "f867c32661f7fb0e8bacacb4e987f533f2415dc0d7876a0850176fe65faeca52",
+    "src/store/runtime_acceptance_test.go": "c0df7664ffbe70fc02bc094ce0f618ed041f40a4aaea18ce859e4d8c66044d15",
+    "src/store/runtime_execution.go": "e4a72876754e210fcaedd3e25fa678870b1108b484d1042c118417f805bd0599",
+    "src/store/runtime_local.go": "3bf71fe55a32571dfca8add35395299763de5cf2abf9f6e4ee25786e72d6f256",
+    "src/store/runtime_wait.go": "075a87853e3fddd17024da6c73bf339596c3e6537a6cbfe166f52a6425486ff1",
+    "src/store/world_repo.go": "ef67a0cc2b3569a5e71de5411b81ce6d2f9ffb74a7092319ba65cd6780403030",
+    "src/executor/executor.go": "0a2575d3330840260968ed336451c799266dbee13fd09e0a397bdcc84dac8973",
+    "src/tests/runtime_d12_test.go": "cc9744994adb78f62449849a506a011d351a21d6937c27b55c11736bb2704424"
+  }
+}

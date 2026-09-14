@@ -32,7 +32,7 @@ func (s *Service) Refresh(ctx context.Context, now time.Time) (*contract.Conscio
 
 // RefreshSlot executes the immutable command target. It never substitutes the
 // current wall-clock slot for the queued command's expected result.
-func (s *Service) RefreshSlot(ctx context.Context, slot int, now time.Time) (*contract.ConsciousnessState, error) {
+func (s *Service) RefreshSlot(ctx context.Context, slot int, now time.Time) (state *contract.ConsciousnessState, resultErr error) {
 	if slot < 0 {
 		return nil, errors.New("INVALID_SLOT")
 	}
@@ -40,6 +40,17 @@ func (s *Service) RefreshSlot(ctx context.Context, slot int, now time.Time) (*co
 		return nil, e
 	}
 	if existing, e := s.Store.ConsciousnessAt(ctx, slot); e == nil {
+		class, err := contract.ReadClassification(existing.Extensions)
+		if err != nil {
+			return nil, err
+		}
+		cfg := s.Config
+		if len(cfg.Policy.AllowedClasses) == 0 {
+			cfg.Policy.AllowedClasses = []string{"SYNTHETIC"}
+		}
+		if !cfg.Allows(class) {
+			return nil, errors.New("DISCLOSURE_DENIED")
+		}
 		return existing, nil
 	} else if e != sql.ErrNoRows {
 		return nil, e
@@ -108,10 +119,18 @@ func (s *Service) RefreshSlot(ctx context.Context, slot int, now time.Time) (*co
 		return nil, e
 	}
 	manifest := refreshManifest(req, in, snap, totalChanges, wire, cfg.Model.Profile)
+	manifest.Extensions, e = contract.ClassifyExtensions(manifest.Extensions, req.DataClass)
+	if e != nil {
+		return nil, e
+	}
 	if e = s.Store.SaveManifest(ctx, manifest); e != nil {
 		return nil, e
 	}
 	r, e := diagnostics.Recorded(s.Model, s.Store, cfg).Generate(ctx, req)
+	providerSucceeded := e == nil
+	defer func() {
+		recordMemoryResult(cfg, s.Store, r.CallID, req.ContextID, root, "consciousness", providerSucceeded, resultErr, req.DataClass)
+	}()
 	if e != nil {
 		return nil, e
 	}
@@ -138,13 +157,17 @@ func (s *Service) RefreshSlot(ctx context.Context, slot int, now time.Time) (*co
 	}
 	b, _ := json.Marshal(in)
 	v := contract.ConsciousnessState{SchemaVersion: 1, ID: contract.NewID(), Revision: 1, Slot: slot, SnapshotSeq: snap.Seq, PreviousSnapshotID: in.PreviousSnapshotID, InputHash: contract.Hash(b), CreatedAt: contract.Timestamp(now), FocalGoals: draft.FocalGoals, PriorityItems: draft.PriorityItems, OpenLoops: draft.OpenLoops, ImportantChanges: draft.ImportantChanges, Uncertainties: draft.Uncertainties, BriefSummary: draft.BriefSummary, MissedSlots: in.MissedSlots, Extensions: map[string]any{}}
+	v.Extensions, e = contract.ClassifyExtensions(v.Extensions, req.DataClass)
+	if e != nil {
+		return nil, e
+	}
 	e = s.Store.SaveConsciousness(ctx, v)
 	return &v, e
 }
 
 // Summarize incrementally covers a contiguous original-event range and CASes
 // the prior coverage watermark; failed synthesis leaves all original rows.
-func (s *Service) Summarize(ctx context.Context, session string) (contract.ConversationState, error) {
+func (s *Service) Summarize(ctx context.Context, session string) (state contract.ConversationState, resultErr error) {
 	snap, e := s.Store.Snapshot(ctx, session)
 	if e != nil {
 		return contract.ConversationState{}, e
@@ -165,7 +188,12 @@ func (s *Service) Summarize(ctx context.Context, session string) (contract.Conve
 	if e = s.Store.ReserveSummaryAttempt(ctx, root, time.Now(), 2000); e != nil {
 		return old, e
 	}
-	r, e := diagnostics.Recorded(s.Model, s.Store, cfg).Generate(ctx, model.Request{RootID: root, ContextID: contract.DeriveID(root + ":context"), SessionID: session, OutputType: "ConversationSummaryDraft", Input: map[string]any{"previous": old, "events": events, "items": snap.Items}, DataClass: ctxbuild.EffectiveDataClass(snap, contract.InputEnvelope{}), Background: true})
+	req := model.Request{RootID: root, ContextID: contract.DeriveID(root + ":context"), SessionID: session, OutputType: "ConversationSummaryDraft", Input: map[string]any{"previous": old, "events": events, "items": snap.Items}, DataClass: ctxbuild.EffectiveDataClass(snap, contract.InputEnvelope{}), Background: true}
+	r, e := diagnostics.Recorded(s.Model, s.Store, cfg).Generate(ctx, req)
+	providerSucceeded := e == nil
+	defer func() {
+		recordMemoryResult(cfg, s.Store, r.CallID, contract.DeriveID(root+":context"), root, "conversation_summary", providerSucceeded, resultErr, req.DataClass)
+	}()
 	if e != nil {
 		return old, e
 	}
@@ -207,8 +235,31 @@ func (s *Service) Summarize(ctx context.Context, session string) (contract.Conve
 	for _, ev := range events {
 		v.RecentEventIDs = append(v.RecentEventIDs, ev.ID)
 	}
+	v.Extensions, e = contract.ClassifyExtensions(v.Extensions, req.DataClass)
+	if e != nil {
+		return old, e
+	}
 	if e = s.Store.SaveConversation(ctx, v, old.Revision, old.ThroughSequence); e != nil {
 		return old, e
 	}
 	return v, nil
+}
+
+// Fixed codes avoid leaking provider bodies, source text, or local file paths.
+func recordMemoryResult(c config.Config, st *store.Store, callID, contextID, rootID, role string, providerSucceeded bool, err error, dataClass string) {
+	status, reason := "COMMITTED", ""
+	if err != nil {
+		status, reason = "SEMANTIC_REJECTED", "MEMORY_RESULT_REJECTED"
+		if !providerSucceeded {
+			status = "PROVIDER_FAILED"
+			reason = "MODEL_CALL_FAILED"
+		}
+		for _, code := range []string{"OUTPUT_CLASS_UNKNOWN", "CLASSIFICATION_INJECTION", "INVALID_REFERENCE", "UNKNOWN_PENDING_QUESTION", "CONFLICT", "DISCLOSURE_DENIED", "BUDGET_EXHAUSTED", "CONTEXT_REQUIRED_OVERFLOW", "MODEL_HTTP_429", "MODEL_HTTP_401", "MODEL_SECRET_UNAVAILABLE"} {
+			if err.Error() == code {
+				reason = code
+				break
+			}
+		}
+	}
+	_ = diagnostics.RecordMemoryOutcome(c, st, callID, contextID, rootID, role, status, reason, dataClass)
 }

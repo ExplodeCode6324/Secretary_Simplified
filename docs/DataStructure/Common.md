@@ -28,3 +28,14 @@ entity_id 初版可指已登记的 Master／设备配置实体、Item 或 Source
 语义幂等载荷使用确定性编码：对象键递归排序、数组保序、UTF-8、无多余空白；禁止重复 JSON 键，schema_version 和 null 字段保留。哈希输入不包含自身哈希、接收时间和重试统计。Go 实现需以固定 golden fixture 验证跨语言一致，不能默认任意序列化库都会产生相同数字格式；身份相关载荷首版只用整数和字符串表达数值。
 
 原文哈希直接计算原始字节；Context.request_hash 计算最终模型请求字节。二者不使用语义规范化，不可混为一个哈希。每个哈希的来源和算法写进对应 manifest。
+
+
+## 实施设计修订 D12：派生输出分类
+
+统一程序独占 `extensions["security.classification"]={"data_class":<enum>}`；enum 为 SYNTHETIC/PERSONAL/SENSITIVE/SECRET，严格单字段、禁止额外成员。分类是披露上界，与事实真假、授权或证据质量独立。程序使用实际冻结成功模型请求的有效 class，按旧对象／本次请求／逐字复制来源取最高分类；更新和复制不降级。无 Evidence 或只有低分类 Evidence 均不能证明派生文本为低分类。
+
+模型／客户端在任何结构层注入此键，整请求／整 Decision 拒绝；不读取其标签决定业务，原始拒绝证据保持原字节。持久写入仅使用程序值，其他合法 extension 保留。缺失／非法的旧派生标签保留 unknown，在披露／重推导入口返回 OUTPUT_CLASS_UNKNOWN，不回填 SYNTHETIC、不伪写 SECRET、不删除数据。空内容程序脚手架可无标，固定且不含用户／模型内容的字面量可显式 SYNTHETIC；真实输入原文仍用其原始 data_class。
+
+裁决：`review/D12-output-class-final-contract.response.md`（整体替代初稿），反注入补充：`review/D12-injection-oracle-clarification.response.md`。无 DDL 或顶层 class 字段扩张。
+
+D12 编码等价整理：40 个完全相同的 extensions 机器定义提取为 `$defs.RegisteredExtensions`，各载体使用 `$ref`；展开该新增间接引用与原 Schema 完整结构相等。此整理只消除输出闭包中的重复字节，不改变字段、注入拒绝、分类规则、32K 限制或验收 oracle。验证见 `reports/implementation/registered-extensions-equivalence.json` 与 `TestRegisteredExtensionsEquivalentToOriginalInlineShape`。

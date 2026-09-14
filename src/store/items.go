@@ -21,6 +21,34 @@ func (s *Store) PutItem(ctx context.Context, v contract.Item, expectedRevision i
 	return s.Write(ctx, func(tx *sql.Tx) error { return PutItemTx(ctx, tx, v, expectedRevision) })
 }
 func PutItemTx(ctx context.Context, tx *sql.Tx, v contract.Item, expectedRevision int) error {
+	class, e := contract.ReadClassification(v.Extensions)
+	if e != nil {
+		return e
+	}
+	if expectedRevision > 0 {
+		old, e := getItem(ctx, tx, v.ID)
+		if e != nil {
+			return e
+		}
+		oldClass, e := contract.ReadClassification(old.Extensions)
+		if e != nil {
+			return e
+		}
+		class, e = contract.JoinClass(class, oldClass)
+		if e != nil {
+			return e
+		}
+	}
+	for _, ref := range v.Evidence {
+		class, e = contract.JoinClass(class, ref.DataClass)
+		if e != nil {
+			return e
+		}
+	}
+	v.Extensions, e = contract.ClassifyExtensions(v.Extensions, class)
+	if e != nil {
+		return e
+	}
 	if v.Revision != expectedRevision+1 {
 		var current int
 		tx.QueryRowContext(ctx, "SELECT revision FROM item WHERE id=?", v.ID).Scan(&current)

@@ -1,0 +1,1 @@
+{"schema_version":1,"focal_goals":[],"priority_items":[],"open_loops":[],"important_changes":[{"entity":{"entity_type":"Item","id":"d93df09e-7117-43d0-9cb0-87498fb96349","revision":5},"reason":"事项07取消后移除截止时间","evidence":[]}],"uncertainties":["事项19至20此前标记完成，当前均为取消"],"brief_summary":"当前20项任务均已取消，无开放任务或待处理事项。近期事项05至07移除截止时间。","extensions":{}}

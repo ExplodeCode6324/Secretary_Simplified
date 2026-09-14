@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "call_id": "92922683-96f8-4584-96f0-a9cecd91264a",
+  "root_id": "2c04c1d7-f8d8-4aa3-96f6-7bb04cbbb871",
+  "context_id": "46d48048-f43f-4693-b110-b959a73bb426",
+  "provider_profile": "opencode-go",
+  "model_id": "gpt-5.6-luna",
+  "request_hash": "e14baf8d00038e63d9cc15b7b5f8b2eb23d69516d84c0cbca83d0637dc107840",
+  "output_ref": {
+    "schema_version": 1,
+    "id": "bcfc5242-0408-5897-844f-737d35fdda70",
+    "relative_path": "bcfc5242-0408-5897-844f-737d35fdda70.blob",
+    "sha256": "44eb21a1047fe197e30df38c2291c3f6bc4746659857d0b6d80b99fd8bccf367",
+    "media_type": "application/json",
+    "byte_size": 504,
+    "data_class": "SYNTHETIC",
+    "created_at": "2026-09-13T23:25:10.988Z",
+    "extensions": {}
+  },
+  "started_at": "2026-09-13T23:25:08.049Z",
+  "finished_at": "2026-09-13T23:25:10.988Z",
+  "input_tokens": 7819,
+  "output_tokens": 203,
+  "count_mode": "PROVIDER",
+  "status": "SUCCEEDED",
+  "error_code": null,
+  "extensions": {}
+}

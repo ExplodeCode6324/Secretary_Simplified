@@ -32,3 +32,10 @@
 必须表示实施和验收约束；默认表示可由配置调整、需记录变更的工程选择；后置表示当前阶段不得作为缺失项阻塞交付。数据字段以 DataStructure 和 Schema 为准，物理约束以 schema.sql 为准，行为以对应专题为准；发现冲突必须修订并复核，不能自行选取较宽松版本。
 
 阶段 1—3 在隔离测试目录、合成输入和受控本机能力范围内自主完成。阶段 4 才接入 Master 的真实资料与使用习惯。真实模型测试若缺少合法可用的凭据，记录为未执行；离线完成不能改称真实模型通过。
+
+D09（实施过程中发现的检索命中被预算裁空问题）：经 Ayanami 的 DeepSeek 条件同意，修改 [MemoryPolicy.md](MemoryPolicy.md)，明确已服务标记、零命中信封、历史锚点、权威依赖、ref 级省略口径与淘汰边界。设计商议不等于程序验收，裁决记录为 `review/D09-retrieval-budget-deepseek-resume1.response.md`。
+
+
+## D12 实施缺陷修订索引
+
+派生输出分类丢失缺陷按 Ayanami D12 最终裁决及注入补充闭合；无 DDL。修改：contracts.schema.json、Security.md、MemoryPolicy.md、DataFlow.md、Acceptance.md、Interfaces.md、Operations.md；DataStructure/Common.md、INDEX.md、ConversationEvent/ConversationState/ConsciousnessState/Item/Task/ScheduledJob/Command/WorldUpdateProposal/WorldFact/ModelCallRecord/Notification/RuntimeRecords/JobRun/ExecutionAttempt/ExecutorReceipt/ObjectRef/RequestReceipt/InputTurn/ContextManifest/ChangeEvent.md。裁决位于 review/D12-output-class-final-contract.response.md 与 review/D12-injection-oracle-clarification.response.md；实现和验证证据分层，索引不表示安全验收已通过。

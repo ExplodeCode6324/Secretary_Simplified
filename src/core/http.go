@@ -1,6 +1,7 @@
 package core
 
 import (
+	"encoding/json"
 	"errors"
 	"net/http"
 	"secretarysimplified/contract"
@@ -19,13 +20,32 @@ func (s *Service) Handler() http.Handler {
 		transport.Reply(w, 200, "", map[string]any{"core": "ONLINE", "model_profile": s.Config.Model.Profile, "model": "UNKNOWN: availability is established only by an actual call", "diagnostics": v}, e)
 	})
 	mux.HandleFunc("POST /v1/inputs", func(w http.ResponseWriter, r *http.Request) {
-		var in contract.InputEnvelope
-		if e := transport.Read(r, &in); e != nil {
+		var raw map[string]any
+		if e := transport.Read(r, &raw); e != nil {
 			transport.Reply(w, 400, "", nil, errors.New("INVALID_SCHEMA"))
 			return
 		}
-		in.PrincipalID = "master"
-		in.Origin = "MASTER_CLI"
+		// Validate the original field presence before decoding optional pointers;
+		// explicit null must not collapse to an omitted answer target.
+		if raw == nil {
+			transport.Reply(w, 400, "", nil, errors.New("INVALID_SCHEMA"))
+			return
+		}
+		if e := contract.CheckNoClassification(raw); e != nil {
+			transport.Reply(w, 400, "", nil, e)
+			return
+		}
+		if _, present := raw["data_class"]; !present {
+			raw["data_class"] = "PERSONAL"
+		}
+		raw["principal_id"] = "master"
+		raw["origin"] = "MASTER_CLI"
+		b, _ := json.Marshal(raw)
+		var in contract.InputEnvelope
+		if e := contract.Decode("InputEnvelope", b, &in); e != nil {
+			transport.Reply(w, 400, "", nil, errors.New("INVALID_SCHEMA"))
+			return
+		}
 		v, e := s.Store.AcceptInput(r.Context(), in, s.Config.Limits.Queue)
 		code := 202
 		if e != nil {
@@ -79,12 +99,18 @@ func (s *Service) Handler() http.Handler {
 			RequestID     string                    `json:"request_id"`
 			SessionID     string                    `json:"session_id"`
 			Actions       []contract.ActionProposal `json:"actions"`
+			DataClass     json.RawMessage           `json:"data_class,omitempty"`
 		}
 		if e := transport.Read(r, &q); e != nil || q.SchemaVersion != 1 {
 			transport.Reply(w, 400, "", nil, errors.New("INVALID_SCHEMA"))
 			return
 		}
-		v, e := s.Typed(r.Context(), q.RequestID, q.SessionID, q.Actions)
+		class, err := declaredClass(q.DataClass)
+		if err != nil {
+			transport.Reply(w, 400, q.RequestID, nil, err)
+			return
+		}
+		v, e := s.TypedClass(r.Context(), q.RequestID, q.SessionID, q.Actions, class)
 		transport.Reply(w, status(e), q.RequestID, v, e)
 	})
 	mux.HandleFunc("GET /v1/context/{id}", func(w http.ResponseWriter, r *http.Request) {

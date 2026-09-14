@@ -30,3 +30,8 @@
 status=SUCCEEDED 仍需业务验收。相同 receipt_key 不同内容是冲突；旧 fencing 回执不覆盖新状态。
 
 通用空值、版本、扩展、引用和错误规则见 [Common.md](Common.md)；事件与提交关系见 [DataFlow.md](../DataFlow.md)。
+
+
+### D12 分类传播
+
+继承durable run与DB持久ObjectRef，不信任请求伪造低分类。 使用 [Common.md](Common.md) 的 security.classification 契约；缺失旧派生标记返回 OUTPUT_CLASS_UNKNOWN，不自动回填。

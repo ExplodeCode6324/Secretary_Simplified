@@ -1,0 +1,41 @@
+{
+  "checked_at": "2026-09-14T00:21:01.688280+00:00",
+  "scope": "D11 program-owned question lifecycle mechanical acceptance; synthetic, no real model",
+  "status": "PASS",
+  "command": "go test -race ./tests -run TestD11 -count=1",
+  "test_file": "src/tests/runtime_d11_test.go",
+  "test_sha256": "450a912484fba58e6b55957638fe48b7b95bb8e2a8008bf450d6f6173637f88d",
+  "tests": {
+    "TestD11QuestionCreateAnswerTenRetriesAcrossReopen": [
+      "10 create retries with DB reopen, stable turn/question ID and reply hash",
+      "10 explicit-answer retries with DB reopen, stable reply and resolved state",
+      "created_sequence equals actual assistant event sequence",
+      "4 total conversation events; different answer pointer under same request conflicts"
+    ],
+    "TestD11ConcurrentAnswerOnlyWinnerCommitsActions": [
+      "two independently opened Stores race accepted answer requests",
+      "one successful commit, one QUESTION_ALREADY_RESOLVED",
+      "exactly one action callback and one persisted Item",
+      "loser repeated FinishDecisionTurn remains rejected"
+    ],
+    "TestD11CapacityResolvedEvictionAndSummaryCAS": [
+      "20 unresolved questions retained; extra proposal rejected with zero action writes",
+      "resolved oldest slot alone can be recycled",
+      "all unresolved IDs retained; recycled ID returns QUESTION_NOT_FOUND_IN_SESSION",
+      "old summary CAS cannot resurrect question state"
+    ],
+    "TestD11QuestionDecisionRollbackBoundaries": [
+      "persistent SQLite triggers at question-state update, assistant event insert, InputTurn commit, receipt commit",
+      "full pre/post equality of conversation/input/receipt and event/item/change-event counts after failures",
+      "retry after dropping trigger produces exactly one question and one action"
+    ]
+  },
+  "initial_failure_and_resolution": "Initial test found persisted InputTurn.reply schema did not permit final questions; foundation corrected final-reply schema and normalized nil committed keys. Tests rerun successfully; no test assertion was weakened.",
+  "production_modified_by_test_author": false,
+  "remaining_separate_evidence": [
+    "Core records losing request terminal result and avoids model re-execution",
+    "real authorized model CLI create question -> restart -> explicit answer",
+    "new-session READ_MEMORY recovers original session and question ID",
+    "independent Ayanami implementation review"
+  ]
+}

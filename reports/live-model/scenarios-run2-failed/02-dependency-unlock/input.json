@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "request_id": "56183718-2d17-4b96-8f4c-b7adb29f77c2",
+  "session_id": "7364d06a-142a-4ef5-a075-1dbf597da68c",
+  "principal_id": "master",
+  "origin": "MASTER_CLI",
+  "received_at": "2026-09-13T23:23:50.595Z",
+  "text": "Check all dependencies of item 00000000-0000-4000-8000-000000000703. If all are DONE, change only this item from BLOCKED to OPEN; preserve dependency IDs.",
+  "attachment_refs": [],
+  "data_class": "SYNTHETIC",
+  "extensions": {}
+}

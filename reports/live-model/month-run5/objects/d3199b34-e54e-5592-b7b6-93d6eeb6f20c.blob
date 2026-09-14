@@ -1,0 +1,1 @@
+{"schema_version":1,"focal_goals":[],"priority_items":[],"open_loops":[],"important_changes":[{"entity":{"entity_type":"Item","id":"3f2c7b77-65a3-48f1-87de-a01e7a9f5e13","revision":4},"reason":"事项01由完成改为取消","evidence":[]}],"uncertainties":["事项02和03也已取消","先前快照的完成概述已过时"],"brief_summary":"当前无开放任务；事项01至03已取消，事项04至20保持完成。","extensions":{}}

@@ -13,18 +13,22 @@ import (
 	"secretarysimplified/diagnostics"
 	"secretarysimplified/model"
 	"secretarysimplified/store"
+	"sort"
 	"strings"
 	"time"
 )
 
 type Step struct {
-	Name          string                    `json:"name"`
-	Text          string                    `json:"text"`
-	Session       string                    `json:"session"`
-	ConflictID    string                    `json:"conflict_id"`
-	Expected      map[string]map[string]any `json:"expected"`
-	ReplyContains string                    `json:"reply_contains"`
-	MinCalls      int                       `json:"min_calls"`
+	WorldBefore             []WorldSeed               `json:"world_before"`
+	ExpectedConflictMembers [][]string                `json:"expected_conflict_members"`
+	ExpectedWorld           map[string]string         `json:"expected_world"`
+	Name                    string                    `json:"name"`
+	Text                    string                    `json:"text"`
+	Session                 string                    `json:"session"`
+	ConflictID              string                    `json:"conflict_id"`
+	Expected                map[string]map[string]any `json:"expected"`
+	ReplyContains           string                    `json:"reply_contains"`
+	MinCalls                int                       `json:"min_calls"`
 }
 type Fixture struct {
 	Items []contract.Item `json:"items"`
@@ -37,14 +41,22 @@ type capture struct {
 	Dir        string
 	Calls      int
 	ConflictID string
+	QuotaError error
 }
 
 func (c *capture) Generate(ctx context.Context, r model.Request) (model.Result, error) {
+	if c.QuotaError != nil {
+		return model.Result{}, c.QuotaError
+	}
 	c.Calls++
 	n := c.Calls
 	save(filepath.Join(c.Dir, fmt.Sprintf("call-%02d.context.json", n)), r.Input)
 	out, e := c.Client.Generate(ctx, r)
-	save(filepath.Join(c.Dir, fmt.Sprintf("call-%02d.result.json", n)), map[string]any{"output": json.RawMessage(out.Output), "raw_response": string(out.RawResponse), "validation_issues": out.ValidationIssues, "error": fmt.Sprint(e)})
+	save(filepath.Join(c.Dir, fmt.Sprintf("call-%02d.result.json", n)), map[string]any{"output": string(out.Output), "raw_response": string(out.RawResponse), "validation_issues": out.ValidationIssues, "error": fmt.Sprint(e)})
+	if e != nil && strings.Contains(e.Error(), "429") {
+		c.QuotaError = e
+		return out, e
+	}
 	if c.ConflictID != "" {
 		v, x := c.S.GetItem(ctx, c.ConflictID)
 		if x != nil {
@@ -82,8 +94,8 @@ func run() error {
 	if e != nil {
 		return e
 	}
-	if c.Model.Profile != "opencode-go" {
-		return fmt.Errorf("real opencode-go profile required")
+	if c.Model.Profile != "opencode-go" && c.Model.Profile != "deepseek" {
+		return fmt.Errorf("real opencode-go or deepseek profile required")
 	}
 	var f Fixture
 	b, e := os.ReadFile(os.Args[2])
@@ -114,6 +126,11 @@ func run() error {
 		return e
 	}
 	for _, v := range f.Items {
+		// This new state is authored by the explicitly synthetic fixture, not migrated from a legacy DB.
+		v.Extensions, e = contract.ClassifyExtensions(v.Extensions, "SYNTHETIC")
+		if e != nil {
+			return e
+		}
 		if e = s.PutItem(ctx, v, 0); e != nil {
 			return e
 		}
@@ -133,6 +150,11 @@ func run() error {
 		dir := filepath.Join(report, fmt.Sprintf("%02d-%s", i, step.Name))
 		os.Mkdir(dir, 0700)
 		save(filepath.Join(dir, "oracle.json"), step)
+		for _, seed := range step.WorldBefore {
+			if e = seedWorld(ctx, s, seed); e != nil {
+				return e
+			}
+		}
 		if sessions[step.Session] == "" {
 			sessions[step.Session] = contract.NewID()
 		}
@@ -158,6 +180,47 @@ func run() error {
 			actual[v.ID] = m
 		}
 		mismatches := []string{}
+		snap, se := s.Snapshot(ctx, in.SessionID)
+		if se != nil {
+			return se
+		}
+		worldStates := map[string]string{}
+		for _, fact := range snap.Facts {
+			worldStates[fact.ID] = fact.Status
+		}
+		save(filepath.Join(dir, "actual-world.json"), snap.Facts)
+		if step.ExpectedConflictMembers != nil {
+			groups := map[string][]string{}
+			for _, fact := range snap.Facts {
+				if fact.Status == "CONTESTED" && fact.ConflictGroup != nil {
+					groups[*fact.ConflictGroup] = append(groups[*fact.ConflictGroup], fact.ID)
+				}
+			}
+			actualGroups := []string{}
+			for _, ids := range groups {
+				sort.Strings(ids)
+				actualGroups = append(actualGroups, strings.Join(ids, ","))
+			}
+			sort.Strings(actualGroups)
+			expectedGroups := []string{}
+			for _, ids := range step.ExpectedConflictMembers {
+				ids = append([]string{}, ids...)
+				sort.Strings(ids)
+				expectedGroups = append(expectedGroups, strings.Join(ids, ","))
+			}
+			sort.Strings(expectedGroups)
+			a, _ := json.Marshal(actualGroups)
+			w, _ := json.Marshal(expectedGroups)
+			if string(a) != string(w) {
+				mismatches = append(mismatches, "conflict ID membership mismatch")
+			}
+		}
+
+		for id, want := range step.ExpectedWorld {
+			if worldStates[id] != want {
+				mismatches = append(mismatches, "world status mismatch "+id)
+			}
+		}
 		if len(actual) != len(before) {
 			mismatches = append(mismatches, "unexpected item create/delete")
 		}
@@ -220,6 +283,9 @@ func run() error {
 		results = append(results, entry)
 		save(filepath.Join(report, "report.json"), map[string]any{"scope": f.Scope, "failures": failed, "results": results, "evidence": "input/oracle/final contexts/raw model outputs/manifests plus synthetic database and object files retained"})
 		fmt.Printf("%s: %s\n", step.Name, entry["status"])
+		if client.QuotaError != nil {
+			return client.QuotaError
+		}
 	}
 	if failed > 0 {
 		return fmt.Errorf("%d semantic checks failed; evidence preserved", failed)

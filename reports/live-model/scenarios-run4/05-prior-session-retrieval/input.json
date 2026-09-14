@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "request_id": "ccad1486-511d-4be4-ac3f-df76c63c6cb8",
+  "session_id": "ef83974e-e1f9-43c6-b5d9-23e016ced4ec",
+  "principal_id": "master",
+  "origin": "MASTER_CLI",
+  "received_at": "2026-09-13T23:40:55.481Z",
+  "text": "Use READ_MEMORY to retrieve earlier conversations for sea-salt-protocol and report the current password after withdrawal. Reply only with the password. Do not guess or modify items.",
+  "attachment_refs": [],
+  "data_class": "SYNTHETIC",
+  "extensions": {}
+}

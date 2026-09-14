@@ -36,7 +36,7 @@ func runtimeGrant(t *testing.T, s *store.Store) string {
 	return g.ID
 }
 func runtimeCommand() contract.Command {
-	return contract.Command{SchemaVersion: 1, OperationKey: "notify", Capability: "notify.local", CapabilityVersion: 1, Arguments: map[string]any{"text": "fixture", "notification_key": "fixture-notice"}, ExpectedRevisions: []contract.ReadRef{}, Extensions: map[string]any{}}
+	return contract.Command{SchemaVersion: 1, OperationKey: "notify", Capability: "notify.local", CapabilityVersion: 1, Arguments: map[string]any{"text": "fixture", "notification_key": "fixture-notice"}, ExpectedRevisions: []contract.ReadRef{}, Extensions: map[string]any{"security.classification": map[string]any{"data_class": "SYNTHETIC"}}}
 }
 func runtimeRegister(t *testing.T, s *store.Store, g string) contract.JobRun {
 	t.Helper()
@@ -202,7 +202,7 @@ func TestRuntimeScheduleOccurrenceStableAcrossRestart(t *testing.T) {
 	criteria, _ := store.DeriveCriteria(cmd)
 	now := time.Now().UTC().Truncate(time.Second)
 	due := contract.Timestamp(now.Add(-time.Second))
-	job := contract.ScheduledJob{SchemaVersion: 1, ID: contract.NewID(), Revision: 1, RootID: contract.NewID(), Enabled: true, Schedule: contract.Schedule{Kind: "once", At: &due, Timezone: "UTC", Weekdays: []int{}}, Command: cmd, TaskTemplate: map[string]any{"goal": "notice", "criteria": criteria, "item_id": nil, "item_operation_key": nil}, NextDueAt: &due, Misfire: "FIRE_ONCE_WITHIN_GRACE", GraceSeconds: 300, Overlap: "SKIP", MaxAttempts: 3, UpdatedAt: contract.Now(), Extensions: map[string]any{}}
+	job := contract.ScheduledJob{SchemaVersion: 1, ID: contract.NewID(), Revision: 1, RootID: contract.NewID(), Enabled: true, Schedule: contract.Schedule{Kind: "once", At: &due, Timezone: "UTC", Weekdays: []int{}}, Command: cmd, TaskTemplate: map[string]any{"goal": "notice", "criteria": criteria, "item_id": nil, "item_operation_key": nil}, NextDueAt: &due, Misfire: "FIRE_ONCE_WITHIN_GRACE", GraceSeconds: 300, Overlap: "SKIP", MaxAttempts: 3, UpdatedAt: contract.Now(), Extensions: map[string]any{"security.classification": map[string]any{"data_class": "SYNTHETIC"}}}
 	if e := s.RegisterJob(context.Background(), job, g); e != nil {
 		t.Fatal(e)
 	}
@@ -230,7 +230,7 @@ func TestRuntimeScheduledJobEventAtomic(t *testing.T) {
 	cmd := runtimeCommand()
 	criteria, _ := store.DeriveCriteria(cmd)
 	due := contract.Timestamp(time.Now().Add(time.Minute))
-	job := contract.ScheduledJob{SchemaVersion: 1, ID: contract.NewID(), Revision: 1, RootID: contract.NewID(), Enabled: true, Schedule: contract.Schedule{Kind: "once", At: &due, Timezone: "UTC", Weekdays: []int{}}, Command: cmd, TaskTemplate: map[string]any{"goal": "notice", "criteria": criteria, "item_id": nil, "item_operation_key": nil}, NextDueAt: &due, Misfire: "FIRE_ONCE_WITHIN_GRACE", GraceSeconds: 300, Overlap: "SKIP", MaxAttempts: 3, UpdatedAt: contract.Now(), Extensions: map[string]any{}}
+	job := contract.ScheduledJob{SchemaVersion: 1, ID: contract.NewID(), Revision: 1, RootID: contract.NewID(), Enabled: true, Schedule: contract.Schedule{Kind: "once", At: &due, Timezone: "UTC", Weekdays: []int{}}, Command: cmd, TaskTemplate: map[string]any{"goal": "notice", "criteria": criteria, "item_id": nil, "item_operation_key": nil}, NextDueAt: &due, Misfire: "FIRE_ONCE_WITHIN_GRACE", GraceSeconds: 300, Overlap: "SKIP", MaxAttempts: 3, UpdatedAt: contract.Now(), Extensions: map[string]any{"security.classification": map[string]any{"data_class": "SYNTHETIC"}}}
 	if e := s.RegisterJob(context.Background(), job, g); e != nil {
 		t.Fatal(e)
 	}
@@ -296,11 +296,11 @@ func TestRuntimeVirtual72HoursAnd30DayChanges(t *testing.T) {
 			if e := s.PutGrant(ctx, g); e != nil {
 				t.Fatal(e)
 			}
-			command := contract.Command{SchemaVersion: 1, OperationKey: "write-fixture", Capability: "artifact.write", CapabilityVersion: 1, Arguments: map[string]any{"relative_path": "timeline.txt", "content": "initial synthetic fixture"}, ExpectedRevisions: []contract.ReadRef{}, Extensions: map[string]any{}}
+			command := contract.Command{SchemaVersion: 1, OperationKey: "write-fixture", Capability: "artifact.write", CapabilityVersion: 1, Arguments: map[string]any{"relative_path": "timeline.txt", "content": "initial synthetic fixture"}, ExpectedRevisions: []contract.ReadRef{}, Extensions: map[string]any{"security.classification": map[string]any{"data_class": "SYNTHETIC"}}}
 			criteria, _ := store.DeriveCriteria(command)
 			anchor := contract.Timestamp(start)
 			every := int(scenario.period / time.Second)
-			job := contract.ScheduledJob{SchemaVersion: 1, ID: contract.NewID(), Revision: 1, RootID: contract.NewID(), Enabled: true, Schedule: contract.Schedule{Kind: "interval", AnchorAt: &anchor, EverySeconds: &every, Timezone: "UTC", Weekdays: []int{}}, Command: command, TaskTemplate: map[string]any{"goal": "synthetic timeline artifact", "criteria": criteria, "item_id": nil, "item_operation_key": nil}, NextDueAt: &anchor, Misfire: "FIRE_ONCE_WITHIN_GRACE", GraceSeconds: 300, Overlap: "SKIP", MaxAttempts: 3, UpdatedAt: contract.Now(), Extensions: map[string]any{}}
+			job := contract.ScheduledJob{SchemaVersion: 1, ID: contract.NewID(), Revision: 1, RootID: contract.NewID(), Enabled: true, Schedule: contract.Schedule{Kind: "interval", AnchorAt: &anchor, EverySeconds: &every, Timezone: "UTC", Weekdays: []int{}}, Command: command, TaskTemplate: map[string]any{"goal": "synthetic timeline artifact", "criteria": criteria, "item_id": nil, "item_operation_key": nil}, NextDueAt: &anchor, Misfire: "FIRE_ONCE_WITHIN_GRACE", GraceSeconds: 300, Overlap: "SKIP", MaxAttempts: 3, UpdatedAt: contract.Now(), Extensions: map[string]any{"security.classification": map[string]any{"data_class": "SYNTHETIC"}}}
 			if e := s.RegisterJob(ctx, job, g.ID); e != nil {
 				t.Fatal(e)
 			}
@@ -355,7 +355,7 @@ func TestRuntimeEventRuleCooldownSurvivesDatabaseState(t *testing.T) {
 	eventType := "task.updated"
 	seq := 0
 	filter := map[string]any{}
-	job := contract.ScheduledJob{SchemaVersion: 1, ID: contract.NewID(), Revision: 1, RootID: contract.NewID(), Enabled: true, Schedule: contract.Schedule{Kind: "event", Timezone: "UTC", Weekdays: []int{}, EventType: &eventType, Filter: &filter, AfterSeq: &seq}, Command: command, TaskTemplate: map[string]any{"goal": "event fixture", "criteria": criteria, "item_id": nil, "item_operation_key": nil}, Misfire: "SKIP", GraceSeconds: 0, Overlap: "SKIP", MaxAttempts: 3, UpdatedAt: contract.Now(), Extensions: map[string]any{}}
+	job := contract.ScheduledJob{SchemaVersion: 1, ID: contract.NewID(), Revision: 1, RootID: contract.NewID(), Enabled: true, Schedule: contract.Schedule{Kind: "event", Timezone: "UTC", Weekdays: []int{}, EventType: &eventType, Filter: &filter, AfterSeq: &seq}, Command: command, TaskTemplate: map[string]any{"goal": "event fixture", "criteria": criteria, "item_id": nil, "item_operation_key": nil}, Misfire: "SKIP", GraceSeconds: 0, Overlap: "SKIP", MaxAttempts: 3, UpdatedAt: contract.Now(), Extensions: map[string]any{"security.classification": map[string]any{"data_class": "SYNTHETIC"}}}
 	if e := s.RegisterJob(ctx, job, g); e != nil {
 		t.Fatal(e)
 	}
@@ -381,7 +381,7 @@ func TestRuntimeRecurringNotificationBinding(t *testing.T) {
 	start := time.Now().UTC().Truncate(time.Second)
 	anchor := contract.Timestamp(start)
 	every := 60
-	job := contract.ScheduledJob{SchemaVersion: 1, ID: contract.NewID(), Revision: 1, RootID: contract.NewID(), Enabled: true, Schedule: contract.Schedule{Kind: "interval", AnchorAt: &anchor, EverySeconds: &every, Timezone: "UTC", Weekdays: []int{}}, Command: cmd, TaskTemplate: map[string]any{"goal": "repeat", "criteria": criteria, "item_id": nil, "item_operation_key": nil}, NextDueAt: &anchor, Misfire: "FIRE_ONCE_WITHIN_GRACE", GraceSeconds: 300, Overlap: "SKIP", MaxAttempts: 3, UpdatedAt: contract.Now(), Extensions: map[string]any{}}
+	job := contract.ScheduledJob{SchemaVersion: 1, ID: contract.NewID(), Revision: 1, RootID: contract.NewID(), Enabled: true, Schedule: contract.Schedule{Kind: "interval", AnchorAt: &anchor, EverySeconds: &every, Timezone: "UTC", Weekdays: []int{}}, Command: cmd, TaskTemplate: map[string]any{"goal": "repeat", "criteria": criteria, "item_id": nil, "item_operation_key": nil}, NextDueAt: &anchor, Misfire: "FIRE_ONCE_WITHIN_GRACE", GraceSeconds: 300, Overlap: "SKIP", MaxAttempts: 3, UpdatedAt: contract.Now(), Extensions: map[string]any{"security.classification": map[string]any{"data_class": "SYNTHETIC"}}}
 	if e := s.RegisterJob(ctx, job, g); e != nil {
 		t.Fatal(e)
 	}
@@ -551,7 +551,7 @@ func TestRuntimeDSTGapHasAtomicAudit(t *testing.T) {
 	local := "02:30"
 	due := "2026-03-07T07:30:00.000Z"
 	now, _ := time.Parse(time.RFC3339, due)
-	job := contract.ScheduledJob{SchemaVersion: 1, ID: contract.NewID(), Revision: 1, RootID: contract.NewID(), Enabled: true, Schedule: contract.Schedule{Kind: "daily", LocalTime: &local, Timezone: "America/New_York", Weekdays: []int{}}, Command: cmd, TaskTemplate: map[string]any{"goal": "DST fixture", "criteria": criteria, "item_id": nil, "item_operation_key": nil}, NextDueAt: &due, Misfire: "FIRE_ONCE_WITHIN_GRACE", GraceSeconds: 300, Overlap: "SKIP", MaxAttempts: 3, UpdatedAt: contract.Now(), Extensions: map[string]any{}}
+	job := contract.ScheduledJob{SchemaVersion: 1, ID: contract.NewID(), Revision: 1, RootID: contract.NewID(), Enabled: true, Schedule: contract.Schedule{Kind: "daily", LocalTime: &local, Timezone: "America/New_York", Weekdays: []int{}}, Command: cmd, TaskTemplate: map[string]any{"goal": "DST fixture", "criteria": criteria, "item_id": nil, "item_operation_key": nil}, NextDueAt: &due, Misfire: "FIRE_ONCE_WITHIN_GRACE", GraceSeconds: 300, Overlap: "SKIP", MaxAttempts: 3, UpdatedAt: contract.Now(), Extensions: map[string]any{"security.classification": map[string]any{"data_class": "SYNTHETIC"}}}
 	if e := s.RegisterJob(ctx, job, g); e != nil {
 		t.Fatal(e)
 	}
@@ -591,7 +591,7 @@ func TestRuntimeCoreOfflineDoesNotBlockLocalQueue(t *testing.T) {
 	s, _ := runtimeDB(t)
 	g := probeGrant(t, s, []string{"notify.local", "memory.search"}, []string{})
 	ctx := context.Background()
-	command := contract.Command{SchemaVersion: 1, OperationKey: "remote", Capability: "memory.search", CapabilityVersion: 1, Arguments: map[string]any{"query": "synthetic", "entity_ids": []string{}, "cursor": nil}, ExpectedRevisions: []contract.ReadRef{}, Extensions: map[string]any{}}
+	command := contract.Command{SchemaVersion: 1, OperationKey: "remote", Capability: "memory.search", CapabilityVersion: 1, Arguments: map[string]any{"query": "synthetic", "entity_ids": []string{}, "cursor": nil}, ExpectedRevisions: []contract.ReadRef{}, Extensions: map[string]any{"security.classification": map[string]any{"data_class": "SYNTHETIC"}}}
 	criteria := []contract.Criterion{{ID: contract.NewID(), Kind: "notification_recorded", Expected: map[string]any{"notification_key": "remote-proof"}, EvidencePolicy: "fixture"}}
 	remote, e := s.RegisterImmediate(ctx, contract.NewID(), contract.NewID(), command, criteria, g)
 	if e != nil {
@@ -736,7 +736,7 @@ func TestRuntimeDispatchedCancelSignalsExecutor(t *testing.T) {
 	if e := s.PutGrant(ctx, g); e != nil {
 		t.Fatal(e)
 	}
-	command := contract.Command{SchemaVersion: 1, OperationKey: "blocking", Capability: "memory.search", CapabilityVersion: 1, Arguments: map[string]any{"query": "fixture", "entity_ids": []string{}, "cursor": nil}, ExpectedRevisions: []contract.ReadRef{}, Extensions: map[string]any{}}
+	command := contract.Command{SchemaVersion: 1, OperationKey: "blocking", Capability: "memory.search", CapabilityVersion: 1, Arguments: map[string]any{"query": "fixture", "entity_ids": []string{}, "cursor": nil}, ExpectedRevisions: []contract.ReadRef{}, Extensions: map[string]any{"security.classification": map[string]any{"data_class": "SYNTHETIC"}}}
 	criteria := []contract.Criterion{{ID: contract.NewID(), Kind: "notification_recorded", Expected: map[string]any{"notification_key": "blocking-proof"}, EvidencePolicy: "fixture"}}
 	run, e := s.RegisterImmediate(ctx, contract.NewID(), contract.NewID(), command, criteria, g.ID)
 	if e != nil {

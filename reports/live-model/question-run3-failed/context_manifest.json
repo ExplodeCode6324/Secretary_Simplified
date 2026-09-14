@@ -1,0 +1,168 @@
+[
+  {
+    "schema_version": 1,
+    "id": "36f1f155-69e1-4d8b-9c47-62dd276ceaef",
+    "intent_id": "14c51da6-9f43-4f0d-837f-7cbec535d566",
+    "snapshot_seq": 1,
+    "as_of": "2026-09-14T01:23:45.796Z",
+    "read_set": [
+      {
+        "entity_type": "ConversationState",
+        "id": "25d022b5-2951-42f2-9e1c-7be15861da77",
+        "revision": 2
+      },
+      {
+        "entity_type": "Item",
+        "id": "203699e5-c039-5cbb-be96-820747219740",
+        "revision": 1
+      }
+    ],
+    "request_hash": "f34e4f5009037b80968f07fabf4345f7f0e4cb44463b22ad1b6b6a2148393d35",
+    "policy_revision": 1,
+    "output_schema_id": "DecisionEnvelope",
+    "output_schema_hash": "a4811be9270002a8037af6c708439389699e9ddb1d51c6e4638f145046cb0fdb",
+    "model_profile": "opencode-go",
+    "input_bytes": 30620,
+    "input_tokens": 30620,
+    "token_count_mode": "CONSERVATIVE_ESTIMATE",
+    "sections": [
+      {
+        "bytes": 673,
+        "name": "items",
+        "omitted_count": 0,
+        "reason": "explicit references and parent/dependency closure, otherwise recent bounded selection",
+        "selected_count": 1
+      },
+      {
+        "bytes": 2,
+        "name": "facts",
+        "omitted_count": 0,
+        "reason": "master preferences, conflicts and referenced entities retained; unrelated facts omitted",
+        "selected_count": 0
+      },
+      {
+        "bytes": 2,
+        "name": "tasks",
+        "omitted_count": 0,
+        "reason": "selected task criteria remain intact",
+        "selected_count": 0
+      },
+      {
+        "bytes": 2,
+        "name": "delta_events",
+        "omitted_count": 1,
+        "reason": "latest relevant entity changes; current authority separately retained",
+        "selected_count": 0
+      },
+      {
+        "bytes": 2,
+        "name": "recent_events",
+        "omitted_count": 1,
+        "reason": "oldest original conversation removed first",
+        "selected_count": 0
+      },
+      {
+        "bytes": 4,
+        "name": "consciousness",
+        "omitted_count": 0,
+        "reason": "derived summary may be omitted",
+        "selected_count": 0
+      },
+      {
+        "bytes": 2,
+        "name": "retrieved_evidence",
+        "omitted_count": 0,
+        "reason": "bounded untrusted original evidence, oldest retrieval evicted first",
+        "selected_count": 0
+      }
+    ],
+    "extensions": {
+      "security.classification": {
+        "data_class": "SYNTHETIC"
+      }
+    }
+  },
+  {
+    "schema_version": 1,
+    "id": "2623f5e9-1f46-4085-b93a-0ddcc5bc24ed",
+    "intent_id": "9f42c13a-6fc2-416d-bf99-f891fa46618c",
+    "snapshot_seq": 1,
+    "as_of": "2026-09-14T01:23:49.795Z",
+    "read_set": [
+      {
+        "entity_type": "ConversationState",
+        "id": "1a38a45d-26fe-4e02-a22f-f1d7f8dd0e1f",
+        "revision": 2
+      },
+      {
+        "entity_type": "Item",
+        "id": "203699e5-c039-5cbb-be96-820747219740",
+        "revision": 1
+      }
+    ],
+    "request_hash": "86112d34e1f8260c9d763d06d5be623dfe6ac24226315c747113ae22c4d0fc41",
+    "policy_revision": 1,
+    "output_schema_id": "DecisionEnvelope",
+    "output_schema_hash": "a4811be9270002a8037af6c708439389699e9ddb1d51c6e4638f145046cb0fdb",
+    "model_profile": "opencode-go",
+    "input_bytes": 30693,
+    "input_tokens": 30693,
+    "token_count_mode": "CONSERVATIVE_ESTIMATE",
+    "sections": [
+      {
+        "bytes": 673,
+        "name": "items",
+        "omitted_count": 0,
+        "reason": "explicit references and parent/dependency closure, otherwise recent bounded selection",
+        "selected_count": 1
+      },
+      {
+        "bytes": 2,
+        "name": "facts",
+        "omitted_count": 0,
+        "reason": "master preferences, conflicts and referenced entities retained; unrelated facts omitted",
+        "selected_count": 0
+      },
+      {
+        "bytes": 2,
+        "name": "tasks",
+        "omitted_count": 0,
+        "reason": "selected task criteria remain intact",
+        "selected_count": 0
+      },
+      {
+        "bytes": 2,
+        "name": "delta_events",
+        "omitted_count": 1,
+        "reason": "latest relevant entity changes; current authority separately retained",
+        "selected_count": 0
+      },
+      {
+        "bytes": 2,
+        "name": "recent_events",
+        "omitted_count": 1,
+        "reason": "oldest original conversation removed first",
+        "selected_count": 0
+      },
+      {
+        "bytes": 4,
+        "name": "consciousness",
+        "omitted_count": 0,
+        "reason": "derived summary may be omitted",
+        "selected_count": 0
+      },
+      {
+        "bytes": 2,
+        "name": "retrieved_evidence",
+        "omitted_count": 0,
+        "reason": "bounded untrusted original evidence, oldest retrieval evicted first",
+        "selected_count": 0
+      }
+    ],
+    "extensions": {
+      "security.classification": {
+        "data_class": "SYNTHETIC"
+      }
+    }
+  }
+]

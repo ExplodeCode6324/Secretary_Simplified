@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "id": "86aa1942-6cac-4e12-a398-5043f79715e0",
+  "session_id": "29d9c4e9-76d2-4bad-9394-282be224ba17",
+  "principal_id": "master",
+  "request_id": "e5891ce7-d74d-49d7-b97f-994b7339f4d9",
+  "intent_id": "97fc190f-81d2-462e-8e4f-6c51a311d4bc",
+  "state": "COMMITTED",
+  "input": {
+    "schema_version": 1,
+    "request_id": "e5891ce7-d74d-49d7-b97f-994b7339f4d9",
+    "session_id": "29d9c4e9-76d2-4bad-9394-282be224ba17",
+    "principal_id": "master",
+    "origin": "MASTER_CLI",
+    "received_at": "2026-09-13T23:41:00.608Z",
+    "text": "Check freshness of source 00000000-0000-4000-8000-000000000900. Reply exactly SOURCE_STALE if stale, or SOURCE_CURRENT if current. Do not modify items.",
+    "attachment_refs": [
+      {
+        "schema_version": 1,
+        "id": "c92952d6-630f-557f-ac3c-fa5df8e643db",
+        "relative_path": "c92952d6-630f-557f-ac3c-fa5df8e643db.blob",
+        "sha256": "165264f7dc08d84884c9020c6aad3f8dc7e2d4dae6d2ec2d697de9e411ff5eb2",
+        "media_type": "text/plain",
+        "byte_size": 151,
+        "data_class": "SYNTHETIC",
+        "created_at": "2026-09-13T23:41:00.608Z",
+        "extensions": {}
+      }
+    ],
+    "data_class": "SYNTHETIC",
+    "extensions": {}
+  },
+  "reply": {
+    "evidence": [],
+    "text": "SOURCE_STALE"
+  },
+  "committed_operation_keys": [],
+  "processing_owner": null,
+  "lease_until": null,
+  "updated_at": "2026-09-13T23:41:02.967Z",
+  "extensions": {}
+}

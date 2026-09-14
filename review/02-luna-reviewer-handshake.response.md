@@ -1,3 +1,5 @@
+> 模型限定：本报告来自 Ayanami 使用 `gpt-5.6-luna` 的历史复核。Master 最新指定必须由 `deepseek-v4.1-flash` 复核，因此本报告仅为 model-qualified 历史证据，不能充当最终复核裁决；原问题、结论与测试结果保留，待 DeepSeek 重新检视。
+
 【回答】  
 收到。后续将继续使用 Master 指定的 `gpt-5.6-luna` 进行真实复核，保留 Ayanami 身份、记忆与当前会话；本次仅作调用级覆盖，不修改持久配置或凭据。此前 Connection error 只能记为失败/未完成，绝不视为通过。本轮未读文件、未使用工具、未修改任何文件。
 

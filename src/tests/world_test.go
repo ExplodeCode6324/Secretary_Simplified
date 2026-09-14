@@ -22,7 +22,7 @@ func TestWorldPermitCorrectionAndHistory(t *testing.T) {
 		t.Fatal(e)
 	}
 	value := map[string]any{"key": "drink", "value": "coffee"}
-	p := contract.WorldUpdateProposal{SchemaVersion: 1, ID: contract.NewID(), RequestID: contract.NewID(), EntityID: entity, Predicate: "master.preference", Operation: "ASSERT", FactID: contract.NewID(), Value: &value, Evidence: []contract.EvidenceRef{{ObjectID: obj.ID, SHA256: obj.SHA256, Locator: "full", OriginID: obj.ID, DataClass: "SYNTHETIC"}}, Basis: "MASTER_EXPLICIT", PolicyRevision: 1, Reason: "synthetic test", Extensions: map[string]any{}}
+	p := contract.WorldUpdateProposal{SchemaVersion: 1, ID: contract.NewID(), RequestID: contract.NewID(), EntityID: entity, Predicate: "master.preference", Operation: "ASSERT", FactID: contract.NewID(), Value: &value, Evidence: []contract.EvidenceRef{{ObjectID: obj.ID, SHA256: obj.SHA256, Locator: "full", OriginID: obj.ID, DataClass: "SYNTHETIC"}}, Basis: "MASTER_EXPLICIT", PolicyRevision: 1, Reason: "synthetic test", Extensions: map[string]any{"security.classification": map[string]any{"data_class": "SYNTHETIC"}}}
 	svc := world.Service{Store: s}
 	if _, e = svc.Commit(ctx, p, "", time.Now()); e == nil {
 		t.Fatal("missing permit accepted")
@@ -32,7 +32,7 @@ func TestWorldPermitCorrectionAndHistory(t *testing.T) {
 		if e := s.Write(ctx, func(tx *sql.Tx) error { return s.PutProposalTx(ctx, tx, p) }); e != nil {
 			t.Fatal(e)
 		}
-		cmd := contract.Command{SchemaVersion: 1, OperationKey: "world", Capability: "world.update", CapabilityVersion: 1, Arguments: map[string]any{"proposal_id": p.ID}, ExpectedRevisions: []contract.ReadRef{}, Extensions: map[string]any{}}
+		cmd := contract.Command{SchemaVersion: 1, OperationKey: "world", Capability: "world.update", CapabilityVersion: 1, Arguments: map[string]any{"proposal_id": p.ID}, ExpectedRevisions: []contract.ReadRef{}, Extensions: map[string]any{"security.classification": map[string]any{"data_class": "SYNTHETIC"}}}
 		criteria := []contract.Criterion{{ID: contract.NewID(), Kind: "world_revision_matches", Expected: map[string]any{"fact_id": p.FactID, "revision": p.ExpectedRevision + 1}, EvidencePolicy: "WorldCommitService"}}
 		if _, e := s.RegisterImmediate(ctx, contract.NewID(), contract.NewID(), cmd, criteria, g.ID); e != nil {
 			t.Fatal(e)
@@ -106,7 +106,7 @@ func TestWorldCandidateDoesNotOverrideAndConflictGroupUsesPreferenceKey(t *testi
 	apply := func(key, value, basis string) contract.WorldFact {
 		t.Helper()
 		v := map[string]any{"key": key, "value": value}
-		p := contract.WorldUpdateProposal{SchemaVersion: 1, ID: contract.NewID(), RequestID: contract.NewID(), EntityID: entity, Predicate: "master.preference", Operation: "ASSERT", FactID: contract.NewID(), Value: &v, Evidence: []contract.EvidenceRef{{ObjectID: obj.ID, SHA256: obj.SHA256, OriginID: obj.ID, Locator: "full", DataClass: "SYNTHETIC"}}, Basis: basis, PolicyRevision: 1, Reason: "fixture", Extensions: map[string]any{}}
+		p := contract.WorldUpdateProposal{SchemaVersion: 1, ID: contract.NewID(), RequestID: contract.NewID(), EntityID: entity, Predicate: "master.preference", Operation: "ASSERT", FactID: contract.NewID(), Value: &v, Evidence: []contract.EvidenceRef{{ObjectID: obj.ID, SHA256: obj.SHA256, OriginID: obj.ID, Locator: "full", DataClass: "SYNTHETIC"}}, Basis: basis, PolicyRevision: 1, Reason: "fixture", Extensions: map[string]any{"security.classification": map[string]any{"data_class": "SYNTHETIC"}}}
 		if e := s.Write(ctx, func(tx *sql.Tx) error { return s.PutProposalTx(ctx, tx, p) }); e != nil {
 			t.Fatal(e)
 		}

@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "id": "a236fd09-09f5-4be7-b124-d5dc9e4956a7",
+  "session_id": "ef83974e-e1f9-43c6-b5d9-23e016ced4ec",
+  "principal_id": "master",
+  "request_id": "ccad1486-511d-4be4-ac3f-df76c63c6cb8",
+  "intent_id": "75397eaf-47b3-46cf-af23-e87da7fe07dc",
+  "state": "COMMITTED",
+  "input": {
+    "schema_version": 1,
+    "request_id": "ccad1486-511d-4be4-ac3f-df76c63c6cb8",
+    "session_id": "ef83974e-e1f9-43c6-b5d9-23e016ced4ec",
+    "principal_id": "master",
+    "origin": "MASTER_CLI",
+    "received_at": "2026-09-13T23:40:55.481Z",
+    "text": "Use READ_MEMORY to retrieve earlier conversations for sea-salt-protocol and report the current password after withdrawal. Reply only with the password. Do not guess or modify items.",
+    "attachment_refs": [
+      {
+        "schema_version": 1,
+        "id": "515ef498-29b4-5207-b18d-a88a363ec3c7",
+        "relative_path": "515ef498-29b4-5207-b18d-a88a363ec3c7.blob",
+        "sha256": "2441f7d9be59f74a4606884e6273b5ce487394507b7885cc63049b564906c697",
+        "media_type": "text/plain",
+        "byte_size": 181,
+        "data_class": "SYNTHETIC",
+        "created_at": "2026-09-13T23:40:55.481Z",
+        "extensions": {}
+      }
+    ],
+    "data_class": "SYNTHETIC",
+    "extensions": {}
+  },
+  "reply": {
+    "evidence": [],
+    "text": "GREEN842"
+  },
+  "committed_operation_keys": [],
+  "processing_owner": null,
+  "lease_until": null,
+  "updated_at": "2026-09-13T23:41:00.597Z",
+  "extensions": {}
+}

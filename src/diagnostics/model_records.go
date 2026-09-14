@@ -39,6 +39,10 @@ func (r *RecordingModel) Generate(ctx context.Context, req model.Request) (resul
 		id = contract.NewID()
 	}
 	rec := contract.ModelCallRecord{SchemaVersion: 1, CallID: contract.NewID(), RootID: root, ContextID: id, ProviderProfile: r.Config.Model.Profile, ModelID: r.Config.Model.Model, RequestHash: contract.Hash(wire), StartedAt: contract.Now(), InputTokens: len(wire), CountMode: "CONSERVATIVE_ESTIMATE", Status: "RUNNING", Extensions: map[string]any{}}
+	rec.Extensions, e = contract.ClassifyExtensions(rec.Extensions, req.DataClass)
+	if e != nil {
+		return result, e
+	}
 	if e = r.save(rec); e != nil {
 		return result, e
 	}
@@ -53,6 +57,9 @@ func (r *RecordingModel) Generate(ctx context.Context, req model.Request) (resul
 		}
 	}
 	result, err = r.Inner.Generate(ctx, req)
+	if err == nil {
+		err = contract.CheckNoClassification(result.Output)
+	}
 	result.CallID = rec.CallID
 	finished := contract.Now()
 	rec.FinishedAt = &finished
@@ -141,7 +148,7 @@ func Recorded(inner model.Client, s *store.Store, c config.Config) model.Client 
 
 // RecordDecisionOutcome is separate from provider status: a valid JSON response
 // can still fail program semantics or transaction admission.
-func RecordDecisionOutcome(c config.Config, s *store.Store, callID, contextID, intentID string, attempt int, status, reason string) error {
+func RecordDecisionOutcome(c config.Config, s *store.Store, callID, contextID, intentID string, attempt int, status, reason string, classes ...string) error {
 	dir := c.DataDir
 	if dir == "" {
 		dir = filepath.Dir(s.ObjectsDir)
@@ -150,7 +157,7 @@ func RecordDecisionOutcome(c config.Config, s *store.Store, callID, contextID, i
 	if e := os.MkdirAll(dir, 0700); e != nil {
 		return e
 	}
-	b, e := json.MarshalIndent(map[string]any{"schema_version": 1, "call_id": callID, "context_id": contextID, "intent_id": intentID, "attempt": attempt, "status": status, "reason": reason, "recorded_at": contract.Now()}, "", "  ")
+	b, e := json.MarshalIndent(map[string]any{"schema_version": 1, "call_id": callID, "context_id": contextID, "intent_id": intentID, "attempt": attempt, "status": status, "reason": reason, "recorded_at": contract.Now(), "extensions": outcomeClass(classes)}, "", "  ")
 	if e != nil {
 		return e
 	}
@@ -159,4 +166,35 @@ func RecordDecisionOutcome(c config.Config, s *store.Store, callID, contextID, i
 		id = contract.NewID()
 	}
 	return atomicDiagnostic(filepath.Join(dir, id+".json"), b)
+}
+
+// RecordMemoryOutcome keeps program admission separate from provider success.
+// Only fixed reason codes belong here; raw model content and errors stay out.
+func RecordMemoryOutcome(c config.Config, s *store.Store, callID, contextID, rootID, role, status, reason string, classes ...string) error {
+	dir := c.DataDir
+	if dir == "" {
+		dir = filepath.Dir(s.ObjectsDir)
+	}
+	dir = filepath.Join(dir, "reports", "memory_attempts")
+	if e := os.MkdirAll(dir, 0700); e != nil {
+		return e
+	}
+	b, e := json.MarshalIndent(map[string]any{"schema_version": 1, "call_id": callID, "context_id": contextID, "root_id": rootID, "role": role, "status": status, "reason": reason, "recorded_at": contract.Now(), "extensions": outcomeClass(classes)}, "", "  ")
+	if e != nil {
+		return e
+	}
+	id := callID
+	if id == "" {
+		id = contract.NewID()
+	}
+	return atomicDiagnostic(filepath.Join(dir, id+".json"), b)
+}
+
+func outcomeClass(classes []string) map[string]any {
+	class, err := contract.JoinClass(classes...)
+	if err != nil {
+		return map[string]any{}
+	}
+	ext, _ := contract.ClassifyExtensions(nil, class)
+	return ext
 }

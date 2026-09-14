@@ -1,0 +1,55 @@
+{
+  "suite": "D12-real-CLI-fixture-classification",
+  "status": "PASS",
+  "build_sha256": {
+    "secretary": "429a9199929c61d6e9e84dd4f942a2127196e6f892167854d97556fba6ec35aa",
+    "secretaryd": "7999760b5bc3e2448ba853acf03d8f97f33fc81298903456b1daafe8ea8bfad1"
+  },
+  "live_api_calls": false,
+  "owned_processes_stopped": true,
+  "cases": [
+    {
+      "name": "default-item-personal",
+      "status": "PASS",
+      "expected_class": "PERSONAL",
+      "provider_blocked": false,
+      "model_call_count": null,
+      "fixed_reply": null
+    },
+    {
+      "name": "explicit-item-synthetic",
+      "status": "PASS",
+      "expected_class": "SYNTHETIC",
+      "provider_blocked": false,
+      "model_call_count": null,
+      "fixed_reply": null
+    },
+    {
+      "name": "default-input-blocked",
+      "status": "PASS",
+      "expected_class": "PERSONAL",
+      "provider_blocked": true,
+      "model_call_count": 0,
+      "fixed_reply": "Request was recorded, but no actions were committed: DISCLOSURE_DENIED"
+    },
+    {
+      "name": "explicit-input-synthetic",
+      "status": "PASS",
+      "expected_class": "SYNTHETIC",
+      "provider_blocked": false,
+      "model_call_count": 1,
+      "fixed_reply": null
+    },
+    {
+      "name": "secret-input-blocked",
+      "status": "PASS",
+      "expected_class": "SECRET",
+      "provider_blocked": true,
+      "model_call_count": 0,
+      "fixed_reply": "Request was recorded, but no actions were committed: DISCLOSURE_DENIED"
+    }
+  ],
+  "script": "scripts/d12_cli_class_smoke.py",
+  "script_sha256": "6d8e043a2111ee21a1a13d25b5f1e4e06c0b0c11216be3bd50a45bedbf5e71a1",
+  "evidence_boundary": "Synthetic canaries intentionally labeled PERSONAL/SECRET retained only in local evidence, not published as SYNTHETIC objects. Fixture-only process smoke; not a live-model or soak result."
+}

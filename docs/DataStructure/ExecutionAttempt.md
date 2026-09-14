@@ -28,3 +28,8 @@
 DISPATCHED 在调用外部服务前保存，因此崩溃后可能是结果未知。
 
 通用空值、版本、扩展、引用和错误规则见 [Common.md](Common.md)；事件与提交关系见 [DataFlow.md](../DataFlow.md)。
+
+
+### D12 分类传播
+
+继承其durable run输出与实际产物分类。 使用 [Common.md](Common.md) 的 security.classification 契约；缺失旧派生标记返回 OUTPUT_CLASS_UNKNOWN，不自动回填。

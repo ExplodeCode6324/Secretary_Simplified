@@ -69,7 +69,7 @@ func (p *Provider) Encode(r Request) ([]byte, error) {
 	}
 	// json_object is intentional: the complete local contract uses conditional
 	// branches unsupported by some provider strict-schema implementations.
-	roleInstruction := "Produce a decision instance in response to the current_input, not a schema. For ordinary replies set reply.evidence to an empty array; do not copy random hashes into optional reply citations. World proposals still require exact evidence copied verbatim from current input ObjectRef/EvidenceRef; never shorten or invent a hash."
+	roleInstruction := "Return a DecisionEnvelope data instance for current_input, never a schema. Never emit program-owned security.classification. READ_MEMORY explores missing information: once retrieval supplies the answer, finish with controls=[]; do not repeat the same query/cursor=null alongside a final answer. Ordinary reply.evidence=[]; world proposals must copy exact supplied ObjectRef/EvidenceRef, never invent or shorten hashes. NL CREATE_JOB notify.local/alarm.play requires misfire=FIRE_ONCE_WITHIN_GRACE, grace_seconds=300; once is not permission to skip late. For explicitly custom late policies, explain authenticated Typed configuration is required and return no actions/controls; never silently substitute defaults. Other capabilities retain their policies. For missing information, optionally propose concise reply.questions containing only text and item_id (existing Context Item ID or null). The program assigns question IDs, sequence and resolved state. answer_to_question_id explicitly answers that registered question in the current session; never infer another target or treat answering as Item/task completion."
 	switch r.OutputType {
 	case "ConsciousnessDraft":
 		roleInstruction = "Task: synthesize a concise consciousness snapshot INSTANCE from the supplied current world/live items and prior snapshot. Do NOT echo the JSON Schema and do NOT output $schema, $defs or $ref. Return schema_version=1, extensions={}, and actual focal_goals, priority_items, open_loops, important_changes, uncertainties and brief_summary values. Each focus array must have at most 1 entry; this is a top-focus summary, not exhaustive coverage. Include at most 2 uncertainties. Copy entity_type/id/revision exactly from current input; never invent references. Entry evidence may be an empty array because the program verifies EntityReadRef against authoritative source-backed state. Avoid redundant hash transcription. Empty arrays are valid when no supported entry exists. Keep each reason under 50 characters and brief_summary under 160 characters. Avoid repeating the same entry across arrays. Your entire output must fit the output token budget."
@@ -160,7 +160,9 @@ func (p *Provider) Generate(ctx context.Context, r Request) (Result, error) {
 	req.Header.Set("Authorization", "Bearer "+key)
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("User-Agent", "secretary-simplified/1.0")
-	req.Header.Set("x-opencode-session", r.SessionID)
+	if p.Config.Model.Profile == "opencode-go" {
+		req.Header.Set("x-opencode-session", r.SessionID)
+	}
 	resp, e := p.HTTP.Do(req)
 	if e != nil {
 		return out, errors.New("MODEL_TRANSPORT_UNAVAILABLE")
@@ -207,6 +209,9 @@ func (p *Provider) Generate(ctx context.Context, r Request) (Result, error) {
 	out.Duration = time.Since(started)
 	if wire.Status != "completed" {
 		return out, errors.New("MODEL_INCOMPLETE")
+	}
+	if e = contract.CheckNoClassification(out.Output); e != nil {
+		return out, e
 	}
 	if e = contract.Validate(r.OutputType, out.Output); e != nil {
 		out.ValidationIssues = contract.ValidationPaths(e)

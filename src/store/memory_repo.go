@@ -73,6 +73,11 @@ func (s *Store) Snapshot(ctx context.Context, session string) (MemorySnapshot, e
 			if e = rows.Scan(&b); e != nil {
 				return e
 			}
+			if name == "Item" || name == "Task" || name == "WorldFact" {
+				if _, e = classificationBytes(b); e != nil {
+					return e
+				}
+			}
 			collectBytes(b)
 			if e = contract.Validate(name, json.RawMessage(b)); e != nil {
 				return e
@@ -127,6 +132,9 @@ func (s *Store) Snapshot(ctx context.Context, session string) (MemorySnapshot, e
 	e = tx.QueryRowContext(ctx, "SELECT payload_json FROM consciousness_snapshot ORDER BY slot DESC LIMIT 1").Scan(&b)
 	if e == nil {
 		var x contract.ConsciousnessState
+		if _, e = classificationBytes(b); e != nil {
+			return v, e
+		}
 		if e = contract.Decode("ConsciousnessState", b, &x); e != nil {
 			return v, e
 		}
@@ -137,9 +145,26 @@ func (s *Store) Snapshot(ctx context.Context, session string) (MemorySnapshot, e
 	}
 	e = tx.QueryRowContext(ctx, "SELECT payload_json FROM conversation_session WHERE id=?", session).Scan(&b)
 	if e == nil {
+		var stateBody map[string]any
+		if json.Unmarshal(b, &stateBody) != nil {
+			return v, contract.ErrOutputClassUnknown
+		}
+		pending, _ := stateBody["pending_questions"].([]any)
+		ext, _ := stateBody["extensions"].(map[string]any)
+		if stateBody["summary"] != "" && stateBody["summary"] != nil || len(pending) > 0 || ext[contract.ClassificationKey] != nil {
+			if _, e = classificationBytes(b); e != nil {
+				return v, e
+			}
+		}
 		if e = contract.Decode("ConversationState", b, &v.Conversation); e != nil {
 			return v, e
 		}
+		if v.Conversation.Summary != "" || len(v.Conversation.PendingQuestions) > 0 {
+			if _, e = contract.ReadClassification(v.Conversation.Extensions); e != nil {
+				return v, e
+			}
+		}
+		collectBytes(b)
 	} else if !errors.Is(e, sql.ErrNoRows) {
 		return v, e
 	}
@@ -153,9 +178,26 @@ func (s *Store) Snapshot(ctx context.Context, session string) (MemorySnapshot, e
 			rows.Close()
 			return v, e
 		}
+		var eventBody map[string]any
+		if json.Unmarshal(b, &eventBody) != nil {
+			return v, contract.ErrOutputClassUnknown
+		}
+		if eventBody["role"] != "MASTER" {
+			if _, e = classificationBytes(b); e != nil {
+				rows.Close()
+				return v, e
+			}
+		}
 		if e = contract.Decode("ConversationEvent", b, &x); e != nil {
 			rows.Close()
 			return v, e
+		}
+		if x.Role != "MASTER" {
+			if _, e = contract.ReadClassification(x.Extensions); e != nil {
+				rows.Close()
+				return v, e
+			}
+			collectBytes(b)
 		}
 		v.Recent = append([]contract.ConversationEvent{x}, v.Recent...)
 	}
@@ -181,6 +223,17 @@ func (s *Store) Snapshot(ctx context.Context, session string) (MemorySnapshot, e
 		if e = contract.Decode("ChangeEvent", b, &x); e != nil {
 			rows.Close()
 			return v, e
+		}
+		if x.EntityType == "Item" || x.EntityType == "Task" || x.EntityType == "WorldFact" || x.EntityType == "ScheduledJob" {
+			for _, key := range []string{"before", "after"} {
+				if value := x.Change[key]; value != nil {
+					raw, _ := json.Marshal(value)
+					if _, e = classificationBytes(raw); e != nil {
+						rows.Close()
+						return v, e
+					}
+				}
+			}
 		}
 		collectBytes(b)
 		v.Deltas = append(v.Deltas, x)
@@ -218,6 +271,9 @@ func (s *Store) Snapshot(ctx context.Context, session string) (MemorySnapshot, e
 	return v, e
 }
 func (s *Store) SaveConsciousness(ctx context.Context, v contract.ConsciousnessState) error {
+	if _, e := contract.ReadClassification(v.Extensions); e != nil {
+		return e
+	}
 	if e := contract.Validate("ConsciousnessState", v); e != nil {
 		return e
 	}
@@ -245,6 +301,10 @@ func (s *Store) SaveConsciousness(ctx context.Context, v contract.ConsciousnessS
 	})
 }
 func (s *Store) SaveConversation(ctx context.Context, v contract.ConversationState, expected, previousThrough int) error {
+	class, e := contract.ReadClassification(v.Extensions)
+	if e != nil {
+		return e
+	}
 	if e := contract.Validate("ConversationState", v); e != nil {
 		return e
 	}
@@ -252,6 +312,29 @@ func (s *Store) SaveConversation(ctx context.Context, v contract.ConversationSta
 		return errors.New("CONFLICT")
 	}
 	return s.Write(ctx, func(tx *sql.Tx) error {
+		var oldRaw []byte
+		if e := tx.QueryRowContext(ctx, "SELECT payload_json FROM conversation_session WHERE id=?", v.ID).Scan(&oldRaw); e != nil {
+			return e
+		}
+		var old contract.ConversationState
+		if e := contract.Decode("ConversationState", oldRaw, &old); e != nil {
+			return e
+		}
+		if old.Summary != "" || len(old.PendingQuestions) > 0 {
+			prior, e := contract.ReadClassification(old.Extensions)
+			if e != nil {
+				return e
+			}
+			class, e = contract.JoinClass(class, prior)
+			if e != nil {
+				return e
+			}
+		}
+		var e error
+		v.Extensions, e = contract.ClassifyExtensions(v.Extensions, class)
+		if e != nil {
+			return e
+		}
 		var count int
 		if e := tx.QueryRowContext(ctx, "SELECT count(*) FROM conversation_event WHERE session_id=? AND sequence>? AND sequence<=?", v.ID, previousThrough, v.ThroughSequence).Scan(&count); e != nil {
 			return e
@@ -446,4 +529,13 @@ func (s *Store) ReserveSummaryAttempt(ctx context.Context, root string, now time
 		_, e := tx.ExecContext(ctx, "UPDATE root_budget SET revision=?,payload_json=? WHERE root_id=?", b.Revision, string(raw), root)
 		return e
 	})
+}
+
+func classificationBytes(raw []byte) (string, error) {
+	var v map[string]any
+	if json.Unmarshal(raw, &v) != nil {
+		return "", contract.ErrOutputClassUnknown
+	}
+	ext, _ := v["extensions"].(map[string]any)
+	return contract.ReadClassification(ext)
 }

@@ -1,0 +1,10 @@
+{
+  "attempt": 1,
+  "call_id": "0375a82f-de1e-4028-9872-741ff2baffd6",
+  "context_id": "9c3203dd-03c4-49c2-aec9-da849854e8d9",
+  "intent_id": "259f5160-8dbe-4f7e-a447-8c680f53a385",
+  "reason": "bounded retrieval requested",
+  "recorded_at": "2026-09-14T01:00:30.082Z",
+  "schema_version": 1,
+  "status": "READ_MEMORY"
+}

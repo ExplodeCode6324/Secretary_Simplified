@@ -1,0 +1,379 @@
+{
+  "input_turn_rows": [
+    {
+      "request_id": "967f834f-8a6e-48f0-afca-415cc1a208bf",
+      "updated_at": "2026-09-13T23:23:46.986Z",
+      "payload_json": "{\"schema_version\":1,\"id\":\"444847ae-69b1-4bb3-8299-5d7ab78c96d1\",\"session_id\":\"7364d06a-142a-4ef5-a075-1dbf597da68c\",\"principal_id\":\"master\",\"request_id\":\"967f834f-8a6e-48f0-afca-415cc1a208bf\",\"intent_id\":\"93f558ba-b5aa-46df-ae86-2864a7543596\",\"state\":\"COMMITTED\",\"input\":{\"schema_version\":1,\"request_id\":\"967f834f-8a6e-48f0-afca-415cc1a208bf\",\"session_id\":\"7364d06a-142a-4ef5-a075-1dbf597da68c\",\"principal_id\":\"master\",\"origin\":\"MASTER_CLI\",\"received_at\":\"2026-09-13T23:23:38.813Z\",\"text\":\"Change ONLY item 00000000-0000-4000-8000-000000000702 priority to 3. Leave the other same-title item 00000000-0000-4000-8000-000000000701 untouched.\",\"attachment_refs\":[{\"schema_version\":1,\"id\":\"e5b9979c-5335-50ba-9711-7528288decfa\",\"relative_path\":\"e5b9979c-5335-50ba-9711-7528288decfa.blob\",\"sha256\":\"ee24e812b0675992990614b07f37619e9fa857f534ba8e2d99eb53b55f41d29c\",\"media_type\":\"text/plain\",\"byte_size\":148,\"data_class\":\"SYNTHETIC\",\"created_at\":\"2026-09-13T23:23:38.813Z\",\"extensions\":{}}],\"data_class\":\"SYNTHETIC\",\"extensions\":{}},\"reply\":{\"evidence\":[],\"text\":\"Proposed changing item 00000000-0000-4000-8000-000000000702 priority from 2 to 3. Item 00000000-0000-4000-8000-000000000701 will remain untouched.\"},\"committed_operation_keys\":[\"update-item-702-priority\"],\"processing_owner\":null,\"lease_until\":null,\"updated_at\":\"2026-09-13T23:23:46.986Z\",\"extensions\":{}}"
+    },
+    {
+      "request_id": "0386926c-1c1c-410f-9e21-4ca1f14a9221",
+      "updated_at": "2026-09-13T23:23:50.586Z",
+      "payload_json": "{\"schema_version\":1,\"id\":\"f40ecaac-13dc-4b4e-b841-414ba3f5f84f\",\"session_id\":\"7364d06a-142a-4ef5-a075-1dbf597da68c\",\"principal_id\":\"master\",\"request_id\":\"0386926c-1c1c-410f-9e21-4ca1f14a9221\",\"intent_id\":\"143787f2-fcf0-45b6-84f5-dd130dcd1196\",\"state\":\"COMMITTED\",\"input\":{\"schema_version\":1,\"request_id\":\"0386926c-1c1c-410f-9e21-4ca1f14a9221\",\"session_id\":\"7364d06a-142a-4ef5-a075-1dbf597da68c\",\"principal_id\":\"master\",\"origin\":\"MASTER_CLI\",\"received_at\":\"2026-09-13T23:23:46.995Z\",\"text\":\"I completed prerequisite item 00000000-0000-4000-8000-000000000701. Mark it DONE. Keep dependent item 00000000-0000-4000-8000-000000000703 BLOCKED; do not automatically complete it.\",\"attachment_refs\":[{\"schema_version\":1,\"id\":\"10acb706-2900-5236-9a87-7636bf282459\",\"relative_path\":\"10acb706-2900-5236-9a87-7636bf282459.blob\",\"sha256\":\"43be7cfee1822c40ed62c2a428369f6a37636d53335aac7f6e25af2129207005\",\"media_type\":\"text/plain\",\"byte_size\":181,\"data_class\":\"SYNTHETIC\",\"created_at\":\"2026-09-13T23:23:46.996Z\",\"extensions\":{}}],\"data_class\":\"SYNTHETIC\",\"extensions\":{}},\"reply\":{\"evidence\":[],\"text\":\"Proposed marking item 00000000-0000-4000-8000-000000000701 DONE. Dependent item 00000000-0000-4000-8000-000000000703 will remain BLOCKED.\"},\"committed_operation_keys\":[\"mark-item-701-done\"],\"processing_owner\":null,\"lease_until\":null,\"updated_at\":\"2026-09-13T23:23:50.586Z\",\"extensions\":{}}"
+    },
+    {
+      "request_id": "56183718-2d17-4b96-8f4c-b7adb29f77c2",
+      "updated_at": "2026-09-13T23:23:56.699Z",
+      "payload_json": "{\"schema_version\":1,\"id\":\"7d59c413-721b-4ec1-9dc0-6e18e32beb33\",\"session_id\":\"7364d06a-142a-4ef5-a075-1dbf597da68c\",\"principal_id\":\"master\",\"request_id\":\"56183718-2d17-4b96-8f4c-b7adb29f77c2\",\"intent_id\":\"34ed503c-8500-4bd5-907b-9b3f66c60bba\",\"state\":\"COMMITTED\",\"input\":{\"schema_version\":1,\"request_id\":\"56183718-2d17-4b96-8f4c-b7adb29f77c2\",\"session_id\":\"7364d06a-142a-4ef5-a075-1dbf597da68c\",\"principal_id\":\"master\",\"origin\":\"MASTER_CLI\",\"received_at\":\"2026-09-13T23:23:50.595Z\",\"text\":\"Check all dependencies of item 00000000-0000-4000-8000-000000000703. If all are DONE, change only this item from BLOCKED to OPEN; preserve dependency IDs.\",\"attachment_refs\":[{\"schema_version\":1,\"id\":\"d156fae7-2fbf-5382-bb6a-589569c6802b\",\"relative_path\":\"d156fae7-2fbf-5382-bb6a-589569c6802b.blob\",\"sha256\":\"f12573f871bbb98e04be25ba2ac88197074306444920298ecb1fd580b8a3a6a0\",\"media_type\":\"text/plain\",\"byte_size\":154,\"data_class\":\"SYNTHETIC\",\"created_at\":\"2026-09-13T23:23:50.596Z\",\"extensions\":{}}],\"data_class\":\"SYNTHETIC\",\"extensions\":{}},\"reply\":{\"evidence\":[],\"text\":\"Dependency item 00000000-0000-4000-8000-000000000701 is DONE. Proposing only item 00000000-0000-4000-8000-000000000703 change from BLOCKED to OPEN; its dependency ID will be preserved.\"},\"committed_operation_keys\":[\"open-item-000000000703\"],\"processing_owner\":null,\"lease_until\":null,\"updated_at\":\"2026-09-13T23:23:56.699Z\",\"extensions\":{}}"
+    },
+    {
+      "request_id": "9dcb7ce1-1590-405a-aa24-ecc850dd2a27",
+      "updated_at": "2026-09-13T23:23:58.991Z",
+      "payload_json": "{\"schema_version\":1,\"id\":\"7407e9fe-ef68-46f3-bc5a-a710b33d4c13\",\"session_id\":\"908344b2-f168-406f-8e36-a5251cd375cb\",\"principal_id\":\"master\",\"request_id\":\"9dcb7ce1-1590-405a-aa24-ecc850dd2a27\",\"intent_id\":\"d9feb16a-61c2-415e-81b2-1be0ec499a95\",\"state\":\"COMMITTED\",\"input\":{\"schema_version\":1,\"request_id\":\"9dcb7ce1-1590-405a-aa24-ecc850dd2a27\",\"session_id\":\"908344b2-f168-406f-8e36-a5251cd375cb\",\"principal_id\":\"master\",\"origin\":\"MASTER_CLI\",\"received_at\":\"2026-09-13T23:23:56.706Z\",\"text\":\"Remember this synthetic agreement: sea-salt-protocol password is BLUE731. Acknowledge only; do not create items.\",\"attachment_refs\":[{\"schema_version\":1,\"id\":\"55cfc490-f36e-55e2-a472-f6940e9eb8ae\",\"relative_path\":\"55cfc490-f36e-55e2-a472-f6940e9eb8ae.blob\",\"sha256\":\"37cc984184fa6edd0f1fc0081d641c9b267b797ed80d11a5c61ecc06250da2ff\",\"media_type\":\"text/plain\",\"byte_size\":112,\"data_class\":\"SYNTHETIC\",\"created_at\":\"2026-09-13T23:23:56.706Z\",\"extensions\":{}}],\"data_class\":\"SYNTHETIC\",\"extensions\":{}},\"reply\":{\"evidence\":[],\"text\":\"Acknowledged.\"},\"committed_operation_keys\":[],\"processing_owner\":null,\"lease_until\":null,\"updated_at\":\"2026-09-13T23:23:58.991Z\",\"extensions\":{}}"
+    },
+    {
+      "request_id": "57fcd450-69f9-4939-bbf4-f3db82e08135",
+      "updated_at": "2026-09-13T23:24:03.019Z",
+      "payload_json": "{\"schema_version\":1,\"id\":\"cd6ec4d3-7eba-4453-978b-5c0594d71b59\",\"session_id\":\"908344b2-f168-406f-8e36-a5251cd375cb\",\"principal_id\":\"master\",\"request_id\":\"57fcd450-69f9-4939-bbf4-f3db82e08135\",\"intent_id\":\"17b7b1c5-6280-456b-82cd-5776a41c8ca5\",\"state\":\"COMMITTED\",\"input\":{\"schema_version\":1,\"request_id\":\"57fcd450-69f9-4939-bbf4-f3db82e08135\",\"session_id\":\"908344b2-f168-406f-8e36-a5251cd375cb\",\"principal_id\":\"master\",\"origin\":\"MASTER_CLI\",\"received_at\":\"2026-09-13T23:23:58.996Z\",\"text\":\"Withdraw the earlier BLUE731 password agreement. The current sea-salt-protocol password is GREEN842. Acknowledge only; do not create items.\",\"attachment_refs\":[{\"schema_version\":1,\"id\":\"5b274418-ad5b-579e-98c0-810bc368c387\",\"relative_path\":\"5b274418-ad5b-579e-98c0-810bc368c387.blob\",\"sha256\":\"42f556bbd44f1cdb5fdb32d1df4d76e7e78580f648810688f4ab22d0a0a095ab\",\"media_type\":\"text/plain\",\"byte_size\":139,\"data_class\":\"SYNTHETIC\",\"created_at\":\"2026-09-13T23:23:58.996Z\",\"extensions\":{}}],\"data_class\":\"SYNTHETIC\",\"extensions\":{}},\"reply\":{\"evidence\":[],\"text\":\"Acknowledged. The earlier BLUE731 password agreement is withdrawn, and GREEN842 is the current sea-salt-protocol password. No items created.\"},\"committed_operation_keys\":[],\"processing_owner\":null,\"lease_until\":null,\"updated_at\":\"2026-09-13T23:24:03.019Z\",\"extensions\":{}}"
+    },
+    {
+      "request_id": "ecb33554-edcb-48af-8cd3-0c3846eea709",
+      "updated_at": "2026-09-13T23:24:14.188Z",
+      "payload_json": "{\"schema_version\":1,\"id\":\"b3c5c2ea-3d10-4d2e-923f-92a4e1f88b81\",\"session_id\":\"942101d1-ea6f-4ff1-85fd-c7a47bed792a\",\"principal_id\":\"master\",\"request_id\":\"ecb33554-edcb-48af-8cd3-0c3846eea709\",\"intent_id\":\"ea4f5364-0490-46fd-8e75-46745b6b8c2d\",\"state\":\"COMMITTED\",\"input\":{\"schema_version\":1,\"request_id\":\"ecb33554-edcb-48af-8cd3-0c3846eea709\",\"session_id\":\"942101d1-ea6f-4ff1-85fd-c7a47bed792a\",\"principal_id\":\"master\",\"origin\":\"MASTER_CLI\",\"received_at\":\"2026-09-13T23:24:03.026Z\",\"text\":\"Use READ_MEMORY to retrieve earlier conversations for sea-salt-protocol and report the current password after withdrawal. Reply only with the password. Do not guess or modify items.\",\"attachment_refs\":[{\"schema_version\":1,\"id\":\"515ef498-29b4-5207-b18d-a88a363ec3c7\",\"relative_path\":\"515ef498-29b4-5207-b18d-a88a363ec3c7.blob\",\"sha256\":\"2441f7d9be59f74a4606884e6273b5ce487394507b7885cc63049b564906c697\",\"media_type\":\"text/plain\",\"byte_size\":181,\"data_class\":\"SYNTHETIC\",\"created_at\":\"2026-09-13T23:24:03.026Z\",\"extensions\":{}}],\"data_class\":\"SYNTHETIC\",\"extensions\":{}},\"reply\":{\"evidence\":[],\"text\":\"Request was recorded, but no actions were committed: BUDGET_EXHAUSTED\"},\"committed_operation_keys\":[],\"processing_owner\":null,\"lease_until\":null,\"updated_at\":\"2026-09-13T23:24:14.188Z\",\"extensions\":{}}"
+    },
+    {
+      "request_id": "65774dc9-c316-4bfb-b633-658896ead31c",
+      "updated_at": "2026-09-13T23:24:16.422Z",
+      "payload_json": "{\"schema_version\":1,\"id\":\"11b30e54-d333-4fc4-8e22-23b92029158e\",\"session_id\":\"7364d06a-142a-4ef5-a075-1dbf597da68c\",\"principal_id\":\"master\",\"request_id\":\"65774dc9-c316-4bfb-b633-658896ead31c\",\"intent_id\":\"3630456b-3732-45eb-8c18-aa07b1115234\",\"state\":\"COMMITTED\",\"input\":{\"schema_version\":1,\"request_id\":\"65774dc9-c316-4bfb-b633-658896ead31c\",\"session_id\":\"7364d06a-142a-4ef5-a075-1dbf597da68c\",\"principal_id\":\"master\",\"origin\":\"MASTER_CLI\",\"received_at\":\"2026-09-13T23:24:14.196Z\",\"text\":\"Check freshness of source 00000000-0000-4000-8000-000000000900. Reply exactly SOURCE_STALE if stale, or SOURCE_CURRENT if current. Do not modify items.\",\"attachment_refs\":[{\"schema_version\":1,\"id\":\"c92952d6-630f-557f-ac3c-fa5df8e643db\",\"relative_path\":\"c92952d6-630f-557f-ac3c-fa5df8e643db.blob\",\"sha256\":\"165264f7dc08d84884c9020c6aad3f8dc7e2d4dae6d2ec2d697de9e411ff5eb2\",\"media_type\":\"text/plain\",\"byte_size\":151,\"data_class\":\"SYNTHETIC\",\"created_at\":\"2026-09-13T23:24:14.197Z\",\"extensions\":{}}],\"data_class\":\"SYNTHETIC\",\"extensions\":{}},\"reply\":{\"evidence\":[],\"text\":\"SOURCE_STALE\"},\"committed_operation_keys\":[],\"processing_owner\":null,\"lease_until\":null,\"updated_at\":\"2026-09-13T23:24:16.422Z\",\"extensions\":{}}"
+    }
+  ],
+  "change_events": [
+    {
+      "schema_version": 1,
+      "id": "27cfc5f7-b3ad-471c-9cb0-28bebec2ab46",
+      "seq": 1,
+      "root_id": "00000000-0000-4000-8000-000000000701",
+      "entity_type": "Item",
+      "entity_id": "00000000-0000-4000-8000-000000000701",
+      "entity_revision": 1,
+      "event_type": "item.created",
+      "causation_id": null,
+      "origin": "ItemService",
+      "created_at": "2026-09-14T00:00:00.000Z",
+      "change": {
+        "after": {
+          "schema_version": 1,
+          "id": "00000000-0000-4000-8000-000000000701",
+          "revision": 1,
+          "domain": "work",
+          "kind": "TASK",
+          "title": "duplicate delivery",
+          "status": "OPEN",
+          "priority": 1,
+          "due_at": null,
+          "timezone": "UTC",
+          "time_state": "UNKNOWN",
+          "parent_id": null,
+          "dependency_ids": [],
+          "evidence": [],
+          "created_at": "2026-09-14T00:00:00.000Z",
+          "updated_at": "2026-09-14T00:00:00.000Z",
+          "extensions": {}
+        },
+        "before": null,
+        "evidence": []
+      },
+      "extensions": {}
+    },
+    {
+      "schema_version": 1,
+      "id": "1228089a-f2c5-47b8-95df-378797dacd27",
+      "seq": 2,
+      "root_id": "00000000-0000-4000-8000-000000000702",
+      "entity_type": "Item",
+      "entity_id": "00000000-0000-4000-8000-000000000702",
+      "entity_revision": 1,
+      "event_type": "item.created",
+      "causation_id": null,
+      "origin": "ItemService",
+      "created_at": "2026-09-14T00:00:00.000Z",
+      "change": {
+        "after": {
+          "schema_version": 1,
+          "id": "00000000-0000-4000-8000-000000000702",
+          "revision": 1,
+          "domain": "work",
+          "kind": "TASK",
+          "title": "duplicate delivery",
+          "status": "OPEN",
+          "priority": 1,
+          "due_at": null,
+          "timezone": "UTC",
+          "time_state": "UNKNOWN",
+          "parent_id": null,
+          "dependency_ids": [],
+          "evidence": [],
+          "created_at": "2026-09-14T00:00:00.000Z",
+          "updated_at": "2026-09-14T00:00:00.000Z",
+          "extensions": {}
+        },
+        "before": null,
+        "evidence": []
+      },
+      "extensions": {}
+    },
+    {
+      "schema_version": 1,
+      "id": "a5ae3295-3bc2-49bc-9718-da741a2a448f",
+      "seq": 3,
+      "root_id": "00000000-0000-4000-8000-000000000703",
+      "entity_type": "Item",
+      "entity_id": "00000000-0000-4000-8000-000000000703",
+      "entity_revision": 1,
+      "event_type": "item.created",
+      "causation_id": null,
+      "origin": "ItemService",
+      "created_at": "2026-09-14T00:00:00.000Z",
+      "change": {
+        "after": {
+          "schema_version": 1,
+          "id": "00000000-0000-4000-8000-000000000703",
+          "revision": 1,
+          "domain": "work",
+          "kind": "TASK",
+          "title": "dependent delivery",
+          "status": "BLOCKED",
+          "priority": 1,
+          "due_at": null,
+          "timezone": "UTC",
+          "time_state": "UNKNOWN",
+          "parent_id": null,
+          "dependency_ids": [
+            "00000000-0000-4000-8000-000000000701"
+          ],
+          "evidence": [],
+          "created_at": "2026-09-14T00:00:00.000Z",
+          "updated_at": "2026-09-14T00:00:00.000Z",
+          "extensions": {}
+        },
+        "before": null,
+        "evidence": []
+      },
+      "extensions": {}
+    },
+    {
+      "schema_version": 1,
+      "id": "699d846e-df50-444b-821f-bf02dc85e804",
+      "seq": 4,
+      "root_id": "00000000-0000-4000-8000-000000000702",
+      "entity_type": "Item",
+      "entity_id": "00000000-0000-4000-8000-000000000702",
+      "entity_revision": 2,
+      "event_type": "item.updated",
+      "causation_id": null,
+      "origin": "ItemService",
+      "created_at": "2026-09-13T23:23:42.717Z",
+      "change": {
+        "after": {
+          "schema_version": 1,
+          "id": "00000000-0000-4000-8000-000000000702",
+          "revision": 2,
+          "domain": "work",
+          "kind": "TASK",
+          "title": "duplicate delivery",
+          "status": "OPEN",
+          "priority": 2,
+          "due_at": null,
+          "timezone": "UTC",
+          "time_state": "UNKNOWN",
+          "parent_id": null,
+          "dependency_ids": [],
+          "evidence": [],
+          "created_at": "2026-09-14T00:00:00.000Z",
+          "updated_at": "2026-09-13T23:23:42.717Z",
+          "extensions": {}
+        },
+        "before": {
+          "schema_version": 1,
+          "id": "00000000-0000-4000-8000-000000000702",
+          "revision": 1,
+          "domain": "work",
+          "kind": "TASK",
+          "title": "duplicate delivery",
+          "status": "OPEN",
+          "priority": 1,
+          "due_at": null,
+          "timezone": "UTC",
+          "time_state": "UNKNOWN",
+          "parent_id": null,
+          "dependency_ids": [],
+          "evidence": [],
+          "created_at": "2026-09-14T00:00:00.000Z",
+          "updated_at": "2026-09-14T00:00:00.000Z",
+          "extensions": {}
+        },
+        "evidence": []
+      },
+      "extensions": {}
+    },
+    {
+      "schema_version": 1,
+      "id": "673295d4-30a5-42cb-be14-601162b4519e",
+      "seq": 5,
+      "root_id": "00000000-0000-4000-8000-000000000702",
+      "entity_type": "Item",
+      "entity_id": "00000000-0000-4000-8000-000000000702",
+      "entity_revision": 3,
+      "event_type": "item.updated",
+      "causation_id": null,
+      "origin": "ItemService",
+      "created_at": "2026-09-13T23:23:46.984Z",
+      "change": {
+        "after": {
+          "schema_version": 1,
+          "id": "00000000-0000-4000-8000-000000000702",
+          "revision": 3,
+          "domain": "work",
+          "kind": "TASK",
+          "title": "duplicate delivery",
+          "status": "OPEN",
+          "priority": 3,
+          "due_at": null,
+          "timezone": "UTC",
+          "time_state": "UNKNOWN",
+          "parent_id": null,
+          "dependency_ids": [],
+          "evidence": [],
+          "created_at": "2026-09-14T00:00:00.000Z",
+          "updated_at": "2026-09-13T23:23:46.984Z",
+          "extensions": {}
+        },
+        "before": {
+          "schema_version": 1,
+          "id": "00000000-0000-4000-8000-000000000702",
+          "revision": 2,
+          "domain": "work",
+          "kind": "TASK",
+          "title": "duplicate delivery",
+          "status": "OPEN",
+          "priority": 2,
+          "due_at": null,
+          "timezone": "UTC",
+          "time_state": "UNKNOWN",
+          "parent_id": null,
+          "dependency_ids": [],
+          "evidence": [],
+          "created_at": "2026-09-14T00:00:00.000Z",
+          "updated_at": "2026-09-13T23:23:42.717Z",
+          "extensions": {}
+        },
+        "evidence": []
+      },
+      "extensions": {}
+    },
+    {
+      "schema_version": 1,
+      "id": "73ecf7df-f42e-47f0-91aa-720c09a847ef",
+      "seq": 6,
+      "root_id": "00000000-0000-4000-8000-000000000701",
+      "entity_type": "Item",
+      "entity_id": "00000000-0000-4000-8000-000000000701",
+      "entity_revision": 2,
+      "event_type": "item.updated",
+      "causation_id": null,
+      "origin": "ItemService",
+      "created_at": "2026-09-13T23:23:50.585Z",
+      "change": {
+        "after": {
+          "schema_version": 1,
+          "id": "00000000-0000-4000-8000-000000000701",
+          "revision": 2,
+          "domain": "work",
+          "kind": "TASK",
+          "title": "duplicate delivery",
+          "status": "DONE",
+          "priority": 1,
+          "due_at": null,
+          "timezone": "UTC",
+          "time_state": "UNKNOWN",
+          "parent_id": null,
+          "dependency_ids": [],
+          "evidence": [],
+          "created_at": "2026-09-14T00:00:00.000Z",
+          "updated_at": "2026-09-13T23:23:50.585Z",
+          "extensions": {}
+        },
+        "before": {
+          "schema_version": 1,
+          "id": "00000000-0000-4000-8000-000000000701",
+          "revision": 1,
+          "domain": "work",
+          "kind": "TASK",
+          "title": "duplicate delivery",
+          "status": "OPEN",
+          "priority": 1,
+          "due_at": null,
+          "timezone": "UTC",
+          "time_state": "UNKNOWN",
+          "parent_id": null,
+          "dependency_ids": [],
+          "evidence": [],
+          "created_at": "2026-09-14T00:00:00.000Z",
+          "updated_at": "2026-09-14T00:00:00.000Z",
+          "extensions": {}
+        },
+        "evidence": []
+      },
+      "extensions": {}
+    },
+    {
+      "schema_version": 1,
+      "id": "3d9c982d-ff17-4347-bb96-b4c86427cc04",
+      "seq": 7,
+      "root_id": "00000000-0000-4000-8000-000000000703",
+      "entity_type": "Item",
+      "entity_id": "00000000-0000-4000-8000-000000000703",
+      "entity_revision": 2,
+      "event_type": "item.updated",
+      "causation_id": null,
+      "origin": "ItemService",
+      "created_at": "2026-09-13T23:23:56.698Z",
+      "change": {
+        "after": {
+          "schema_version": 1,
+          "id": "00000000-0000-4000-8000-000000000703",
+          "revision": 2,
+          "domain": "work",
+          "kind": "TASK",
+          "title": "dependent delivery",
+          "status": "OPEN",
+          "priority": 1,
+          "due_at": null,
+          "timezone": "UTC",
+          "time_state": "UNKNOWN",
+          "parent_id": null,
+          "dependency_ids": [
+            "00000000-0000-4000-8000-000000000701"
+          ],
+          "evidence": [],
+          "created_at": "2026-09-14T00:00:00.000Z",
+          "updated_at": "2026-09-13T23:23:56.698Z",
+          "extensions": {}
+        },
+        "before": {
+          "schema_version": 1,
+          "id": "00000000-0000-4000-8000-000000000703",
+          "revision": 1,
+          "domain": "work",
+          "kind": "TASK",
+          "title": "dependent delivery",
+          "status": "BLOCKED",
+          "priority": 1,
+          "due_at": null,
+          "timezone": "UTC",
+          "time_state": "UNKNOWN",
+          "parent_id": null,
+          "dependency_ids": [
+            "00000000-0000-4000-8000-000000000701"
+          ],
+          "evidence": [],
+          "created_at": "2026-09-14T00:00:00.000Z",
+          "updated_at": "2026-09-14T00:00:00.000Z",
+          "extensions": {}
+        },
+        "evidence": []
+      },
+      "extensions": {}
+    }
+  ],
+  "consciousness_snapshots": []
+}

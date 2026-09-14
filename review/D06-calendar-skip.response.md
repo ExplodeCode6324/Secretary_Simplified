@@ -1,3 +1,5 @@
+> 模型限定：本报告来自 Ayanami 使用 `gpt-5.6-luna` 的历史复核。Master 最新指定必须由 `deepseek-v4.1-flash` 复核，因此本报告仅为 model-qualified 历史证据，不能充当最终复核裁决；原问题、结论与测试结果保留，待 DeepSeek 重新检视。
+
 D06 复核结论（只读；未修改文件，未读取 resources，未连接 ELIZA）
 
 1. DST gap 缺陷成立  

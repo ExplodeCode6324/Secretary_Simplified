@@ -1,0 +1,91 @@
+[
+  {
+    "schema_version": 1,
+    "id": "9f2b5c43-c353-4847-aacd-55e1a12b4a4a",
+    "intent_id": "1afaf079-20c5-4bb9-900f-5d7926c3c703",
+    "snapshot_seq": 5,
+    "as_of": "2026-09-13T23:40:43.573Z",
+    "read_set": [
+      {
+        "entity_type": "ConversationState",
+        "id": "29d9c4e9-76d2-4bad-9394-282be224ba17",
+        "revision": 4
+      },
+      {
+        "entity_type": "Item",
+        "id": "00000000-0000-4000-8000-000000000701",
+        "revision": 1
+      },
+      {
+        "entity_type": "Item",
+        "id": "00000000-0000-4000-8000-000000000703",
+        "revision": 1
+      },
+      {
+        "entity_type": "SourceState",
+        "id": "00000000-0000-4000-8000-000000000900",
+        "revision": 1
+      }
+    ],
+    "request_hash": "78c3aef9dcc57162d60cf3b0793acb42b928be5bd639d8ae7a708b591671e404",
+    "policy_revision": 1,
+    "output_schema_id": "DecisionEnvelope",
+    "output_schema_hash": "959ec9cbf7169816a1065b0d990cae00daa664e914b2e16b3414ddfcd281331d",
+    "model_profile": "opencode-go",
+    "input_bytes": 31506,
+    "input_tokens": 31506,
+    "token_count_mode": "CONSERVATIVE_ESTIMATE",
+    "sections": [
+      {
+        "bytes": 776,
+        "name": "items",
+        "omitted_count": 1,
+        "reason": "explicit references and parent/dependency closure, otherwise recent bounded selection",
+        "selected_count": 2
+      },
+      {
+        "bytes": 2,
+        "name": "facts",
+        "omitted_count": 0,
+        "reason": "master preferences, conflicts and referenced entities retained; unrelated facts omitted",
+        "selected_count": 0
+      },
+      {
+        "bytes": 2,
+        "name": "tasks",
+        "omitted_count": 0,
+        "reason": "selected task criteria remain intact",
+        "selected_count": 0
+      },
+      {
+        "bytes": 1552,
+        "name": "delta_events",
+        "omitted_count": 3,
+        "reason": "latest relevant entity changes; current authority separately retained",
+        "selected_count": 2
+      },
+      {
+        "bytes": 1163,
+        "name": "recent_events",
+        "omitted_count": 1,
+        "reason": "oldest original conversation removed first",
+        "selected_count": 2
+      },
+      {
+        "bytes": 4,
+        "name": "consciousness",
+        "omitted_count": 0,
+        "reason": "derived summary may be omitted",
+        "selected_count": 0
+      },
+      {
+        "bytes": 2,
+        "name": "retrieved_evidence",
+        "omitted_count": 0,
+        "reason": "bounded untrusted original evidence, oldest retrieval evicted first",
+        "selected_count": 0
+      }
+    ],
+    "extensions": {}
+  }
+]

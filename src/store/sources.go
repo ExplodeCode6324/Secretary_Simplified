@@ -43,8 +43,23 @@ func (s *Store) SaveSourceRecord(ctx context.Context, v contract.SourceRecord) (
 	})
 	return duplicate, e
 }
-func (s *Store) SourceSynced(ctx context.Context, id string, count int) error {
+func (s *Store) SourceSynced(ctx context.Context, id string, count int, provenance ...SourceSyncProvenance) error {
 	return s.Write(ctx, func(tx *sql.Tx) error {
+		extensions := map[string]any{}
+		if len(provenance) > 1 {
+			return fmt.Errorf("INVALID_SOURCE_PROVENANCE")
+		}
+		if len(provenance) == 1 {
+			p := provenance[0]
+			run, e := rtRead(ctx, tx, "job_run", p.RunID)
+			if e != nil {
+				return e
+			}
+			if run["state"] != "RUNNING" || rtInt(run["attempt_no"]) != p.AttemptNo || rtInt(run["fencing_token"]) != p.FencingToken || rtObj(run["command"])["capability"] != "source.sync" || rtObj(rtObj(run["command"])["arguments"])["source_id"] != id {
+				return fmt.Errorf("INVALID_SOURCE_PROVENANCE")
+			}
+			extensions["runtime.source_sync"] = map[string]any{"run_id": p.RunID, "attempt_no": p.AttemptNo, "fencing_token": p.FencingToken, "records_processed": count}
+		}
 		var b []byte
 		if e := tx.QueryRowContext(ctx, "SELECT payload_json FROM source_state WHERE id=?", id).Scan(&b); e != nil {
 			return e
@@ -73,7 +88,7 @@ func (s *Store) SourceSynced(ctx context.Context, id string, count int) error {
 		if affected != 1 {
 			return fmt.Errorf("STORAGE_CORRUPTION: source revision mismatch")
 		}
-		return AppendEvent(ctx, tx, &contract.ChangeEvent{SchemaVersion: 1, ID: contract.NewID(), RootID: id, EntityType: "source", EntityID: id, EntityRevision: v.Revision, EventType: "source.synced", Origin: "IngestService", CreatedAt: now, Change: map[string]any{"before": old, "after": v, "evidence": []any{}}, Extensions: map[string]any{}})
+		return AppendEvent(ctx, tx, &contract.ChangeEvent{SchemaVersion: 1, ID: contract.NewID(), RootID: id, EntityType: "source", EntityID: id, EntityRevision: v.Revision, EventType: "source.synced", Origin: "IngestService", CreatedAt: now, Change: map[string]any{"before": old, "after": v, "evidence": []any{}}, Extensions: extensions})
 	})
 }
 func (s *Store) GetSource(ctx context.Context, id string) (contract.SourceState, error) {
@@ -127,4 +142,10 @@ func (s *Store) LookupSourceVersion(ctx context.Context, source, external, versi
 		return "", nil
 	}
 	return hash, e
+}
+
+// SourceSyncProvenance identifies the already dispatched Core work execution.
+type SourceSyncProvenance struct {
+	RunID                   string
+	AttemptNo, FencingToken int
 }

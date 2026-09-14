@@ -1,0 +1,19 @@
+{
+  "name": "dependency-completion",
+  "text": "I completed prerequisite item 00000000-0000-4000-8000-000000000701. Mark it DONE. Keep dependent item 00000000-0000-4000-8000-000000000703 BLOCKED; do not automatically complete it.",
+  "session": "a",
+  "conflict_id": "",
+  "expected": {
+    "00000000-0000-4000-8000-000000000701": {
+      "status": "DONE"
+    },
+    "00000000-0000-4000-8000-000000000703": {
+      "dependency_ids": [
+        "00000000-0000-4000-8000-000000000701"
+      ],
+      "status": "BLOCKED"
+    }
+  },
+  "reply_contains": "",
+  "min_calls": 0
+}

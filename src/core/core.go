@@ -80,7 +80,7 @@ func (s *Service) Process(ctx context.Context, t contract.InputTurn) error {
 		r, e := client.Generate(ctx, req)
 		if e != nil {
 			builder.ValidationFeedback = r.ValidationIssues
-			diagnostics.RecordDecisionOutcome(s.Config, s.Store, r.CallID, manifest.ID, t.IntentID, attempt+1, "PROVIDER_FAILED", errorCode(e))
+			diagnostics.RecordDecisionOutcome(s.Config, s.Store, r.CallID, manifest.ID, t.IntentID, attempt+1, "PROVIDER_FAILED", errorCode(e), req.DataClass)
 			last = e
 			continue
 		}
@@ -89,10 +89,14 @@ func (s *Service) Process(ctx context.Context, t contract.InputTurn) error {
 			last = e
 			continue
 		}
+		if e = contract.CheckNoClassification(d); e != nil {
+			last = e
+			break
+		}
 		if d.ContextID != manifest.ID {
 			builder.ValidationFeedback = []string{"/context_id must exactly match current Context.context_id"}
 			last = errors.New("CONTEXT_ID_MISMATCH")
-			diagnostics.RecordDecisionOutcome(s.Config, s.Store, r.CallID, manifest.ID, t.IntentID, attempt+1, "SEMANTIC_REJECTED", "CONTEXT_ID_MISMATCH")
+			diagnostics.RecordDecisionOutcome(s.Config, s.Store, r.CallID, manifest.ID, t.IntentID, attempt+1, "SEMANTIC_REJECTED", "CONTEXT_ID_MISMATCH", req.DataClass)
 			continue
 		}
 		if len(d.Controls) > 0 {
@@ -127,14 +131,21 @@ func (s *Service) Process(ctx context.Context, t contract.InputTurn) error {
 					last = readErr
 					break
 				}
+				builder.RetrievalServed = true
 				builder.RetrievedEvents = page.Events
 				builder.RetrievedClasses = page.DataClasses
 				builder.RetrievalCursor = page.Cursor
 				builder.RetrievalOmitted = page.OmittedCount
-				diagnostics.RecordDecisionOutcome(s.Config, s.Store, r.CallID, manifest.ID, t.IntentID, attempt+1, "READ_MEMORY", "bounded retrieval requested")
+				diagnostics.RecordDecisionOutcome(s.Config, s.Store, r.CallID, manifest.ID, t.IntentID, attempt+1, "READ_MEMORY", "bounded retrieval requested", req.DataClass)
 				attempt--
 				continue
 			}
+		}
+		if e = validateNaturalReminderPolicy(d.Actions); e != nil {
+			last = e
+			builder.ValidationFeedback = []string{"REMINDER_POLICY_UNSUPPORTED: CREATE_JOB notify.local/alarm.play through natural language requires misfire=FIRE_ONCE_WITHIN_GRACE and grace_seconds=300. Natural-language custom late policies are unsupported; explain that authenticated Typed configuration is required and return no actions or controls for an explicitly custom intent. Do not silently replace such an intent with defaults."}
+			diagnostics.RecordDecisionOutcome(s.Config, s.Store, r.CallID, manifest.ID, t.IntentID, attempt+1, "SEMANTIC_REJECTED", "REMINDER_POLICY_UNSUPPORTED", req.DataClass)
+			continue
 		}
 		keys := []string{}
 		seen := map[string]bool{}
@@ -145,8 +156,9 @@ func (s *Service) Process(ctx context.Context, t contract.InputTurn) error {
 			seen[a.OperationKey] = true
 			keys = append(keys, a.OperationKey)
 		}
-		e = s.Store.FinishTurn(ctx, t.ID, d.Reply, keys, func(tx *sql.Tx, turn contract.InputTurn) error {
-			if len(d.Actions) > 0 || len(d.Controls) > 0 {
+		e = s.Store.FinishDecisionTurn(ctx, t.ID, d.Reply, keys, manifest.ReadSet, req.DataClass, func(tx *sql.Tx, turn contract.InputTurn) error {
+			_, carriesQuestions := d.Reply["questions"]
+			if len(d.Actions) > 0 || len(d.Controls) > 0 || carriesQuestions || turn.Input.AnswerToQuestionID != nil {
 				if turn.Input.Origin != "MASTER_CLI" {
 					return errors.New("AUTHORIZATION_DENIED")
 				}
@@ -164,12 +176,12 @@ func (s *Service) Process(ctx context.Context, t contract.InputTurn) error {
 				}
 			}
 			for _, a := range d.Actions {
-				if e = s.apply(ctx, tx, turn, a, ids, false); e != nil {
+				if e = s.apply(ctx, tx, turn, a, ids, false, req.DataClass); e != nil {
 					return e
 				}
 			}
 			for _, control := range d.Controls {
-				if e = s.Store.ApplyControlTx(ctx, tx, control, t.IntentID, filepath.Join(s.Config.DataDir, "objects", "artifacts")); e != nil {
+				if e = s.Store.ApplyControlTx(ctx, tx, control, t.IntentID, filepath.Join(s.Config.DataDir, "objects", "artifacts"), req.DataClass); e != nil {
 					return e
 				}
 			}
@@ -178,7 +190,7 @@ func (s *Service) Process(ctx context.Context, t contract.InputTurn) error {
 			return e
 		})
 		if e == nil {
-			diagnostics.RecordDecisionOutcome(s.Config, s.Store, r.CallID, manifest.ID, t.IntentID, attempt+1, "COMMITTED", "")
+			diagnostics.RecordDecisionOutcome(s.Config, s.Store, r.CallID, manifest.ID, t.IntentID, attempt+1, "COMMITTED", "", req.DataClass)
 			if needed, checkErr := s.Store.ShouldSummarize(ctx, t.SessionID); checkErr == nil && needed {
 				epoch, _ := time.Parse(time.RFC3339Nano, s.Config.Epoch)
 				mem := memory.Service{Store: s.Store, Model: s.Model, Config: s.Config, Epoch: epoch}
@@ -186,7 +198,7 @@ func (s *Service) Process(ctx context.Context, t contract.InputTurn) error {
 			}
 			return nil
 		}
-		diagnostics.RecordDecisionOutcome(s.Config, s.Store, r.CallID, manifest.ID, t.IntentID, attempt+1, "COMMIT_REJECTED", errorCode(e))
+		diagnostics.RecordDecisionOutcome(s.Config, s.Store, r.CallID, manifest.ID, t.IntentID, attempt+1, "COMMIT_REJECTED", errorCode(e), req.DataClass)
 		last = e
 		if e.Error() != "CONFLICT" {
 			break
@@ -198,8 +210,34 @@ func (s *Service) Process(ctx context.Context, t contract.InputTurn) error {
 	}
 	return s.Store.FinishTurn(ctx, t.ID, map[string]any{"text": "Request was recorded, but no actions were committed: " + code, "evidence": []any{}}, []string{}, nil)
 }
+
+// Only Process, the natural-language decision path, invokes this guard.
+// Authenticated Typed requests carry explicit policy fields and remain unchanged.
+func validateNaturalReminderPolicy(actions []contract.ActionProposal) error {
+	for _, a := range actions {
+		if a.Kind != "CREATE_JOB" {
+			continue
+		}
+		var command contract.Command
+		if e := decode(a.Payload["command"], &command); e != nil {
+			return e
+		}
+		if command.Capability != "notify.local" && command.Capability != "alarm.play" {
+			continue
+		}
+		var grace int
+		if e := decode(a.Payload["grace_seconds"], &grace); e != nil {
+			return e
+		}
+		if a.Payload["misfire"] != "FIRE_ONCE_WITHIN_GRACE" || grace != 300 {
+			return errors.New("REMINDER_POLICY_UNSUPPORTED")
+		}
+	}
+	return nil
+}
+
 func errorCode(e error) string {
-	for _, c := range []string{"CONFLICT", "DISCLOSURE_DENIED", "BUDGET_EXHAUSTED", "CONTEXT_REQUIRED_OVERFLOW", "MODEL_HTTP_429", "MODEL_HTTP_401", "MODEL_SECRET_UNAVAILABLE"} {
+	for _, c := range []string{"OUTPUT_CLASS_UNKNOWN", "CLASSIFICATION_INJECTION", "QUESTION_TEXT_EMPTY", "QUESTION_ANSWER_EMPTY", "QUESTION_ALREADY_RESOLVED", "QUESTION_NOT_FOUND_IN_SESSION", "QUESTION_AUTHORITY_DENIED", "QUESTION_ITEM_NOT_IN_CONTEXT", "QUESTION_DUPLICATE", "QUESTION_CAPACITY_EXCEEDED", "REMINDER_POLICY_UNSUPPORTED", "CONFLICT", "DISCLOSURE_DENIED", "BUDGET_EXHAUSTED", "CONTEXT_REQUIRED_OVERFLOW", "MODEL_HTTP_429", "MODEL_HTTP_401", "MODEL_SECRET_UNAVAILABLE"} {
 		if e.Error() == c {
 			return c
 		}
@@ -213,11 +251,18 @@ func decode(v any, out any) error {
 	}
 	return json.Unmarshal(b, out)
 }
-func (s *Service) apply(ctx context.Context, tx *sql.Tx, t contract.InputTurn, a contract.ActionProposal, ids map[string]string, trusted bool) error {
+func (s *Service) apply(ctx context.Context, tx *sql.Tx, t contract.InputTurn, a contract.ActionProposal, ids map[string]string, trusted bool, dataClass string) error {
 	if e := contract.Validate("ActionProposal", a); e != nil {
 		return e
 	}
-	p := a.Payload
+	rawPayload, err := json.Marshal(a.Payload)
+	if err != nil {
+		return err
+	}
+	var p map[string]any
+	if err = json.Unmarshal(rawPayload, &p); err != nil {
+		return err
+	}
 	now := contract.Now()
 	switch a.Kind {
 	case "CREATE_ITEM":
@@ -237,6 +282,10 @@ func (s *Service) apply(ctx context.Context, tx *sql.Tx, t contract.InputTurn, a
 			x := p["due_at"].(string)
 			v.DueAt = &x
 			v.TimeState = "CONFIRMED"
+		}
+		v.Extensions, err = contract.ClassifyExtensions(v.Extensions, dataClass)
+		if err != nil {
+			return err
 		}
 		return store.PutItemTx(ctx, tx, v, 0)
 	case "UPDATE_ITEM":
@@ -281,6 +330,18 @@ func (s *Service) apply(ctx context.Context, tx *sql.Tx, t contract.InputTurn, a
 		}
 		v.Revision = expected + 1
 		v.UpdatedAt = now
+		oldClass, classErr := contract.ReadClassification(v.Extensions)
+		if classErr != nil {
+			return classErr
+		}
+		joined, classErr := contract.JoinClass(oldClass, dataClass)
+		if classErr != nil {
+			return classErr
+		}
+		v.Extensions, classErr = contract.ClassifyExtensions(v.Extensions, joined)
+		if classErr != nil {
+			return classErr
+		}
 		return store.PutItemTx(ctx, tx, v, expected)
 	case "CANCEL_TASK":
 		if !trusted {
@@ -302,6 +363,10 @@ func (s *Service) apply(ctx context.Context, tx *sql.Tx, t contract.InputTurn, a
 		var c contract.Command
 		decode(p["command"], &c)
 		c.OperationKey = a.OperationKey
+		c.Extensions, err = contract.ClassifyExtensions(c.Extensions, dataClass)
+		if err != nil {
+			return err
+		}
 		criteria, e := store.DeriveCriteria(c)
 		if e != nil {
 			return e
@@ -319,6 +384,10 @@ func (s *Service) apply(ctx context.Context, tx *sql.Tx, t contract.InputTurn, a
 		var c contract.Command
 		decode(p["command"], &c)
 		c.OperationKey = a.OperationKey
+		c.Extensions, err = contract.ClassifyExtensions(c.Extensions, dataClass)
+		if err != nil {
+			return err
+		}
 		criteria, e := store.DeriveCriteria(c)
 		if e != nil {
 			return e
@@ -339,10 +408,25 @@ func (s *Service) apply(ctx context.Context, tx *sql.Tx, t contract.InputTurn, a
 		}
 		job := contract.ScheduledJob{SchemaVersion: 1, ID: contract.NewID(), Revision: 1, RootID: t.IntentID, Enabled: true, Schedule: schedule, Command: c, TaskTemplate: template, Misfire: p["misfire"].(string), Overlap: "SKIP", MaxAttempts: 3, UpdatedAt: now, Extensions: map[string]any{}}
 		decode(p["grace_seconds"], &job.GraceSeconds)
+		job.Extensions, err = contract.ClassifyExtensions(job.Extensions, dataClass)
+		if err != nil {
+			return err
+		}
 		return s.Store.RegisterJobTx(ctx, tx, job, s.GrantID)
 	case "WORLD_PROPOSAL":
 		var proposal contract.WorldUpdateProposal
 		decode(p, &proposal)
+		proposalClass := dataClass
+		for _, ref := range proposal.Evidence {
+			proposalClass, err = contract.JoinClass(proposalClass, ref.DataClass)
+			if err != nil {
+				return err
+			}
+		}
+		proposal.Extensions, err = contract.ClassifyExtensions(proposal.Extensions, proposalClass)
+		if err != nil {
+			return err
+		}
 		proposal.RequestID = t.RequestID
 		proposal.PolicyRevision = 1
 		if !trusted {
@@ -355,6 +439,10 @@ func (s *Service) apply(ctx context.Context, tx *sql.Tx, t contract.InputTurn, a
 			return e
 		}
 		cmd := contract.Command{SchemaVersion: 1, OperationKey: a.OperationKey, Capability: "world.update", CapabilityVersion: 1, Arguments: map[string]any{"proposal_id": proposal.ID}, ExpectedRevisions: []contract.ReadRef{}, Extensions: map[string]any{}}
+		cmd.Extensions, err = contract.ClassifyExtensions(cmd.Extensions, dataClass)
+		if err != nil {
+			return err
+		}
 		crit := []contract.Criterion{{ID: contract.NewID(), Kind: "world_revision_matches", Expected: map[string]any{"fact_id": proposal.FactID, "revision": proposal.ExpectedRevision + 1}, EvidencePolicy: "WorldCommitService"}}
 		_, e := s.Store.RegisterImmediateTx(ctx, tx, t.IntentID, t.IntentID, cmd, crit, s.GrantID)
 		return e
@@ -378,6 +466,16 @@ func matchCriteria(expected, proposed []contract.Criterion) error {
 
 // Typed applies the same transaction path without a language model round trip.
 func (s *Service) Typed(ctx context.Context, requestID, session string, actions []contract.ActionProposal) (contract.InputTurn, error) {
+	return s.TypedClass(ctx, requestID, session, actions, "PERSONAL")
+}
+
+func (s *Service) TypedClass(ctx context.Context, requestID, session string, actions []contract.ActionProposal, dataClass string) (contract.InputTurn, error) {
+	if _, err := contract.JoinClass(dataClass); err != nil {
+		return contract.InputTurn{}, err
+	}
+	if err := contract.CheckNoClassification(actions); err != nil {
+		return contract.InputTurn{}, err
+	}
 	raw, e := json.Marshal(actions)
 	if e != nil {
 		return contract.InputTurn{}, e
@@ -391,7 +489,7 @@ func (s *Service) Typed(ctx context.Context, requestID, session string, actions 
 			return contract.InputTurn{}, e
 		}
 	}
-	in := contract.InputEnvelope{SchemaVersion: 1, RequestID: requestID, SessionID: session, PrincipalID: "master", Origin: "MASTER_CLI", ReceivedAt: contract.Now(), Text: string(raw), AttachmentRefs: []contract.ObjectRef{}, DataClass: "SYNTHETIC", Extensions: map[string]any{}}
+	in := contract.InputEnvelope{SchemaVersion: 1, RequestID: requestID, SessionID: session, PrincipalID: "master", Origin: "MASTER_CLI", ReceivedAt: contract.Now(), Text: string(raw), AttachmentRefs: []contract.ObjectRef{}, DataClass: dataClass, Extensions: map[string]any{}}
 	ids := map[string]string{}
 	keys := []string{}
 	for _, a := range actions {
@@ -402,7 +500,7 @@ func (s *Service) Typed(ctx context.Context, requestID, session string, actions 
 	}
 	t, e := s.Store.AcceptTyped(ctx, in, s.Config.Limits.Queue, map[string]any{"text": "Typed actions committed. Execution is asynchronous.", "evidence": []any{}}, keys, func(tx *sql.Tx, t contract.InputTurn) error {
 		for _, a := range actions {
-			if e := s.apply(ctx, tx, t, a, ids, true); e != nil {
+			if e := s.apply(ctx, tx, t, a, ids, true, dataClass); e != nil {
 				return e
 			}
 		}

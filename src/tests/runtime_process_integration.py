@@ -37,7 +37,7 @@ try:
     second['payload']['command']['arguments']['notification_key']='process-fixture:second'
     second['payload']['task_template']['criteria'][0]['expected']['notification_key']='process-fixture:second'
     actions.append(second)
-    status,body=call(run/'core.sock',client,'POST','/v1/actions',{'schema_version':1,'request_id':str(uuid.uuid4()),'session_id':str(uuid.uuid4()),'actions':actions})
+    status,body=call(run/'core.sock',client,'POST','/v1/actions',{'schema_version':1,'request_id':str(uuid.uuid4()),'session_id':str(uuid.uuid4()),'actions':actions,'data_class':'SYNTHETIC'})
     assert status==200,(status,body)
     deadline=time.monotonic()+9
     while time.monotonic()<deadline:

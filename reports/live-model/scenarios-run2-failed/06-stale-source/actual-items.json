@@ -1,0 +1,61 @@
+{
+  "00000000-0000-4000-8000-000000000701": {
+    "created_at": "2026-09-14T00:00:00.000Z",
+    "dependency_ids": [],
+    "domain": "work",
+    "due_at": null,
+    "evidence": [],
+    "extensions": {},
+    "id": "00000000-0000-4000-8000-000000000701",
+    "kind": "TASK",
+    "parent_id": null,
+    "priority": 1,
+    "revision": 2,
+    "schema_version": 1,
+    "status": "DONE",
+    "time_state": "UNKNOWN",
+    "timezone": "UTC",
+    "title": "duplicate delivery",
+    "updated_at": "2026-09-13T23:23:50.585Z"
+  },
+  "00000000-0000-4000-8000-000000000702": {
+    "created_at": "2026-09-14T00:00:00.000Z",
+    "dependency_ids": [],
+    "domain": "work",
+    "due_at": null,
+    "evidence": [],
+    "extensions": {},
+    "id": "00000000-0000-4000-8000-000000000702",
+    "kind": "TASK",
+    "parent_id": null,
+    "priority": 3,
+    "revision": 3,
+    "schema_version": 1,
+    "status": "OPEN",
+    "time_state": "UNKNOWN",
+    "timezone": "UTC",
+    "title": "duplicate delivery",
+    "updated_at": "2026-09-13T23:23:46.984Z"
+  },
+  "00000000-0000-4000-8000-000000000703": {
+    "created_at": "2026-09-14T00:00:00.000Z",
+    "dependency_ids": [
+      "00000000-0000-4000-8000-000000000701"
+    ],
+    "domain": "work",
+    "due_at": null,
+    "evidence": [],
+    "extensions": {},
+    "id": "00000000-0000-4000-8000-000000000703",
+    "kind": "TASK",
+    "parent_id": null,
+    "priority": 1,
+    "revision": 2,
+    "schema_version": 1,
+    "status": "OPEN",
+    "time_state": "UNKNOWN",
+    "timezone": "UTC",
+    "title": "dependent delivery",
+    "updated_at": "2026-09-13T23:23:56.698Z"
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "src/model/model.go": "e85739d99db70cc80cf84a34a5ba3060c304e74f5fba41929bbf9c1192a94654",
+  "src/context/context.go": "bfe30046fbffd9b0f08ebc4bf0dad6166dae303c1c284b37badc065aa6367647",
+  "src/contract/contracts.schema.json": "8d923009db02d8f6be0414ae37630c8f9a0e181ff0692aa7878b7d9b7bb0db33"
+}

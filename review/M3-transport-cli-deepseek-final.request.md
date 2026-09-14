@@ -1,0 +1,5 @@
+Ayanami，Master指定DeepSeek v4.1 Flash必须亲自最终复核。本轮全新会话避免旧历史。请直接审transport/CLI最终模块，不委派，不跑已有全仓test/race/vet；只独立核对关键接口与负向探针，正常收口输出最终裁决，不等待达到工具上限才总结。
+范围src/transport、src/cmd/secretary、src/cmd/secretaryd、src/core/{http,typed_http,public_api}.go、src/executor/http.go及相关tests（实际文件名以目录为准）。
+重点：PublicCode脱敏/错误HTTP至少400；typed routes/public分页与cursor/limit；requestID派生Typed ItemID/相同请求重试与冲突；typed actions --file严格；CLI trigger CAS/版本、notifications ack、schema搜索、--json和默认友好输出、verify smoke/verify-backup；restore新独立tokens、空cap grant、双冻结，实际Runner能启动但不claim；Doctor真实epoch/UNKNOWN；run cancel返回Task revision；Core UNKNOWN query持久结果与不得重发未知效果。
+旧Luna报告只可作为待核事项线索，不作通过证据。DeepSeek可复用既有测试代码但实际仅运行针对性安全测试；选择最重要接口独立临时UDS/CLI负向探针，记录是否实际执行，未覆盖如实列。当前其他agent在改D08能力criteria、D09检索，不将它们纳本次裁决。
+禁止resources/key、ELIZA、受测真实模型、响铃、系统变更；业务只读，临时synthetic环境。出现429立即报告，禁止自行换reviewer；官方provider切换仅协调方执行。reviewer_model=deepseek-v4.1-flash/provider=opencode-go。本轮正常主动输出结论：通过/条件/需修及证据和具体尚未完成。保存review/M3-transport-cli-deepseek-final.response.md由Codex执行。

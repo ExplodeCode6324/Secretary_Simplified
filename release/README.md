@@ -45,6 +45,16 @@ Mac Unix socket 有长度限制；选择较短的 data-dir。初始化生成 `st
 
 两个进程在前台运行，Ctrl-C 退出。本项目不安装自启、不调整睡眠或音频设置、不监听 TCP。静音 alarm 只验证本地控制流程，实际叫醒需要 Master 后续配合实测。
 
+## 显式切换模型服务商
+
+Master 已授权：再次遇到 OpenCode HTTP 429 时，切换测试到 DeepSeek 官方 API，Ayanami 同步切换官方 provider。当前正常调用不自动改服务商，不启用 OpenCode 余额付费。
+
+配置模板见 `config.deepseek.example.json`：profile 为 `deepseek`，endpoint 为 `https://api.deepseek.com/responses`，官方模型 ID 为 `deepseek-flash`。据 [DeepSeek 2026-09-10 官方公告](https://www.deepseek.com/en/news/deepseek-v4-1-flash/)，该 ID 对应 V4.1 Flash；OpenCode 使用的 ID 是 `deepseek-v4.1-flash`，两者不可混填。[官方 Responses 文档](https://api-docs.deepseek.com/api/create-response/)说明此接口无服务端会话状态，本地权威数据和会话继续保存在原 SQLite 中。
+
+切换时保留 data_dir、授权和业务库，只显式替换 model_profile 与对应 secret_ref，重启自己管理的 Core；Runner 不依赖模型切换。已提交请求不重放；失败请求保留原记录，通过新 request_id 明确重新提交未执行的意图。未知外部结果仍须对账，不能因换模型而重做。公开模板不含密钥，实际官方配置和密钥仅存本机。
+
+换模型机械验证使用真实 Core/SQLite 与模拟 HTTP：原模型提交事项、429 不登记新动作、官方协议接续更新同一 Item ID、重复处理不重复效果。真实官方 API 的切换结果单独报告，不能由这项机械测试冒充。
+
 ## 内置离线检查
 
 ```sh
@@ -54,3 +64,23 @@ Mac Unix socket 有长度限制；选择较短的 data-dir。初始化生成 `st
 `smoke`（同义名 `persistence`）在新的临时库中核验 SQLite 完整性、不可变对象、备份及恢复冻结，并生成 report.json / report.md。它不代替完整 A01—A25 验收。完整源码测试命令为 `cd src && go test -race ./... && go vet ./...`。
 
 公共接口的类型化请求格式与分页示例见 [API.md](API.md)。通知列表使用 `secretary notifications`，确认已读使用 `secretary notifications ack <id>`。列表可传 `--limit`、`--cursor` 及对应过滤参数。
+
+## 回答已登记的问题
+
+回复中的 `[question_id=… session_id=…]` 块表示程序已保存的待答问题。使用原 session 和明确 ID 回答：
+
+```sh
+./release/secretary input --session <session-id> --answer-to <question-id> --text '明确回答' --request-id <本轮request-id> --config <config.json> --json
+```
+
+先查询 turn 的最终提交结果。一次明确回答只更新该问题的解决状态，不自动完成关联事项；模型失败时问题仍未解决。跨会话取回后须切回原 session，不猜测指代或把摘要当作授权。
+
+## 输入分类（D12）
+
+普通 input/chat/typed 写入默认 PERSONAL。现有合成测试配置不会向模型披露 PERSONAL；测试时须显式附 `--data-class SYNTHETIC`，例如：
+
+```sh
+./release/secretary input --text '这是一条合成测试输入' --data-class SYNTHETIC --config release/config.local.json --json
+```
+
+不要把真实内容标成 SYNTHETIC 来绕过限制；真实测试的 ProviderPolicy 与来源范围由 Master 接入时明确。旧派生记录缺少程序分类时返回 OUTPUT_CLASS_UNKNOWN，程序保留记录且不会自动清库或猜测迁移。完整规则见 docs/Operations.md 与 docs/Interfaces.md。

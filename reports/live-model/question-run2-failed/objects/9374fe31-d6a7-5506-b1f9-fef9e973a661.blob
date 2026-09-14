@@ -1,0 +1,1 @@
+{"schema_version":1,"context_id":"e411ffe1-7744-4b4e-a47e-c276b4136386","reply":{"text":"{\"status\":\"READ_MEMORY requested\"}","evidence":[]},"actions":[],"controls":[{"kind":"READ_MEMORY","task_id":null,"payload":{"query":"synthetic-question-project-date","entity_ids":[],"cursor":null}}],"extensions":{}}

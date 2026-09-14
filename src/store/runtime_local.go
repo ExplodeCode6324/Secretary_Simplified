@@ -69,6 +69,9 @@ func (s *Store) RecordNotification(ctx context.Context, run contract.JobRun) err
 			return e
 		}
 		m := rtBase()
+		if e := rtInherit(m, r); e != nil {
+			return e
+		}
 		for k, v := range (runtimeObject{"id": contract.NewID(), "run_id": r["id"], "notification_key": a["notification_key"], "state": "PENDING", "text": a["text"], "created_at": contract.Now(), "delivered_at": nil, "acknowledged_at": nil}) {
 			m[k] = v
 		}
@@ -131,6 +134,9 @@ func (s *Store) MutedAlarm(ctx context.Context, run contract.JobRun) error {
 
 		if cmd["capability"] == "alarm.play" {
 			m := rtBase()
+			if e := rtInherit(m, r); e != nil {
+				return e
+			}
 			for k, v := range (runtimeObject{"id": contract.NewID(), "run_id": r["id"], "revision": 1, "state": "PLAYING", "device_id": a["device_id"], "audio_ref": a["audio_ref"], "playback_handle": "muted:" + rtStr(r["id"]), "saved_settings": runtimeObject{"output_volume": 0, "muted": true, "device_id": a["device_id"]}, "started_at": contract.Now(), "stopped_at": nil, "stop_reason": nil}) {
 				m[k] = v
 			}
@@ -139,6 +145,9 @@ func (s *Store) MutedAlarm(ctx context.Context, run contract.JobRun) error {
 		}
 		m, e := rtRead(ctx, tx, "alarm_session", rtStr(a["alarm_session_id"]))
 		if e != nil {
+			return e
+		}
+		if e = rtInherit(m, m, r); e != nil {
 			return e
 		}
 		m["state"] = "STOPPED"
@@ -160,6 +169,9 @@ func (s *Store) MutedAlarm(ctx context.Context, run contract.JobRun) error {
 			}
 			due := time.Now().Add(time.Duration(rtInt(a["delay_seconds"])) * time.Second)
 			job := rtBase()
+			if e := rtInherit(job, original, task, r); e != nil {
+				return e
+			}
 			for k, v := range (runtimeObject{"id": contract.NewID(), "revision": 1, "root_id": task["root_id"], "enabled": true, "schedule": runtimeObject{"kind": "once", "at": rtTime(due), "anchor_at": nil, "every_seconds": nil, "local_time": nil, "timezone": "UTC", "weekdays": []any{}, "event_type": nil, "filter": nil, "after_seq": nil}, "command": original["command"], "task_template": runtimeObject{"goal": task["goal"], "criteria": task["criteria"], "item_id": task["item_id"], "item_operation_key": nil}, "next_due_at": rtTime(due), "misfire": "FIRE_ONCE_WITHIN_GRACE", "grace_seconds": 300, "overlap": "SKIP", "max_attempts": 3, "updated_at": contract.Now()}) {
 				job[k] = v
 			}
@@ -199,6 +211,8 @@ func (s *Store) VerifyTaskTx(ctx context.Context, tx *sql.Tx, id, artifactDir st
 			expected := rtObj(cm["expected"])
 			ok := false
 			switch cm["kind"] {
+			case "alarm_session_recorded", "briefing_artifact_recorded", "source_sync_recorded":
+				ok = s.verifyRuntimeCriterion(ctx, tx, id, rtStr(cm["kind"]), expected)
 			case "notification_recorded":
 				var n int
 				e = tx.QueryRowContext(ctx, `SELECT count(*) FROM notification WHERE notification_key=?`, expected["notification_key"]).Scan(&n)
@@ -278,6 +292,16 @@ func DeriveCriteria(c contract.Command) ([]contract.Criterion, error) {
 	var kind string
 	expected := runtimeObject{}
 	switch m["capability"] {
+	case "alarm.play":
+		kind = "alarm_session_recorded"
+		expected["device_id"] = a["device_id"]
+		expected["audio_ref"] = rtObj(a["audio_ref"])["id"]
+	case "briefing.build":
+		kind = "briefing_artifact_recorded"
+		expected["media_type"] = "text/plain"
+	case "source.sync":
+		kind = "source_sync_recorded"
+		expected["source_id"] = a["source_id"]
 	case "notify.local":
 		kind = "notification_recorded"
 		expected["notification_key"] = a["notification_key"]

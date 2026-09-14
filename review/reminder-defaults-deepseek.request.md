@@ -1,0 +1,3 @@
+Ayanami，请立即就以下已查明事实给实施裁决，不用工具、不读更多文件、不委派，不改任何文件。Master要求reviewer必须DeepSeek v4.1 Flash。
+事实：docs/ExecutionProtocol.md:30明文“misfire 默认 SKIP，提醒默认 FIRE_ONCE_WITHIN_GRACE，宽限默认5分钟”。用户自然语言只要求届时发一次文字通知并保持ItemOPEN，未指定迟到策略。真实CLI模型Luna创建once提醒时输出schema合法SKIP+grace_seconds=0；Scheduler首扫due+904ms按既有严格算法置SKIPPED，无通知。原失败reports/local/live-cli-run1保留，未重写oracle/未改runtime。model.Encode roleInstruction没有传达上述已有提醒默认。
+协调方提议：这是实现遗漏已有默认，而非改设计语义。在Decision系统说明注入既有提醒默认，明确除用户指定不得默选SKIP0；不在模型返回后静默修改，不改runtime grace严格算法；相同自然语言与oracle再跑CLI并保留失败。请明确此方案是否足够，是否还需服务层校验/程序默认字段机制（当前Schema这些字段必填，难区分模型选值与Master明示）。给最小充分修正、如何保留显式用户迟到策略和固定criteria、必要回归；不要引入额外阈值/降低测试标准。可以判条件同意，不把模型自述选择当用户授权。仅基于上述已核实事实直接输出裁决，由Codex保存review/reminder-defaults-deepseek.response.md。

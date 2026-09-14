@@ -21,3 +21,8 @@
 主配置文件另含 ProviderPolicy 和 ServiceConfig：ProviderPolicy 指定 profile_id、允许 data_class、source_ids、local_only、secret_ref；ServiceConfig 保存 profile、路径、时区、认知 epoch、队列和预算默认值。schema_version 和配置哈希记入诊断，SECRET 内容不写配置文件。SourceState 中不存真实 token。
 
 初版输入、来源与事实的服务层不得绕过严格 DTO；运行记录不得成为给模型访问数据库的通用通道。
+
+
+### D12 分类传播
+
+Task/JobRun/ExecutionAttempt/ExecutorReceipt及复制、REPLAN、产物回执全链join，授权扩展不得丢失。 使用 [Common.md](Common.md) 的 security.classification 契约；缺失旧派生标记返回 OUTPUT_CLASS_UNKNOWN，不自动回填。

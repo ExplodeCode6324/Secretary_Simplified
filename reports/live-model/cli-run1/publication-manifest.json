@@ -1,0 +1,103 @@
+{
+  "scope": "SYNTHETIC public review copy; no runtime DB/config/token/grant files",
+  "files": [
+    {
+      "path": "audit-records.json",
+      "sha256": "f9a5197c893cdf8fac8e20aac9df2a5c1421b595b184e7fed482b2fc2e7df286",
+      "bytes": 23575
+    },
+    {
+      "path": "context_manifest.json",
+      "sha256": "567870ec2384a4e64807847ce627fb388f8bdec059dcc14b8248baaf0fe6c725",
+      "bytes": 3933
+    },
+    {
+      "path": "decision_record.json",
+      "sha256": "44ae2c67b594e92c0f4cc6cca12a3f610beb4105771b29b4f2fb5c885874a3ac",
+      "bytes": 2340
+    },
+    {
+      "path": "input-oracle.json",
+      "sha256": "db7a323bf767c53b3b45b962ece07aa02f517ca28526aab4d6d8126ae27cd7ff",
+      "bytes": 535
+    },
+    {
+      "path": "model_calls/5fcb78cb-728f-4339-a6c1-46a701c8771a.json",
+      "sha256": "f6bf6f9af522dad3a42c3eaf2fe967157be5dbcaabdbe05c1493fb44b419b139",
+      "bytes": 977
+    },
+    {
+      "path": "model_calls/5fcb78cb-728f-4339-a6c1-46a701c8771a.request.json",
+      "sha256": "c4a2deeb3c55e503850f20158795f8e71464804e805c8f089dc135bc94d3c9c6",
+      "bytes": 368
+    },
+    {
+      "path": "model_calls/e96200c6-04f3-4102-94c4-3f159b3b2055.json",
+      "sha256": "7a4d188097a01ea819cd0a6de86cdb844a2a0597ccd48561f8a44024a25ba4e6",
+      "bytes": 976
+    },
+    {
+      "path": "model_calls/e96200c6-04f3-4102-94c4-3f159b3b2055.request.json",
+      "sha256": "840cf5228d5ded88565fbc5349d4046c33c1c9b341e16fb9a72a9bc71d843242",
+      "bytes": 368
+    },
+    {
+      "path": "object-index.json",
+      "sha256": "9af63d9a3adac38169facef48e09acb1b20a07c6da915937e7419ef37eb793b0",
+      "bytes": 1717
+    },
+    {
+      "path": "objects/1bc19569-01c3-52d3-a215-d2447bd1ae53.blob",
+      "sha256": "f844fcd4b5ee43a01164f0fe1ce68179403c81d3cbfeff59f6d71fe6fc05e835",
+      "bytes": 28267
+    },
+    {
+      "path": "objects/888f91f2-92d3-5b04-9ccc-ccb51c6b9b39.blob",
+      "sha256": "79d2c8bab5c6cd4073be819562da576b6e52ae89930841601ef3ad9b0d90e4d2",
+      "bytes": 1476
+    },
+    {
+      "path": "objects/8b6cac7c-b89e-5ae3-99cc-a7688181a38d.blob",
+      "sha256": "e09b0841f4b40f33ce29521ab57517cda112a82f4856344e00f8623f4039ba4d",
+      "bytes": 580
+    },
+    {
+      "path": "objects/a658ba18-5b7d-5c54-96fe-0c313cae4563.blob",
+      "sha256": "d88f65d23a9e18e96e3253435f61a42ac779cac3229e7210f0e68d19da845dbf",
+      "bytes": 12537
+    },
+    {
+      "path": "objects/f1e4a7ba-066d-5ddb-8b1f-0160570eb8ac.blob",
+      "sha256": "3f32991f91697fcaac4c8c9e6278ea21f39206a4c651e9b4e31f08dcf7e3f232",
+      "bytes": 286
+    },
+    {
+      "path": "report.json",
+      "sha256": "4b68415f913c6db2a3c50dc244174833b489a3f91a5515dfc8c22c4f67aacd2a",
+      "bytes": 2614
+    },
+    {
+      "path": "runtime-state.json",
+      "sha256": "5fc597c54a5084c7296b6b31def95b39854310ba085b9202038b9b77f9d35e83",
+      "bytes": 6897
+    },
+    {
+      "path": "world_fact_version.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "bytes": 3
+    },
+    {
+      "path": "world_proposal.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "bytes": 3
+    }
+  ],
+  "object_count": 5,
+  "scan": {
+    "actual_credential_sources": 2,
+    "exact_key_matches": 0,
+    "home_or_private_data_path_matches": 0,
+    "non_synthetic_objects": 0
+  },
+  "notes": "Source report bytes preserved. Object closure follows embedded Context/request/output JSON and EvidenceRef/ObjectRef references; every object checked against authoritative metadata hash/size/class before copying."
+}

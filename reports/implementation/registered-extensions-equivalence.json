@@ -1,0 +1,37 @@
+{
+  "change": "shared identical extensions definition only",
+  "occurrences": 40,
+  "unique_shapes": 1,
+  "original_shape_compact_bytes": 285,
+  "full_schema_semantic_normalization_equal": true,
+  "before_sha256": "d52b10043db04fab877994b07ad99aad5fb3bc27a89f954c76791d9c81c1e827",
+  "after_sha256": "5fddcbe5d3014f9a130f062803e11873d0507fc685561ce9656953cc0a37f6b5",
+  "decision_schema_raw_before": 20214,
+  "decision_schema_raw_after": 19770,
+  "measured_wire_savings_identical_content": 504,
+  "test_command": "go test -race ./contract ./tests -run 'TestRegisteredExtensions|TestOutputClass|TestD12|TestRetrieval|TestServed' -count=1",
+  "test_result": "PASS",
+  "docs_checker": "PASS",
+  "serialized_basis": {
+    "before_sha256_and_after_sha256": "SHA256(json.dumps(parsed_document, sort_keys=True).encode(\"utf-8\")); Python defaults ensure_ascii=True, separators=(\", \", \": \"), no trailing newline. These are normalized Python serialization hashes, NOT raw file hashes and NOT Decision closure hashes.",
+    "original_shape_compact_bytes": "len(json.dumps(RegisteredExtensions_shape,separators=(\",\", \":\"))) with Python default ensure_ascii=True; original shape includes Chinese description encoded as ASCII escapes. 285 counts serialized ASCII characters/bytes.",
+    "decision_schema_raw_before_and_after": "len(contract.Schema(\"DecisionEnvelope\")) Go json.Marshal after transitive $defs closure and recursive removal of title/description; these values do not measure whole Schema file.",
+    "measured_wire_savings_identical_content": "Difference of Provider.Encode byte lengths on identical recorded Context and short prompt, old inline closure versus shared closure, double JSON encoding included; 31794 - 31290 = 504 bytes. Values omit grant capabilities in both paired measurements; final-with-grant was measured separately."
+  },
+  "hash_verification": {
+    "before_normalized_python_hash_reproduced": true,
+    "after_normalized_python_hash_reproduced": true
+  },
+  "actual_file_sha256": {
+    "before": "8d923009db02d8f6be0414ae37630c8f9a0e181ff0692aa7878b7d9b7bb0db33",
+    "before_verification": "Recorded original file hash; reconstructed saved pre-refactor parsed document with original indent=2, ensure_ascii=False, newline reproduces this hash.",
+    "before_reconstructed_sha256": "8d923009db02d8f6be0414ae37630c8f9a0e181ff0692aa7878b7d9b7bb0db33",
+    "after": "066e6b7a055636a213b0ad9dd8dda3ca9a4789a6ebe71d95851e94126fd5f27d"
+  },
+  "closure_length_reproduction": {
+    "method": "Python mirror of contract.Schema transitive closure, removal of description/title, sorted compact UTF-8 JSON with Go HTML/U+2028/U+2029 escaping",
+    "before": 20214,
+    "after": 19770,
+    "matches_reported": true
+  }
+}

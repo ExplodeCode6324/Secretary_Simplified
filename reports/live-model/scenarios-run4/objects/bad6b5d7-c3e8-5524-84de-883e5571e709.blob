@@ -1,0 +1,1 @@
+{"schema_version":1,"context_id":"c383ce88-16e1-4130-b125-85e4211e332b","reply":{"text":"I can’t report a password without retrieving and verifying the relevant memory.","evidence":[]},"actions":[],"controls":[{"kind":"READ_MEMORY","task_id":null,"payload":{"query":"sea-salt-protocol","entity_ids":[],"cursor":null}}],"extensions":{}}

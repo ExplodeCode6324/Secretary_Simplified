@@ -1,9 +1,12 @@
 .DS_Store
 resource/Secretary_test1_api_OpencodeGO.md
+resource/*[Kk]ey*
+resources/*[Kk]ey*
 resources/*key*
 *.key
 .env
 release/config.local.json
+release/config.deepseek.local.json
 release/secrets/
 release/state/
 release/objects/
@@ -22,3 +25,4 @@ review/private/
 review/*.stderr.log
 __pycache__/
 *.pyc
+release/db/*.migration.lock

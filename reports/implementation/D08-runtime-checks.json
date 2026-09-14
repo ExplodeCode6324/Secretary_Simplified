@@ -1,0 +1,45 @@
+{
+  "checked_at": "2026-09-13T23:48:56.939321+00:00",
+  "initial_d08_and_d06_full_race": "PASS",
+  "go_vet": "PASS",
+  "doc_only": "PASS",
+  "real_model": false,
+  "real_data": false,
+  "independent_review": "PENDING",
+  "known_blocker": null,
+  "files": {
+    "src/store/runtime_criteria.go": "4e8f5231c29545f6aebc9ca6a96aa4218f6707fa036aeacff2186308b8c08e9c",
+    "src/store/runtime_local.go": "28731263437d70254ccc25f7ff5bab53dcc0d867bed52bd3273d28ff950aa5ef",
+    "src/store/runtime_schedule.go": "ae1c5740a17777f47e34d9a9248f0f5606afb68a845d587041c3f4fc0ac63b2a",
+    "src/store/sources.go": "7a6462413b4d704e5257102b06e49ce05047d3e85b92a257a160d559c25ef64e",
+    "src/ingest/fixture.go": "032967bd43f56a5166cfb0a78cebe58268aa27688d4704d6a2a6afa8db6f9b59",
+    "src/core/work.go": "6c67b716cb3857c63ff2b74ac23fb1fb53f5c76829d314d82770d53d33700f18",
+    "src/contract/contract.go": "1503ffbca8757b456c4b3caca578c3202f07ed9806bc3049bcd5c29cf90febd8",
+    "src/contract/contracts.schema.json": "eb8de293fa9157c4136b85759db5a9c912d084c33e4ce6923aa3ab41150c2cce",
+    "src/tests/runtime_d08_test.go": "f16c17aaa90868bd27ae8b5234cd9b147d268570e88f9063c6689bddb2029a94",
+    "src/tests/runtime_dst_downtime_test.go": "4998461535876c43133148bc0f5a35c43849896088b9d7bfd19b18b2ab9d5b8c",
+    "src/executor/executor.go": "2c30d697af12d4f3a6492b9b00c854fbd5f847194b3ae7b79ae68f1028a84f43",
+    "src/tests/runtime_remote_effect_test.go": "30636ca05fe5bea8712527b8206b78af77c5a34d529dea03934863bda46f9979",
+    "src/tests/runtime_d08_replan_test.go": "dea4f977a10dc01739a5123323125992675e62833a4aa02c298f2bac30913728"
+  },
+  "final_d08_replan_d06_remote_effect_full_race": "PASS",
+  "tests": [
+    "TestD08PublicAdmissionExecutionAndNegativeEvidence",
+    "TestD08BriefingRejectsMissingEmptyAndStaleReceipts",
+    "TestD08PublicRejectsChangedCriterionAndStrictExtension",
+    "TestD08BriefingModelActionsNeverVerify",
+    "TestD08ReplanCurrentRunEventuallyVerifies",
+    "TestD08CurrentRunLineageAcrossReopen",
+    "TestRemoteFailurePreservesEffectAndRetryCeiling",
+    "TestRuntimeDSTGapDuringDowntimeAuditedOnce"
+  ],
+  "doc_report_checked_at": "2026-09-13T23:48:22.997551+00:00",
+  "additional_test_only_followup": {
+    "checked_at": "2026-09-13T23:52:54.059595+00:00",
+    "command": "go test -race ./tests -run 'TestAcceptanceA1[238]' -count=1",
+    "status": "PASS",
+    "file": "src/tests/runtime_final_acceptance_test.go",
+    "sha256": "139d349d8e36bdc84ea6f33087d71f1fa8958afc7939c83eab64bd58d8e242c7",
+    "production_changes_since_last_full_race": false
+  }
+}

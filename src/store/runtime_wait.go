@@ -45,6 +45,12 @@ func (s *Store) WaitTx(ctx context.Context, tx *sql.Tx, w contract.WaitSubscript
 		if e != nil {
 			return e
 		}
+		if e = rtInherit(m, t); e != nil {
+			return e
+		}
+		if e = rtInherit(t, t, m); e != nil {
+			return e
+		}
 		switch t["state"] {
 		case "SUCCEEDED", "FAILED", "CANCELLED":
 			return errors.New("TERMINAL_TASK")

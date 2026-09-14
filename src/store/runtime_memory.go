@@ -63,6 +63,10 @@ func (s *Store) ScheduleMemorySlot(ctx context.Context, epoch, now time.Time, gr
 		}
 		command := contract.Command{SchemaVersion: 1, OperationKey: "memory_refresh", Capability: "memory.refresh", CapabilityVersion: 1, Arguments: map[string]any{"slot": slot}, ExpectedRevisions: []contract.ReadRef{}, Extensions: map[string]any{}}
 		criterion := contract.Criterion{ID: contract.DeriveID(root + ":criterion"), Kind: "consciousness_slot_committed", Expected: map[string]any{"slot": slot}, EvidencePolicy: "exact persisted ConsciousnessState slot, schema validated"}
+		command.Extensions, e = contract.ClassifyExtensions(command.Extensions, "SYNTHETIC")
+		if e != nil {
+			return e
+		}
 		if e = contract.Validate("Command", command); e != nil {
 			return e
 		}

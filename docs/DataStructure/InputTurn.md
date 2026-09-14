@@ -30,3 +30,15 @@
 PROCESSING 持有有界租约；恢复时先查提交回执而非重新创造业务意图。
 
 通用空值、版本、扩展、引用和错误规则见 [Common.md](Common.md)；事件与提交关系见 [DataFlow.md](../DataFlow.md)。
+
+
+## 实施设计修订 D11：待答问题生命周期
+
+模型 Decision.reply.questions 的两字段 proposal 与最终 InputTurn.reply.questions 是不同形状。最终 reply.questions 最多 3 个既有 PendingQuestion 五字段对象；成功显式回答可带程序生成 answered_question_id。decision_record 保存原始模型 proposal，不用最终回复替换。最终文本、ASSISTANT event、InputTurn、request receipt、pending_questions 和业务动作同事务提交；失败 fallback 不改变问题生命周期。
+
+裁决：`review/D11-pending-question-deepseek.response.md`；原提案：`review/A09-pending-question-proposal.md`。无 DDL 变更。
+
+
+### D12 分类传播
+
+最终输出extension与输入原始data_class分开；原话标签不因高分类Context而重写。 使用 [Common.md](Common.md) 的 security.classification 契约；缺失旧派生标记返回 OUTPUT_CLASS_UNKNOWN，不自动回填。

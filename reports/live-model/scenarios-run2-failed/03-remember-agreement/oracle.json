@@ -1,0 +1,9 @@
+{
+  "name": "remember-agreement",
+  "text": "Remember this synthetic agreement: sea-salt-protocol password is BLUE731. Acknowledge only; do not create items.",
+  "session": "old",
+  "conflict_id": "",
+  "expected": {},
+  "reply_contains": "",
+  "min_calls": 0
+}

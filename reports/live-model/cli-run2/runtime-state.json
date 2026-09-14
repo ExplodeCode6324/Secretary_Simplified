@@ -1,0 +1,220 @@
+{
+  "scheduled_job": [
+    {
+      "command": {
+        "arguments": {
+          "notification_key": "synthetic-cli-reminder",
+          "text": "synthetic-cli-reminder"
+        },
+        "capability": "notify.local",
+        "capability_version": 1,
+        "expected_revisions": [],
+        "extensions": {},
+        "operation_key": "schedule-synthetic-cli-reminder-notification",
+        "schema_version": 1
+      },
+      "enabled": false,
+      "extensions": {
+        "runtime.authorization": {
+          "grant_id": "216ae27b-e953-4717-b2fa-4eea2030975d"
+        }
+      },
+      "grace_seconds": 300,
+      "id": "0f210b5a-2b27-4995-aa4f-004f320cc82c",
+      "max_attempts": 3,
+      "misfire": "FIRE_ONCE_WITHIN_GRACE",
+      "next_due_at": null,
+      "overlap": "SKIP",
+      "revision": 1,
+      "root_id": "55f1a6ba-8966-4480-8a6a-d580d3ae3c3a",
+      "schedule": {
+        "after_seq": null,
+        "anchor_at": null,
+        "at": "2026-09-14T00:06:46.381Z",
+        "event_type": null,
+        "every_seconds": null,
+        "filter": null,
+        "kind": "once",
+        "local_time": null,
+        "timezone": "UTC",
+        "weekdays": []
+      },
+      "schema_version": 1,
+      "task_template": {
+        "criteria": [
+          {
+            "evidence_policy": "Authoritative persisted state or artifact bytes",
+            "expected": {
+              "notification_key": "synthetic-cli-reminder"
+            },
+            "id": "85e886b4-7746-4bf2-beb0-feee1498568f",
+            "kind": "notification_recorded"
+          }
+        ],
+        "goal": "在截止时间发送一次本地文字通知 synthetic-cli-reminder；事项保持 OPEN，不完成事项。",
+        "item_id": "f2bbd983-2191-4332-af96-7a2c81b740f0",
+        "item_operation_key": null
+      },
+      "updated_at": "2026-09-14T00:06:47.367Z"
+    }
+  ],
+  "job_run": [
+    {
+      "attempt_no": 1,
+      "command": {
+        "arguments": {
+          "slot": 0
+        },
+        "capability": "memory.refresh",
+        "capability_version": 1,
+        "expected_revisions": [],
+        "extensions": {},
+        "operation_key": "memory_refresh",
+        "schema_version": 1
+      },
+      "extensions": {
+        "runtime.authorization": {
+          "grant_id": "216ae27b-e953-4717-b2fa-4eea2030975d"
+        }
+      },
+      "external_idempotency_key": "d06260b4-294c-416e-95a5-af6997b0df31",
+      "fencing_token": 1,
+      "id": "6343c9a8-12b7-47f6-82f7-c2762e53643a",
+      "job_id": null,
+      "job_revision": null,
+      "lease_owner": null,
+      "lease_until": null,
+      "occurrence_key": "3d8cd140-04f3-530d-874e-b608b1b2e795:memory_refresh",
+      "scheduled_for": "2026-09-14T00:10:22.821Z",
+      "schema_version": 1,
+      "state": "QUEUED",
+      "task_id": "aefd0897-aa94-400f-a15a-c53ae4f9b023",
+      "updated_at": "2026-09-14T00:05:22.821Z"
+    },
+    {
+      "attempt_no": 1,
+      "command": {
+        "arguments": {
+          "notification_key": "occ:v1:c3ludGhldGljLWNsaS1yZW1pbmRlcg:MGYyMTBiNWEtMmIyNy00OTk1LWFhNGYtMDA0ZjMyMGNjODJjOjIwMjYtMDktMTRUMDA6MDY6NDYuMzgxWg",
+          "text": "synthetic-cli-reminder"
+        },
+        "capability": "notify.local",
+        "capability_version": 1,
+        "expected_revisions": [],
+        "extensions": {},
+        "operation_key": "schedule-synthetic-cli-reminder-notification",
+        "schema_version": 1
+      },
+      "extensions": {
+        "runtime.authorization": {
+          "grant_id": "216ae27b-e953-4717-b2fa-4eea2030975d"
+        }
+      },
+      "external_idempotency_key": "b047cd23-661a-41c2-bcb2-ed4b111c5f1b",
+      "fencing_token": 1,
+      "id": "337418b6-14b7-4339-9357-d4adc0a74ecc",
+      "job_id": "0f210b5a-2b27-4995-aa4f-004f320cc82c",
+      "job_revision": 1,
+      "lease_owner": "local-runner",
+      "lease_until": "2026-09-14T00:07:17.366Z",
+      "occurrence_key": "0f210b5a-2b27-4995-aa4f-004f320cc82c:2026-09-14T00:06:46.381Z",
+      "scheduled_for": "2026-09-14T00:06:46.381Z",
+      "schema_version": 1,
+      "state": "SUCCEEDED",
+      "task_id": "715b63a6-08bc-4b70-b863-41411ab048e9",
+      "updated_at": "2026-09-14T00:06:47.374Z"
+    }
+  ],
+  "task": [
+    {
+      "cancel_generation": 0,
+      "created_at": "2026-09-14T00:05:16.386Z",
+      "criteria": [
+        {
+          "evidence_policy": "exact persisted ConsciousnessState slot, schema validated",
+          "expected": {
+            "slot": 0
+          },
+          "id": "e5e7ccc1-b5ad-5a96-9f9e-c5a18de51745",
+          "kind": "consciousness_slot_committed"
+        }
+      ],
+      "criterion_hash": "d473f756cce431566aa156d3c6afcbb81d7a84f694af4b44399edcff02ae5f13",
+      "deadline_at": null,
+      "extensions": {},
+      "goal": "Commit consciousness slot 0",
+      "id": "aefd0897-aa94-400f-a15a-c53ae4f9b023",
+      "item_id": null,
+      "job_id": null,
+      "occurrence_key": "3d8cd140-04f3-530d-874e-b608b1b2e795:memory_refresh",
+      "parent_root_id": null,
+      "revision": 3,
+      "root_id": "ba4a687c-9b21-5436-93b3-1433f8018073",
+      "schema_version": 1,
+      "state": "PENDING",
+      "updated_at": "2026-09-14T00:05:22.822Z"
+    },
+    {
+      "cancel_generation": 0,
+      "created_at": "2026-09-14T00:06:47.368Z",
+      "criteria": [
+        {
+          "evidence_policy": "Authoritative persisted state or artifact bytes",
+          "expected": {
+            "notification_key": "occ:v1:c3ludGhldGljLWNsaS1yZW1pbmRlcg:MGYyMTBiNWEtMmIyNy00OTk1LWFhNGYtMDA0ZjMyMGNjODJjOjIwMjYtMDktMTRUMDA6MDY6NDYuMzgxWg"
+          },
+          "id": "85e886b4-7746-4bf2-beb0-feee1498568f",
+          "kind": "notification_recorded"
+        }
+      ],
+      "criterion_hash": "4dbe11f88813929d418213791b8a743d43bc4ca2eef233147c45b52fa1175e14",
+      "deadline_at": null,
+      "extensions": {},
+      "goal": "在截止时间发送一次本地文字通知 synthetic-cli-reminder；事项保持 OPEN，不完成事项。",
+      "id": "715b63a6-08bc-4b70-b863-41411ab048e9",
+      "item_id": "f2bbd983-2191-4332-af96-7a2c81b740f0",
+      "job_id": "0f210b5a-2b27-4995-aa4f-004f320cc82c",
+      "occurrence_key": "0f210b5a-2b27-4995-aa4f-004f320cc82c:2026-09-14T00:06:46.381Z",
+      "parent_root_id": "55f1a6ba-8966-4480-8a6a-d580d3ae3c3a",
+      "revision": 4,
+      "root_id": "1ed7b2e7-895e-4778-82a7-aa084b9e74b9",
+      "schema_version": 1,
+      "state": "SUCCEEDED",
+      "updated_at": "2026-09-14T00:06:47.377Z"
+    }
+  ],
+  "executor_receipt": [
+    {
+      "artifacts": [],
+      "attempt_no": 1,
+      "effect_observed": false,
+      "error_code": "CORE_WORK_FAILED",
+      "evidence": [],
+      "extensions": {},
+      "external_operation_id": null,
+      "fencing_token": 1,
+      "id": "86922389-aaf7-4e3b-a592-642a01902763",
+      "receipt_key": "attempt-1-final",
+      "received_at": "2026-09-14T00:05:22.821Z",
+      "run_id": "6343c9a8-12b7-47f6-82f7-c2762e53643a",
+      "schema_version": 1,
+      "status": "FAILED"
+    },
+    {
+      "artifacts": [],
+      "attempt_no": 1,
+      "effect_observed": true,
+      "error_code": null,
+      "evidence": [],
+      "extensions": {},
+      "external_operation_id": null,
+      "fencing_token": 1,
+      "id": "abc8a228-352a-49c6-82c1-8c3ff3833ab1",
+      "receipt_key": "attempt-1-final",
+      "received_at": "2026-09-14T00:06:47.374Z",
+      "run_id": "337418b6-14b7-4339-9357-d4adc0a74ecc",
+      "schema_version": 1,
+      "status": "SUCCEEDED"
+    }
+  ]
+}

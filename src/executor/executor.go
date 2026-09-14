@@ -93,6 +93,7 @@ func (r *Runner) Step(ctx context.Context) (bool, error) {
 		}
 	}()
 	receipt := contract.ExecutorReceipt{SchemaVersion: 1, ID: contract.NewID(), RunID: run.ID, AttemptNo: run.AttemptNo, FencingToken: run.FencingToken, ReceiptKey: fmt.Sprintf("attempt-%d-final", run.AttemptNo), Status: "SUCCEEDED", Artifacts: []contract.ObjectRef{}, Evidence: []contract.EvidenceRef{}, ReceivedAt: contract.Timestamp(r.Options.Clock.Now()), Extensions: map[string]any{}}
+	localEffect := true
 	switch run.Command.Capability {
 	case "notify.local":
 		e = r.Store.RecordNotification(child, run)
@@ -108,8 +109,21 @@ func (r *Runner) Step(ctx context.Context) (bool, error) {
 		}
 		if e == nil {
 			e = WriteArtifact(r.Options.ArtifactDir, relative, content)
+			if e == nil {
+				receipt.EffectObserved = true // The file write already committed, even if metadata persistence fails.
+				class, classErr := contract.ReadClassification(run.Extensions)
+				e = classErr
+				if e == nil {
+					var object contract.ObjectRef
+					object, e = r.Store.PutObject(child, []byte(content), "text/plain", class)
+					if e == nil {
+						receipt.Artifacts = append(receipt.Artifacts, object)
+					}
+				}
+			}
 		}
 	default:
+		localEffect = false
 		if r.Options.Core == nil {
 			e = errors.New("CORE_UNAVAILABLE")
 		} else {
@@ -128,7 +142,7 @@ func (r *Runner) Step(ctx context.Context) (bool, error) {
 		receipt.Status = "RESULT_UNKNOWN"
 		code := e.Error()
 		receipt.ErrorCode = &code
-	} else {
+	} else if localEffect {
 		receipt.EffectObserved = true
 	}
 	receipt.ReceivedAt = contract.Timestamp(r.Options.Clock.Now())

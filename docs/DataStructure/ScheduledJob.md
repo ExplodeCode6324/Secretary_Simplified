@@ -46,3 +46,8 @@ schedule.kind 对条件字段二次校验；无关字段必须 null/空数组。
 D06：计算 next_due_at 跳过 DST gap 时，必须同事务写入 scheduled_job.skipped。before/after 保持业务 revision，after 更新运行推进字段。每日/每周按 IANA 时区识别不存在的本地时刻；相同日期改变规则时使用规范规则身份区分审计，普通扫描重放不重复记录。
 
 复核依据：`review/D06-calendar-skip.response.md`。
+
+
+### D12 分类传播
+
+Job 与内嵌Command共同继承；生成Task/Run时分类与authorization merge保留。 使用 [Common.md](Common.md) 的 security.classification 契约；缺失旧派生标记返回 OUTPUT_CLASS_UNKNOWN，不自动回填。

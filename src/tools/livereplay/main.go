@@ -4,6 +4,7 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -14,6 +15,7 @@ import (
 	"secretarysimplified/memory"
 	"secretarysimplified/model"
 	"secretarysimplified/store"
+	"strings"
 	"time"
 )
 
@@ -31,6 +33,9 @@ func run() error {
 	if e != nil {
 		return e
 	}
+	if c.Model.Profile != "opencode-go" && c.Model.Profile != "deepseek" {
+		return errors.New("real provider profile required")
+	}
 	root := os.Args[2]
 	report := os.Args[3]
 	if e = os.MkdirAll(report, 0700); e != nil {
@@ -45,12 +50,13 @@ func run() error {
 	if e != nil {
 		return e
 	}
-	client := &diagnostics.RecordingModel{Inner: model.New(c), Store: s, Config: c, Dir: filepath.Join(report, "model_calls")}
+	client := &quotaGuard{Client: &diagnostics.RecordingModel{Inner: model.New(c), Store: s, Config: c, Dir: filepath.Join(report, "model_calls")}}
 	svc := core.Service{Store: s, Model: client, Config: c, GrantID: string(grant)}
 	ctx := context.Background()
 	session := contract.NewID()
 	results := []map[string]any{}
 	failures := 0
+	identities := map[string]string{}
 	for i := 0; i < 90; i++ {
 		var in struct {
 			Index, Day, Point int
@@ -69,6 +75,9 @@ func run() error {
 		if e == nil {
 			e = svc.Process(ctx, turn)
 		}
+		if client.limited {
+			e = errors.New("MODEL_HTTP_429")
+		}
 		entry := map[string]any{"index": i, "status": "PASS", "request_id": env.RequestID}
 		if e != nil {
 			entry["error"] = e.Error()
@@ -84,7 +93,16 @@ func run() error {
 			return e2
 		}
 		actual := map[string]map[string]any{}
+		identityError := false
 		for _, it := range items {
+			if prior, ok := identities[it.Title]; ok && prior != it.ID {
+				identityError = true
+			} else {
+				identities[it.Title] = it.ID
+			}
+			if _, duplicate := actual[it.Title]; duplicate {
+				identityError = true
+			}
 			var due any
 			if it.DueAt != nil {
 				due = *it.DueAt
@@ -93,13 +111,21 @@ func run() error {
 		}
 		ab, _ := json.Marshal(actual)
 		ob, _ := json.Marshal(oracle.Items)
-		if e != nil || string(ab) != string(ob) {
+		checkpointIDs := map[string]string{}
+		for title, id := range identities {
+			checkpointIDs[title] = id
+		}
+		entry["item_ids"] = checkpointIDs
+		if identityError {
+			entry["identity_error"] = "duplicate title or changed persistent item ID"
+		}
+		if e != nil || identityError || len(items) != len(oracle.Items) || string(ab) != string(ob) {
 			entry["status"] = "FAIL"
 			entry["actual"] = actual
 			entry["expected"] = oracle.Items
 			failures++
 		}
-		if in.Point == 2 {
+		if in.Point == 2 && !client.limited {
 			now, _ := time.Parse(time.RFC3339Nano, in.AsOf)
 			epoch := time.Date(2026, 9, 14, 0, 0, 0, 0, time.UTC)
 			m := memory.Service{Store: s, Model: client, Epoch: epoch, Config: c}
@@ -119,6 +145,9 @@ func run() error {
 			return e
 		}
 		fmt.Printf("checkpoint %02d: %v (cumulative failures=%d)\n", i, entry["status"], failures)
+		if client.limited {
+			return errors.New("MODEL_HTTP_429: stopped immediately; ask Master for replacement test API")
+		}
 		if failures > 5 {
 			return fmt.Errorf("replay stopped after %d failures; preserve evidence and fix", failures)
 		}
@@ -127,4 +156,20 @@ func run() error {
 		return fmt.Errorf("%d failed checks", failures)
 	}
 	return nil
+}
+
+type quotaGuard struct {
+	model.Client
+	limited bool
+}
+
+func (q *quotaGuard) Generate(ctx context.Context, r model.Request) (model.Result, error) {
+	if q.limited {
+		return model.Result{}, errors.New("MODEL_HTTP_429")
+	}
+	v, e := q.Client.Generate(ctx, r)
+	if e != nil && strings.Contains(e.Error(), "429") {
+		q.limited = true
+	}
+	return v, e
 }

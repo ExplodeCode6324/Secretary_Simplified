@@ -1,3 +1,5 @@
+> 模型限定：本报告来自 Ayanami 使用 `gpt-5.6-luna` 的历史复核。Master 最新指定必须由 `deepseek-v4.1-flash` 复核，因此本报告仅为 model-qualified 历史证据，不能充当最终复核裁决；原问题、结论与测试结果保留，待 DeepSeek 重新检视。
+
 【回答】
 
 1. F8 更正确认：按既定要求应判定为“固定”。生成器已自动 `gofmt`；`go mod tidy` 已另行运行且无 diff，`go mod verify` 通过。设计并未要求生成器自动执行 `go mod tidy`，本复核不额外增加该验收门槛。

@@ -1,0 +1,24 @@
+{
+  "status": "PASS",
+  "scope": "D10 mechanical policy guard, whole-source race/vet and DOC; live CLI retest and independent implementation review pending",
+  "checked_at": "2026-09-14T00:04:07.811648+00:00",
+  "tests": [
+    "NL default notify accepted",
+    "NL default alarm accepted",
+    "NL SKIP0 notify refused",
+    "NL custom grace refused",
+    "NL SKIP0 alarm refused",
+    "non-reminder briefing policy unaffected",
+    "Typed SKIP0 preserved and skipped at due+904ms"
+  ],
+  "policy_failure_max_model_generations": 3,
+  "real_model": false,
+  "source_hashes": {
+    "src/core/core.go": "c65706344ae7749c7bc67f0c0593fd3e9958dfc1ca2a89520fb084282f563b57",
+    "src/model/model.go": "f78d1b1637593f7350fdc2e6550ff29039f141432d5c3e40d848d9f1f66666ab",
+    "src/tests/reminder_policy_test.go": "de8cefc4f9ca8f81278d92533f5a0dc79ab780cf444ffa50deba7ad1eaa428fd",
+    "docs/ExecutionProtocol.md": "89957d7d359830ff670a29c0f4b0d4964d8c3f34f0b068778cbfd6310b71764d",
+    "docs/Interfaces.md": "8308803b240f7d681720c7fb662a4b70b319bafc8c2ea72d6a1dd5f2ee736b82",
+    "docs/Acceptance.md": "102577617626df5d1940f639854f37ba7459670ce72c423ce8567f3f5f3f9c0e"
+  }
+}
