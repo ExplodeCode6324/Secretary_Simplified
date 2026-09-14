@@ -123,3 +123,11 @@ ChangeEvent 带 root_id、causation_id 和 origin。消费者忽略自己已处�
 实际自然语言 CLI 提醒回放发现：模型未收到既有提醒默认规则，生成 SKIP/0 秒，正常扫描迟到 904 毫秒就合法跳过。根据 Ayanami DeepSeek 商议（`review/reminder-defaults-v1-boundary-deepseek.response.md`、`review/reminder-defaults-scope-deepseek.response.md`），v1 自然语言 Decision 的 CREATE_JOB 在 capability 为 notify.local 或 alarm.play 时，只支持 FIRE_ONCE_WITHIN_GRACE 与 grace_seconds=300。非默认整笔决策拒绝并反馈 REMINDER_POLICY_UNSUPPORTED，沿用既定最多三次生成及持久预算，不静默改值或回填。其他能力的计划不受此限制。
 
 自定义迟到策略须由已认证 Typed 入口显式提交，模型不得通过该入口代填。自然语言明确要求自定义策略时，只说明此能力边界，不生成替代默认动作；“一次”表示 occurrence 数量，不表示允许迟到跳过。系统说明与拒绝反馈都须陈述此边界。原 Scheduler 的严格宽限语义不变，Typed 的显式 SKIP/0 原样保留。原文子串或模型自填锚点不作为授权证明。
+
+### 实施缺陷修复：Issue #1 AUD-02 / AUD-04
+
+依据 `review/issue1-AUD02-AUD04-design-correction.response.md` 与 `review/issue1-memory-reconcile-clarification.response.md` 的 Ayanami 裁决：业务执行沿用请求取消；仅清理、已存证据查验和 CoreWork 收尾使用脱离已取消请求且最多 5 秒的上下文。收尾必须同时绑定持久 Run/Task、command hash、attempt 与 fence；允许当前 RUNNING 或 RESULT_UNKNOWN，不允许旧代覆盖。取消代次只能在 Task 已 CANCELLED 时保存晚到回执审计，沿用 `runtime.cancellation`，不能复活 Task。
+
+同代尚在处理的重复 POST 返回 WORK_IN_PROGRESS。Runner 对 UNKNOWN 的 GET 只读；确定 FAILED/no-effect 可以按既有预算和退避重试，即使对应 execution_attempt 已 FINISHED，active_ms 也只能结算一次。跨代仅允许可验证 SUCCEEDED 证据重绑定，旧 FAILED 不能成为新代失败或重试凭据。
+
+briefing 的 ObjectRef 与 CoreWork 成功回执使用同一 WriteObjects 事务。memory.refresh 的宕机间隙由 Runner 在本地事务核验精确 slot、合法 DTO、控制器 root 与当前 run/attempt/fence，先保存程序对账回执，再走 RecordReceipt/Verifier；GET 不进行该写入，缺失精确证据保持 UNKNOWN。source.sync 进入适配器后出现失败可能有部分效果，保持 RESULT_UNKNOWN；读取前拒绝则无业务效果。来源文件实际读取上限为 1 MiB + 1，超过 1 MiB 返回 INPUT_TOO_LARGE；不能仅依赖预先 Stat，且拒绝非普通文件。

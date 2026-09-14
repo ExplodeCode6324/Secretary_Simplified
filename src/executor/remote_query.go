@@ -48,6 +48,9 @@ func (c RemoteCore) Query(ctx context.Context, run contract.JobRun) (contract.Ex
 	if old.RunID != run.ID || old.AttemptNo != work.AttemptNo || old.FencingToken != work.FencingToken || old.Status != work.State {
 		return out, false, errors.New("CORE_QUERY_RECEIPT_MISMATCH")
 	}
+	if (work.AttemptNo != run.AttemptNo || work.FencingToken != run.FencingToken) && (old.Status != "SUCCEEDED" || !old.EffectObserved) {
+		return out, false, nil
+	}
 	out = *old
 	out.ID = contract.NewID()
 	out.AttemptNo = run.AttemptNo
@@ -74,6 +77,11 @@ func (r *Runner) reconcile(ctx context.Context, coreReady bool) (bool, error) {
 		switch run.Command.Capability {
 		case "notify.local", "artifact.write", "alarm.play", "alarm.stop", "alarm.snooze":
 			continue
+		}
+		if run.Command.Capability == "memory.refresh" {
+			if _, e = r.Store.ReconcileMemoryWork(ctx, run); e != nil {
+				return false, e
+			}
 		}
 		receipt, known, e := query.Query(ctx, run)
 		if e != nil {

@@ -1,3 +1,7 @@
+> Issue #1 当前收口：AUD01–04、GATE01/02、诊断等待与 AUD03.2 补证均已真实 DeepSeek 独立限定 PASS，无开放 review must-fix。有效报告索引见 README，实际模型 provenance 共36份。root 最终全仓/release短 smoke 单独归档，不重跑两小时或替代时长门槛。下方是历史协调状态。
+
+> 当前新增 Issue #1：AUD01/03 和 AUD02/04 设计已获真实 DeepSeek 同意，实施后独立复核待进行；GATE01/02 指定分支独立核证已 PASS。此新增状态覆盖下方旧项目收口状态。Master 明确不重跑两小时或替代时长门槛，原证据 hash 保持。
+
 > 当前协调状态：全部模块、D12两组、最终Schema/prompt等价与真实档案/hash核证已完成，无开放的review must-fix。question-run4脚本断言级边界/自由文本抽样范围保持；month8公开报告与90身份/30快照审计绑定已核对。26份实际DeepSeek来源见 model-provenance.json。产品最终2h稳定性由root继续，不属于未完成review。下方旧BLOCKED/Luna/历史缺口记录均已被后续报告取代。
 
 # 最终复核待办（Codex 协调记录）

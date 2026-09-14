@@ -119,3 +119,7 @@ A09 的 D11 本期验收：正常公共 CLI/Core 由模型提出澄清问题，�
 M1 PERSONAL Context+SYN输入生成ASSISTANT问题→跨session SYN-only拒绝；合法PERSONAL正对照wire可含合成canary且声明PERSONAL。M2同条件Item创建/更新→新session和background拒低，更新不降且Evidence原字节不变。M3 Job→Task→Run→REPLAN→artifact/receipt逐级join、授权merge保留、持久ref优先。M4 World版本join不降。M5 summary/意识缺标拒重推导。M6 legacy unknown拒绝且零改写/删除。M7模型/client任意结构层伪注入整笔拒绝。M8默认PERSONAL、显式SYN、固定字面量例外。M9 D09/D11/完整race、vet、双入口build、docs checker回归。
 
 全部使用合成canary，无真实秘密；逐条区分动态与源码检查。真实模型链不代替安全证明，有限闭包未全绿不能称 D12 安全PASS。证据包括初始失败 `review/D11-output-class-probe-result.md`；最终裁决与补充见 `review/D12-output-class-final-contract.response.md`、`review/D12-injection-oracle-clarification.response.md`。
+
+### Issue #1 定向验收补充（实施缺陷 AUD-02 / AUD-04）
+
+固定合成测试位于 `src/tests/issue1_runtime_test.go` 与 `src/core/source_file_test.go`，具体证据见 `reports/implementation/issue1-runtime.md`：实际认证 Unix HTTP 的取消排队/调用、重复 POST、晚回执取消不复活、丢响应后简报持久证据恢复、意识精确槽宕机对账，以及超大来源拒绝后原游标/记录/成功事件不变。注入超时用于加速故障边界，不更改生产 30 秒预算。Master 明确本次修复不重跑两小时；旧 soak 仅证明其原二进制，不算本次新版本持续运行证明。

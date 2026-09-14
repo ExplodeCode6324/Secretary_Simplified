@@ -11,6 +11,7 @@ import (
 	"secretarysimplified/model"
 	"secretarysimplified/store"
 	"strings"
+	"time"
 )
 
 // RecordingModel adds local evidence around a model.Client. Provider code remains
@@ -88,7 +89,11 @@ func (r *RecordingModel) Generate(ctx context.Context, req model.Request) (resul
 		archivedOutput = result.RawResponse
 	}
 	if len(archivedOutput) > 0 && req.DataClass == "SYNTHETIC" {
-		ref, e := r.Store.PutObject(context.WithoutCancel(ctx), archivedOutput, "application/json", "SYNTHETIC")
+		// This is diagnostic persistence after a response, not model execution.
+		// Cancellation must not leave Core waiting indefinitely for publication.
+		persist, cancel := context.WithTimeout(context.WithoutCancel(ctx), 5*time.Second)
+		ref, e := r.Store.PutObject(persist, archivedOutput, "application/json", "SYNTHETIC")
+		cancel()
 		if e != nil {
 			return result, e
 		}

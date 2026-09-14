@@ -71,3 +71,20 @@ D01–D07 与 D09 首次到工具上限时遭遇 Hermes 强制摘要通道 HTTP 
 口径说明：报告中的“零真实模型调用／LIVE_MODEL NOT_RUN”指该次审查没有另行运行 Secretary 产品的真实模型试验，并非复核器未使用真实 DeepSeek。Ayanami 复核调用的实际 provider/model 与持久产出关联由 model-provenance.json 单独记录。
 - [最终 Schema/prompt 等价核证](final-schema-prompt-deepseek.response.md)：独立展开40处RegisteredExtensions并删除唯一helper后，完整Schema与前版深相等；严格测试、再生成一致。roleInstruction逐句保留既有规则（非自然语言形式化证明），文档/CLI说明一致。未发现语义变化。计量澄清：d52b/5fdd是Python排序序列化整document哈希，raw文件为8d923/066e；20214/19770是Decision闭包字节，504是短prompt配对wire差，详作者报告重算记录，不能混用；真实run4/月8当轮仅看到存在，待最终档案补核。
 - [最终真实档案/hash核证](final-live-archive-deepseek.response.md) 与 [末次元数据补正](final-archive-metadata-correction.response.md)：question-run4公开/本地report逐字节相同，主要流程有直接工件，Core重启/幂等不重调保留脚本断言级边界，不新增门槛；构建两binary匹配。month-run8公开/本地report相同，90身份审计/30快照引用审计PASS且绑定原报告；不扩称自由文本全正确。A23 v2同129构成、v1原hash未改，v2新增全量索引审计为作者证据未由本轮重演。末次补正替代前一报告的publisher待完成状态与hash口径误述；Schema/prompt等价PASS不变。
+
+## GitHub Issue #1 新增复核
+
+静态审计原文见 [issue1-original.md](issue1-original.md)。实际复现和修复验收分开保存；旧项目终审与原持续测试证据不改写。本轮明确不重跑两小时或新增持续时长门槛。
+
+- [AUD01/03 最终协议](issue1-AUD01-AUD03-design-correction.response.md)：同意 flock + WriteObjects；明确替代首稿 SQLite-only 清理、锁外 I/O 和暂存清掃条件。实施后独立核证待完成。
+- [AUD02/04 最终协议](issue1-AUD02-AUD04-design-correction.response.md)：同意 bounded 收尾、同代有证据恢复与只读 GET；替代首稿扩展字段和跨代旧失败重绑定判断。实施后独立核证待完成。
+- [GATE01/02 独立核证](issue1-gates-review.response.md)：指定分支限定范围 PASS，无 mustfix；实际定向测试及 race 通过，fake transport 非真实资料试运行。
+- [诊断归档等待上限](issue1-diagnostic-bound.response.md)及[事实更正](issue1-diagnostic-bound-correction.response.md)：同意仅给输出归档增加 5s deadline；保留原错误传播，不吞错，不承诺同步文件系统调用可抢占。[独立锁竞争核证](issue1-diagnostic-bound-final.response.md)已限定范围 PASS，实际定向 race 两项通过。
+
+Issue #1 实施独立复核已收口：
+
+- [AUD01/03 存储终审](issue1-storage-final.response.md)：限定 PASS，亲跑定向 race 与独立 crash/兼容探针。
+- [AUD03.2 业务先写再回滚补证](issue1-storage-typed-final.response.md)：限定 PASS，新测试 e92d20b6；亲跑全表行/对象字节基线回滚与幂等重试。
+- [AUD02/04 执行与读限终审](issue1-runtime-final.response.md)：限定 PASS，最终 11 项工件 hash 核对、实际 UDS/fake HTTP/race；GET 只读与旧 fence 反例通过。
+
+本轮无开放 review must-fix；最终全仓/release短 smoke 由 root 另行归档。原两小时证据保持原构建与 hash，本轮不重跑、不增加持续时长门槛。

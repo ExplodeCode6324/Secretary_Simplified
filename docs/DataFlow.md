@@ -59,7 +59,7 @@ Master 输入测试环境中的“明天 9 点提醒检查项目”后，Core �
 
 ## 实施设计修订 D11：待答问题生命周期
 
-D11 输入顺序：原始 Schema 验证 → 语义 hash/既有 request 重放 → 显式回答范围检查 → 归档原文 → 受理事务复检并记录 MASTER event。正常 Decision 提交：复检目标和所有问题 proposals → readset/授权及业务动作 → 使用实际 ASSISTANT sequence 登记/解决 → 同事务写最终文本、event、InputTurn、receipt、ConversationState CAS。任一失败不部分接受；失败回复路径不操作问题。已受理输入审计和未提交业务状态须分开呈现。
+D11 输入顺序（经 Issue #1 AUD-03 原子归档修订）：原始 Schema 验证 → 语义 hash/既有 request 重放 → 显式回答范围初检 → WriteObjects 事务内幂等/回答范围/最终队列检查 → 原子发布原文与 object_ref → 同事务记录 MASTER event 和受理。正常 Decision 提交：复检目标和所有问题 proposals → readset/授权及业务动作 → 使用实际 ASSISTANT sequence 登记/解决 → 同事务写最终文本、event、InputTurn、receipt、ConversationState CAS。任一失败不部分接受；失败回复路径不操作问题。已受理输入审计和未提交业务状态须分开呈现。
 
 裁决：`review/D11-pending-question-deepseek.response.md`；原提案：`review/A09-pending-question-proposal.md`。无 DDL 变更。
 

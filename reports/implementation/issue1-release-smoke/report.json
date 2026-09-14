@@ -1,0 +1,66 @@
+{
+  "suite": "issue1-short-release-smoke",
+  "status": "PASS",
+  "profile": "fixture",
+  "real_data": false,
+  "external_api_calls": false,
+  "build_sha256": {
+    "secretary": "84e2402517d995d9f5ea1d183998abde31ff4b0f59f86662d50a5cadd471f8d1",
+    "secretaryd": "1d62faad5ee1e69e2a71e73edbb515db8ec4421142d184155c14e2abdc10c710"
+  },
+  "item_count": 1,
+  "idempotent_request_turns": 1,
+  "notification_count": 1,
+  "ack_with_core_offline": true,
+  "doctor": {
+    "checked_at": "2026-09-14T03:11:45.380Z",
+    "database": {
+      "schema_version": 1,
+      "integrity": "ok",
+      "foreign_key_violations": 0,
+      "queues": {
+        "core_work": 0,
+        "input_turn": 0,
+        "job_run": 0
+      },
+      "sources": [],
+      "consciousness": {
+        "created_at": "2026-09-14T03:11:44.287Z",
+        "expected_slot": 0,
+        "overdue": false,
+        "overdue_reason": "computed from configured epoch and exact persisted slot",
+        "slot": 0,
+        "state": "PRESENT"
+      },
+      "unknown_runs": 0,
+      "unresolved_conflicts": 0,
+      "budget_exhausted_reason": "UNKNOWN: no durable exhaustion timestamp is recorded; current counters may be inspected separately",
+      "budget_exhausted": null
+    },
+    "heartbeats": {
+      "core": {
+        "at": "2026-09-14T03:11:45.277Z",
+        "last_scan_at": "2026-09-14T03:11:45.277Z",
+        "state": "RECENT"
+      },
+      "runner": {
+        "at": "2026-09-14T03:11:45.282Z",
+        "last_scan_at": "2026-09-14T03:11:45.282Z",
+        "state": "RECENT"
+      }
+    },
+    "disk_free_bytes": 160422797312,
+    "execution_frozen": false,
+    "last_backup": {
+      "at": null,
+      "state": "UNKNOWN"
+    },
+    "status": "DEGRADED",
+    "limitations": [
+      "Unrecorded process heartbeats, scan times, backup times and budget exhaustion are UNKNOWN; no healthy state is inferred."
+    ]
+  },
+  "owned_processes_stopped": true,
+  "elapsed_seconds": 2.806986292,
+  "completed_at": "2026-09-14T03:11:45.398041+00:00"
+}

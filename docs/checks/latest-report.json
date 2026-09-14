@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-09-14T01:31:35.595487+00:00",
+  "checked_at": "2026-09-14T03:17:39.125341+00:00",
   "scope": "DOC_ONLY",
   "status": "PASS",
   "draft_sha256": "81c528c11ca512c638d79c067df8e091fe50514ac3600d6c78630c6673f25ef5",
@@ -11,8 +11,8 @@
     "schema_definitions": 58,
     "positive_examples": 14,
     "negative_examples": 8,
-    "markdown_files": 63,
-    "local_links": 239,
+    "markdown_files": 64,
+    "local_links": 243,
     "sqlite_tables": 34,
     "sql_constraint_and_smoke_checks": 14
   },

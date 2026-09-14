@@ -350,6 +350,7 @@ func (s *Store) RecordReceipt(ctx context.Context, receipt contract.ExecutorRece
 		if e = rtInherit(r, r, p); e != nil {
 			return e
 		}
+		wasUnknown := r["state"] == "RESULT_UNKNOWN"
 		r["state"] = p["status"]
 		retry := false
 		currentTask, taskErr := rtRead(ctx, tx, "task", rtStr(r["task_id"]))
@@ -369,7 +370,7 @@ func (s *Store) RecordReceipt(ctx context.Context, receipt contract.ExecutorRece
 				}
 				maxAttempts = rtInt(j["max_attempts"])
 			}
-			if dispatched == "DISPATCHED" && rtInt(r["attempt_no"]) < maxAttempts {
+			if (dispatched == "DISPATCHED" || (dispatched == "FINISHED" && wasUnknown)) && rtInt(r["attempt_no"]) < maxAttempts {
 				retry = true
 				r["state"] = "QUEUED"
 				delay := time.Second

@@ -1,12 +1,13 @@
 package core
 
 import (
+	"context"
 	"database/sql"
 	"encoding/json"
 	"errors"
 	"fmt"
+	"log"
 	"net/http"
-	"os"
 	"path/filepath"
 	ctxbuild "secretarysimplified/context"
 	"secretarysimplified/contract"
@@ -59,6 +60,7 @@ func (s *Service) InternalHandler() http.Handler {
 			return
 		}
 		receipt := contract.ExecutorReceipt{SchemaVersion: 1, ID: contract.NewID(), RunID: in.Run.ID, AttemptNo: in.Run.AttemptNo, FencingToken: in.Run.FencingToken, ReceiptKey: fmt.Sprintf("attempt-%d-final", in.Run.AttemptNo), Status: "SUCCEEDED", Artifacts: []contract.ObjectRef{}, Evidence: []contract.EvidenceRef{}, ReceivedAt: contract.Now(), Extensions: map[string]any{}}
+		uncertainEffect := false
 		switch in.Run.Command.Capability {
 		case "world.update":
 			id, _ := in.Run.Command.Arguments["proposal_id"].(string)
@@ -110,13 +112,9 @@ func (s *Service) InternalHandler() http.Handler {
 			if !filepath.IsAbs(path) {
 				path = filepath.Join(s.Config.DataDir, path)
 			}
-			b, err := os.ReadFile(path)
+			b, err := readSourceFixture(path)
 			if err != nil {
-				e = errors.New("FIXTURE_UNAVAILABLE")
-				break
-			}
-			if len(b) > 1<<20 {
-				e = errors.New("INPUT_TOO_LARGE")
+				e = err
 				break
 			}
 			var records []ingest.FixtureRecord
@@ -127,6 +125,7 @@ func (s *Service) InternalHandler() http.Handler {
 				break
 			}
 			adapter := ingest.Service{Store: s.Store, QuarantineDir: filepath.Join(s.Config.DataDir, "reports", "quarantine")}
+			uncertainEffect = true // Sync may commit independent source records before an error.
 			_, e = adapter.Sync(r.Context(), id, records, store.SourceSyncProvenance{RunID: in.Run.ID, AttemptNo: in.Run.AttemptNo, FencingToken: in.Run.FencingToken})
 		case "briefing.build":
 			now := contract.Now()
@@ -152,11 +151,27 @@ func (s *Service) InternalHandler() http.Handler {
 				break
 			}
 			text, _ := d.Reply["text"].(string)
-			obj, err := s.Store.PutObject(r.Context(), []byte(text), "text/plain", req.DataClass)
-			e = err
-			if e == nil {
-				receipt.Artifacts = append(receipt.Artifacts, obj)
+			if e = r.Context().Err(); e != nil {
+				break
 			}
+			uncertainEffect = true
+			e = s.Store.WriteObjects(r.Context(), func(tx *sql.Tx, objects *store.ObjectWriter) error {
+				obj, err := objects.Put(r.Context(), []byte(text), "text/plain", req.DataClass)
+				if err != nil {
+					return err
+				}
+				receipt.Artifacts = []contract.ObjectRef{obj}
+				receipt.EffectObserved = true
+				return store.FinishWorkTx(r.Context(), tx, in.Run, receipt)
+			})
+			if e == nil {
+				transport.Reply(w, 200, "", receipt, nil)
+				return
+			}
+			// The object reference and receipt rolled back together. Do not publish
+			// a reference to rollback data; persistence failure remains conservative unknown.
+			receipt.Artifacts = []contract.ObjectRef{}
+			receipt.EffectObserved = false
 
 		case "memory.search":
 			q, _ := in.Run.Command.Arguments["query"].(string)
@@ -164,14 +179,38 @@ func (s *Service) InternalHandler() http.Handler {
 		default:
 			e = errors.New("UNKNOWN_CAPABILITY")
 		}
+		// The independent, bounded context is for settlement only, never model/business work.
+		settleCtx, settleCancel := context.WithTimeout(context.WithoutCancel(r.Context()), 5*time.Second)
+		defer settleCancel()
 		if e != nil {
+			if in.Run.Command.Capability == "memory.refresh" {
+				proof, proofErr := s.Store.ReconcileMemoryWork(settleCtx, in.Run)
+				if proofErr == nil && proof != nil {
+					transport.Reply(w, 200, "", proof, nil)
+					return
+				}
+				if proofErr != nil {
+					uncertainEffect = true
+				}
+			}
 			receipt.Status = "FAILED"
 			code := "CORE_WORK_FAILED"
+			if r.Context().Err() != nil {
+				code = "CORE_WORK_CANCELLED_NO_EFFECT"
+			}
+			if uncertainEffect {
+				receipt.Status = "RESULT_UNKNOWN"
+				code = "CORE_WORK_EFFECT_UNKNOWN"
+			}
+			if e.Error() == "INPUT_TOO_LARGE" || e.Error() == "FIXTURE_UNAVAILABLE" {
+				code = e.Error()
+			}
 			receipt.ErrorCode = &code
 		} else {
 			receipt.EffectObserved = true
 		}
-		if e = s.Store.FinishWork(r.Context(), in.Run, receipt); e != nil {
+		if e = s.Store.FinishWork(settleCtx, in.Run, receipt); e != nil {
+			log.Printf("CORE_WORK_SETTLEMENT_FAILED run=%s attempt=%d fence=%d", in.Run.ID, in.Run.AttemptNo, in.Run.FencingToken)
 			transport.Reply(w, 409, "", nil, e)
 			return
 		}

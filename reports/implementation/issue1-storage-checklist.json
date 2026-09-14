@@ -1,0 +1,346 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-09-14T03:11:16.912497+00:00",
+  "issue": {
+    "url": "https://github.com/ExplodeCode6324/Secretary_Simplified/issues/1",
+    "audit_baseline_commit": "ac281ac2e3504ef215f9b69ee1b314e2db16adea",
+    "repair_commit": null,
+    "original_requirements": "review/issue1-original.md"
+  },
+  "scope": [
+    "AUD-01",
+    "AUD-03"
+  ],
+  "method": "先只读核对，再按协调者明确授权仅追加一个 Typed 实际业务写后回滚的定向测试及执行记录；生产代码未改。",
+  "execution_records": [
+    {
+      "id": "directed-race",
+      "command": "cd src && go test -race ./store -run '^TestObject|^TestAdmission' -count=1",
+      "status": "PASS",
+      "duration_seconds": 5.442,
+      "source": "reports/implementation/issue1-storage.md"
+    },
+    {
+      "id": "affected-race-vet",
+      "command": "cd src && go test -race ./store ./ingest ./diagnostics -count=1 && go vet ./store ./ingest ./diagnostics",
+      "status": "PASS",
+      "package_seconds": {
+        "store": 6.327,
+        "ingest": 1.946,
+        "diagnostics": 7.849
+      },
+      "source": "reports/implementation/issue1-storage.md"
+    },
+    {
+      "id": "compile",
+      "command": "cd src && go build ./cmd/...",
+      "status": "PASS",
+      "source": "module tool execution; coordinator retains final build/release evidence",
+      "limit": "编译检查不等于修复版发布二进制已部署。"
+    },
+    {
+      "id": "docs",
+      "command": "/tmp/secretary-docs-venv/bin/python docs/checks/validate_docs.py",
+      "status": "PASS",
+      "checked_at": "2026-09-14T03:03:18Z",
+      "source": "reports/implementation/issue1-storage.md"
+    },
+    {
+      "id": "intermediate-whole-repo",
+      "command": "cd src && go test -race ./store ./tests ./ingest ./diagnostics -count=1",
+      "status": "FAIL",
+      "failed_tests": [
+        "TestIssue1QueuedBackgroundCancellationNeverCallsModelHTTP",
+        "TestStaleWorkerCannotCommitReceipt"
+      ],
+      "context": "运行时模块同时编辑期间的中间失败，原记录保留；最终整合回归由协调者登记。"
+    },
+    {
+      "id": "typed-business-rollback-race",
+      "command": "cd src && go test -race ./store -run '^TestAdmissionTypedBusinessWriteRollbackFullBaseline$' -count=1",
+      "status": "PASS",
+      "duration_seconds": 2.321,
+      "source": "reports/implementation/issue1-storage.md"
+    }
+  ],
+  "acceptance_items": [
+    {
+      "id": "AUD-01.1",
+      "requirement": "临时半写入、发布前、发布后至元数据提交前退出，重启同内容恢复为唯一完整引用",
+      "status": "PASS",
+      "tests": [
+        {
+          "name": "TestObjectPublicationCrashStagesRecover",
+          "file": "src/store/issue1_storage_test.go",
+          "status": "PASS",
+          "execution_record": "directed-race"
+        }
+      ],
+      "limits": [
+        "真实子进程退出覆盖 temp_created/before_publish/after_publish/before_commit；不是主机掉电或真实磁盘故障。"
+      ]
+    },
+    {
+      "id": "AUD-01.2",
+      "requirement": "损坏且无引用的最终文件能够隔离恢复",
+      "status": "PASS",
+      "tests": [
+        {
+          "name": "TestObjectOrphanRecoveryDoesNotOverwriteCommittedDamage",
+          "file": "src/store/issue1_storage_test.go",
+          "status": "PASS",
+          "execution_record": "directed-race"
+        },
+        {
+          "name": "TestObjectValidOrphanSyncPrecedesMetadata",
+          "file": "src/store/issue1_storage_test.go",
+          "status": "PASS",
+          "execution_record": "directed-race"
+        }
+      ],
+      "limits": [
+        "有效孤儿测试在成功 file/dir Sync 后钩子检查元数据尚不存在；不模拟文件系统拒绝 fsync。"
+      ]
+    },
+    {
+      "id": "AUD-01.3",
+      "requirement": "两个独立进程同内容并发发布，不暴露半文件或唯一键错误",
+      "status": "PASS",
+      "tests": [
+        {
+          "name": "TestObjectPublicationIndependentProcesses",
+          "file": "src/store/issue1_storage_test.go",
+          "status": "PASS",
+          "execution_record": "directed-race"
+        }
+      ],
+      "limits": [
+        "独立进程以 barrier 同时开始；观察器每毫秒读取最终名字，有限次运行不能枚举所有 OS 调度。"
+      ]
+    },
+    {
+      "id": "AUD-01.4",
+      "requirement": "已提交对象损坏读写拒绝且保留损坏证据",
+      "status": "PASS",
+      "tests": [
+        {
+          "name": "TestObjectOrphanRecoveryDoesNotOverwriteCommittedDamage",
+          "file": "src/store/issue1_storage_test.go",
+          "status": "PASS",
+          "execution_record": "directed-race"
+        }
+      ],
+      "limits": []
+    },
+    {
+      "id": "AUD-01.5",
+      "requirement": "定向和受影响竞态通过，记录命令及修复提交",
+      "status": "PASS_TESTS_COMMIT_PENDING",
+      "tests": [
+        {
+          "name": "TestObjectPublicationCrashStagesRecover",
+          "file": "src/store/issue1_storage_test.go",
+          "status": "PASS",
+          "execution_record": "directed-race"
+        },
+        {
+          "name": "TestObjectPublicationIndependentProcesses",
+          "file": "src/store/issue1_storage_test.go",
+          "status": "PASS",
+          "execution_record": "directed-race"
+        }
+      ],
+      "limits": [
+        "修复提交由协调者集成后登记，本模块未提交 Git。受影响模块及构建证据见 execution_records；不声称中间全仓运行通过。"
+      ]
+    },
+    {
+      "id": "AUD-03.1",
+      "requirement": "满队列多个不同内容拒绝且正式对象不增长",
+      "status": "PASS",
+      "tests": [
+        {
+          "name": "TestAdmissionRejectionDoesNotArchiveObjects",
+          "file": "src/store/issue1_storage_test.go",
+          "status": "PASS",
+          "execution_record": "directed-race"
+        }
+      ],
+      "limits": [
+        "12 个不同内容请求；未采用持久暂存准入设计。"
+      ]
+    },
+    {
+      "id": "AUD-03.2",
+      "requirement": "Typed 回调错误时业务、请求状态与对象无不受控残留",
+      "status": "PASS",
+      "tests": [
+        {
+          "name": "TestAdmissionRejectionDoesNotArchiveObjects",
+          "file": "src/store/issue1_storage_test.go",
+          "status": "PASS",
+          "execution_record": "directed-race"
+        },
+        {
+          "name": "TestAdmissionTypedBusinessWriteRollbackFullBaseline",
+          "file": "src/store/issue1_storage_test.go",
+          "status": "PASS",
+          "execution_record": "typed-business-rollback-race"
+        }
+      ],
+      "limits": [
+        "使用真实 PutItemTx 写事项及 change_event 后注入 callback 错误；不是真实掉电或底层磁盘故障。"
+      ],
+      "history": "初次只读核对发现立即返回错误的测试仅断言 ref/blob；随后新增全表行内容、SQLite sequence 及 blob 字节基线比较，补齐直接证据。"
+    },
+    {
+      "id": "AUD-03.3",
+      "requirement": "并发竞争最后队列名额仅允许一条且失败方无对象残留",
+      "status": "PASS",
+      "tests": [
+        {
+          "name": "TestAdmissionLastSlotConcurrentStores",
+          "file": "src/store/issue1_storage_test.go",
+          "status": "PASS",
+          "execution_record": "directed-race"
+        }
+      ],
+      "limits": [
+        "两个独立 Store 连接、同进程 goroutine；跨进程对象发布另由 AUD-01.3 验证。"
+      ]
+    },
+    {
+      "id": "AUD-03.4",
+      "requirement": "清理及重启恢复保护有效引用，合法重试保持幂等",
+      "status": "PASS_COMPONENT_EVIDENCE",
+      "tests": [
+        {
+          "name": "TestObjectRecoveryIsBoundedAndProtectsReferencePaths",
+          "file": "src/store/issue1_storage_test.go",
+          "status": "PASS",
+          "execution_record": "directed-race"
+        },
+        {
+          "name": "TestObjectPublicationCrashStagesRecover",
+          "file": "src/store/issue1_storage_test.go",
+          "status": "PASS",
+          "execution_record": "directed-race"
+        },
+        {
+          "name": "TestObjectUncertainCommitResultPreservesCommittedReference",
+          "file": "src/store/issue1_storage_test.go",
+          "status": "PASS",
+          "execution_record": "directed-race"
+        },
+        {
+          "name": "TestAdmissionRejectionDoesNotArchiveObjects",
+          "file": "src/store/issue1_storage_test.go",
+          "status": "PASS",
+          "execution_record": "directed-race"
+        },
+        {
+          "name": "TestAdmissionTypedBusinessWriteRollbackFullBaseline",
+          "file": "src/store/issue1_storage_test.go",
+          "status": "PASS",
+          "execution_record": "typed-business-rollback-race"
+        }
+      ],
+      "limits": [
+        "由互补测试分别覆盖清理保护、进程退出重开、对象重试及原输入重放；不是单一端到端的 Typed 副作用后崩溃重试实验。",
+        "lost acknowledgement 使用真实 COMMIT 后注入返回错误，不是实际 SQLite I/O 失败。"
+      ]
+    }
+  ],
+  "additional_directed_checks": [
+    {
+      "name": "TestObjectCancelledRollbackAndLockWait",
+      "file": "src/store/issue1_storage_test.go",
+      "status": "PASS",
+      "execution_record": "directed-race"
+    },
+    {
+      "name": "TestObjectRecoveryIsBoundedAndProtectsReferencePaths",
+      "file": "src/store/issue1_storage_test.go",
+      "status": "PASS",
+      "execution_record": "directed-race"
+    },
+    {
+      "name": "TestObjectUncertainCommitResultPreservesCommittedReference",
+      "file": "src/store/issue1_storage_test.go",
+      "status": "PASS",
+      "execution_record": "directed-race"
+    },
+    {
+      "name": "TestObjectValidOrphanSyncPrecedesMetadata",
+      "file": "src/store/issue1_storage_test.go",
+      "status": "PASS",
+      "execution_record": "directed-race"
+    }
+  ],
+  "documentation_checks": [
+    {
+      "id": "implementation-finding",
+      "status": "PASS",
+      "path": "docs/Storage.md",
+      "line": 53,
+      "evidence": "Issue #1 实施缺陷修订：AUD-01 / AUD-03 对象发布；下一段明确旧最终路径半写与准入前归档缺陷。"
+    },
+    {
+      "id": "no-A25-rerun",
+      "status": "PASS",
+      "path": "docs/Storage.md",
+      "line": 65,
+      "quote": "原两小时测试不重跑，不累加到新构建，不改原报告哈希。"
+    },
+    {
+      "id": "original-hash-scope-preserved",
+      "status": "PASS",
+      "path": "reports/implementation/issue1-storage.md",
+      "evidence": "Explicitly retains original soak hashes/duration and does not claim the old soak exercised repaired binaries."
+    },
+    {
+      "id": "operations-boundary",
+      "status": "PASS",
+      "path": "docs/Operations.md",
+      "line": 62,
+      "evidence": "有界 Go 恢复 API，不承诺现有 CLI 新命令；明确本 issue 不重跑或新增两小时持续测试。"
+    },
+    {
+      "id": "flow-and-object-contract",
+      "status": "PASS",
+      "paths": [
+        "docs/DataFlow.md:62",
+        "docs/DataStructure/ObjectRef.md:35"
+      ],
+      "evidence": "均明确 Issue #1 修订并同步事务内归档、原子发布与恢复边界。"
+    }
+  ],
+  "design_authority": "review/issue1-AUD01-AUD03-design-correction.response.md",
+  "independent_implementation_review": {
+    "status": "REQUESTED_NOT_ASSERTED_HERE",
+    "owner": "hermes_review / Ayanami",
+    "note": "设计批准与代码独立复核区分；本清单不推断尚未读取的最终裁决。"
+  },
+  "coordinator_owned_remaining": [
+    "修复提交及发布构建标识",
+    "最终整合回归与短时 Core↔Runner 冒烟",
+    "独立实现复核最终结论"
+  ],
+  "not_claimed": [
+    "新的 A25 或替代长期测试",
+    "旧 soak 哈希代表修复构建",
+    "真实模型或真实私密资料验证",
+    "真实断电、磁盘满或底层 fsync 故障注入",
+    "TestObjectPublishProcessHelper 单独作为验收场景"
+  ],
+  "source_sha256": {
+    "src/store/objects.go": "05bc43a9997916d9058636d01be7b0a89765ad8e54f1dbd3d120ae377f79fb39",
+    "src/store/core_repo.go": "8633054d086201a119c3e282e03722f2ff8a82fb9bb0d0041be58b90d5a2ac96",
+    "src/store/issue1_storage_test.go": "e92d20b65bb4ae62d047bafe79d22508ec3d7439632968c2944ebd28a6392fef",
+    "reports/implementation/issue1-storage.md": "b0032d1a756317201aa4c61feb6ae3fcb9bcd5593ea2fa984235c935d8b2310a",
+    "docs/Storage.md": "e6f52d1c8a8ee0d320559a21b7cdd27fd0050847c38153e4b8c41fe3fed2b375",
+    "docs/DataFlow.md": "61ee6dbc786630341b4fb0e952b0ab11af2fc1adb5eeffe5062886e3f4620776",
+    "docs/DataStructure/ObjectRef.md": "507be15354aa565b30c72d91e94282b5b93d94a757725a4b91426110f0abb68b",
+    "docs/Operations.md": "848047966c1c7c4b8ccbe567e61f7f3d35b9f3246173e82b38c948cae4c1191b"
+  }
+}

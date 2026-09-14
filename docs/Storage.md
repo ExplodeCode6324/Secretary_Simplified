@@ -49,3 +49,17 @@ schema_version 使用整数 major，初版为 1。未知 major 拒绝执行；�
 每个主要 DTO 带 extensions，键使用 `namespace.name`，值必须为 JSON object。扩展不得改变身份、权限、完成条件、状态迁移或调度；被程序消费前须登记扩展 Schema。首版内置 Schema 不接受任意额外顶层字段。
 
 SQL 迁移与 JSON payload 迁移同步编号，迁移记录保存迁移文件哈希。附件 DDL 是空库基线，不得对运行库反复执行。升级规则与备份恢复见 [Operations.md](Operations.md)。
+
+## Issue #1 实施缺陷修订：AUD-01 / AUD-03 对象发布
+
+旧实现直接写最终 `.blob`，进程中断可留下无引用半文件；输入正式准入前独立提交归档也使 BACKPRESSURE／Typed 拒绝增长正式对象。按 Ayanami 最终更正裁决 `review/issue1-AUD01-AUD03-design-correction.response.md` 实施下述无 DDL 修复；该裁决替代首稿 SQLite-only／锁外临时写与年龄清理假设。
+
+- 固定 `objects/.publish.lock`，每个临界区独立 open fd 并以可取消的非阻塞 flock 等待；锁 inode 永不删除或改名。统一顺序 flock → Store mutex → SQLite BEGIN IMMEDIATE。混用忽略 flock 的旧进程不受该互斥协议保证。
+- `Store.WriteObjects(ctx, callback)` 是对象与业务的唯一联合事务入口，callback 使用 `ObjectWriter.Put`；禁止在普通 `Store.Write` 中重入独立 `PutObject`，禁止保存 writer 或自行 commit callback 的 tx。tx 内引用读取只用该 tx 句柄。
+- 临时文件在 flock/tx 内创建于同目录 `.object-tmp-<uuid>`；完整写入并检查 short write、file.Sync、Close 成功后，仅以 hard-link no-replace 暴露最终 `<id>.blob`，再目录 Sync，最后同 tx 插入 object_ref 与业务行。hard-link 失败明确拒绝，禁止复制／覆盖降级。事务内对象 I/O 会延长串行等待，属可诊断吞吐边界。
+- 已提交引用必须验证既有文件长度/hash；损坏拒绝，绝不覆盖、删除或移动。无引用但完整的孤儿校验后重新 file.Sync 与目录 Sync 再采纳；坏孤儿移为 `<id>.blob.orphan-<uuid>` 隔离证据，目录 Sync 后重建。隔离物不匹配正式 blob 后缀，不自动清理。
+- 输入 tx 内顺序保持幂等 → answer scope → 最终 queue count → 对象归档 → InputTurn／receipt／MASTER event；Typed 业务也在同 tx。删除原锁外独立归档。存储信封继续附带同一自动原文 ObjectRef，inputSemanticHash 仍剥离此派生引用，旧请求可直接重放。
+- 取消或 commit 错误后仍持 flock，以最长 5 秒的无取消清理查询确认 object_ref：已存在则保留并校验；确定无 row 才删除本次创建的最终路径；查询不确定则保留完整孤儿，不能猜测或锁外删除。正常拒绝零新增正式对象引用／文件；异常掉电可能留下可恢复暂存／完整无引用文件。
+- `Store.RecoverObjectStaging(ctx, limit)` 是有界 Go 运维接口，limit 为 1–1000：同锁内只清合法 `.object-tmp-<uuid>`，且跳过任何 committed object_ref 指向的路径；不清 blob、隔离物或未知文件名。不需要年龄/pid猜测，因为活临时写入同样持 flock。现有CLI没有凭空新增 purge 命令。
+
+原两小时测试不重跑，不累加到新构建，不改原报告哈希。新修复依赖缺陷定向／竞态回归、构建与短时冒烟；不新增持续时长门槛。

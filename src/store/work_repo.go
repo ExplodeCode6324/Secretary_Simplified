@@ -44,18 +44,29 @@ func (s *Store) BeginWork(ctx context.Context, run contract.JobRun) (*contract.E
 				return err
 			}
 			if old.Receipt != nil {
+				if old.AttemptNo != run.AttemptNo || old.FencingToken != run.FencingToken {
+					return errors.New("RESULT_UNKNOWN")
+				}
 				out = old.Receipt
 				return nil
 			}
 			if old.FencingToken != run.FencingToken {
 				return errors.New("RESULT_UNKNOWN")
 			}
-			return nil
+			return errors.New("WORK_IN_PROGRESS")
 		}
 		if !errors.Is(err, sql.ErrNoRows) {
 			return err
 		}
 		v := contract.CoreWork{SchemaVersion: 1, RunID: run.ID, AttemptNo: run.AttemptNo, FencingToken: run.FencingToken, CommandHash: hash, State: "RUNNING", UpdatedAt: contract.Now(), Extensions: map[string]any{}}
+		class, classErr := contract.ReadClassification(run.Extensions)
+		if classErr != nil {
+			return classErr
+		}
+		v.Extensions, classErr = contract.ClassifyExtensions(v.Extensions, class)
+		if classErr != nil {
+			return classErr
+		}
 		raw, _ = json.Marshal(v)
 		_, err = tx.ExecContext(ctx, "INSERT INTO core_work VALUES(?,?,?,?,?,?,?)", v.RunID, v.AttemptNo, v.FencingToken, v.CommandHash, v.State, string(raw), v.UpdatedAt)
 		return err
@@ -66,35 +77,110 @@ func (s *Store) FinishWork(ctx context.Context, run contract.JobRun, r contract.
 	return s.Write(ctx, func(tx *sql.Tx) error { return FinishWorkTx(ctx, tx, run, r) })
 }
 func FinishWorkTx(ctx context.Context, tx *sql.Tx, run contract.JobRun, r contract.ExecutorReceipt) error {
-	var currentFence, currentAttempt int
-	if e := tx.QueryRowContext(ctx, "SELECT fencing_token,attempt_no FROM job_run WHERE id=? AND state='RUNNING'", run.ID).Scan(&currentFence, &currentAttempt); e != nil {
+	current, e := rtRead(ctx, tx, "job_run", run.ID)
+	if e != nil {
 		return e
 	}
-	if currentFence != run.FencingToken || currentAttempt != run.AttemptNo {
+	var sqlTask, sqlState string
+	var sqlAttempt, sqlFence int
+	if e = tx.QueryRowContext(ctx, "SELECT task_id,state,attempt_no,fencing_token FROM job_run WHERE id=?", run.ID).Scan(&sqlTask, &sqlState, &sqlAttempt, &sqlFence); e != nil {
+		return e
+	}
+	if current["task_id"] != sqlTask || current["state"] != sqlState || rtInt(current["attempt_no"]) != sqlAttempt || rtInt(current["fencing_token"]) != sqlFence {
+		return errors.New("STALE_FENCE")
+	}
+	if current["state"] != "RUNNING" && current["state"] != "RESULT_UNKNOWN" {
+		return errors.New("STALE_FENCE")
+	}
+	hash, e := contract.ValueHash(run.Command)
+	if e != nil {
+		return e
+	}
+	if rtStr(current["task_id"]) != run.TaskID || rtInt(current["fencing_token"]) != run.FencingToken || rtInt(current["attempt_no"]) != run.AttemptNo || rtHash(current["command"]) != hash || current["external_idempotency_key"] != run.ExternalIdempotencyKey || current["occurrence_key"] != run.OccurrenceKey {
 		return errors.New("STALE_FENCE")
 	}
 	if r.RunID != run.ID || r.AttemptNo != run.AttemptNo || r.FencingToken != run.FencingToken {
 		return errors.New("STALE_FENCE")
 	}
+	if r.Status != "SUCCEEDED" && r.Status != "FAILED" && r.Status != "CANCELLED" && r.Status != "RESULT_UNKNOWN" {
+		return errors.New("INVALID_WORK_RECEIPT")
+	}
+	task, e := rtRead(ctx, tx, "task", run.TaskID)
+	if e != nil {
+		return e
+	}
+	var permitRaw string
+	if e = tx.QueryRowContext(ctx, "SELECT payload_json FROM execution_permit WHERE run_id=? AND fencing_token=? ORDER BY rowid DESC LIMIT 1", run.ID, run.FencingToken).Scan(&permitRaw); e != nil {
+		return e
+	}
+	var permit contract.ExecutionPermit
+	if e = contract.Decode("ExecutionPermit", []byte(permitRaw), &permit); e != nil {
+		return e
+	}
+	if permit.RunID != run.ID || permit.FencingToken != run.FencingToken || permit.Capability != run.Command.Capability {
+		return errors.New("STALE_PERMIT")
+	}
+	generation := rtInt(task["cancel_generation"])
+	if generation != permit.CancelGeneration && !(generation > permit.CancelGeneration && task["state"] == "CANCELLED") {
+		return errors.New("STALE_PERMIT")
+	}
+	proof := rtMap(r)
+	if e = rtInherit(proof, current, task); e != nil {
+		return e
+	}
+	for _, ref := range r.Artifacts {
+		class, e := rtObjectClassTx(ctx, tx, ref.ID, ref.SHA256)
+		if e != nil {
+			return e
+		}
+		if class != ref.DataClass {
+			return errors.New("ARTIFACT_REFERENCE_MISMATCH")
+		}
+		if e = rtClass(proof, class); e != nil {
+			return e
+		}
+	}
+	if generation != permit.CancelGeneration {
+		ext := rtObj(proof["extensions"])
+		ext["runtime.cancellation"] = runtimeObject{"effect_observed": r.EffectObserved, "cancel_generation": generation}
+		proof["extensions"] = ext
+	}
+	if r, e = rtTyped[contract.ExecutorReceipt](proof); e != nil {
+		return e
+	}
 	var raw []byte
-	if e := tx.QueryRowContext(ctx, "SELECT payload_json FROM core_work WHERE run_id=?", run.ID).Scan(&raw); e != nil {
+	if e = tx.QueryRowContext(ctx, "SELECT payload_json FROM core_work WHERE run_id=?", run.ID).Scan(&raw); e != nil {
 		return e
 	}
 	var v contract.CoreWork
-	if e := contract.Decode("CoreWork", raw, &v); e != nil {
+	if e = contract.Decode("CoreWork", raw, &v); e != nil {
 		return e
 	}
-	if v.FencingToken != run.FencingToken {
+	if v.RunID != run.ID || v.AttemptNo != run.AttemptNo || v.FencingToken != run.FencingToken || v.CommandHash != hash {
 		return errors.New("STALE_FENCE")
+	}
+	if v.Receipt != nil && v.State != "RESULT_UNKNOWN" {
+		if rtHash(v.Receipt) == rtHash(r) {
+			return nil
+		}
+		return errors.New("WORK_ALREADY_SETTLED")
 	}
 	v.State = r.Status
 	v.Receipt = &r
 	v.UpdatedAt = contract.Now()
-	if e := contract.Validate("CoreWork", v); e != nil {
+	class, e := contract.ReadClassification(r.Extensions)
+	if e != nil {
+		return e
+	}
+	v.Extensions, e = contract.ClassifyExtensions(v.Extensions, class)
+	if e != nil {
+		return e
+	}
+	if e = contract.Validate("CoreWork", v); e != nil {
 		return e
 	}
 	raw, _ = json.Marshal(v)
-	res, e := tx.ExecContext(ctx, "UPDATE core_work SET state=?,payload_json=?,updated_at=? WHERE run_id=? AND fencing_token=?", v.State, string(raw), v.UpdatedAt, run.ID, run.FencingToken)
+	res, e := tx.ExecContext(ctx, "UPDATE core_work SET state=?,payload_json=?,updated_at=? WHERE run_id=? AND fencing_token=? AND attempt_no=? AND command_hash=?", v.State, string(raw), v.UpdatedAt, run.ID, run.FencingToken, run.AttemptNo, hash)
 	if e != nil {
 		return e
 	}

@@ -39,3 +39,5 @@ D09（实施过程中发现的检索命中被预算裁空问题）：经 Ayanami
 ## D12 实施缺陷修订索引
 
 派生输出分类丢失缺陷按 Ayanami D12 最终裁决及注入补充闭合；无 DDL。修改：contracts.schema.json、Security.md、MemoryPolicy.md、DataFlow.md、Acceptance.md、Interfaces.md、Operations.md；DataStructure/Common.md、INDEX.md、ConversationEvent/ConversationState/ConsciousnessState/Item/Task/ScheduledJob/Command/WorldUpdateProposal/WorldFact/ModelCallRecord/Notification/RuntimeRecords/JobRun/ExecutionAttempt/ExecutorReceipt/ObjectRef/RequestReceipt/InputTurn/ContextManifest/ChangeEvent.md。裁决位于 review/D12-output-class-final-contract.response.md 与 review/D12-injection-oracle-clarification.response.md；实现和验证证据分层，索引不表示安全验收已通过。
+
+实施缺陷 Issue #1 AUD-02/AUD-04：取消后的持久收尾及来源读取实际大小上限，已同步 `ExecutionProtocol.md` 和 `Acceptance.md`。设计裁决：`../review/issue1-AUD02-AUD04-design-correction.response.md`、`../review/issue1-memory-reconcile-clarification.response.md`；定向证据：`../reports/implementation/issue1-runtime.md`。

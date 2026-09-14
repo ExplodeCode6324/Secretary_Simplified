@@ -1,0 +1,22 @@
+?   	secretarysimplified/cmd/secretary	[no test files]
+?   	secretarysimplified/cmd/secretaryd	[no test files]
+?   	secretarysimplified/config	[no test files]
+?   	secretarysimplified/context	[no test files]
+ok  	secretarysimplified/contract	2.161s
+ok  	secretarysimplified/core	2.149s
+ok  	secretarysimplified/diagnostics	8.427s
+?   	secretarysimplified/executor	[no test files]
+ok  	secretarysimplified/ingest	3.016s
+?   	secretarysimplified/memory	[no test files]
+?   	secretarysimplified/model	[no test files]
+ok  	secretarysimplified/platform	(cached)
+?   	secretarysimplified/policy	[no test files]
+?   	secretarysimplified/scheduler	[no test files]
+ok  	secretarysimplified/store	7.947s
+ok  	secretarysimplified/tests	62.709s
+?   	secretarysimplified/tools/emptydb	[no test files]
+?   	secretarysimplified/tools/livereplay	[no test files]
+ok  	secretarysimplified/tools/livescenarios	3.183s
+?   	secretarysimplified/tools/modelprobe	[no test files]
+ok  	secretarysimplified/transport	(cached)
+?   	secretarysimplified/world	[no test files]

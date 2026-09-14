@@ -1,0 +1,59 @@
+{
+  "scope": "AUD-02 and AUD-04 targeted synthetic fault injection; not a replacement soak",
+  "checked_at": "2026-09-14T03:10:00.753875+00:00",
+  "status": "PASS",
+  "command": "go test -race ./core ./store ./executor ./tests -run 'TestIssue1|TestStaleWorkerCannotCommitReceipt|TestRuntimeRemoteQuery' -count=1 -timeout=90s",
+  "results": [
+    "core PASS 1.308s",
+    "store PASS (no matching tests)",
+    "executor no test files",
+    "tests PASS 6.017s"
+  ],
+  "docs_check": "DOC_ONLY PASS",
+  "assets": [
+    {
+      "path": "src/core/work.go",
+      "sha256": "ee6f6a7f605cd4beabd1baf894a1b057f09356f099384684c7b2d592e78caa90"
+    },
+    {
+      "path": "src/core/source_file.go",
+      "sha256": "9f6467a42edab896beb39c278cbb8c0b77f7e367bd149a890b904f1c4cccf371"
+    },
+    {
+      "path": "src/core/source_file_test.go",
+      "sha256": "d125d8aaa858cb2320ffb6bbae411acac9433b630b8700a6c720f5b945bd539f"
+    },
+    {
+      "path": "src/store/work_repo.go",
+      "sha256": "0402e7b6ab27ebe817dd3c92480cd0dc3ee4c9e7b2dc476954c7cd3821653f41"
+    },
+    {
+      "path": "src/store/runtime_memory.go",
+      "sha256": "8755427a33197737bccf265454d0404a5939fe926ce61f751706d28f886e0252"
+    },
+    {
+      "path": "src/store/runtime_execution.go",
+      "sha256": "e3ce7e4a022920dcc6d137b0d6144a8788c9b76e4c75f41947b7d0ea52ad2d6d"
+    },
+    {
+      "path": "src/executor/remote_query.go",
+      "sha256": "110debc4c5a8e620c0935fb41777e4645cc46e90b5b63174f71513c8a1a3fe70"
+    },
+    {
+      "path": "src/tests/issue1_runtime_test.go",
+      "sha256": "20d9dc7046d378742fd77a96a785b260ccd97198a999456a6007801ead9d3fda"
+    },
+    {
+      "path": "docs/ExecutionProtocol.md",
+      "sha256": "8bbc6780c438d21c627fc4827e3e1e7a86ef0b6b47f5463f6fecab865b72238d"
+    },
+    {
+      "path": "docs/Acceptance.md",
+      "sha256": "dbc2e76f0e405e92088b8d8c94983dfb303964ee2c13c2de8f3cc89d7ba22445"
+    },
+    {
+      "path": "docs/README.md",
+      "sha256": "6c8e27ee5e9578ab04adc0afdfa7fc5d625d2ca85d816f226a6c71b4e4e08e5f"
+    }
+  ]
+}

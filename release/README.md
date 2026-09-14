@@ -2,6 +2,8 @@
 
 当前二进制目标为 macOS arm64。代码与验收仍在实施收口，根目录 README 给出最新状态；尚未标为可接入真实数据。
 
+Issue #1 修复构建为 CLI `84e24025…` / daemon `1d62faad…`，完整校验见 SHA256SUMS。全仓 race/vet、定向故障回归与短时发布包测试已通过；原 final2 两小时测试保留旧构建标识，不将其结果写成此修复版的持续运行证明。Master 明确本轮修复无需重跑该时长测试。
+
 公开的 `db/secretary.sqlite` 是不含授权、凭据或用户数据的空库检查材料；正常部署仍执行 init 创建自己的运行库。
 
 ## 构建与初始化
@@ -20,6 +22,8 @@
 Mac Unix socket 有长度限制；选择较短的 data-dir。初始化生成 `state/secretary.sqlite`、objects、run 中彼此独立的客户端/内部凭据和 fixture 配置。fixture 是确定性离线测试模式，不进行自然语言理解；使用类型化命令测试业务或显式配置 live 模型。
 
 仓库自带的本地 `release/config.local.json` 与 secrets/state/run 不公开。Master 提供的 OpenCode Go key 已仅放在本机 secrets。测试期间模型仅允许 SYNTHETIC 数据；尚未授权真实资料外发。
+
+真实接入本轮仅支持 PERSONAL 文字，需 Master 明确模型服务商和外发范围后使用新独立 data_dir；`source_configs` 和 `provider_policy.source_ids` 保持为空。真实来源文件同步尚未开放，不能把 fixture_path 改成真实文件路径。仅本地/未知分类资料放在另一独立目录，不共享 SQLite 或 objects；同库混放仍可能保守拒绝。完整边界与验证见 [RealDataTrial.md](../docs/RealDataTrial.md)。
 
 ```sh
 ./release/secretary doctor --config /tmp/secretary-demo/config.json

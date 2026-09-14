@@ -43,14 +43,14 @@ func (s *Store) AcceptInput(ctx context.Context, in contract.InputEnvelope, limi
 	if e = CheckAnswerTarget(ctx, s.DB, in); e != nil {
 		return out, e
 	}
-	in, e = s.archiveInput(ctx, in)
-	if e != nil {
-		return out, e
-	}
-	err := s.Write(ctx, func(tx *sql.Tx) error { var e error; out, e = acceptInputTx(ctx, tx, in, hash, limit); return e })
+	err := s.WriteObjects(ctx, func(tx *sql.Tx, objects *ObjectWriter) error {
+		var e error
+		out, e = acceptInputTx(ctx, tx, objects, in, hash, limit)
+		return e
+	})
 	return out, err
 }
-func acceptInputTx(ctx context.Context, tx *sql.Tx, in contract.InputEnvelope, hash string, limit int) (out contract.InputTurn, err error) {
+func acceptInputTx(ctx context.Context, tx *sql.Tx, objects *ObjectWriter, in contract.InputEnvelope, hash string, limit int) (out contract.InputTurn, err error) {
 	err = func() error {
 
 		var oldHash string
@@ -78,6 +78,10 @@ func acceptInputTx(ctx context.Context, tx *sql.Tx, in contract.InputEnvelope, h
 		}
 		if count >= limit {
 			return errors.New("BACKPRESSURE")
+		}
+		in, err = archiveInputTx(ctx, objects, in)
+		if err != nil {
+			return err
 		}
 		session := emptyConversation(in.SessionID)
 		sb, _ := json.Marshal(session)
@@ -339,13 +343,9 @@ func (s *Store) AcceptTyped(ctx context.Context, in contract.InputEnvelope, limi
 	if lookupErr != nil && lookupErr != sql.ErrNoRows {
 		return out, lookupErr
 	}
-	in, e = s.archiveInput(ctx, in)
-	if e != nil {
-		return out, e
-	}
-	err = s.Write(ctx, func(tx *sql.Tx) error {
+	err = s.WriteObjects(ctx, func(tx *sql.Tx, objects *ObjectWriter) error {
 		var e error
-		out, e = acceptInputTx(ctx, tx, in, hash, limit)
+		out, e = acceptInputTx(ctx, tx, objects, in, hash, limit)
 		if e != nil {
 			return e
 		}
@@ -357,8 +357,8 @@ func (s *Store) AcceptTyped(ctx context.Context, in contract.InputEnvelope, limi
 	return
 }
 
-func (s *Store) archiveInput(ctx context.Context, in contract.InputEnvelope) (contract.InputEnvelope, error) {
-	ref, e := s.PutObject(ctx, []byte(in.Text), "text/plain", in.DataClass)
+func archiveInputTx(ctx context.Context, objects *ObjectWriter, in contract.InputEnvelope) (contract.InputEnvelope, error) {
+	ref, e := objects.Put(ctx, []byte(in.Text), "text/plain", in.DataClass)
 	if e != nil {
 		return in, e
 	}
