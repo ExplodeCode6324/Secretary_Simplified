@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "checked_at": "2026-09-14T03:38:40.235255+00:00",
+  "elapsed_seconds": 7200.009923696518,
+  "samples": 240,
+  "failures": 0,
+  "all_samples_pass": true,
+  "report_sha256": "ec04823d4b2e90e52a8d2ecfc4b004645e87a14d4320e044d4b12c89807f96fc",
+  "binary_sha256": {
+    "secretary": "e60c16167cc42cff76f231adfbf31c44711932389e7262c7b2dd1d843d365c17",
+    "secretaryd": "6682c7395f1d9ca6a7aa840f7d6f9798c96f0257a698bd7c30e5632632d12950"
+  },
+  "sampler_sha256": "efb3e8fc8cc3b71d15030d3ce280062d379a119f3d81be61dc2d9543838a3347",
+  "fixed_copy_hashes_verified": true,
+  "matching_public_binary_commit": "2ba8547",
+  "scope": "Original final2 build; real wall clock with synthetic fixture. Audit-fix release has separate targeted/race/short-smoke evidence; this report does not certify its two-hour runtime.",
+  "real_data": false,
+  "owned_daemons_stop_requested": true,
+  "owned_processes_stopped": true
+}

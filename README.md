@@ -2,7 +2,7 @@
 
 面向 Master 的持久化文字助手。依据 `docs/` 中的设计基线，以 Go 实现 Core、Scheduler、Executor、四层记忆与本地 CLI，首先在 Mac 上使用合成数据完成验证，再由 Master 接入真实资料。
 
-> 当前状态：**上线前审计 issue #1 已修复，指定 DeepSeek 独立复核、全仓竞态/静态检查、新发布包短时端到端验证通过**。原 final2 构建的两小时运行测试继续自然完成；依 Master 的验收口径，新修复不重跑两小时，也不把原报告冒称新二进制实测。到点归档后通知 Master 接入受控真实文字。
+> 当前状态：**代码、release、公开仓库、审计修复与指定 DeepSeek 独立复核已完成，可以接入受控真实文字进行下一阶段测试**。原 final2 构建实际运行 7,200.010 秒、240 次采样、零失败；新修复版另有全仓竞态/静态检查和短时端到端验证，依 Master 验收口径未重跑两小时。真实来源文件同步尚未开放，接入范围见 [RealDataTrial.md](docs/RealDataTrial.md)。
 
 公开仓库：[ExplodeCode6324/Secretary_Simplified](https://github.com/ExplodeCode6324/Secretary_Simplified)。本机可运行版本位于 `release/`；最新离线与构建证据见 [final2-offline.json](reports/implementation/final2-offline.json)，逐项结论见 [验收矩阵](reports/implementation/acceptance-matrix.md)。
 
@@ -36,11 +36,11 @@
 | 0 | 阅读设计、确认依赖与 OpenCode Go 协议、建立 Ayanami 复核会话 | 设计范围、官方协议来源、真实握手记录 | 已完成初步核对 |
 | M1 | 严格 DTO/Schema、迁移、ObjectStore、事项 CAS/依赖、来源同步、请求幂等与事件事务 | A01—A05、A19、A24；对应 Go 测试与复核 | 实现、定向验证及独立复核完成 |
 | M2 | WorldCommit 权限、事实历史/纠正/冲突、四层记忆、24 小时意识槽、有界 Context、模型适配器 | A06—A10、A16、A17；离线与真实模型分开报告 | 实现、真实合成模型链及独立复核完成 |
-| M3 | Core/Runner、Scheduler/Executor、固定验收、取消/等待/重试/恢复、CLI/诊断/备份 | 适用 A01—A25；进程集成、竞态、故障恢复测试 | 实现、审计修复及独立复核完成；原 final2 的 A25 计时中 |
-| 验证 | 72 小时虚拟时钟、30 天模拟回放、至少 2 小时真实本机运行、合成资料真实模型评估 | 带构建与输入哈希的报告；所有失败及重试保留 | 新修复 race/vet、定向回归、发布包短冒烟通过；原 final2 两小时采样继续，不重跑 |
+| M3 | Core/Runner、Scheduler/Executor、固定验收、取消/等待/重试/恢复、CLI/诊断/备份 | 适用 A01—A25；进程集成、竞态、故障恢复测试 | 实现、审计修复、独立复核和原 final2 的 A25 已完成 |
+| 验证 | 72 小时虚拟时钟、30 天模拟回放、至少 2 小时真实本机运行、合成资料真实模型评估 | 带构建与输入哈希的报告；所有失败及重试保留 | 新修复 race/vet、定向回归、发布包短冒烟通过；原 final2 两小时 240 次采样零失败，两组构建证据分开 |
 | 部署 | 构建两个二进制，初始化本地 release，核验新目录使用流程 | release 使用说明、校验和、doctor 与完整链路 | macOS arm64 已构建并初始化，fixture 双进程链路通过 |
 | 发布 | 凭据与私有路径检查、公开仓库创建、上传与远端同步核验 | 仓库链接、提交 ID、发布清单 | 公开仓库已创建并推送；凭据与私人运行资料排除 |
-| 交接 | 汇总通过、失败、未运行及限制，通知 Master 接入真实数据 | 可复核交付报告与接入事项 | 待前序完成 |
+| 交接 | 汇总通过、失败、未运行及限制，通知 Master 接入真实数据 | 可复核交付报告与接入事项 | M1—M3 交付完成；等待 Master 提供受控文字及允许外发的服务商/资料范围 |
 
 新增 [上线前审计 issue #1](https://github.com/ExplodeCode6324/Secretary_Simplified/issues/1) 的对象原子发布/孤儿恢复、取消后持久结算、准入拒绝归档和来源读取上限均已修复并定向核证。issue 的静态发现与实际故障注入结果分开记录。真实接入选用仅 PERSONAL 文字和独立数据目录方案，边界说明在 [docs/RealDataTrial.md](docs/RealDataTrial.md)，实施修订同步 [docs/Operations.md](docs/Operations.md)。原 A25 报告保持原构建哈希，新修复回归另行记录于 [issue1-regression.json](reports/implementation/issue1-regression.json)。
 
@@ -207,3 +207,9 @@ D12 已按 Ayanami 最终裁决实施，初稿的扩展字段限制及排除 Ite
 - GATE-01/02 选择受控 PERSONAL 文字与独立数据目录；真实来源同步未开放，fixture 不能改指真实文件，未给本机现有 ProviderPolicy 扩权。默认分类、未授权零外发、授权正向、目录隔离和同库保守拒绝均通过实际程序路径验证与指定模型复核；[接入说明](docs/RealDataTrial.md)、[证据](reports/implementation/issue1-gates.md)。
 - 全仓 `go test -race ./...`、`go vet ./...`、新二进制构建及 [2.807 秒短时发布包冒烟](reports/implementation/issue1-release-smoke/report.json)通过。新增测试断言另有定向 race，未冒称先前全仓运行已包含后加断言。冒烟脚本初版误按统一 result 包装解析 doctor，已修脚本；失败和纠正后的旧构建基线均在报告历史中保留。
 - 新 release 校验和为 CLI `84e24025…` / daemon `1d62faad…`，完整源码与回归证据见 [issue1-regression.json](reports/implementation/issue1-regression.json)。原两小时测试仍使用 `e60c1616…` / `6682c739…` 的固定副本，未动其状态或二进制。按 Master 明确要求，本轮不重跑两小时，不把旧持续运行结论扩大为新构建实测。
+
+### 2026-09-14 · 原持续测试完成与交付
+
+- 原 final2 测试自然完成：实际 7,200.009923696518 秒、240 次采样、零失败；[原始报告](reports/implementation/final2-release-soak/report.json)逐字节归档，[核验记录](reports/implementation/final2-release-soak/verification.json)包含报告、固定二进制及采样器哈希。固定二进制也与公开提交 `2ba8547` 中的文件一致。确认进程身份后，仅停止本次隔离 Core/Runner；采样器自然退出。
+- Issue #1 已于修复提交 `88c7818` 完成并回贴证据关闭；新 release 的回归与原持续运行保持各自构建标识。代码、二进制、CLI、空数据库、设计修订、复核及工作记录均已交付。
+- 下一步由 Master 提供一组受控真实文字，并明确允许交给哪个模型服务商及外发范围。使用新独立数据目录，真实来源文件同步不开放，既有 ProviderPolicy 不自动扩权；不能用 SYNTHETIC 标签绕过权限。当前交付不声称已经完成真实资料或实际音频/叫醒验证。

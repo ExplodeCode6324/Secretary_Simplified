@@ -359,13 +359,18 @@
   },
   "runtime_review_assets_match": true,
   "original_soak": {
-    "status": "RUNNING",
+    "status": "PASS",
     "required_seconds": 7200,
     "binary_sha256": {
       "secretary": "e60c16167cc42cff76f231adfbf31c44711932389e7262c7b2dd1d843d365c17",
       "secretaryd": "6682c7395f1d9ca6a7aa840f7d6f9798c96f0257a698bd7c30e5632632d12950"
     },
-    "policy": "Master explicitly waived repeating A25 for audit fixes. Do not relabel the original run as new-binary coverage."
+    "policy": "Master explicitly waived repeating A25 for audit fixes. Do not relabel the original run as new-binary coverage.",
+    "elapsed_seconds": 7200.009923696518,
+    "samples": 240,
+    "failures": 0,
+    "report": "reports/implementation/final2-release-soak/report.json",
+    "verification": "reports/implementation/final2-release-soak/verification.json"
   },
   "harness_history": [
     {

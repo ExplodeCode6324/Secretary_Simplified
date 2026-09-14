@@ -144,5 +144,14 @@
     "secretary": "e60c16167cc42cff76f231adfbf31c44711932389e7262c7b2dd1d843d365c17",
     "secretaryd": "6682c7395f1d9ca6a7aa840f7d6f9798c96f0257a698bd7c30e5632632d12950"
   },
-  "real_data": false
+  "real_data": false,
+  "subsequent_soak_completion": {
+    "status": "PASS",
+    "elapsed_seconds": 7200.009923696518,
+    "samples": 240,
+    "failures": 0,
+    "report": "reports/implementation/final2-release-soak/report.json",
+    "verification": "reports/implementation/final2-release-soak/verification.json",
+    "scope": "Original final2 build only; original offline timestamp and source hashes above remain unchanged."
+  }
 }
