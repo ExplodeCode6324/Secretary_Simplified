@@ -1,6 +1,0 @@
-同session短收口无需工具。补充/纠正：
-1 C3 stored-session回退仅当HTTP明确省略session字段且命中同principal/request后补原session；显式提供不同session必须以实际原信封hash判冲突，不可改写显式foreign成精确重放。直接Store完整信封仍精确hash。旧真实原session完整信封仍先重放后authority检查。请同意此更严边界。
-2 C1既有未知version2旧测试代码和报告保留，不改成3；仅新Issue2指定测试用version3验证未知链，现Open/backup版本识别变更编译静态及新增短样例即可，不能要求旧套件/全仓。C9 409head turn/seq可查询同authority snapshot，无需强改统一错误信封为新增必需字段。
-3 foundation/root补充：Upgrade显式持实际dataDir/run/core.lock+runner.lock迁移锁，两角色必须停止，不kill；新registry仅无MASTER历史可自动新生，有历史显式选择，internal-only不选；不合库/改旧hash。history支持direction=backward初始tail+before_sequence回翻，返回仍正序，不首次扫全库；GET requests既有receipt保留turn_id/state再GET turn。
-4 frozen prefix eligibility包括已终结FAILED的前轮原文/失败结果，因为Issue要求前轮已提交或明确终结失败，不能只取成功COMMITTED遗漏失败历史。不新增旧Context质量测试。
-请给明确同意/具体反对，整份方案+条件足以开工，不要求再许可。你无模型调用措辞仅指未另调Secretary产品模型，reviewer自身真实DeepSeek。

@@ -1,2 +1,0 @@
-同意，作为第 6 条的具体实现：`Runner.reconcile → Store.ReconcileMemoryWork(run)`，单 Write tx 内校验 core_work 同 run/attempt/fence/hash 存在 + exact slot 合法 DTO + slot==command + root 谱系，复用 FinishWorkTx 落 SUCCEEDED receipt，再走既有 RecordReceipt + Verifier 结算。
-附三个已在规则内的收口要点，无新增反对：幂等重入（core_work 已有 final receipt 时同结果 no-op、不得改写）；receipt_key 用独立对账键避免与既有 receipt 冲突；取消 Task 由既有 RecordReceipt 门控保持 CANCELLED 不复活。GET 继续纯只读；无 core_work、查不实或旧 fence 一律拒绝并保持 UNKNOWN，中间崩溃由下轮 Query 读既有 receipt 安全接续。

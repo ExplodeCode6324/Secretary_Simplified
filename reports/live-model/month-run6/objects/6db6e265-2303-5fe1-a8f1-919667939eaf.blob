@@ -1,1 +1,0 @@
-{"schema_version":1,"context_id":"8d88c8b6-24f8-4cf2-98d2-b5bb4a2668cb","reply":{"text":"已提出创建事项“合成事项13”的请求，不创建提醒或其他任务。","evidence":[]},"actions":[{"operation_key":"create-synthetic-item-13","kind":"CREATE_ITEM","payload":{"domain":"school","kind":"TASK","title":"合成事项13","due_at":"2026-09-22T00:00:00.000Z","timezone":"UTC","priority":0}}],"controls":[],"extensions":{}}

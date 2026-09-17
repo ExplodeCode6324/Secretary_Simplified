@@ -1,1 +1,0 @@
-{"schema_version":1,"context_id":"b87d9a33-358d-471b-b674-450217cc9566","reply":{"text":"", "evidence":[]},"actions":[],"controls":[{"kind":"READ_MEMORY","task_id":null,"payload":{"query":"sea-salt-protocol","entity_ids":[],"cursor":null}}],"extensions":{}}

@@ -1,6 +1,0 @@
-{
-  "exit_code": 1,
-  "status": "FAIL",
-  "scope": "Additional real items cursor contract branch, before production changes",
-  "test_sha256": "4dcc20eac42a45aea09555c9a5e8eb399a491b783fead9065012876af6e74c6b"
-}

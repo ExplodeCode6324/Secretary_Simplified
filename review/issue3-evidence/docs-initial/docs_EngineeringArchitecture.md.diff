@@ -1,9 +1,0 @@
-diff --git a/docs/EngineeringArchitecture.md b/docs/EngineeringArchitecture.md
-index a21dd5d..967e90f 100644
---- a/docs/EngineeringArchitecture.md
-+++ b/docs/EngineeringArchitecture.md
-@@ -27,2 +27,4 @@ P1 故障时 P2 可扫描已提交计划并执行本地能力；需要 P1 的 ag
- 
-+Issue #3 在同一 TUI 内分开提交确认与观察结果，保留稳定请求身份及终态，查询失败不撤销受理。业务面板缓存页、选中 ID 与响应代次分别维护；自动刷新有界地更新当前页/对象，快照游标失效显式交给用户重载。后端 API、权威队列和存储结构未改，详见 SingleConversationTUI。
-+
- ## 2. 源代码分组

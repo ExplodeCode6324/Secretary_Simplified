@@ -1,1 +1,0 @@
-仅一句实现顺序确认，无工具：runtime具体采用Runner.reconcile调用Store.ReconcileMemoryWork(run)，一个Write tx内查exactslot/合法DTO/slot与command一致/root谱系，并要求已存在CoreWork same run/attempt/fence/hash，复用FinishWorkTx持久SUCCEEDED receipt；然后普通RecordReceipt+Verifier结算。GET继续纯只读；无模型/无新slot/旧fence拒绝；中间崩溃由下轮Query既有receipt安全接续。这比前述仅读slot→RecordReceipt增加已有CoreWork原子绑定，是否同意作为第6条的具体实现？同意或具体反对理由即可。

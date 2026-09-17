@@ -1,1 +1,0 @@
-{"schema_version":1,"context_id":"1d1ebc9d-6698-41e7-ae7e-3608814d5577","reply":{"text":"已提交 READ_MEMORY 请求，等待检索结果后再返回原始问题记录。","evidence":[]},"actions":[],"controls":[{"kind":"READ_MEMORY","task_id":null,"payload":{"query":"synthetic-question-project-date","entity_ids":[],"cursor":null}}],"extensions":{}}

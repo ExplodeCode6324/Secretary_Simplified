@@ -1,1 +1,0 @@
-Read the latest revisions of WorldFacts 00000000-0000-4000-8000-000000000801 and 00000000-0000-4000-8000-000000000802, overriding earlier conversation. Reply exactly COFFEE_WITHDRAWN_UNRESOLVED if the coffee fact is RETRACTED and the tea fact remains CONTESTED. Do not treat withdrawn evidence as active or resolve the remaining conflict automatically. Do not mutate data.

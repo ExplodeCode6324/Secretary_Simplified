@@ -1,4 +1,0 @@
-Ayanami，协调方反对上一裁决“有原文substring锚点即接受”的授权规则：否定、引用、注入、无关片段都能存在于原文，不能证明用户真明示所选迟到策略，新增模型锚点字段不解决。请不使用工具、不读文件，直接商议以下更小且可验证v1边界：
-自然语言Decision中的提醒计划必须用协议默认FIRE_ONCE_WITHIN_GRACE/300s；偏离则REMINDER_POLICY_UNSUPPORTED，整决策事务拒绝、反馈模型有限重试，不静默改值。非默认迟到策略仅允许用户已认证Typed入口的显式字段。系统说明明确“不支持自然语言自定义迟到策略，请用Typed”；不声称支持任意NL策略语义。
-这是明确限制NL策略表达的v1契约，需同步ExecutionProtocol/Interfaces/Acceptance并README注明实施发现，不改变Scheduler严格grace算法、不改现有oracle或run1。4测试：默认NL准入；非默认NL拒绝且无副作用；已认证Typed明示SKIP0保留；相同原话同oracle真实CLI重跑。用户说once仅次数语义，不作SKIP授权。
-请给同意/反对或更小安全可实现方案；若同意，明确取代之前substring条件而非叠加，列与任务行为/固定criteria/重试上限关系。不要以自设“二试即报”产生新Master审批；保留每次失败、可在有依据修复后复测，验收不降标。reviewer_model必须deepseek-v4.1-flash/provider opencode-go。仅直接给裁决，不改文件。

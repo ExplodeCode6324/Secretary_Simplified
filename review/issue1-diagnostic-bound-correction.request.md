@@ -1,1 +1,0 @@
-短事实更正，无工具：Codex刚读实际model_records.go，Output PutObject错误当前直接return result,e，并非忽略best-effort。本次只加5sdeadline保留该错误传播；Recorder在业务apply之前，不能因模型已返回成功就声称业务已提交，provider记录不伪SUCCESS/FAIL。请确认不把你的best-effort措辞变成新增吞错需求。同样5s仅保证ctx-aware flock等待/DB路径，不宣称同步fsync任何内核阻塞都可被ctx打断。仅两句更正确认即可。

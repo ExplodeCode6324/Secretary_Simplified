@@ -1,6 +1,0 @@
-你已完成最终Schema/prompt等价且PASS，现在同session只做最后存档/hash补核，禁止源码重扫/新模型调用/全仓测试。最多3批工具、预留自然总结。
-1. reports/local/live-question-run4/report.json 与 reports/live-model/question-run4/report.json 程序SHA完全相同（Codex已测48c99b58d30c0c52f0799555d6d2db68b23810648d31d6a20db6ed6634bed156，请独立复算）；只读报告和直接引用证据，确认已完成的普通公开CLI创建真实问题→新session真正READ_MEMORY取原session/questionID→Core重启→原session显式回答→resolved/ItemOPEN/幂等不重调/新request409。若部分只是脚本断言而无单独工件，准确限界，不重演模型/不凭存在就PASS。binary hash与报告绑定核对，不打印token或私有真实内容（全合成数据）。
-2. 当前冻结release cli e60c16167cc42cff76f231adfbf31c44711932389e7262c7b2dd1d843d365c17，daemon6682c7395f1d9ca6a7aa840f7d6f9798c96f0257a698bd7c30e5632632d12950。只核报告所用版本，当前文件若改变准确记录不自动失败/重build。
-3. reports/local/live-month-run8 或实际 month-run8 路径下 report：root说90 checkpoints失败0，30snapshots独立审计尚在收口。只核报告计数/可用audit状态，不自行升级尚未完成审计为PASS，不逐条重演模型。公开副本存在则对比report hash；不存在明确待publisher。
-4. 原等价报告数字口径非阻断：20214→19770和d52b→5fdd指生成的DecisionSchema子闭包非整个contracts.schema文件；若作者equivalence报告已补基准可只读一句，别重新全Schema测量，你已独立深相等PASS。
-报告只需实际检查与结论/范围，不写同名文件（Codex保存）。发生429停止告知，400强制summary则按同session自然输出。当前Codex用量已恢复不需要也禁止调用任何额度重置工具。你不修改业务/报告/凭据/系统/其他进程。

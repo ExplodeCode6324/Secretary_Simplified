@@ -1,8 +1,0 @@
-diff --git a/review/final-pending.md b/review/final-pending.md
-index d7bb0b1..14b916b 100644
---- a/review/final-pending.md
-+++ b/review/final-pending.md
-@@ -1 +1,3 @@
-+> Issue #3 新增局部修复待进行：仅R1-01–03、R2-01–03、DOC-R/BUILD-R。原Issue2收口结论保留，不重开旧审查。
-+
- > Issue #2 最新状态：AUTH/TUI/DOC/BUILD限定范围实际DeepSeek复核已收口，无开放mustfix；最后两句文档与导出hash已确认，46份实际模型来源记录。新增证据仅收编清单，不循环复审。以下全部为先前协调历史。

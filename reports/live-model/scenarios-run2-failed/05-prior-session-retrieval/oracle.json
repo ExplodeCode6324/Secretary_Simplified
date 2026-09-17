@@ -1,9 +1,0 @@
-{
-  "name": "prior-session-retrieval",
-  "text": "Use READ_MEMORY to retrieve earlier conversations for sea-salt-protocol and report the current password after withdrawal. Reply only with the password. Do not guess or modify items.",
-  "session": "new",
-  "conflict_id": "",
-  "expected": {},
-  "reply_contains": "GREEN842",
-  "min_calls": 2
-}

@@ -1,8 +1,0 @@
-Ayanami，Master要求每模块最终DeepSeek复核。本轮精简合并M1基础、World权限修复、diagnostics/备份最终状态，并补你上轮artifact v2探针与A19/A23契约口径。直接审、不委派、禁止全仓test/race/vet，只定向检查；旧Luna结论只线索。
-M1：contract严格schema/生成、platform锁时钟、store/ingest原F1-F8已修但收口曾Luna，需你验证CAS CurrentRevision、事务/事件RowsAffected、tombstone、重复/quarantine对象去重、timestamp/初始化、生成与依赖一致性。可用review/M1-foundation-ayanami.md原DeepSeek报告、src/store/foundation_test.go及ingest针对性测试，不重新做无关业务。
-World：src/store/{world_repo,work_repo}.go和core/work.go，确认跨run permit/命令身份绑定、durable fence/attempt receipt CAS、Model INFERENCE vs认证Typed MASTER_EXPLICIT、policy version与零版本CORRECT/RETRACT拒绝、事务finalize回滚；tests/work_security_test.go/world_test.go及现有冲突组/撤回测试定向跑。F5幂等在Typed whole transaction而非内部primitive，不凭内部方法本身虚构公网入口。
-Diagnostics：src/store/{backup,health}.go+diagnostics，重点metadata完整绑定/strict manifest/UTC timestamp/末次verify/UNKNOWN budget-overdue-history及真实epoch。transport DeepSeek已实际运行3backup+2doctor测试，见M3-transport-cli-deepseek-final-resume1，不重跑相同项可核当前hash/补未检边界。
-artifact专项：上轮DeepSeek在/tmp/m3_deepseek_final_20260913_235347/src/executor/ayanami_final_artifact_test.go写了v2（正常控制写+根级swap相位）未执行；请仅读该临时probe后跑TestAyanamiFinalArtifactRootContainment，保留原自设过严FAIL，不改production。不把竞态所有写均拒绝误判逃逸，核心否证outside不变+正常控制写成功。将根级/组件级结果分别记录。
-契约解释A19：本新项目只有schema1，无历史业务schema，baseline事务回滚/版本拒绝已测；按docs/Acceptance实际条款，给适用范围而非编造旧业务迁移通过。
-契约解释A23：月90changes/30consciousness + latest7语义cases +2严格WorldFact conflict/retraction cases作为组合固定集，现附加报告明确分隔序列。docs/Acceptance §3是否要求每个变化/冲突必须同一DB30天内？请据实际文档裁决，不能凭空加集成门槛，也不能把事后拼集替代预冻结oracle/范围。必要时列确切缺口与最小修订商议条件；设计解释与真实测试通过分开。
-尽量约15次批量工具动作主动收口，未检如实列，不耗上限。业务只读、临时synthetic，无resources/ELIZA/受测API/响铃/系统改动；429即报告。reviewer_model=deepseek-v4.1-flash/opencode-go。报告由Codex保存review/foundation-world-diagnostics-deepseek-final.response.md。

@@ -1,5 +1,0 @@
-Ayanami，Master恢复本地复核，本轮必须deepseek-v4.1-flash/opencode-go（已核持久配置一致），不可fallback。先设计商议AUD01/AUD03，非实施验收；issue全文review/issue1-original.md为静态审计，不得当动态复现。只读该issue相关两节和src/store/objects.go/core_repo.go/store.go必要段，不扩全仓，不委派。Master明确本issue不重跑两小时、不新增任何持续时长门槛；原soak/binary/data不碰，原报告保留原hash，修复只定向/race/build/短e2e。
-foundation共同提案：沿现有SQLite _txlock=immediate，将对象发布纳入同库写事务（所有PutObject路径包括Core/Runner遵守同库跨进程锁，不能只靠objectMu）。完整写同目录随机temp→检查write结果→Sync→Close→hard-link no-replace原子发布→目录Sync→object_ref同tx；已提交ref存在必须先验证hash/bytes，损坏不得覆盖/删除。无ref且坏旧final在写锁下隔离到受控名再重建；完整无ref验证复用。
-受理：tx内幂等/answer/最终queue检查先做，再PutObjectTx+Input/Typed业务同tx；普通rollback前仍持写锁时删本次新发布未提交文件，正式ref/file无残留。进程崩溃只留randomtemp或完整unreferencedfinal，同内容可恢复；启动/显式恢复同写锁清理已知temp，不碰committedrefs。commit结果不确定不盲删，重新取写锁确认ref缺失才回收。无DDL。
-请给可实施协议条件，重点：hardlink无覆盖发布跨进程安全；同DB写锁与filesystem目录顺序；坏孤儿与已提交损坏必须区分；rollback/commit-unknown cleanup边界；AUD03最终事务容量不可用预查替代；孤儿暂存bounded/有据回收策略；是否需最小docs设计缺陷登记。真实退出点/并发两Store两进程/满队列/Typed失败测试清单按issue，不新增长时门槛。不改生产；建议若事实不成立给可执行反证，不机械迎合。
-最多有限工具批次，预留自然最终裁决，Codex保存，不写同名报告。禁止密钥/真实模型产品调用/真实资料/其他进程；出现真实Go429立即停止报告，与root协调官方切换，勿单方换模型。

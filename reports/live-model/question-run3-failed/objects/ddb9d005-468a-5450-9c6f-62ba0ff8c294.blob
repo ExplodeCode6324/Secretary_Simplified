@@ -1,1 +1,0 @@
-请实际调用 READ_MEMORY，query 使用 synthetic-question-project-date，entity_ids 为空。取回之前真实登记的截止日期问题；从原始 ASSISTANT 程序问题块恢复 question_id 与原 session_id，并核对关联 Item。最终 reply.text 只返回 JSON 对象，字段严格为 question_id、session_id、item_id、text，值是原始问题记录，不要推测 ID。不创建问题，不修改任何事项。

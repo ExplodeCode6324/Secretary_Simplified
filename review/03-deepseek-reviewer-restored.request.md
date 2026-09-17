@@ -1,1 +1,0 @@
-Ayanami，Master最新明确要求：Hermes复核必须使用DeepSeek v4.1 Flash，禁止Luna fallback。Codex已手动设置Hermes model.default=deepseek-v4.1-flash，现用该模型与现有opencode-go调用。请仅确认收到，不使用任何工具、不读文件、不自称已完成复核。此前Luna结论仅model-qualified，后续需要你以DeepSeek重新检视所有最终模块及D01-D07设计商议。出现API连接错误或429停止并报告，不换模型。

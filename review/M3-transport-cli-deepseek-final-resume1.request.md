@@ -1,1 +1,0 @@
-上一轮已经完成实际检查，但Hermes上限收口的内部请求因MissingSessionID HTTP400失败。请本轮不使用任何工具、不读文件、不委派，直接依据本会话已经完成的源码/实际探针结果给最终transport/CLI裁决：逐重点通过/缺陷/未覆盖、具体严重性/行号/真实命令结果、必须修复和边界。不把失败或未查项写PASS，不能继续调研；正常最终回复即可避免强制摘要路径。reviewer_model仍deepseek-v4.1-flash/opencode-go，不换模型。原错误保留，输出由Codex另存resume1。

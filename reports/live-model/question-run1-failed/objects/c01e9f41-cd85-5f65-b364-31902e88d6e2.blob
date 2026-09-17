@@ -1,1 +1,0 @@
-{"schema_version":1,"context_id":"e047e350-635c-48db-ac10-26cee0cc521a","reply":{"text":"{\"question_id\":null,\"session_id\":null,\"item_id\":\"1b2b211f-791d-59bb-9a48-9736af79fcf7\",\"text\":\"\"}","evidence":[]},"actions":[],"controls":[{"kind":"READ_MEMORY","task_id":null,"payload":{"query":"synthetic-question-project-date","entity_ids":[],"cursor":null}}],"extensions":{}}

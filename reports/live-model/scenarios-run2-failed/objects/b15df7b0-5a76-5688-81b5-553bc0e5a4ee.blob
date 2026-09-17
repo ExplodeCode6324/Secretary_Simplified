@@ -1,1 +1,0 @@
-{"schema_version":1,"context_id":"0c79dd4c-36b7-4572-993a-684a81e74830","reply":{"text":"I need to retrieve the earlier conversations before I can report the current password.","evidence":[]},"actions":[],"controls":[{"kind":"READ_MEMORY","task_id":null,"payload":{"query":"sea-salt-protocol current password after withdrawal","entity_ids":[],"cursor":null}}],"extensions":{}}

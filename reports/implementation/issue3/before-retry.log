@@ -1,8 +1,0 @@
---- FAIL: TestIssue2ResidualR203RepeatedResetRetainsSelectionIntent (0.02s)
-    --- FAIL: TestIssue2ResidualR203RepeatedResetRetainsSelectionIntent/25 (0.01s)
-        residual_test.go:516: repeated reset lost present original ID
-    --- FAIL: TestIssue2ResidualR203RepeatedResetRetainsSelectionIntent/75 (0.01s)
-        residual_test.go:519: repeated reset selected unrelated row
-FAIL
-FAIL	secretarysimplified/cli/tui	0.984s
-FAIL

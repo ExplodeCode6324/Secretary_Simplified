@@ -1,3 +1,0 @@
-Ayanami，D08紧急补充缺口，请基于你已裁决的三kind方案只读商议：verifyRuntimeCriterion按某Task总共恰1 JobRun限制；但现有runtime_controls.go合法REPLAN保留旧run并同Task创建新run。因此新三kind在合法REPLAN后永久UNKNOWN。
-必须保持固定criteria不变、旧run证据不可借用；不能随便选任何成功旧run。请仅核对src/store/runtime_controls.go REPLAN及src/store/新增verifyRuntimeCriterion相关片段，给最小明确“当前run”规则（程序维护Task current_run_id/代际，或可证明唯一的最新已接纳run/顺序），并验证并发/CAS/取消/恢复/旧fence边界。需要Schema/DDL改变则明确，不用模型决定run。
-请尽快直接给同意的精确方案/必要修订/反例要求，不做全仓复查，不委派，无受测API/秘密/ELIZA/文件修改。此前D08唯一run条件需改正为合法REPLAN兼容，不能擅自弱化多run绑定。reviewer_model=deepseek-v4.1-flash/provider opencode-go。输出保存review/D08-replan-current-run-deepseek.response.md。

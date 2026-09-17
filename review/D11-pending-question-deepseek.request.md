@@ -1,2 +1,0 @@
-Ayanami，Master指定仅DeepSeek v4.1 Flash复核。紧急且有界设计商议，主体M2审查另会话进行中；此处仅读 review/A09-pending-question-proposal.md（已写完整现场契约/提案），如必要只读MemoryPolicy §4与Acceptance A09，不重审源码、不委派、不运行测试。预算最多8轮，保留自然最终输出。
-root与foundation一致选择该最小方案作为D11提案，尚未改正式schema，等你的实际裁决后实施。请聚焦3点：①可选reply.questions内容提议+InputEnvelope.answer_to_question_id，程序独占ID/序号/状态和原子登记是否同意；②跨session可检索原问题，必须切回原session显式ID回答的范围是否满足A09本期、不得宣称任意自由指代；③resolved只表示成功提交显式回答、不证明答案真实性/任务DONE是否同意。发现必须修正条件具体指出。无疑则明示同意，不要添加Master二次批准或额外重跑次数门槛；已有Master授权双方商议后设计同步执行。全文reviewer结论由Codex保存，勿自己改文件。

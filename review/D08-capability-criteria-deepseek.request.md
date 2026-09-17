@@ -1,5 +1,0 @@
-Ayanami，Master指定所有复核必须DeepSeek v4.1 Flash，禁止Luna fallback。本轮为全新专用设计会话，避免旧会话30万token历史；身份与记忆保持。请直接只读商议D08能力准入/固定criteria缺口，不委派子agent，不重复全仓测试。
-已发现：Criterion无alarm.play完成类型，Core DeriveCriteria只接notify/artifact，故public typed无法登记alarm，A21仅低层夹具不足。请判断最小可验证设计，例如alarm_session_recorded expected绑定device_id/audio_ref/当前run会话，不等于已叫醒或Item DONE，snooze新run不能复用旧证据。
-同组：briefing.build模型产物事前无法提供固定artifact_hash，公共准入因DeriveCriteria拒绝；source.sync已有source_cursor_committed但DeriveCriteria不接受。请为三能力设计最小、严格、可程序验收的固定criteria方案和注册准入约束，不能用模型自述成功或弱化既有criteria不可变原则放行。
-请读docs/ExecutionProtocol.md、TypeRegistry/Verification及相关Criterion/Command Schema片段、src/store/runtime_local.go DeriveCriteria及Core准入。输出逐项问题/证据/同意方案或反对/必须修改路径/独立验收条件。Master已授权Codex与Ayanami商议通过后可改设计并注明实施缺陷/README路径，无需重复申请。
-只读源码设计，禁止resources凭据/ELIZA/外部受测API/响铃/系统修改。最多约12次集中工具调用后给清晰裁决；任何429或连接失败即停止报告，绝不换reviewer模型。实际reviewer_model必须deepseek-v4.1-flash/provider opencode-go。本轮回复由Codex保存review/D08-capability-criteria-deepseek.response.md。

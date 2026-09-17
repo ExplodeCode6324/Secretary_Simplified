@@ -1,1 +1,0 @@
-沿刚才同意的D11文字存在性不变量，补一个完全同类已核事实供一次最终确认。禁止工具/读文件/代理，直接短裁决：reply.questions[].text现schema minLength1，只含空白也可登记问题。root+foundation共同建议统一程序proposal校验 strings.TrimSpace(q.Text)=="" → QUESTION_TEXT_EMPTY/HTTP400、整个Decision拒绝零问题/业务副作用，原文不trim；空串已有schema拒绝，新增只针对空白；无任意字数/语言限制，不需要新字段。docs D11/Interfaces补文字问题必须非空白、API/Store机械空白反例。是否同意该对称必要修正？先前answer九条件中相应事务/原文/Unicode/无额外语义原则保持。无需重开设计，勿追加审批。

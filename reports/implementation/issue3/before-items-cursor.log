@@ -1,5 +1,0 @@
---- FAIL: TestIssue2ResidualR203ItemsInvalidatedCursorKeepsExplicitNavigation (0.01s)
-    residual_test.go:345: invalidated cursor silently left selected item stale or replaced range
-FAIL
-FAIL	secretarysimplified/cli/tui	0.987s
-FAIL

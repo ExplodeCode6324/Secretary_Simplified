@@ -1,2 +1,0 @@
-Ayanami，仍只一次短裁决，禁止工具/源码扫描。root最新真实D11检索run2：D09双锚已成功保留真实questionID/session，模型连续3次回复正确JSON答案，却每次同时附重复READ_MEMORY、同query、nullcursor，最终既有3次预算耗尽。原run2失败保留，不接受带control答案，不加预算，不改动作/控制互斥与oracle。
-root建议仅补model roleInstruction：READ_MEMORY是探索控制；当已取得足够检索信息可回答时，最终答案必须controls=[]；不要在给出最终答案同时重复同query/nullcursor。没有足够信息时仍按已有协议检索并受预算约束，不伪造答案。这是对既有控制状态机的prompt实现补全，不改正式设计/验收，不自动丢掉模型control或接受失败结果。请确认可作为正常prompt修复按原模板/同oracle复验，或指出具体协议冲突。仅短结论，无新审批/次数门槛，其余D12契约不变。

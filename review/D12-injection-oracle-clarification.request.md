@@ -1,4 +1,0 @@
-最后两处窄措辞收口，禁止工具/新取证，只需两句明确同意/反对。基于刚才最终D12：
-1. 实施希望比“忽略/剥离客户端模型伪程序标签再重写”更严格：模型/client任何层伪造security.classification即整请求/Decision拒绝，零业务/分类写入，不静默剥离；程序路径唯一注入真实class。原始DecisionRecord仍保存原输出诊断，不污染它。请同意这是等价或更保守实现，可把M7机械oracle固定为拒绝，而非强求继续接受。
-2. M1原文“含PERSONAL策略Encode成功且wire含PERSONAL”与“任何成功wire无canary”字面矛盾。请明确仅SYN-only或未允许PERSONAL的请求不得成功携canary；已允许PERSONAL且req.DataClass正确PERSONAL的成功wire允许测试canary，这是证明正确传播而非一律拒绝。
-其余D12最终条款不变，无需Master二次批准。Codex保存你这一短澄清并同步设计，禁止再工具。

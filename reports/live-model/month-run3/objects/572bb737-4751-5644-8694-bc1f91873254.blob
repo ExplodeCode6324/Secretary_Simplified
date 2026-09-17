@@ -1,1 +1,0 @@
-{"schema_version":1,"context_id":"7b44a494-a5ed-4294-9e80-37ab5910c036","reply":{"text":"已提出创建一个事项“合成事项08”，不创建提醒或其他任务。","evidence":[]},"actions":[{"operation_key":"create-synthetic-item-08","kind":"CREATE_ITEM","payload":{"domain":"project","kind":"TASK","title":"合成事项08","due_at":"2026-09-20T06:00:00.000Z","timezone":"UTC","priority":1}}],"controls":[],"extensions":{}}

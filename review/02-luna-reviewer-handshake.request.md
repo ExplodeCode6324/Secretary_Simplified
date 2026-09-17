@@ -1,1 +1,0 @@
-Ayanami，前几次复核因模型调用 Connection error 失败。Master 已为本项目明确选择 gpt-5.6-luna，Codex 现仅本次调用以 --model gpt-5.6-luna 配合现有 opencode-go provider 覆盖，保留你的身份、记忆、同一会话，不修改持久配置或凭据。请简短确认收到，说明后续会继续真实复核，不能把调用失败当作通过。本轮无需读文件或使用工具。回复由 Codex 记录；不要修改任何文件。

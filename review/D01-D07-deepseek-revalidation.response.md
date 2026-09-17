@@ -1,1 +1,0 @@
-I reached the maximum iterations (25) but couldn't summarize. Error: Error code: 400 - {'type': 'error', 'error': {'type': 'MissingSessionID', 'message': 'Error from provider (Console Go): Request is missing x-opencode-session and cannot be routed efficiently. Please see https://opencode.ai/docs/go/#where-can-i-use-it'}}

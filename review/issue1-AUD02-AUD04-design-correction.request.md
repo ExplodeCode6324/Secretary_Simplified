@@ -1,9 +1,0 @@
-请仅用已有事实+补充无工具短收口，不重审全库。初稿“未调用模型”仅指未调Secretary被测模型；reviewer自身实际DeepSeek调用应明确。
-运行agent实际复现了取消Socket后CoreWork RUNNING receipt=nil（真实UnixHTTP fake模型，before日志已保留）。补充机制请裁决：
-1 Runner落RESULT_UNKNOWN已把attempt.dispatch_state=FINISHED；随后获得同代有证据FAILED/effectfalse需允许原runRESULT_UNKNOWN+FINISHED的既有max3/5m30m重试，不能重复active_ms结算。不是无证据UNKNOWN盲重试。
-2 同代迟到收据标记只沿用现有严格注册runtime.cancellation，不可擅加未登记shape字段。core_work已有receipt若重复结果需幂等，不允许真实结果反复改写。
-3 briefing通过foundation刚批准Store.WriteObjects持flock+tx将ObjectRef与FinishWorkTx原子绑定，不凭搜索旧对象成功。
-4 memory slot已经提交但Core崩溃/收尾失败，需要exactslot证明收口且GET保持只读。建议Core GET Query仅读取并返回程序生成的exact slot evidence（合法DTO+命令slot+root谱系+当前attempt/fence验证），不写DB；Runner后续RecordReceipt既有事务持久receipt/run，或独立明确reconcile方法。不能依赖GET暗写CoreWork。请选择最小明确可实施方式，不引入新HTTP接口/DDL；若无法返回无CoreWork持久receipt的证明，可在Runner内部reconcile调用现有Store方法从同库exactslot查证后入RecordReceipt。
-5 现remote_query.go把旧FAILED也跨fence重绑定，会用旧失败覆盖新执行，需收紧跨代只允许可独立验证的SUCCEEDED效果，FAILED仅同attempt/fence。你初稿“无需改动”需此事实更正。
-AUD04已有实现，仅增加拒绝后cursor/成功receipt不变定向集成即可。
-请短列同意的实现规则，保持取消Task不复活/旧代不覆盖/5s仅持久化。无新时长门槛。
