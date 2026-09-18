@@ -1,0 +1,153 @@
+{
+  "commit": "d981de1229ef899957bbe968bc8dcda02a21f477",
+  "entries": [
+    {
+      "path": "packages/agent/src/agent.ts",
+      "symbol_match": "constructor",
+      "lines": [
+        129,
+        216
+      ],
+      "sha256": "25b52fda7c8fa09d4d5cc8bcbb04db63e9d785b978c846d8c59a367ba91fe045"
+    },
+    {
+      "path": "packages/agent/src/agent.ts",
+      "symbol_match": "subscribe(listener",
+      "lines": [
+        250
+      ],
+      "sha256": "25b52fda7c8fa09d4d5cc8bcbb04db63e9d785b978c846d8c59a367ba91fe045"
+    },
+    {
+      "path": "packages/agent/src/agent.ts",
+      "symbol_match": "async prompt",
+      "lines": [
+        348,
+        349,
+        350
+      ],
+      "sha256": "25b52fda7c8fa09d4d5cc8bcbb04db63e9d785b978c846d8c59a367ba91fe045"
+    },
+    {
+      "path": "packages/agent/src/agent.ts",
+      "symbol_match": "abort():",
+      "lines": [
+        319
+      ],
+      "sha256": "25b52fda7c8fa09d4d5cc8bcbb04db63e9d785b978c846d8c59a367ba91fe045"
+    },
+    {
+      "path": "packages/agent/src/agent.ts",
+      "symbol_match": "waitForIdle",
+      "lines": [
+        328
+      ],
+      "sha256": "25b52fda7c8fa09d4d5cc8bcbb04db63e9d785b978c846d8c59a367ba91fe045"
+    },
+    {
+      "path": "packages/agent/src/agent.ts",
+      "symbol_match": "private async processEvents",
+      "lines": [
+        544
+      ],
+      "sha256": "25b52fda7c8fa09d4d5cc8bcbb04db63e9d785b978c846d8c59a367ba91fe045"
+    },
+    {
+      "path": "packages/agent/src/agent-loop.ts",
+      "symbol_match": "async function streamAssistantResponse",
+      "lines": [
+        279
+      ],
+      "sha256": "1e16404a231912fbd7643d8317b15ec4cc6245ed8cedc37582a31d430a1cc6ac"
+    },
+    {
+      "path": "packages/agent/src/agent-loop.ts",
+      "symbol_match": "async function executeToolCalls(",
+      "lines": [
+        409
+      ],
+      "sha256": "1e16404a231912fbd7643d8317b15ec4cc6245ed8cedc37582a31d430a1cc6ac"
+    },
+    {
+      "path": "packages/agent/src/agent-loop.ts",
+      "symbol_match": "async function prepareToolCall(",
+      "lines": [
+        607
+      ],
+      "sha256": "1e16404a231912fbd7643d8317b15ec4cc6245ed8cedc37582a31d430a1cc6ac"
+    },
+    {
+      "path": "packages/agent/src/types.ts",
+      "symbol_match": "export type StreamFn",
+      "lines": [
+        28
+      ],
+      "sha256": "640b6703badd73303f9c3c7e903a1269793493499d23e379894cbcb22338a4db"
+    },
+    {
+      "path": "packages/ai/src/api/openai-responses.ts",
+      "symbol_match": "export const stream:",
+      "lines": [
+        116
+      ],
+      "sha256": "dea6113f21ab782bac450fc32ac8b8c99d8fd14f41cfe4c124fc6091c03910ed"
+    },
+    {
+      "path": "packages/ai/src/api/openai-responses.ts",
+      "symbol_match": "const nextParams =",
+      "lines": [
+        155
+      ],
+      "sha256": "dea6113f21ab782bac450fc32ac8b8c99d8fd14f41cfe4c124fc6091c03910ed"
+    },
+    {
+      "path": "packages/ai/src/api/openai-responses.ts",
+      "symbol_match": "retryProviderRequest(",
+      "lines": [
+        164
+      ],
+      "sha256": "dea6113f21ab782bac450fc32ac8b8c99d8fd14f41cfe4c124fc6091c03910ed"
+    },
+    {
+      "path": "packages/ai/src/utils/provider-retry.ts",
+      "symbol_match": "export async function retryProviderRequest",
+      "lines": [
+        105
+      ],
+      "sha256": "d0f68cfe9fe6a5d4be778eaefedc0b453021f89026810691dcd1479371dca699"
+    },
+    {
+      "path": "packages/coding-agent/src/core/extensions/runner.ts",
+      "symbol_match": "async emitContext",
+      "lines": [
+        1034
+      ],
+      "sha256": "6d5101ab0551c2ddd904a8089cc221b3c448fcfe36c27e36da02cdacc869c084"
+    },
+    {
+      "path": "packages/coding-agent/src/core/extensions/runner.ts",
+      "symbol_match": "async emitBeforeProviderRequest",
+      "lines": [
+        1066
+      ],
+      "sha256": "6d5101ab0551c2ddd904a8089cc221b3c448fcfe36c27e36da02cdacc869c084"
+    },
+    {
+      "path": "packages/coding-agent/src/core/session-manager.ts",
+      "symbol_match": "_persist(entry",
+      "lines": [
+        1029,
+        1062
+      ],
+      "sha256": "57bc70a751567b96c057535766240ae52d9b76d9013ea78049d74dc3b654e915"
+    },
+    {
+      "path": "packages/session-backends/sqlite-node/src/index.ts",
+      "symbol_match": "export function wrapNodeSqliteDatabase",
+      "lines": [
+        102
+      ],
+      "sha256": "4dc98e01385ea3a772f0f90734eeccc2b9595454120305b24ef1bd06ad6f6863"
+    }
+  ]
+}

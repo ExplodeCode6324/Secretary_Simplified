@@ -1,0 +1,9 @@
+/pi_src_origin/
+node_modules/
+.venv/
+__pycache__/
+.DS_Store
+/.secretary*/
+/dist/
+/coverage/
+/docs/research/.scratch/

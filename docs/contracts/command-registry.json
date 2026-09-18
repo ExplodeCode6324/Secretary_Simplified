@@ -1,0 +1,50 @@
+{
+  "version": "1.0",
+  "commands": {
+    "input": "InputRequest",
+    "cancel": "CancelCommand",
+    "patch_task": "TaskPatch",
+    "grant": "GrantCommand",
+    "decide": "DecisionCommand",
+    "lifecycle": "LifecycleCommand",
+    "delete": "DeleteCommand"
+  },
+  "model_proposals": [
+    "TaskDraft",
+    "FactProposal",
+    "ObligationDraft",
+    "VerificationProposal"
+  ],
+  "records": [
+    "InputRequest",
+    "Acceptance",
+    "ObjectRef",
+    "TaskDraft",
+    "TaskPatch",
+    "Task",
+    "GrantCommand",
+    "Grant",
+    "Attempt",
+    "OperationIntent",
+    "Permit",
+    "Receipt",
+    "VerificationProposal",
+    "ObligationDraft",
+    "Obligation",
+    "FactProposal",
+    "Fact",
+    "EpisodeDraft",
+    "WorkingMemory",
+    "ContextManifest",
+    "RootBudget",
+    "ModelCall",
+    "Reply",
+    "Event",
+    "WorkerEnvelope",
+    "Error",
+    "CancelCommand",
+    "DecisionCommand",
+    "LifecycleCommand",
+    "DeleteCommand"
+  ]
+}

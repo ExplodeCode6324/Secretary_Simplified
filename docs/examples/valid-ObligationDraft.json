@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0",
+  "record_type": "ObligationDraft",
+  "kind": "REQUIREMENT",
+  "text": "synthetic fixture",
+  "scope": {
+    "kind": "GLOBAL",
+    "ref_id": null
+  },
+  "source_event_seq": 1,
+  "due_at": null
+}

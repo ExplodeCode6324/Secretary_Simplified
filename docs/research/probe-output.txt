@@ -1,0 +1,24 @@
+
+> secretary-design-probes@1.0.0 test
+> node_modules/node/bin/node --test probes.test.mjs
+
+✔ P01: actual Agent awaits the journal listener before tool execution (20.709041ms)
+✔ P02: explicit sequential tools never overlap (34.951416ms)
+✔ P03: final execute guard sees mutated args and prevents side effects (0.635583ms)
+✔ P04: blocking hook prevents actual tool execution (0.428958ms)
+✔ P05: rejected final Responses payload causes zero fetches (1.862833ms)
+✔ P06: payload guard precedes fetch and maxRetries=0 means one attempt (14.785833ms)
+✔ P07: abort propagates to stream and Agent settles (0.26275ms)
+✔ P08: rotating Agent uses only explicitly rebuilt history (0.247584ms)
+✔ P09: actual Node SQLite loads baseline, persists and backs up (11.253708ms)
+✔ P10: production-candidate Ajv validates every declared fixture (124.847333ms)
+✔ P11: native OS lock rejects a second owner and is released on termination (1066.210333ms)
+✔ P12: macOS sandbox primitive allows one synthetic file and denies another (18.259292ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3785.937666

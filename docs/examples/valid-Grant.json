@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "record_type": "Grant",
+  "id": "11111111-1111-4111-8111-111111111111",
+  "revision": 1,
+  "principal_id": "11111111-1111-4111-8111-111111111111",
+  "task_id": null,
+  "access": [
+    {
+      "capability": "fs.read",
+      "resource": "synthetic fixture"
+    }
+  ],
+  "allowed_classes": [
+    "SYNTHETIC"
+  ],
+  "state": "ACTIVE",
+  "expires_at": "2026-09-18T00:00:00Z",
+  "basis_request_id": "11111111-1111-4111-8111-111111111111"
+}

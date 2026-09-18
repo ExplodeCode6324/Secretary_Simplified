@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "record_type": "TaskPatch",
+  "task_id": "11111111-1111-4111-8111-111111111111",
+  "expected_revision": 1,
+  "goal": "synthetic fixture",
+  "obligation_ids": [],
+  "criteria": [
+    {
+      "id": "11111111-1111-4111-8111-111111111111",
+      "kind": "FILE_HASH",
+      "subject": "synthetic fixture",
+      "expected": "synthetic fixture",
+      "required": true
+    }
+  ],
+  "requested_access": [],
+  "reason": "synthetic fixture",
+  "request_id": "11111111-1111-4111-8111-111111111111"
+}

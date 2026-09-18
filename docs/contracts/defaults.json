@@ -1,0 +1,58 @@
+{
+  "design_version": "1.0",
+  "mode": "FIXTURE",
+  "node": "24.21.0",
+  "pi_commit": "d981de1229ef899957bbe968bc8dcda02a21f477",
+  "pi_package": "0.85.1",
+  "model_concurrency": 2,
+  "main_concurrency": 1,
+  "child_concurrency": 1,
+  "tool_execution": "sequential",
+  "root": {
+    "deadline_seconds": 1800,
+    "model_calls": 40,
+    "tool_calls": 64,
+    "attempts": 3,
+    "tokens": 250000,
+    "money_limit_microunits": null
+  },
+  "attempt": {
+    "deadline_seconds": 600,
+    "no_progress_turns": 3
+  },
+  "model": {
+    "timeout_seconds": 90,
+    "additional_retries": 2,
+    "context_ceiling": 32768,
+    "output_reserve": 4096,
+    "safety_margin": 2048,
+    "soft_input_trigger": 22000
+  },
+  "memory": {
+    "max_events": 32,
+    "input_tokens": 8192,
+    "output_tokens": 2048,
+    "debounce_seconds": 30,
+    "lag_seconds": 60,
+    "lag_events": 128,
+    "max_retries": 3,
+    "hourly_calls": 60,
+    "hourly_tokens": 500000
+  },
+  "io": {
+    "user_bytes": 65536,
+    "preview_bytes": 16384,
+    "operation_output_bytes": 52428800,
+    "command_timeout_seconds": 60
+  },
+  "retention": {
+    "backup_days": 7,
+    "debug_body_hours": 24,
+    "diagnostic_days": 30
+  },
+  "provider_allowed_classes": [
+    "SYNTHETIC"
+  ],
+  "live_model_enabled": false,
+  "initial_review_pi_commit": "a8b3dd19983883be2907253e566dd52989aee936"
+}

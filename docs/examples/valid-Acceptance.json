@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "record_type": "Acceptance",
+  "request_id": "11111111-1111-4111-8111-111111111111",
+  "status": "ACCEPTED",
+  "event_seq": 1,
+  "received_at": "2026-09-18T00:00:00Z"
+}

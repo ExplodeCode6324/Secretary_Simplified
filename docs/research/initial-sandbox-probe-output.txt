@@ -1,0 +1,43 @@
+
+> secretary-design-probes@1.0.0 test
+> node_modules/node/bin/node --test probes.test.mjs
+
+✔ P01: actual Agent awaits the journal listener before tool execution (20.746791ms)
+✔ P02: explicit sequential tools never overlap (34.623083ms)
+✔ P03: final execute guard sees mutated args and prevents side effects (0.686334ms)
+✔ P04: blocking hook prevents actual tool execution (0.421083ms)
+✔ P05: rejected final Responses payload causes zero fetches (1.961084ms)
+✔ P06: payload guard precedes fetch and maxRetries=0 means one attempt (14.710791ms)
+✔ P07: abort propagates to stream and Agent settles (0.262583ms)
+✔ P08: rotating Agent uses only explicitly rebuilt history (0.263291ms)
+✔ P09: actual Node SQLite loads baseline, persists and backs up (11.410333ms)
+✔ P10: production-candidate Ajv validates every declared fixture (115.398959ms)
+✔ P11: native OS lock rejects a second owner and is released on termination (978.595916ms)
+✖ P12: macOS sandbox primitive allows one synthetic file and denies another (10.457583ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 11
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3791.5945
+
+✖ failing tests:
+
+test at probes.test.mjs:204:1
+✖ P12: macOS sandbox primitive allows one synthetic file and denies another (10.457583ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+  null !== 0
+
+      at TestContext.<anonymous> (file://<repo>/docs/research/probes.test.mjs:216:12)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

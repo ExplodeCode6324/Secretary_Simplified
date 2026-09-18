@@ -1,0 +1,5 @@
+
+> secretary-design-probes@1.0.0 typecheck
+> node_modules/node/bin/node node_modules/typescript/bin/tsc --noEmit --strict --module nodenext --target es2023 blueprint.ts
+
+node_modules/@google/genai/dist/node/node.d.ts(3,29): error TS2307: Cannot find module '@modelcontextprotocol/sdk/client/index.js' or its corresponding type declarations.

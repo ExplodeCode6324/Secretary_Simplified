@@ -1,0 +1,235 @@
+{
+  "scope": "STRUCTURE_ONLY",
+  "examples": [
+    {
+      "file": "valid-InputRequest.json",
+      "valid": true,
+      "record": "InputRequest"
+    },
+    {
+      "file": "valid-Acceptance.json",
+      "valid": true,
+      "record": "Acceptance"
+    },
+    {
+      "file": "valid-ObjectRef.json",
+      "valid": true,
+      "record": "ObjectRef"
+    },
+    {
+      "file": "valid-TaskDraft.json",
+      "valid": true,
+      "record": "TaskDraft"
+    },
+    {
+      "file": "valid-TaskPatch.json",
+      "valid": true,
+      "record": "TaskPatch"
+    },
+    {
+      "file": "valid-Task.json",
+      "valid": true,
+      "record": "Task"
+    },
+    {
+      "file": "valid-GrantCommand.json",
+      "valid": true,
+      "record": "GrantCommand"
+    },
+    {
+      "file": "valid-Grant.json",
+      "valid": true,
+      "record": "Grant"
+    },
+    {
+      "file": "valid-Attempt.json",
+      "valid": true,
+      "record": "Attempt"
+    },
+    {
+      "file": "valid-OperationIntent.json",
+      "valid": true,
+      "record": "OperationIntent"
+    },
+    {
+      "file": "valid-Permit.json",
+      "valid": true,
+      "record": "Permit"
+    },
+    {
+      "file": "valid-Receipt.json",
+      "valid": true,
+      "record": "Receipt"
+    },
+    {
+      "file": "valid-VerificationProposal.json",
+      "valid": true,
+      "record": "VerificationProposal"
+    },
+    {
+      "file": "valid-ObligationDraft.json",
+      "valid": true,
+      "record": "ObligationDraft"
+    },
+    {
+      "file": "valid-Obligation.json",
+      "valid": true,
+      "record": "Obligation"
+    },
+    {
+      "file": "valid-FactProposal.json",
+      "valid": true,
+      "record": "FactProposal"
+    },
+    {
+      "file": "valid-Fact.json",
+      "valid": true,
+      "record": "Fact"
+    },
+    {
+      "file": "valid-EpisodeDraft.json",
+      "valid": true,
+      "record": "EpisodeDraft"
+    },
+    {
+      "file": "valid-WorkingMemory.json",
+      "valid": true,
+      "record": "WorkingMemory"
+    },
+    {
+      "file": "valid-ContextManifest.json",
+      "valid": true,
+      "record": "ContextManifest"
+    },
+    {
+      "file": "valid-RootBudget.json",
+      "valid": true,
+      "record": "RootBudget"
+    },
+    {
+      "file": "valid-ModelCall.json",
+      "valid": true,
+      "record": "ModelCall"
+    },
+    {
+      "file": "valid-Reply.json",
+      "valid": true,
+      "record": "Reply"
+    },
+    {
+      "file": "valid-Event.json",
+      "valid": true,
+      "record": "Event"
+    },
+    {
+      "file": "valid-WorkerEnvelope.json",
+      "valid": true,
+      "record": "WorkerEnvelope"
+    },
+    {
+      "file": "valid-Error.json",
+      "valid": true,
+      "record": "Error"
+    },
+    {
+      "file": "valid-CancelCommand.json",
+      "valid": true,
+      "record": "CancelCommand"
+    },
+    {
+      "file": "valid-DecisionCommand.json",
+      "valid": true,
+      "record": "DecisionCommand"
+    },
+    {
+      "file": "valid-LifecycleCommand.json",
+      "valid": true,
+      "record": "LifecycleCommand"
+    },
+    {
+      "file": "valid-DeleteCommand.json",
+      "valid": true,
+      "record": "DeleteCommand"
+    },
+    {
+      "file": "invalid-InputRequest-request_id.json",
+      "valid": false,
+      "record": "InputRequest"
+    },
+    {
+      "file": "invalid-TaskDraft-deadline_at.json",
+      "valid": false,
+      "record": "TaskDraft"
+    },
+    {
+      "file": "invalid-Task-state.json",
+      "valid": false,
+      "record": "Task"
+    },
+    {
+      "file": "invalid-Task-revision.json",
+      "valid": false,
+      "record": "Task"
+    },
+    {
+      "file": "invalid-Grant-expires_at.json",
+      "valid": false,
+      "record": "Grant"
+    },
+    {
+      "file": "invalid-Receipt-status.json",
+      "valid": false,
+      "record": "Receipt"
+    },
+    {
+      "file": "invalid-ContextManifest-input_tokens.json",
+      "valid": false,
+      "record": "ContextManifest"
+    },
+    {
+      "file": "invalid-InputRequest-schema_version.json",
+      "valid": false,
+      "record": "InputRequest"
+    },
+    {
+      "file": "invalid-TaskDraft-approved.json",
+      "valid": false,
+      "record": "TaskDraft"
+    },
+    {
+      "file": "invalid-FactProposal-authority.json",
+      "valid": false,
+      "record": "FactProposal"
+    },
+    {
+      "file": "invalid-TaskDraft-criteria.json",
+      "valid": false,
+      "record": "TaskDraft"
+    },
+    {
+      "file": "invalid-RootBudget-tokens_limit.json",
+      "valid": false,
+      "record": "RootBudget"
+    },
+    {
+      "file": "invalid-EpisodeDraft-missing-coverage.json",
+      "valid": false,
+      "record": "EpisodeDraft"
+    },
+    {
+      "file": "invalid-fact-double-value.json",
+      "valid": false,
+      "record": "Fact"
+    },
+    {
+      "file": "invalid-permit-consumed-and-revoked.json",
+      "valid": false,
+      "record": "Permit"
+    },
+    {
+      "file": "invalid-reply-half-task.json",
+      "valid": false,
+      "record": "Reply"
+    }
+  ]
+}

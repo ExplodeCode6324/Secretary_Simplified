@@ -1,0 +1,89 @@
+{
+  "scope": "DOC_ONLY",
+  "generated_at": "2026-09-18T00:24:14.349044+00:00",
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "contracts",
+      "status": "PASS",
+      "detail": {
+        "primary_dtos": 30,
+        "definitions": 37,
+        "positive_examples": 30,
+        "negative_examples": 16,
+        "tools": 18,
+        "tool_cases": 6
+      }
+    },
+    {
+      "name": "document_links",
+      "status": "PASS",
+      "detail": {
+        "markdown_files": 27,
+        "local_links": 106
+      }
+    },
+    {
+      "name": "traceability",
+      "status": "PASS",
+      "detail": {
+        "scenarios": 30,
+        "task_states": 9,
+        "guarded_transitions": 21
+      }
+    },
+    {
+      "name": "source_fingerprints",
+      "status": "PASS",
+      "detail": {
+        "source_files": 12,
+        "source_commit": "d981de1229ef899957bbe968bc8dcda02a21f477",
+        "locked_packages": 3
+      }
+    },
+    {
+      "name": "sql_constraints",
+      "status": "PASS",
+      "detail": {
+        "tables": 28,
+        "assertions": 27,
+        "checks": [
+          "foreign_keys",
+          "wal",
+          "synchronous_full",
+          "event_immutable",
+          "event_no_delete",
+          "task_version_immutable",
+          "receipt_immutable",
+          "duplicate_request",
+          "missing_body_reference",
+          "budget_no_double_spend",
+          "money_no_double_spend",
+          "unknown_task_state",
+          "pause_requires_reason",
+          "one_active_attempt",
+          "operation_attempt_binding",
+          "idempotent_write_requires_key",
+          "one_live_permit",
+          "receipt_dedup",
+          "outbox_dedup",
+          "obligation_resolution_basis",
+          "memory_exit_not_ahead",
+          "reply_task_pair",
+          "available_object_requires_hash",
+          "deferred_task_head",
+          "transaction_rollback",
+          "backup_roundtrip",
+          "reopen"
+        ],
+        "sqlite_version": "3.43.2"
+      }
+    }
+  ],
+  "not_verified": [
+    "Secretary application runtime",
+    "real model semantics",
+    "complete sandbox policy",
+    "long-term real use"
+  ]
+}

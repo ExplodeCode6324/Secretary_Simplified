@@ -1,0 +1,72 @@
+{
+  "source_commit": "d981de1229ef899957bbe968bc8dcda02a21f477",
+  "source_tag": "v0.85.1",
+  "initial_review_commit": "a8b3dd19983883be2907253e566dd52989aee936",
+  "source_files": [
+    {
+      "path": "packages/agent/src/agent.ts",
+      "sha256": "25b52fda7c8fa09d4d5cc8bcbb04db63e9d785b978c846d8c59a367ba91fe045"
+    },
+    {
+      "path": "packages/agent/src/agent-loop.ts",
+      "sha256": "1e16404a231912fbd7643d8317b15ec4cc6245ed8cedc37582a31d430a1cc6ac"
+    },
+    {
+      "path": "packages/agent/src/types.ts",
+      "sha256": "640b6703badd73303f9c3c7e903a1269793493499d23e379894cbcb22338a4db"
+    },
+    {
+      "path": "packages/agent/test/agent.test.ts",
+      "sha256": "fccade703a6e1d1007ba2a57ed0125fa69a5c017c5f2c281d74b7b37d2d313cc"
+    },
+    {
+      "path": "packages/agent/test/agent-loop.test.ts",
+      "sha256": "c359921a73525d67cf42481ad04210952fe36a9517d7b099f41710734438987d"
+    },
+    {
+      "path": "packages/ai/src/api/openai-responses.ts",
+      "sha256": "dea6113f21ab782bac450fc32ac8b8c99d8fd14f41cfe4c124fc6091c03910ed"
+    },
+    {
+      "path": "packages/ai/src/utils/provider-retry.ts",
+      "sha256": "d0f68cfe9fe6a5d4be778eaefedc0b453021f89026810691dcd1479371dca699"
+    },
+    {
+      "path": "packages/ai/src/utils/event-stream.ts",
+      "sha256": "55ddd6e6e4299f377fc3f8876ea9d8073f0051d569f1629f8817ec78e28d64e6"
+    },
+    {
+      "path": "packages/coding-agent/src/core/agent-session.ts",
+      "sha256": "23e4acac844638fb0ae60047130f8e1050e4c729c1b8e80d37e359ac9c0eef9a"
+    },
+    {
+      "path": "packages/coding-agent/src/core/extensions/runner.ts",
+      "sha256": "6d5101ab0551c2ddd904a8089cc221b3c448fcfe36c27e36da02cdacc869c084"
+    },
+    {
+      "path": "packages/coding-agent/src/core/session-manager.ts",
+      "sha256": "57bc70a751567b96c057535766240ae52d9b76d9013ea78049d74dc3b654e915"
+    },
+    {
+      "path": "packages/session-backends/sqlite-node/src/index.ts",
+      "sha256": "4dc98e01385ea3a772f0f90734eeccc2b9595454120305b24ef1bd06ad6f6863"
+    }
+  ],
+  "packages": {
+    "@earendil-works/pi-agent-core": {
+      "version": "0.85.1",
+      "resolved": "https://registry.npmjs.org/@earendil-works/pi-agent-core/-/pi-agent-core-0.85.1.tgz",
+      "integrity": "sha512-hIXIP3eAWueAYiAl8aMvWCvvZ8Q5gT3Dip5bE5uJyIGh4+YlWRjtMLI4BaeoXoSs93zndjue61u1B/vhefLnuA=="
+    },
+    "@earendil-works/pi-ai": {
+      "version": "0.85.1",
+      "resolved": "https://registry.npmjs.org/@earendil-works/pi-ai/-/pi-ai-0.85.1.tgz",
+      "integrity": "sha512-+VgVIJDkDO2efYJKEEqvPTH4zmnIaXdAppGbO+vKFA9qy5PdhFiAenuFAkU+oiCSfOC4dMHDyrjdQeL4ZoC5CQ=="
+    },
+    "node": {
+      "version": "24.21.0",
+      "resolved": "https://registry.npmjs.org/node/-/node-24.21.0.tgz",
+      "integrity": "sha512-GquwdXTr1CyRzrHsP+GVYnKj/yxIX7kUpyGMKu30fKJa9Hqtp9GP/Zu4BXY3gLIQVc/H5eWdMQmBgMBx5veCbw=="
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "scope": "UPSTREAM_PROBE",
+  "recorded_at": "2026-09-17T20:26:43.194090+00:00",
+  "repository_base": "1167fae73dcb6def987a9bbe190a167407b5ce8c",
+  "pi_commit": "d981de1229ef899957bbe968bc8dcda02a21f477",
+  "platform": {
+    "os": "macOS",
+    "version": "15.7.4",
+    "arch": "arm64",
+    "node": "v24.21.0"
+  },
+  "commands": [
+    {
+      "command": "npm test --prefix docs/research",
+      "exit_code": 0,
+      "passed": 12,
+      "failed": 0,
+      "skipped": 0,
+      "log": "probe-output.txt"
+    },
+    {
+      "command": "npm run typecheck --prefix docs/research",
+      "exit_code": 0,
+      "log": "typecheck-output.txt"
+    }
+  ],
+  "evidence_files": {
+    "probes.test.mjs": "9022a667673f58bc583799e6bb4a0d4c115a0c81273e72524eb156318355b971",
+    "blueprint.ts": "652b4aea11a89742bdc74e4007b25d9772d5f46a7b5d338079241b50e6a74630",
+    "state-lock.c": "4add7da29ecf2b838946301114d0e603702bcc6cde9e5b85059449adc78d47ed",
+    "package-lock.json": "ae8d1f60e98d008012300aa09b2f347330a164e851678fdc34196348f7426670",
+    "probe-output.txt": "4c923f72f682cddbe20fafd5bddbab3533e07b9de2f8811a2994388eec1b3aeb",
+    "typecheck-output.txt": "14c8bc83d64068df0148da320db19c87ed7dea238c2838c34d8dff45c89ef635"
+  },
+  "application_acceptance": "NOT_RUN",
+  "limits": [
+    "No real provider calls",
+    "Sandbox test proves a minimal primitive, not complete production isolation",
+    "Type blueprint is not a Secretary application"
+  ]
+}

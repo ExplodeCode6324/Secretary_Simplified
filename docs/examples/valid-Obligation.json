@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "record_type": "Obligation",
+  "id": "11111111-1111-4111-8111-111111111111",
+  "revision": 1,
+  "kind": "REQUIREMENT",
+  "text_ref": "11111111-1111-4111-8111-111111111111",
+  "scope": {
+    "kind": "GLOBAL",
+    "ref_id": null
+  },
+  "source_event_seq": 1,
+  "state": "ACTIVE",
+  "due_at": null,
+  "resolution_event_seq": null
+}

@@ -1,0 +1,710 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:secretary:tools:1.0",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "tool": {
+          "const": "task.create"
+        },
+        "arguments": {
+          "$ref": "urn:secretary:contracts:1.0#/$defs/TaskDraft"
+        }
+      },
+      "required": [
+        "tool",
+        "arguments"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "tool": {
+          "const": "task.propose_patch"
+        },
+        "arguments": {
+          "$ref": "urn:secretary:contracts:1.0#/$defs/TaskPatch"
+        }
+      },
+      "required": [
+        "tool",
+        "arguments"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "tool": {
+          "const": "task.verify"
+        },
+        "arguments": {
+          "$ref": "urn:secretary:contracts:1.0#/$defs/VerificationProposal"
+        }
+      },
+      "required": [
+        "tool",
+        "arguments"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "tool": {
+          "const": "cognition.propose"
+        },
+        "arguments": {
+          "$ref": "urn:secretary:contracts:1.0#/$defs/FactProposal"
+        }
+      },
+      "required": [
+        "tool",
+        "arguments"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "tool": {
+          "const": "obligation.propose"
+        },
+        "arguments": {
+          "$ref": "urn:secretary:contracts:1.0#/$defs/ObligationDraft"
+        }
+      },
+      "required": [
+        "tool",
+        "arguments"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "tool": {
+          "const": "task.get"
+        },
+        "arguments": {
+          "type": "object",
+          "properties": {
+            "task_id": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "required": [
+            "task_id"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "tool",
+        "arguments"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "tool": {
+          "const": "task.list"
+        },
+        "arguments": {
+          "type": "object",
+          "properties": {
+            "state": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4096
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "cursor": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4096
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          "required": [
+            "state",
+            "cursor",
+            "limit"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "tool",
+        "arguments"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "tool": {
+          "const": "task.cancel"
+        },
+        "arguments": {
+          "type": "object",
+          "properties": {
+            "task_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "expected_revision": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "basis_request_id": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "required": [
+            "task_id",
+            "expected_revision",
+            "basis_request_id"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "tool",
+        "arguments"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "tool": {
+          "const": "memory.search"
+        },
+        "arguments": {
+          "type": "object",
+          "properties": {
+            "task_id": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "entity_id": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "from": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "to": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "keyword": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4096
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "as_of": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "cursor": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4096
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 20
+            }
+          },
+          "required": [
+            "task_id",
+            "entity_id",
+            "from",
+            "to",
+            "keyword",
+            "as_of",
+            "cursor",
+            "limit"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "tool",
+        "arguments"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "tool": {
+          "const": "evidence.read"
+        },
+        "arguments": {
+          "type": "object",
+          "properties": {
+            "object_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "offset": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "max_bytes": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 16384
+            }
+          },
+          "required": [
+            "object_id",
+            "offset",
+            "max_bytes"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "tool",
+        "arguments"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "tool": {
+          "const": "file.read"
+        },
+        "arguments": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            },
+            "offset": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "max_bytes": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 16384
+            }
+          },
+          "required": [
+            "path",
+            "offset",
+            "max_bytes"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "tool",
+        "arguments"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "tool": {
+          "const": "file.write"
+        },
+        "arguments": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            },
+            "content_ref": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "expected_sha256": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "path",
+            "content_ref",
+            "expected_sha256"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "tool",
+        "arguments"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "tool": {
+          "const": "command.run"
+        },
+        "arguments": {
+          "type": "object",
+          "properties": {
+            "command": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            },
+            "timeout_seconds": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 60
+            }
+          },
+          "required": [
+            "command",
+            "timeout_seconds"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "tool",
+        "arguments"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "tool": {
+          "const": "web.fetch"
+        },
+        "arguments": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string",
+              "format": "uri",
+              "maxLength": 4096
+            },
+            "method": {
+              "enum": [
+                "GET",
+                "HEAD"
+              ]
+            },
+            "max_bytes": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 52428800
+            }
+          },
+          "required": [
+            "url",
+            "method",
+            "max_bytes"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "tool",
+        "arguments"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "tool": {
+          "const": "task.report"
+        },
+        "arguments": {
+          "type": "object",
+          "properties": {
+            "attempt_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "summary": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            },
+            "evidence_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "maxItems": 100
+            },
+            "remaining": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096
+              },
+              "maxItems": 100
+            },
+            "claimed_status": {
+              "enum": [
+                "COMPLETE",
+                "BLOCKED",
+                "FAILED",
+                "UNKNOWN"
+              ]
+            }
+          },
+          "required": [
+            "attempt_id",
+            "summary",
+            "evidence_ids",
+            "remaining",
+            "claimed_status"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "tool",
+        "arguments"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "tool": {
+          "const": "entity.resolve"
+        },
+        "arguments": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "scope": {
+              "$ref": "urn:secretary:contracts:1.0#/$defs/Scope"
+            },
+            "source_event_seq": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "selected_entity_id": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "name",
+            "scope",
+            "source_event_seq",
+            "selected_entity_id"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "tool",
+        "arguments"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "tool": {
+          "const": "obligation.resolve"
+        },
+        "arguments": {
+          "type": "object",
+          "properties": {
+            "obligation_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "expected_revision": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "proposed_state": {
+              "enum": [
+                "RESOLVED",
+                "CANCELLED"
+              ]
+            },
+            "basis_event_seq": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "evidence_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "maxItems": 100
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            }
+          },
+          "required": [
+            "obligation_id",
+            "expected_revision",
+            "proposed_state",
+            "basis_event_seq",
+            "evidence_ids",
+            "reason"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "tool",
+        "arguments"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "tool": {
+          "const": "artifact.create"
+        },
+        "arguments": {
+          "type": "object",
+          "properties": {
+            "text": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 16384
+            },
+            "media_type": {
+              "enum": [
+                "text/plain",
+                "text/markdown",
+                "application/json"
+              ]
+            }
+          },
+          "required": [
+            "text",
+            "media_type"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "tool",
+        "arguments"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

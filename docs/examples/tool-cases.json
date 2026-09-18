@@ -1,0 +1,92 @@
+{
+  "scope": "STRUCTURE_ONLY",
+  "cases": [
+    {
+      "case": "entity.resolve valid shape",
+      "valid": true,
+      "payload": {
+        "tool": "entity.resolve",
+        "arguments": {
+          "name": "synthetic entity",
+          "scope": {
+            "kind": "GLOBAL",
+            "ref_id": null
+          },
+          "source_event_seq": 1,
+          "selected_entity_id": null
+        }
+      }
+    },
+    {
+      "case": "entity.resolve cannot self-authorize",
+      "valid": false,
+      "payload": {
+        "tool": "entity.resolve",
+        "arguments": {
+          "name": "synthetic entity",
+          "scope": {
+            "kind": "GLOBAL",
+            "ref_id": null
+          },
+          "source_event_seq": 1,
+          "selected_entity_id": null,
+          "approved": true
+        }
+      }
+    },
+    {
+      "case": "obligation.resolve valid shape",
+      "valid": true,
+      "payload": {
+        "tool": "obligation.resolve",
+        "arguments": {
+          "obligation_id": "11111111-1111-4111-8111-111111111111",
+          "expected_revision": 1,
+          "proposed_state": "RESOLVED",
+          "basis_event_seq": 1,
+          "evidence_ids": [],
+          "reason": "synthetic evidence proposal"
+        }
+      }
+    },
+    {
+      "case": "obligation.resolve cannot self-authorize",
+      "valid": false,
+      "payload": {
+        "tool": "obligation.resolve",
+        "arguments": {
+          "obligation_id": "11111111-1111-4111-8111-111111111111",
+          "expected_revision": 1,
+          "proposed_state": "RESOLVED",
+          "basis_event_seq": 1,
+          "evidence_ids": [],
+          "reason": "synthetic evidence proposal",
+          "approved": true
+        }
+      }
+    },
+    {
+      "case": "artifact.create valid shape",
+      "valid": true,
+      "payload": {
+        "tool": "artifact.create",
+        "arguments": {
+          "text": "synthetic generated artifact",
+          "media_type": "text/plain"
+        }
+      }
+    },
+    {
+      "case": "artifact.create cannot self-authorize",
+      "valid": false,
+      "payload": {
+        "tool": "artifact.create",
+        "arguments": {
+          "text": "synthetic generated artifact",
+          "media_type": "text/plain",
+          "approved": true
+        }
+      }
+    }
+  ]
+}

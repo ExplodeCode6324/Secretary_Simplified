@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "record_type": "Event",
+  "id": "11111111-1111-4111-8111-111111111111",
+  "seq": 1,
+  "logical_session_id": "11111111-1111-4111-8111-111111111111",
+  "kind": "synthetic fixture",
+  "source": "MASTER",
+  "request_id": null,
+  "task_id": null,
+  "cause_seq": null,
+  "payload_ref": null,
+  "occurred_at": "2026-09-18T00:00:00Z",
+  "received_at": "2026-09-18T00:00:00Z"
+}

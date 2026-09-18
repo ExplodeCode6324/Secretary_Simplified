@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "record_type": "TaskDraft",
+  "goal": "synthetic fixture",
+  "input_refs": [],
+  "obligation_ids": [],
+  "requested_access": [],
+  "criteria": [
+    {
+      "id": "11111111-1111-4111-8111-111111111111",
+      "kind": "FILE_HASH",
+      "subject": "synthetic fixture",
+      "expected": "synthetic fixture",
+      "required": true
+    }
+  ],
+  "deadline_at": "2026-09-18T00:00:00Z",
+  "source_request_id": "11111111-1111-4111-8111-111111111111"
+}

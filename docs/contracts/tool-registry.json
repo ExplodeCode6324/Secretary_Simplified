@@ -1,0 +1,25 @@
+{
+  "main": [
+    "task.create",
+    "task.propose_patch",
+    "task.verify",
+    "cognition.propose",
+    "obligation.propose",
+    "task.get",
+    "task.list",
+    "task.cancel",
+    "memory.search",
+    "evidence.read",
+    "entity.resolve",
+    "obligation.resolve"
+  ],
+  "child": [
+    "file.read",
+    "file.write",
+    "command.run",
+    "web.fetch",
+    "task.report",
+    "artifact.create"
+  ],
+  "note": "Trusted caller supplies identities; model-supplied versions and references are proposals only."
+}

@@ -1,0 +1,40 @@
+
+> secretary-design-probes@1.0.0 test
+> node_modules/node/bin/node --test probes.test.mjs
+
+✔ P01: actual Agent awaits the journal listener before tool execution (20.735375ms)
+✔ P02: explicit sequential tools never overlap (32.100375ms)
+✔ P03: final execute guard sees mutated args and prevents side effects (0.739667ms)
+✔ P04: blocking hook prevents actual tool execution (0.378625ms)
+✔ P05: rejected final Responses payload causes zero fetches (1.78575ms)
+✔ P06: payload guard precedes fetch and maxRetries=0 means one attempt (15.463875ms)
+✔ P07: abort propagates to stream and Agent settles (0.236791ms)
+✖ P08: rotating Agent uses only explicitly rebuilt history (0.628542ms)
+✔ P09: actual Node SQLite loads baseline, persists and backs up (12.236291ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 8
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 352.087916
+
+✖ failing tests:
+
+test at probes.test.mjs:140:1
+✖ P08: rotating Agent uses only explicitly rebuilt history (0.628542ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+  false !== true
+
+      at TestContext.<anonymous> (file://<repo>/docs/research/probes.test.mjs:148:10)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

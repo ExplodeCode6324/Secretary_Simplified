@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "record_type": "GrantCommand",
+  "request_id": "11111111-1111-4111-8111-111111111111",
+  "grant_id": "11111111-1111-4111-8111-111111111111",
+  "action": "CREATE",
+  "expected_revision": 0,
+  "task_id": null,
+  "access": [],
+  "expires_at": "2026-09-18T00:00:00Z",
+  "basis_request_id": "11111111-1111-4111-8111-111111111111",
+  "allowed_classes": [
+    "SYNTHETIC"
+  ]
+}

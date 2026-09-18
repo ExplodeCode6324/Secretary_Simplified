@@ -1,0 +1,136 @@
+{
+  "version": "1.0",
+  "initial": "QUEUED",
+  "terminal": [
+    "SUCCEEDED",
+    "FAILED",
+    "CANCELLED"
+  ],
+  "task_states": [
+    "QUEUED",
+    "RUNNING",
+    "VERIFYING",
+    "PAUSED",
+    "SUCCEEDED",
+    "FAILED",
+    "CANCEL_REQUESTED",
+    "CANCELLED",
+    "RESULT_UNKNOWN"
+  ],
+  "transitions": [
+    {
+      "from": "QUEUED",
+      "to": "RUNNING",
+      "guard": "dispatch_authorized"
+    },
+    {
+      "from": "QUEUED",
+      "to": "PAUSED",
+      "guard": "pause_no_inflight"
+    },
+    {
+      "from": "QUEUED",
+      "to": "CANCELLED",
+      "guard": "cancel_not_started"
+    },
+    {
+      "from": "RUNNING",
+      "to": "VERIFYING",
+      "guard": "durable_result"
+    },
+    {
+      "from": "RUNNING",
+      "to": "FAILED",
+      "guard": "failure_no_unknown"
+    },
+    {
+      "from": "RUNNING",
+      "to": "PAUSED",
+      "guard": "pause_no_inflight"
+    },
+    {
+      "from": "RUNNING",
+      "to": "CANCEL_REQUESTED",
+      "guard": "cancel_requested"
+    },
+    {
+      "from": "RUNNING",
+      "to": "RESULT_UNKNOWN",
+      "guard": "inflight_unknown"
+    },
+    {
+      "from": "VERIFYING",
+      "to": "SUCCEEDED",
+      "guard": "all_current_criteria_pass"
+    },
+    {
+      "from": "VERIFYING",
+      "to": "FAILED",
+      "guard": "failure_no_unknown"
+    },
+    {
+      "from": "VERIFYING",
+      "to": "PAUSED",
+      "guard": "needs_decision_no_inflight"
+    },
+    {
+      "from": "VERIFYING",
+      "to": "CANCEL_REQUESTED",
+      "guard": "cancel_requested"
+    },
+    {
+      "from": "VERIFYING",
+      "to": "RESULT_UNKNOWN",
+      "guard": "evidence_insufficient_effect"
+    },
+    {
+      "from": "PAUSED",
+      "to": "QUEUED",
+      "guard": "explicit_resume_valid"
+    },
+    {
+      "from": "PAUSED",
+      "to": "CANCELLED",
+      "guard": "cancel_no_inflight"
+    },
+    {
+      "from": "CANCEL_REQUESTED",
+      "to": "CANCELLED",
+      "guard": "stopped_effects_reconciled"
+    },
+    {
+      "from": "CANCEL_REQUESTED",
+      "to": "RESULT_UNKNOWN",
+      "guard": "inflight_unknown"
+    },
+    {
+      "from": "RESULT_UNKNOWN",
+      "to": "VERIFYING",
+      "guard": "queried_complete_not_cancelled"
+    },
+    {
+      "from": "RESULT_UNKNOWN",
+      "to": "CANCELLED",
+      "guard": "cancel_and_reconciled"
+    },
+    {
+      "from": "RESULT_UNKNOWN",
+      "to": "FAILED",
+      "guard": "queried_failure_no_unknown"
+    },
+    {
+      "from": "RESULT_UNKNOWN",
+      "to": "QUEUED",
+      "guard": "proved_not_done_or_safe_idempotent"
+    }
+  ],
+  "operation_states": [
+    "INTENDED",
+    "DISPATCHED",
+    "SUCCEEDED",
+    "FAILED",
+    "UNKNOWN",
+    "CANCELLED"
+  ],
+  "note": "Edges require trusted identity, revision, evidence and named guard; JSON validation alone is not authorization."
+}
